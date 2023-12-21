@@ -2,15 +2,20 @@ import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import { ChartTip } from "../ChartTip";
 import { KeyIndicators } from "../KeyIndicators";
 import {
+  ChartCenterInfo,
+  ChartContainer,
   ChartsContainer,
   EngagmentDataContainer,
   EngagmentLegendContainer,
+  FollowerDataLegendContainer,
   KeyIndicatorsContainer,
   WordCloudContainer,
 } from "./styles";
 import { SimpleWordcloud } from "../WordCloud";
 import { EngagmentChart } from "../EngagementData";
 import Image from "next/image";
+import { FollowerData } from "../FollowerData";
+import { FollowerDataLegend } from "../FollowerData/Legend";
 
 export function InitialPage() {
   const followerData = [
@@ -55,7 +60,7 @@ export function InitialPage() {
     <ChartsContainer>
       {/* Score */}
 
-      {/* <ChartContainer>
+      <ChartContainer>
         <TitleWithBar content="Dados de Seguidores" barColor="#080E45" />
         <div className="chartContent">
           <ChartCenterInfo>
@@ -78,7 +83,7 @@ export function InitialPage() {
             ))}
           </FollowerDataLegendContainer>
         </div>
-      </ChartContainer> */}
+      </ChartContainer>
 
       <EngagmentDataContainer>
         <TitleWithBar

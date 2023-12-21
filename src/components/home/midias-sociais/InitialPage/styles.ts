@@ -23,11 +23,13 @@ export const ChartContainer = styled.div`
   border: 0.3px solid #c3c3c3;
 
   .chartContent {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+    @media (min-width: 768px) {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
   }
 `;
 
@@ -135,8 +137,8 @@ export const KeyIndicatorsContainer = styled(ChartContainer)`
 
 export const ChartCenterInfo = styled.div`
   position: absolute;
-  top: 49%;
-  left: 36%;
+  top: 25%;
+  left: 50%;
   transform: translate(-50%, -50%);
 
   display: flex;

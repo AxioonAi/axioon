@@ -8,6 +8,10 @@ import {
   KeyIndicatorContent,
   KeyIndicatorsContainer,
   LabelAndSelect,
+  MetaAdsCards,
+  MetaAdsCardsContainer,
+  MetaAdsContainer,
+  MetaAdsLogo,
   PageContainer,
   PostEngagmentContainer,
   PostsAndComments,
@@ -30,12 +34,17 @@ import { PostComponent } from "../PostComponent";
 import { CommentComponent } from "../ComentComponent";
 import { ChartTip } from "../ChartTip";
 import { KeyIndicators } from "../KeyIndicators";
+import px2vw from "@/utils/size";
+import { GlobalButton } from "@/components/Global/Button";
+import { Modal } from "react-bootstrap";
+import Theme from "@/styles/themes";
 
 interface Props {
   pageType: "instagram" | "facebook" | "youtube" | "tiktok";
+  id: string;
 }
 
-export function SocialMidiaPage({ pageType }: Props) {
+export function SocialMidiaPage({ pageType, id }: Props) {
   const keyIndicatorsData = [
     { name: "Likes", previousValue: 12000, currentValue: 9000 },
     { name: "Comentários", previousValue: 12000, currentValue: 9000 },
@@ -47,6 +56,27 @@ export function SocialMidiaPage({ pageType }: Props) {
   const values = ["Relevância", "Mais recente"];
 
   const posts = [1, 2, 3];
+
+  const ads = [
+    {
+      id: 1,
+      active: true,
+    },
+    {
+      id: 2,
+      active: false,
+    },
+    {
+      id: 3,
+      active: false,
+    },
+    {
+      id: 4,
+      active: true,
+    },
+  ];
+
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <PageContainer>
@@ -78,7 +108,7 @@ export function SocialMidiaPage({ pageType }: Props) {
               alignItems: "center",
             }}
           >
-            <ScoreChart id="score" score={750} />
+            <ScoreChart id={id} score={750} />
           </div>
           <div
             style={{
@@ -122,101 +152,183 @@ export function SocialMidiaPage({ pageType }: Props) {
         </VotersActiveContainer>
       </ChartsContainer>
 
-      <PostsAndComments>
-        <PostsContainer>
-          <PostsHeader>
-            <TitleWithBar content="Publicações" barColor="#12A9E7" />
-            <LabelAndSelect>
-              <strong
-                onClick={() =>
-                  document.getElementById("posts-order-select")?.focus()
-                }
+      {id === "comparison" || id === "comparison2" ? (
+        <></>
+      ) : (
+        <>
+          <PostsAndComments>
+            <PostsContainer>
+              <PostsHeader>
+                <TitleWithBar content="Publicações" barColor="#12A9E7" />
+                <LabelAndSelect>
+                  <strong
+                    onClick={() =>
+                      document.getElementById("posts-order-select")?.focus()
+                    }
+                  >
+                    Ordenar por:
+                  </strong>
+                  <OrderSelect
+                    selectedValue={selectedValue}
+                    values={values}
+                    setSelectedValue={setSelectedValue}
+                    id="posts-order-select"
+                  />
+                </LabelAndSelect>
+              </PostsHeader>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                  padding: "0 0.875rem",
+                }}
               >
-                Ordenar por:
-              </strong>
-              <OrderSelect
-                selectedValue={selectedValue}
-                values={values}
-                setSelectedValue={setSelectedValue}
-                id="posts-order-select"
-              />
-            </LabelAndSelect>
-          </PostsHeader>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-              padding: "0 0.875rem",
-            }}
-          >
-            {posts.map((post, index) => (
-              <PostComponent
-                type={pageType}
-                likes={Math.floor(Math.random() * 5000)}
-                comments={Math.floor(Math.random() * 5000)}
-                feedbacks={Math.floor(Math.random() * 5000)}
-              />
-            ))}
-          </div>
-          <SeeMorePosts>
-            <button>Ver mais</button>
-          </SeeMorePosts>
-        </PostsContainer>
+                {posts.map((post, index) => (
+                  <PostComponent
+                    type={pageType}
+                    likes={Math.floor(Math.random() * 5000)}
+                    comments={Math.floor(Math.random() * 5000)}
+                    feedbacks={Math.floor(Math.random() * 5000)}
+                  />
+                ))}
+              </div>
+              <SeeMorePosts>
+                <button>Ver mais</button>
+              </SeeMorePosts>
+            </PostsContainer>
 
-        <CommentsContainer>
-          <CommentsHeader>
-            <TitleWithBar content="Publicações" barColor="#12A9E7" />
-            <LabelAndSelect>
-              <strong
-                onClick={() =>
-                  document.getElementById("posts-order-select")?.focus()
-                }
-              >
-                Ordenar por:
-              </strong>
-              <OrderSelect
-                selectedValue={selectedValue}
-                values={values}
-                setSelectedValue={setSelectedValue}
-                id="posts-order-select"
-              />
-            </LabelAndSelect>
-          </CommentsHeader>
-          <Comments>
-            <CommentComponent
-              type={pageType}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
-              commentScore={700}
-            />
-            <CommentComponent
-              type={pageType}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
-              commentScore={700}
-            />
-            <CommentComponent
-              type={pageType}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
-              commentScore={700}
-            />
-            <CommentComponent
-              type={pageType}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
-              commentScore={700}
-            />
-            <CommentComponent
-              type={pageType}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
-              commentScore={700}
-            />
-          </Comments>
-        </CommentsContainer>
-      </PostsAndComments>
+            <CommentsContainer>
+              <CommentsHeader>
+                <TitleWithBar content="Publicações" barColor="#12A9E7" />
+                <LabelAndSelect>
+                  <strong
+                    onClick={() =>
+                      document.getElementById("posts-order-select")?.focus()
+                    }
+                  >
+                    Ordenar por:
+                  </strong>
+                  <OrderSelect
+                    selectedValue={selectedValue}
+                    values={values}
+                    setSelectedValue={setSelectedValue}
+                    id="posts-order-select"
+                  />
+                </LabelAndSelect>
+              </CommentsHeader>
+              <Comments>
+                <CommentComponent
+                  type={pageType}
+                  likes={Math.floor(Math.random() * 5000)}
+                  comments={Math.floor(Math.random() * 5000)}
+                  commentScore={700}
+                />
+                <CommentComponent
+                  type={pageType}
+                  likes={Math.floor(Math.random() * 5000)}
+                  comments={Math.floor(Math.random() * 5000)}
+                  commentScore={700}
+                />
+                <CommentComponent
+                  type={pageType}
+                  likes={Math.floor(Math.random() * 5000)}
+                  comments={Math.floor(Math.random() * 5000)}
+                  commentScore={700}
+                />
+                <CommentComponent
+                  type={pageType}
+                  likes={Math.floor(Math.random() * 5000)}
+                  comments={Math.floor(Math.random() * 5000)}
+                  commentScore={700}
+                />
+                <CommentComponent
+                  type={pageType}
+                  likes={Math.floor(Math.random() * 5000)}
+                  comments={Math.floor(Math.random() * 5000)}
+                  commentScore={700}
+                />
+              </Comments>
+            </CommentsContainer>
+          </PostsAndComments>
+          {pageType !== "facebook" ? (
+            <></>
+          ) : (
+            <>
+              <MetaAdsContainer>
+                <TitleWithBar
+                  content=""
+                  barColor="#12A9E7"
+                  className="mb-4 title"
+                />
+                <MetaAdsLogo
+                  src="/metaAdsLogo.svg"
+                  width={200}
+                  height={40}
+                  alt=""
+                />
+                <MetaAdsCardsContainer>
+                  {ads.map((item, index) => (
+                    <MetaAdsCards>
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
+                          <a
+                            style={{
+                              fontWeight: "semibold",
+                              fontSize: 16,
+                              textDecoration: "none",
+                              color: "black",
+                              width: "max-content",
+                            }}
+                            href="https://www.facebook.com/ads/library/?id=366905246002600"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            ID do Anúncio: <strong>366905246002600</strong>
+                          </a>
+                        </div>
+                        <img
+                          src={
+                            item.active === true
+                              ? "/ActiveAd.svg"
+                              : "/InactiveAd.svg"
+                          }
+                          alt=""
+                        />
+                      </div>
+                      <div style={{ fontSize: 14 }}>
+                        <label>Veiculado Entre:</label>
+                        <label style={{ marginLeft: "2%" }}>
+                          25/01/2022 e 25/02/2022
+                        </label>
+                      </div>
+                      <label
+                        onClick={() => setShowModal(true)}
+                        style={{
+                          alignSelf: "center",
+                          padding: "5px 10px",
+                          border: "1px solid #0037c1",
+                          borderRadius: 10,
+                          margin: "2% 0",
+                        }}
+                      >
+                        Ver mais Detalhes
+                      </label>
+                    </MetaAdsCards>
+                  ))}
+                </MetaAdsCardsContainer>
+              </MetaAdsContainer>
+            </>
+          )}
+        </>
+      )}
+      <Modal show={showModal} onHide={() => setShowModal(false)} />
     </PageContainer>
   );
 }

@@ -1,3 +1,5 @@
+import Theme from "@/styles/themes";
+import Image from "next/image";
 import styled from "styled-components";
 
 export const PageContainer = styled.div`
@@ -134,9 +136,8 @@ export const KeyIndicatorContent = styled.div`
 
 export const PostsAndComments = styled.div`
   display: grid;
-  grid-template-columns: 59% 40%;
-  justify-items: center;
-  gap: 1rem;
+  grid-template-columns: 54% 45%;
+  grid-gap: 1%;
 
   @media (max-width: 1380px) {
     grid-template-columns: 1fr;
@@ -146,9 +147,11 @@ export const PostsAndComments = styled.div`
 export const PostsContainer = styled.div`
   background-color: white;
   border-radius: 15px;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
+  border: 0.3px solid #c3c3c3;
+  width: 95%;
 
-  @media (max-width: 1380px) {
+  @media (min-width: 768px) {
     width: 100%;
   }
 `;
@@ -194,10 +197,12 @@ export const SeeMorePosts = styled.div`
 export const CommentsContainer = styled.div`
   background-color: white;
   border-radius: 15px;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
   padding: 0 1rem 2rem;
+  border: 0.3px solid #c3c3c3;
+  width: 95%;
 
-  @media (max-width: 1380px) {
+  @media (min-width: 768px) {
     width: 100%;
   }
 `;
@@ -217,4 +222,63 @@ export const Comments = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+export const MetaAdsContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 0.3px solid #c3c3c3;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+`;
+
+export const MetaAdsLogo = styled(Image)`
+  position: absolute;
+  width: 30vw;
+  height: 10vh;
+  margin-left: 5%;
+
+  @media (min-width: 768px) {
+    width: 20vw;
+    margin-left: 0;
+  }
+
+  @media (min-width: 1024px) {
+    width: 12vw;
+  }
+`;
+
+export const MetaAdsCardsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 15%;
+
+  @media (min-width: 768px) {
+    margin-top: 10%;
+  }
+
+  @media (min-width: 1024px) {
+    margin-top: 7%;
+  }
+`;
+
+export const MetaAdsCards = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 0.3px solid #0037c1;
+  padding: 5px 10px;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    width: 40%;
+  }
 `;

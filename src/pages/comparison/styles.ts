@@ -25,7 +25,7 @@ export const Main = styled.main`
   align-items: center;
   text-align: center;
   background-color: white;
-  width: 90%;
+  width: 100%;
   height: 85%;
   margin: 2%;
   border-radius: 10px;
@@ -45,6 +45,9 @@ export const HeadToHeadBar = styled.div`
 
 export const CenterContainer = styled.div`
   display: flex;
+  width: 20%;
+  background-color: white;
+  justify-content: space-between;
 `;
 
 export const ImageCircle = styled.div`
@@ -64,11 +67,19 @@ export const Image = styled.img`
 
 export const Grid = styled.div`
   display: flex;
+  flex-direction: row;
   width: 100%;
   height: 100%;
   margin-top: 2%;
   padding: 2%;
   border: 1px solid #bebebe;
+  justify-content: space-between;
+`;
+
+export const IndividualContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 `;
 
 export const GridLine = styled.div`

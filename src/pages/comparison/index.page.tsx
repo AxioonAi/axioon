@@ -10,12 +10,29 @@ import {
   HeadToHeadBar,
   Image,
   ImageCircle,
+  IndividualContainer,
   Main,
 } from "./styles";
 import { Dropdown } from "react-bootstrap";
 import Theme from "@/styles/themes";
 import { CartesianGrid } from "recharts";
 import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
+import { LikesAndComentsCard } from "@/components/home/midias-sociais/LikesAndComentsCard";
+import { LikesAndComentsContainer, Tip } from "../home/midias-sociais/styles";
+import {
+  KeyIndicatorsContainer,
+  PostEngagmentContainer,
+  ScoreChartContainer,
+  VotersActiveContainer,
+} from "@/components/home/midias-sociais/SocialMidiaPage/styles";
+import { TitleWithBar } from "@/components/Global/TitleWithBar";
+import { PostEngagement } from "@/components/home/midias-sociais/PostEngagement";
+import { ScoreChart } from "@/components/home/ScoreChart";
+import { SmallBarChart } from "@/components/home/midias-sociais/SmallBarChart";
+import { ChartTip } from "@/components/home/midias-sociais/ChartTip";
+import { KeyIndicators } from "@/components/home/midias-sociais/KeyIndicators";
+import { VotersActive } from "@/components/home/midias-sociais/VotersActive";
+import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Comparison() {
   const main = useRef(null);
@@ -69,6 +86,17 @@ export default function Comparison() {
   ];
   const array: number[] = Array(19).fill(0);
 
+  const handlePercentage = ({
+    value1,
+    value2,
+  }: {
+    value1: number;
+    value2: number;
+  }) => {
+    const percentage = (value1 / (value1 + value2)) * 100;
+    return percentage;
+  };
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
@@ -91,6 +119,8 @@ export default function Comparison() {
     return () => ctx.revert();
   };
 
+  const [selectedPage, setSelectedPage] = useState("facebook");
+
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
@@ -99,12 +129,58 @@ export default function Comparison() {
           <Main>
             <header>
               <h1>Gráfico de Comparativo</h1>
-              <h3>
+              <label>
                 my text of the printing and typesetting industry. Lorem Ipsum
                 has been the industry's standard dummy text ever since the
                 1500s, when an...
-              </h3>
+              </label>
             </header>
+            <LikesAndComentsContainer>
+              <LikesAndComentsCard
+                type="facebook"
+                barColor="#5162FF"
+                coments={1}
+                likes={25}
+                name="Facebook"
+                onClick={() => setSelectedPage("facebook")}
+                isSelected={
+                  selectedPage === "facebook" || selectedPage === "initial"
+                }
+              />
+              <LikesAndComentsCard
+                type="instagram"
+                barColor="#5162FF"
+                coments={1}
+                likes={25}
+                name="Instagram"
+                onClick={() => setSelectedPage("instagram")}
+                isSelected={
+                  selectedPage === "instagram" || selectedPage === "initial"
+                }
+              />
+              <LikesAndComentsCard
+                type="tiktok"
+                barColor="#5162FF"
+                coments={1}
+                likes={25}
+                name="TikTok"
+                onClick={() => setSelectedPage("tiktok")}
+                isSelected={
+                  selectedPage === "tiktok" || selectedPage === "initial"
+                }
+              />
+              <LikesAndComentsCard
+                type="youtube"
+                barColor="#5162FF"
+                coments={1}
+                likes={25}
+                name="Youtube"
+                onClick={() => setSelectedPage("youtube")}
+                isSelected={
+                  selectedPage === "youtube" || selectedPage === "initial"
+                }
+              />
+            </LikesAndComentsContainer>
             <HeadToHeadBar>
               <Dropdown
                 style={{
@@ -140,7 +216,7 @@ export default function Comparison() {
                 </Dropdown.Menu>
               </Dropdown>
               <CenterContainer>
-                <ImageCircle>
+                <ImageCircle style={{ marginLeft: "-10%" }}>
                   <Image
                     src={"/dashboard/user.png"}
                     width={100}
@@ -148,40 +224,7 @@ export default function Comparison() {
                     alt=""
                   />
                 </ImageCircle>
-                <Dropdown
-                  style={{
-                    alignSelf: "center",
-                  }}
-                >
-                  <Dropdown.Toggle
-                    variant="danger"
-                    style={{
-                      backgroundColor: "#000",
-                      color: "white",
-                      fontSize: 15,
-                    }}
-                  >
-                    {comparisonValue}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item
-                      onClick={() => setComparisonValue("Últimas 24 horas")}
-                    >
-                      Something else
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => setComparisonValue("Últimos 7 dias")}
-                    >
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => setComparisonValue("Últimos 30 dias")}
-                    >
-                      Action
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <ImageCircle>
+                <ImageCircle style={{ marginRight: "-10%" }}>
                   <Image
                     src={"/dashboard/user.png"}
                     width={100}
@@ -225,190 +268,35 @@ export default function Comparison() {
               </Dropdown>
             </HeadToHeadBar>
             <Grid>
-              <div
-                style={{
-                  width: "50%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                  justifyContent: "space-evenly",
-                  marginRight: "-2%",
-                }}
-              >
-                <ComparisonBars
-                  user={1}
-                  type="instagram"
-                  percentage={user1Values[0].percentage}
-                >
-                  <label style={{ textAlign: "left" }}>
-                    {user1Values[0].percentage}%
-                  </label>
-                  <label style={{ textAlign: "right" }}>
-                    {user1Values[0].value}
-                  </label>
-                </ComparisonBars>
-                <ComparisonBars
-                  user={1}
-                  type="facebook"
-                  percentage={user1Values[1].percentage}
-                >
-                  <label style={{ textAlign: "left" }}>
-                    {user1Values[1].percentage}%
-                  </label>
-                  <label style={{ textAlign: "right" }}>
-                    {user1Values[1].value}
-                  </label>
-                </ComparisonBars>
-                <ComparisonBars
-                  user={1}
-                  type="tiktok"
-                  percentage={user1Values[2].percentage}
-                >
-                  <label style={{ textAlign: "left" }}>
-                    {user1Values[2].percentage}%
-                  </label>
-                  <label style={{ textAlign: "right" }}>
-                    {user1Values[2].value}
-                  </label>
-                </ComparisonBars>
-                <ComparisonBars
-                  user={1}
-                  type="youtube"
-                  percentage={user1Values[3].percentage}
-                >
-                  <label style={{ textAlign: "left" }}>
-                    {user1Values[3].percentage}%
-                  </label>
-                  <label style={{ textAlign: "right" }}>
-                    {user1Values[3].value}
-                  </label>
-                </ComparisonBars>
-              </div>
-              <div
-                style={{
-                  height: "95%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignSelf: "center",
-                  alignItems: "flex-end",
-                  justifyContent: "space-evenly",
-                  zIndex: 2,
-                }}
-              >
-                <ImageCircle
-                  style={{
-                    backgroundColor: "#B73041",
-                  }}
-                >
-                  <Image
-                    src={"/InstagramLogo.svg"}
-                    width={50}
-                    height={50}
-                    alt=""
-                    style={{ width: "2.5rem", height: "2.5rem" }}
-                  />
-                </ImageCircle>
-                <ImageCircle
-                  style={{
-                    backgroundColor: "#001958",
-                  }}
-                >
-                  <Image
-                    src={"/FacebookLogo.svg"}
-                    width={50}
-                    height={50}
-                    alt=""
-                    style={{ width: "2.5rem", height: "2.5rem" }}
-                  />
-                </ImageCircle>
-                <ImageCircle
-                  style={{
-                    backgroundColor: "#54858B",
-                  }}
-                >
-                  <Image
-                    src={"/TiktokLogo.svg"}
-                    width={50}
-                    height={50}
-                    alt=""
-                    style={{ width: "2.5rem", height: "2.5rem" }}
-                  />
-                </ImageCircle>
-                <ImageCircle
-                  style={{
-                    backgroundColor: "#8B0000",
-                  }}
-                >
-                  <Image
-                    src={"/YoutubeLogo.svg"}
-                    width={50}
-                    height={50}
-                    alt=""
-                    style={{ width: "2.5rem", height: "2.5rem" }}
-                  />
-                </ImageCircle>
-              </div>
-              <div
-                style={{
-                  width: "50%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  justifyContent: "space-evenly",
-                  marginLeft: "-2%",
-                }}
-              >
-                <ComparisonBars
-                  user={2}
-                  type="instagram"
-                  percentage={user2Values[0].percentage}
-                >
-                  <label style={{ textAlign: "left" }}>
-                    {user2Values[0].value}
-                  </label>
-                  <label style={{ textAlign: "right" }}>
-                    {user2Values[0].percentage}%
-                  </label>
-                </ComparisonBars>
-                <ComparisonBars
-                  user={2}
-                  type="facebook"
-                  percentage={user2Values[1].percentage}
-                >
-                  <label style={{ textAlign: "left" }}>
-                    {user2Values[1].value}
-                  </label>
-                  <label style={{ textAlign: "right" }}>
-                    {user2Values[1].percentage}%
-                  </label>
-                </ComparisonBars>
-                <ComparisonBars
-                  user={2}
-                  type="tiktok"
-                  percentage={user2Values[2].percentage}
-                >
-                  <label style={{ textAlign: "left" }}>
-                    {user2Values[2].value}
-                  </label>
-                  <label style={{ textAlign: "right" }}>
-                    {user2Values[2].percentage}%
-                  </label>
-                </ComparisonBars>
-                <ComparisonBars
-                  user={2}
-                  type="youtube"
-                  percentage={user2Values[3].percentage}
-                >
-                  <label style={{ textAlign: "left" }}>
-                    {user2Values[3].value}
-                  </label>
-                  <label style={{ textAlign: "right" }}>
-                    {user2Values[3].percentage}%
-                  </label>
-                </ComparisonBars>
-              </div>
+              <IndividualContainer>
+                {selectedPage === "facebook" && (
+                  <SocialMidiaPage id={"comparison"} pageType="facebook" />
+                )}
+                {selectedPage === "instagram" && (
+                  <SocialMidiaPage id={"comparison"} pageType="instagram" />
+                )}
+                {selectedPage === "tiktok" && (
+                  <SocialMidiaPage id={"comparison"} pageType="tiktok" />
+                )}
+                {selectedPage === "youtube" && (
+                  <SocialMidiaPage id={"comparison"} pageType="youtube" />
+                )}
+              </IndividualContainer>
+
+              <IndividualContainer>
+                {selectedPage === "facebook" && (
+                  <SocialMidiaPage id={"comparison2"} pageType="facebook" />
+                )}
+                {selectedPage === "instagram" && (
+                  <SocialMidiaPage id={"comparison2"} pageType="instagram" />
+                )}
+                {selectedPage === "tiktok" && (
+                  <SocialMidiaPage id={"comparison2"} pageType="tiktok" />
+                )}
+                {selectedPage === "youtube" && (
+                  <SocialMidiaPage id={"comparison2"} pageType="youtube" />
+                )}
+              </IndividualContainer>
             </Grid>
           </Main>
         </Content>

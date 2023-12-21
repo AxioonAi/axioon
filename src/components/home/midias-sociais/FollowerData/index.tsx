@@ -114,7 +114,7 @@ export function FollowerData({ data }: Props) {
 
   return (
     <Container>
-      <canvas id="myChart" style={{ width: "30%", height: "30%" }} />
+      <canvas id="myChart" style={{ width: "100%", height: "100%" }} />
     </Container>
   );
 }

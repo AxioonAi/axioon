@@ -2,8 +2,22 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  height: 23rem;
-  width: 23rem;
+  height: 50vh;
+
+  @media (min-width: 768px) {
+    height: 70vh;
+    width: 90%;
+  }
+
+  @media (min-width: 1024px) {
+    height: 27rem;
+    width: 27rem;
+  }
+
+  @media (min-width: 1440px) {
+    height: 26rem;
+    width: 26rem;
+  }
 `;
 
 export const ChartCenterInfo = styled.div`
