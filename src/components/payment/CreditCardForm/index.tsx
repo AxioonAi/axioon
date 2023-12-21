@@ -1,0 +1,91 @@
+import { useState } from "react";
+import {
+  FormContainer,
+  FormDiv,
+  FormGroup,
+  RadioGroup,
+  RadioSelector,
+} from "./styles";
+import Image from "next/image";
+
+export function CreditCardForm() {
+  const [person, setPerson] = useState("");
+
+  const handleRadioChange = (event: { target: { value: string } }) => {
+    setPerson(event.target.value);
+  };
+  return (
+    <FormContainer>
+      <FormDiv>
+        <FormGroup>
+          <label htmlFor="validity">Validade</label>
+          <input
+            type="text"
+            id="validity"
+            placeholder="Digite a validade do cartão"
+          />
+        </FormGroup>
+        <FormGroup>
+          <label htmlFor="cvc">CVV do Cartão</label>
+          <input type="text" id="cvc" placeholder="Digite o CVV do cartão" />
+        </FormGroup>
+      </FormDiv>
+      <FormDiv>
+        <RadioGroup>
+          <RadioSelector
+            htmlFor="juridicalPerson"
+            checked={person === "juridicalPerson"}
+          >
+            <div />
+          </RadioSelector>
+          <input
+            type="radio"
+            name="personType"
+            id="juridicalPerson"
+            value="juridicalPerson"
+            checked={person === "juridicalPerson"}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="juridicalPerson">Pessoa Jurídica</label>
+        </RadioGroup>
+        <RadioGroup>
+          <RadioSelector
+            htmlFor="fisicalPerson"
+            checked={person === "fisicalPerson"}
+          >
+            <div />
+          </RadioSelector>
+          <input
+            type="radio"
+            name="personType"
+            id="fisicalPerson"
+            value="fisicalPerson"
+            checked={person === "fisicalPerson"}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="fisicalPerson">Pessoa Física</label>
+        </RadioGroup>
+      </FormDiv>
+      <FormDiv>
+        <FormGroup>
+          <label htmlFor="city">Cidade</label>
+          <input type="text" id="city" placeholder="Digite sua cidade" />
+        </FormGroup>
+        <FormGroup>
+          <label htmlFor="cep">CEP</label>
+          <input type="text" id="cep" placeholder="Digite seu CEP" />
+        </FormGroup>
+      </FormDiv>
+      <FormDiv>
+        <FormGroup>
+          <label htmlFor="address">Cidade</label>
+          <input type="text" id="address" placeholder="Digite seu endereço" />
+        </FormGroup>
+        <FormGroup>
+          <label htmlFor="number">Número</label>
+          <input type="text" id="number" placeholder="Digite seu número" />
+        </FormGroup>
+      </FormDiv>
+    </FormContainer>
+  );
+}
