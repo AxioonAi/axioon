@@ -4,6 +4,7 @@ import {
   FormContainer,
   FormDiv,
   FormGroup,
+  RadioDiv,
   RadioGroup,
   RadioSelector,
 } from "./styles";
@@ -31,7 +32,7 @@ export function CreditCardForm() {
           <input type="text" id="cvc" placeholder="Digite o CVV do cartão" />
         </FormGroup>
       </FormDiv>
-      <FormDiv className="radio">
+      <RadioDiv>
         <RadioGroup>
           <RadioSelector
             htmlFor="juridicalPerson"
@@ -66,7 +67,7 @@ export function CreditCardForm() {
           />
           <label htmlFor="fisicalPerson">Pessoa Física</label>
         </RadioGroup>
-      </FormDiv>
+      </RadioDiv>
       <FormDiv>
         <FormGroup>
           <label htmlFor="city">Cidade</label>

@@ -14,6 +14,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { CreditCardForm } from "@/components/payment/CreditCardForm";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
+import { windowWidth } from "@/utils/windowWidth";
+import { PixPayment } from "@/components/payment/PixPayment";
 
 export default function Payment() {
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -43,7 +45,14 @@ export default function Payment() {
                 onChange={handleRadioChange}
               />
               <label htmlFor="creditCard">
-                <img src="/payment/cardFlags.png" />
+                {!windowWidth(768) ? (
+                  <img src="/payment/cardFlags.png" />
+                ) : (
+                  <img
+                    src="/payment/cardFlagsMobile.png"
+                    className="flagsMobile"
+                  />
+                )}
               </label>
             </RadioGroup>
             <RadioGroup>
@@ -82,7 +91,13 @@ export default function Payment() {
             </RadioGroup>
           </PaymentSelector>
 
-          <CreditCardForm />
+          {selectedMethod === "creditCard" ? (
+            <CreditCardForm />
+          ) : selectedMethod === "pix" ? (
+            <PixPayment />
+          ) : (
+            <div style={{ paddingBottom: "14rem" }} />
+          )}
         </PaymentContainer>
         <SelectedPlan>
           <TitleBottomBar title="Plano escolhido:" color="#0D123C" />
@@ -97,7 +112,7 @@ export default function Payment() {
               />
             </div>
             <div className="art">
-              <Image width={300} height={450} src={"/payment/art.png"} alt="" />
+              <img src="/payment/art.png" alt="" />
             </div>
           </ArtContainer>
         </SelectedPlan>
