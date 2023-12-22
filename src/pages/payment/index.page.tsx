@@ -1,16 +1,19 @@
 import { RegisterAccountHeader } from "@/components/register-account/Header";
 import {
+  ArtContainer,
   Container,
   Main,
   PaymentContainer,
   PaymentSelector,
   RadioGroup,
   RadioSelector,
+  SelectedPlan,
 } from "./styles";
 import { Footer } from "@/components/register-account/Footer";
 import { useState } from "react";
 import Image from "next/image";
 import { CreditCardForm } from "@/components/payment/CreditCardForm";
+import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 
 export default function Payment() {
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -81,6 +84,23 @@ export default function Payment() {
 
           <CreditCardForm />
         </PaymentContainer>
+        <SelectedPlan>
+          <TitleBottomBar title="Plano escolhido:" color="#0D123C" />
+          <ArtContainer>
+            <div className="logoContainer">
+              <Image
+                width={155}
+                height={30}
+                src={"/sidebar/axion-white.svg"}
+                alt=""
+                className="logo"
+              />
+            </div>
+            <div className="art">
+              <Image width={300} height={450} src={"/payment/art.png"} alt="" />
+            </div>
+          </ArtContainer>
+        </SelectedPlan>
       </Main>
       <Footer />
     </Container>

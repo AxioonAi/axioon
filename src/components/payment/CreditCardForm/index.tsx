@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  FinishPayment,
   FormContainer,
   FormDiv,
   FormGroup,
@@ -30,7 +31,7 @@ export function CreditCardForm() {
           <input type="text" id="cvc" placeholder="Digite o CVV do cartão" />
         </FormGroup>
       </FormDiv>
-      <FormDiv>
+      <FormDiv className="radio">
         <RadioGroup>
           <RadioSelector
             htmlFor="juridicalPerson"
@@ -78,7 +79,7 @@ export function CreditCardForm() {
       </FormDiv>
       <FormDiv>
         <FormGroup>
-          <label htmlFor="address">Cidade</label>
+          <label htmlFor="address">Endereço</label>
           <input type="text" id="address" placeholder="Digite seu endereço" />
         </FormGroup>
         <FormGroup>
@@ -86,6 +87,19 @@ export function CreditCardForm() {
           <input type="text" id="number" placeholder="Digite seu número" />
         </FormGroup>
       </FormDiv>
+
+      <div style={{ margin: "1rem auto 0" }}>
+        <Image
+          width={259}
+          height={56}
+          src={"/payment/compraSegura.png"}
+          alt=""
+        />
+      </div>
+
+      <FinishPayment>
+        <button>Finalizar Pagamento</button>
+      </FinishPayment>
     </FormContainer>
   );
 }
