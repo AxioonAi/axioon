@@ -14,7 +14,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   AgeGroupContainer,
   AgeGroupLegend,
-  ChartContainer,
   ChartsContainer,
   Content,
   Main,

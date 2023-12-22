@@ -1,11 +1,28 @@
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
+import px2vw from "@/utils/size";
+import Image from "next/image";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
+import { ScoreChart } from "../../ScoreChart";
+import { SentimentChart } from "../../mencoes/SentimentChart";
+import { TotalQuotes } from "../../mencoes/TotalQuotes";
+import { AgeGroupByGender } from "../../seu-eleitorado/AgeGroupByGender";
+import { VotersInfo } from "../../seu-eleitorado/VoterInfo";
+import { ChartTip } from "../ChartTip";
+import { CommentComponent } from "../ComentComponent";
+import { KeyIndicators } from "../KeyIndicators";
+import { OrderSelect } from "../OrderSelect";
+import { PostComponent } from "../PostComponent";
+import { PostEngagement } from "../PostEngagement";
+import { SmallBarChart } from "../SmallBarChart";
+import { VotersActive } from "../VotersActive";
 import {
-  ChartContainer,
+  AgeGroupContainer,
+  AgeGroupLegend,
   ChartsContainer,
   Comments,
   CommentsContainer,
   CommentsHeader,
-  KeyIndicatorContent,
   KeyIndicatorsContainer,
   LabelAndSelect,
   MetaAdsCards,
@@ -21,23 +38,9 @@ import {
   SeeMorePosts,
   Tip,
   VotersActiveContainer,
+  VotersInfoContainer,
+  VotersInfoTitle,
 } from "./styles";
-import { PostEngagement } from "../PostEngagement";
-import { ScoreChart } from "../../ScoreChart";
-import { VotersActive } from "../VotersActive";
-import { SmallBarChart } from "../SmallBarChart";
-import { KeyIndicator } from "../KeyIndicator";
-import { VotersInfoSelect } from "@/components/home/seu-eleitorado/VotersInfoSelect";
-import { useState } from "react";
-import { OrderSelect } from "../OrderSelect";
-import { PostComponent } from "../PostComponent";
-import { CommentComponent } from "../ComentComponent";
-import { ChartTip } from "../ChartTip";
-import { KeyIndicators } from "../KeyIndicators";
-import px2vw from "@/utils/size";
-import { GlobalButton } from "@/components/Global/Button";
-import { Modal } from "react-bootstrap";
-import Theme from "@/styles/themes";
 
 interface Props {
   pageType: "instagram" | "facebook" | "youtube" | "tiktok";
@@ -75,6 +78,70 @@ export function SocialMidiaPage({ pageType, id }: Props) {
       active: true,
     },
   ];
+
+  const groupGenderData = [
+    {
+      name: "16-18",
+      Homens: 590,
+      Mulheres: 800,
+    },
+    {
+      name: "19-29",
+      Homens: 868,
+      Mulheres: 967,
+    },
+    {
+      name: "30-40",
+      Homens: 1397,
+      Mulheres: 1098,
+    },
+    {
+      name: "41-50",
+      Homens: 1480,
+      Mulheres: 1200,
+    },
+    {
+      name: "51-60",
+      Homens: 1520,
+      Mulheres: 1108,
+    },
+    {
+      name: "61-70",
+      Homens: 1400,
+      Mulheres: 680,
+    },
+    {
+      name: "+70",
+      Homens: 250,
+      Mulheres: 500,
+    },
+  ];
+
+  const total = {
+    homens: groupGenderData.reduce((acc, curr) => acc + curr.Homens, 0),
+    mulheres: groupGenderData.reduce((acc, curr) => acc + curr.Mulheres, 0),
+  };
+
+  const groupGenderConf = [
+    {
+      dataKey: "Homens",
+      color: "#0D123C",
+      total: total.homens,
+    },
+    {
+      dataKey: "Mulheres",
+      color: "#E7298A",
+      total: total.mulheres,
+    },
+  ];
+
+  const [pieChartData, setPieChartData] = useState<any>([
+    100, 100, 100, 100, 100, 100, 100,
+  ]);
+
+  const [pieChartLabels, setPieChartLabels] = useState<any>([
+    14.28, 14.28, 14.28, 14.28, 14.28, 14.28, 14.28,
+  ]);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -328,7 +395,277 @@ export function SocialMidiaPage({ pageType, id }: Props) {
           )}
         </>
       )}
-      <Modal show={showModal} onHide={() => setShowModal(false)} />
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+        <Modal.Body
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            alignSelf: "center",
+            gap: "1.4rem",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+            }}
+          >
+            <Image
+              src="/BackButton.svg"
+              width={50}
+              height={50}
+              alt=""
+              style={{ cursor: "pointer" }}
+              onClick={() => setShowModal(false)}
+            />
+            <TitleWithBar
+              content=""
+              barColor="#12A9E7"
+              className="mb-4 title"
+              style={{ marginLeft: 20 }}
+            />
+            <MetaAdsLogo
+              src="/metaAdsLogo.svg"
+              width={200}
+              height={40}
+              alt=""
+              style={{ marginLeft: 70 }}
+            />
+            <div
+              style={{
+                width: "20%",
+                height: 50,
+                backgroundColor: "#c3c3c3",
+                right: 20,
+                position: "absolute",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              marginTop: "5%",
+              backgroundColor: "white",
+              width: "40%",
+              padding: 10,
+              borderRadius: 10,
+              border: "1px solid #0037c1",
+            }}
+          >
+            ID do Anúncio: {""}
+            <a
+              style={{
+                fontWeight: "semibold",
+                fontSize: 16,
+                color: "black",
+                width: "max-content",
+              }}
+              href="https://www.facebook.com/ads/library/?id=366905246002600"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <strong>366905246002600</strong>
+            </a>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "90%",
+              alignSelf: "center",
+              marginTop: "2%",
+              justifyContent: "space-between",
+            }}
+          >
+            <div
+              style={{
+                width: px2vw(150),
+                height: px2vw(150),
+                backgroundColor: "#c3c3c3",
+                borderRadius: 10,
+              }}
+            />
+            <div
+              style={{
+                width: "40%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                padding: "10px 0",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  backgroundColor: "white",
+                  width: "100%",
+                  padding: "2px 10px",
+                  borderRadius: 10,
+                  border: "1px solid #0037c1",
+                }}
+              >
+                <label style={{ lineHeight: 1, fontSize: 12 }}>Pago por</label>
+                <label style={{ fontSize: 18 }}>Nome</label>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  backgroundColor: "white",
+                  width: "100%",
+                  padding: "2px 10px",
+                  borderRadius: 10,
+                  border: "1px solid #0037c1",
+                }}
+              >
+                <label style={{ lineHeight: 1, fontSize: 12 }}>
+                  Valor gasto (aproximado)
+                </label>
+                <label style={{ fontSize: 18 }}>R$ 100,00</label>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  backgroundColor: "white",
+                  width: "100%",
+                  padding: "2px 10px",
+                  borderRadius: 10,
+                  border: "1px solid #0037c1",
+                }}
+              >
+                <label style={{ lineHeight: 1, fontSize: 12 }}>Moeda</label>
+                <label style={{ fontSize: 18 }}>Real</label>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "20%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+                padding: "10px 0",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  backgroundColor: "white",
+                  width: "100%",
+                  padding: "2px 10px",
+                  borderRadius: 10,
+                  border: "1px solid #0037c1",
+                }}
+              >
+                <label style={{ lineHeight: 1, fontSize: 12 }}>
+                  Data de Início
+                </label>
+                <label style={{ fontSize: 18 }}>12/12/2023</label>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  backgroundColor: "white",
+                  width: "100%",
+                  padding: "2px 10px",
+                  borderRadius: 10,
+                  border: "1px solid #0037c1",
+                }}
+              >
+                <label style={{ lineHeight: 1, fontSize: 12 }}>
+                  Data de Fim
+                </label>
+                <label style={{ fontSize: 18 }}>13/12/2023</label>
+              </div>
+            </div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <TotalQuotes title="Média de Impressões" type="metaAds" />
+
+            <SentimentChart
+              positive={343349}
+              negative={243312}
+              neutral={103231}
+              title={"Gênero dos espectadores"}
+              legend1={"Masculino"}
+              legend2={"Feminino"}
+              legend3={"Outro"}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <AgeGroupContainer>
+              <VotersInfoTitle>
+                <TitleWithBar
+                  content="Faixa etária da População por gênero"
+                  barColor="#2F5CFC"
+                  width={"16rem"}
+                  className="title"
+                />
+                <AgeGroupLegend>
+                  {groupGenderConf.map((item) => {
+                    return (
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div
+                          key={item.dataKey}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "0.625rem",
+                              height: "0.625rem",
+                              borderRadius: "50%",
+                              backgroundColor: item.color,
+                            }}
+                          />
+                          <strong style={{ lineHeight: 1 }}>
+                            {item.total}
+                          </strong>
+                        </div>
+                        <span
+                          style={{ fontSize: "0.625rem", color: "#8790AB" }}
+                        >
+                          {item.dataKey}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </AgeGroupLegend>
+              </VotersInfoTitle>
+              <div className="chart">
+                <AgeGroupByGender
+                  data={groupGenderData}
+                  conf={groupGenderConf}
+                />
+              </div>
+            </AgeGroupContainer>
+            <VotersInfoContainer>
+              <div className="title">
+                <TitleWithBar
+                  barColor="#2F5CFC"
+                  content={"Estados que foram Veiculados"}
+                />
+              </div>
+              <div className="chart">
+                <VotersInfo chartData={pieChartData} />
+              </div>
+            </VotersInfoContainer>
+          </div>
+        </Modal.Body>
+      </Modal>
     </PageContainer>
   );
 }

@@ -1,38 +1,22 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
 import RootLayout from "@/components/Layout";
+import { LikesAndComentsCard } from "@/components/home/midias-sociais/LikesAndComentsCard";
+import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
+import Theme from "@/styles/themes";
+import gsap from "gsap";
+import { useLayoutEffect, useRef, useState } from "react";
+import { Dropdown } from "react-bootstrap";
+import { LikesAndComentsContainer } from "../home/midias-sociais/styles";
 import {
   CenterContainer,
-  ComparisonBars,
   Content,
   Grid,
-  GridLine,
   HeadToHeadBar,
   Image,
   ImageCircle,
   IndividualContainer,
   Main,
 } from "./styles";
-import { Dropdown } from "react-bootstrap";
-import Theme from "@/styles/themes";
-import { CartesianGrid } from "recharts";
-import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
-import { LikesAndComentsCard } from "@/components/home/midias-sociais/LikesAndComentsCard";
-import { LikesAndComentsContainer, Tip } from "../home/midias-sociais/styles";
-import {
-  KeyIndicatorsContainer,
-  PostEngagmentContainer,
-  ScoreChartContainer,
-  VotersActiveContainer,
-} from "@/components/home/midias-sociais/SocialMidiaPage/styles";
-import { TitleWithBar } from "@/components/Global/TitleWithBar";
-import { PostEngagement } from "@/components/home/midias-sociais/PostEngagement";
-import { ScoreChart } from "@/components/home/ScoreChart";
-import { SmallBarChart } from "@/components/home/midias-sociais/SmallBarChart";
-import { ChartTip } from "@/components/home/midias-sociais/ChartTip";
-import { KeyIndicators } from "@/components/home/midias-sociais/KeyIndicators";
-import { VotersActive } from "@/components/home/midias-sociais/VotersActive";
-import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Comparison() {
   const main = useRef(null);

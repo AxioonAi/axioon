@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import styled from "styled-components";
 
 interface ModalProps {
@@ -18,7 +17,7 @@ export const Form = styled.div`
   flex-direction: column;
   width: 80%;
   align-self: center;
-  gap: 1.4em;
+  gap: 1.4rem;
 `;
 
 export const FormGroup = styled.div`

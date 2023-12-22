@@ -1,9 +1,8 @@
 import { GlobalButton } from "@/components/Global/Button";
 import { CloseButton } from "@/components/Global/Close";
-import Theme from "@/styles/themes";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Content, Form, FormGroup, SuccessModal } from "./styles";
+import { Content, Form } from "./styles";
 
 interface ModalProps {
   show: boolean;

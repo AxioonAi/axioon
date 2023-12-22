@@ -3,8 +3,6 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  ComposedChart,
-  Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,

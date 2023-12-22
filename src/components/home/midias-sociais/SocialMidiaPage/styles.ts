@@ -1,4 +1,3 @@
-import Theme from "@/styles/themes";
 import Image from "next/image";
 import styled from "styled-components";
 
@@ -280,5 +279,90 @@ export const MetaAdsCards = styled.div`
 
   @media (min-width: 1024px) {
     width: 40%;
+  }
+`;
+
+export const AgeGroupContainer = styled(ChartContainer)`
+  width: 20rem;
+  height: 20rem;
+
+  .chart {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 1380px) {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 98%;
+  }
+`;
+
+export const VotersInfoTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
+
+export const AgeGroupLegend = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  @media (max-width: 768px) {
+    margin: auto;
+  }
+`;
+
+export const VotersInfoContainer = styled(ChartContainer)`
+  width: 20rem;
+  height: 20rem;
+
+  @media (max-width: 1380px) {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .chart {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 15rem;
+    height: 15rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 20rem;
+    height: 20rem;
+    padding: 0;
+
+    .title {
+      padding: 1rem;
+      flex-direction: column;
+    }
+
+    .select {
+      margin: 1rem auto;
+    }
+
+    .chart {
+      max-height: 20rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    height: 20rem;
   }
 `;

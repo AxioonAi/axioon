@@ -1,4 +1,6 @@
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
+import { formatNumberWithDot } from "@/utils/numberFormat";
+import { useEffect, useState } from "react";
 import {
   ChartContainer,
   LegendContainer,
@@ -7,16 +9,26 @@ import {
   Positive,
   SentimentContainer,
 } from "./styles";
-import { useEffect, useState } from "react";
-import { formatNumberWithDot } from "@/utils/numberFormat";
 
 interface Props {
   positive: number;
   neutral: number;
   negative: number;
+  title?: string;
+  legend1?: string;
+  legend2?: string;
+  legend3?: string;
 }
 
-export function SentimentChart({ positive, neutral, negative }: Props) {
+export function SentimentChart({
+  positive,
+  neutral,
+  negative,
+  title,
+  legend1,
+  legend2,
+  legend3,
+}: Props) {
   const [total, setTotal] = useState(0);
   const [positivePercent, setPositivePercent] = useState("");
   const [neutralPercent, setNeutralPercent] = useState("");
@@ -31,7 +43,10 @@ export function SentimentChart({ positive, neutral, negative }: Props) {
 
   return (
     <SentimentContainer>
-      <TitleWithBar content="Sentimentos" barColor="#FC792F" />
+      <TitleWithBar
+        content={title === undefined ? "Sentimentos" : title}
+        barColor="#FC792F"
+      />
 
       <ChartContainer>
         {total ? (
@@ -61,7 +76,7 @@ export function SentimentChart({ positive, neutral, negative }: Props) {
             <strong>{formatNumberWithDot(positive)}</strong>
           </div>
           <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>
-            Positivos
+            {legend1 === undefined ? "Positivos" : legend1}
           </span>
         </LegendContainer>
         <LegendContainer>
@@ -79,7 +94,7 @@ export function SentimentChart({ positive, neutral, negative }: Props) {
             <strong>{formatNumberWithDot(negative)}</strong>
           </div>
           <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>
-            Negativos
+            {legend2 === undefined ? "Negativos" : legend2}
           </span>
         </LegendContainer>
         <LegendContainer>
@@ -96,7 +111,9 @@ export function SentimentChart({ positive, neutral, negative }: Props) {
             />
             <strong>{formatNumberWithDot(neutral)}</strong>
           </div>
-          <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>Neutros</span>
+          <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>
+            {legend3 === undefined ? "Neutros" : legend3}
+          </span>
         </LegendContainer>
       </div>
     </SentimentContainer>
