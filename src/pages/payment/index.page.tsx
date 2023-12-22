@@ -15,6 +15,7 @@ import Image from "next/image";
 import { CreditCardForm } from "@/components/payment/CreditCardForm";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { windowWidth } from "@/utils/windowWidth";
+import { PixPayment } from "@/components/payment/PixPayment";
 
 export default function Payment() {
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -90,7 +91,13 @@ export default function Payment() {
             </RadioGroup>
           </PaymentSelector>
 
-          <CreditCardForm />
+          {selectedMethod === "creditCard" ? (
+            <CreditCardForm />
+          ) : selectedMethod === "pix" ? (
+            <PixPayment />
+          ) : (
+            <div style={{ paddingBottom: "14rem" }} />
+          )}
         </PaymentContainer>
         <SelectedPlan>
           <TitleBottomBar title="Plano escolhido:" color="#0D123C" />
