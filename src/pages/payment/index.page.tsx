@@ -14,6 +14,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { CreditCardForm } from "@/components/payment/CreditCardForm";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
+import { windowWidth } from "@/utils/windowWidth";
 
 export default function Payment() {
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -43,7 +44,14 @@ export default function Payment() {
                 onChange={handleRadioChange}
               />
               <label htmlFor="creditCard">
-                <img src="/payment/cardFlags.png" />
+                {!windowWidth(768) ? (
+                  <img src="/payment/cardFlags.png" />
+                ) : (
+                  <img
+                    src="/payment/cardFlagsMobile.png"
+                    className="flagsMobile"
+                  />
+                )}
               </label>
             </RadioGroup>
             <RadioGroup>
@@ -97,7 +105,7 @@ export default function Payment() {
               />
             </div>
             <div className="art">
-              <Image width={300} height={450} src={"/payment/art.png"} alt="" />
+              <img src="/payment/art.png" alt="" />
             </div>
           </ArtContainer>
         </SelectedPlan>

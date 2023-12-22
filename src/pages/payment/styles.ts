@@ -4,11 +4,17 @@ export const Container = styled.div`
   position: relative;
   padding-bottom: 4rem;
   min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding-bottom: 8rem;
+  }
 `;
 
 export const Main = styled.main`
   display: flex;
   justify-content: space-between;
+  max-width: 1440px;
+  margin: auto;
 
   @media (max-width: 1180px) {
     flex-direction: column-reverse;
@@ -27,6 +33,10 @@ export const RadioGroup = styled.div`
 
   input[type="radio"] {
     display: none;
+  }
+
+  .flagsMobile {
+    width: 13rem;
   }
 `;
 
@@ -59,6 +69,11 @@ export const PaymentContainer = styled.div`
   @media (max-width: 1180px) {
     margin: auto;
   }
+
+  @media (max-width: 768px) {
+    padding: 3rem 1rem;
+    width: 100%;
+  }
 `;
 
 export const PaymentSelector = styled.div`
@@ -76,12 +91,16 @@ export const SelectedPlan = styled.div`
   @media (max-width: 1180px) {
     margin: auto;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const ArtContainer = styled.div`
   position: relative;
-  width: 487.408px;
-  height: 647.094px;
+  width: 30.5rem;
+  height: 40.5rem;
   flex-shrink: 0;
   border-radius: 7.568px;
   border: 0.757px solid #0d123c;
@@ -104,5 +123,13 @@ export const ArtContainer = styled.div`
     position: absolute;
     bottom: 0;
     right: 0;
+
+    img {
+      width: 20rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;

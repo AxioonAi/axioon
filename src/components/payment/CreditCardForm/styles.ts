@@ -6,11 +6,31 @@ export const FormContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   width: 35rem;
+
+  @media(max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const FormDiv = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media(max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
+
+export const RadioDiv = styled(FormDiv)`
+  @media(max-width: 768px) {
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  @media(max-width: 450px) {
+    flex-direction: column;
+  }
 `;
 
 export const FormGroup = styled.div`
@@ -35,6 +55,12 @@ export const FormGroup = styled.div`
       border: 1px solid black;
     }
   }
+
+  @media(max-width: 768px) {
+    input[type="text"] {
+      width: 100%;
+    }
+  }
 `;
 
 export const RadioGroup = styled.div`
@@ -46,6 +72,10 @@ export const RadioGroup = styled.div`
 
   input[type="radio"] {
     display: none;
+  }
+
+  @media(max-width: 768px) {
+    width: auto;
   }
 `;
 
@@ -72,10 +102,6 @@ export const RadioSelector = styled.label<RadioSelectorProps>`
   }
 `;
 
-export const PaymentContainer = styled.div`
-  padding: 5rem 4rem;
-`;
-
 export const PaymentSelector = styled.div`
   display: flex;
   flex-direction: column;
@@ -94,5 +120,11 @@ export const FinishPayment = styled.div`
     border-radius: 5px;
     color: white;
     font-weight: bold;
+  }
+
+  @media(max-width: 768px) {
+    button {
+      width: 16rem;
+    }
   }
 `;
