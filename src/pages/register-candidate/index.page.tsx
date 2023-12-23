@@ -14,7 +14,7 @@ export default function RegisterCandidate() {
   };
   return (
     <Container>
-      <RegisterAccountHeader />
+      <RegisterAccountHeader type="dark" />
       <Main>
         
       </Main>

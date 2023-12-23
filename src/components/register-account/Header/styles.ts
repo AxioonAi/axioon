@@ -22,6 +22,7 @@ export const RegisterHeader = styled.header`
     margin-right: 2%;
     transition: 0.3s;
     font-size: 0.8rem;
+    background-color: transparent;
 
     &:hover {
       background-color: ${({ theme }) => theme.color.darkBlueAxion};
