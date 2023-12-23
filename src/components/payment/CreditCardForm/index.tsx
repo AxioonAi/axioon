@@ -9,9 +9,11 @@ import {
   RadioSelector,
 } from "./styles";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export function CreditCardForm() {
   const [person, setPerson] = useState("");
+  const router = useRouter();
 
   const handleRadioChange = (event: { target: { value: string } }) => {
     setPerson(event.target.value);
@@ -99,7 +101,7 @@ export function CreditCardForm() {
       </div>
 
       <FinishPayment>
-        <button>Finalizar Pagamento</button>
+        <button onClick={() => router.push("/finish-payment")}>Finalizar Pagamento</button>
       </FinishPayment>
     </FormContainer>
   );
