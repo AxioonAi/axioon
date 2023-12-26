@@ -1,13 +1,18 @@
 import styled from "styled-components";
 
-export const StyledFooter = styled.footer`
+interface Props {
+  type: "light" | "dark";
+}
+
+export const StyledFooter = styled.footer<Props>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid ${({ theme }) => theme.color.gray_60};
+  border-top: 1px solid
+    ${({ theme, type }) => (type === "light" ? theme.color.gray_60 : "#fff")};
   height: 10rem;
   font-size: 0.85rem;
-  color: #4e4b59;
+  color: ${({ type }) => (type === "light" ? "#4e4b59" : "#fff")};
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -20,7 +25,7 @@ export const StyledFooter = styled.footer`
     margin: 0;
   }
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     height: 4rem;
   }
-`
+`;

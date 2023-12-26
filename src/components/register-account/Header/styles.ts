@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const RegisterHeader = styled.header`
+interface Props {
+  type: "light" | "dark";
+}
+
+export const RegisterHeader = styled.header<Props>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,9 +19,12 @@ export const RegisterHeader = styled.header`
 
   button {
     padding: 0.6rem 0.8rem;
-    border: 1px solid ${({ theme }) => theme.color.darkBlueAxion};
+    border: 1px solid
+      ${({ theme, type }) =>
+        type === "light" ? theme.color.darkBlueAxion : "#fff"};
     border-radius: 5px;
-    color: ${({ theme }) => theme.color.darkBlueAxion};
+    color: ${({ theme, type }) =>
+      type === "light" ? theme.color.darkBlueAxion : "#fff"};
     font-weight: bold;
     margin-right: 2%;
     transition: 0.3s;
@@ -30,7 +37,7 @@ export const RegisterHeader = styled.header`
     }
   }
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     img {
       width: 10rem;
       font-size: 1rem;

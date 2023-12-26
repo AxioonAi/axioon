@@ -18,7 +18,7 @@ export default function RegisterCandidate() {
       <Main>
         
       </Main>
-      <Footer />
+      <Footer type="dark" />
     </Container>
   );
 }

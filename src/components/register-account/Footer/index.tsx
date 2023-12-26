@@ -1,8 +1,12 @@
 import { StyledFooter } from "./styles";
 
-export function Footer() {
+interface Props {
+  type?: 'light' | 'dark';
+}
+
+export function Footer({ type = 'light' }: Props) {
   return (
-    <StyledFooter>
+    <StyledFooter type={type}>
       <div>
         <p>
           Copyright © 2022 Axioon. Todos os direitos reservados. CNPJ nº

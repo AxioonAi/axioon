@@ -9,11 +9,11 @@ export function RegisterAccountHeader({ type = "light" }: Props) {
   const router = useRouter();
 
   return (
-    <RegisterHeader>
+    <RegisterHeader type={type}>
       {type === "light" ? (
         <img src="/axionLogo.png" alt="" />
       ) : (
-        <img security="/sidebar/axion-white.svg" alt="" />
+        <img src="/sidebar/axion-white.svg" alt="" />
       )}
       <button onClick={() => router.push("/login")}>
         Já é cliente? Acessar
