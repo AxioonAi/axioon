@@ -7,13 +7,14 @@ export const Container = styled.div`
   background: linear-gradient(117deg, #0d123c 0%, #34374c 100%);
 
   @media (max-width: 768px) {
-    padding-bottom: 8rem;
+    padding-bottom: 11rem;
   }
 `;
 
 export const Main = styled.main`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  /* justify-content: space-between; */
   max-width: 1200px;
   margin: auto;
 
@@ -22,23 +23,16 @@ export const Main = styled.main`
 `;
 
 export const Instructions = styled.div`
-  padding: 4rem 0;
+  padding: 2rem 0 4rem;
   display: grid;
   margin: auto;
   grid-template-columns: 37rem 33rem;
 
-  .step1 {
-    grid-area: step1;
-  }
   .step2 {
-    grid-area: step2;
     align-self: flex-end;
   }
-  .step3 {
-    grid-area: step3;
-  }
+
   .step4 {
-    grid-area: step4;
     align-self: flex-end;
   }
 
@@ -53,7 +47,7 @@ export const Instructions = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    padding: 4rem 5%;
+    padding: 2rem 5%;
 
     img {
       width: 5rem;
@@ -64,7 +58,7 @@ export const Instructions = styled.div`
 export const InstructionSection1 = styled.div`
   display: flex;
   flex-direction: column-reverse;
-  gap: 3rem;
+  gap: 1.5rem;
 
   @media (max-width: 1024px) {
     padding: 0;
@@ -83,6 +77,7 @@ export const InstructionSection1 = styled.div`
 `;
 
 export const InstructionSection2 = styled(InstructionSection1)`
+  justify-content: space-between;
   margin-left: -6rem;
 
   @media (max-width: 1150px) {

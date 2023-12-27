@@ -10,6 +10,7 @@ import {
   Main,
   StepName,
 } from "./styles";
+import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 
 export default function RegisterCandidate() {
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -66,6 +67,10 @@ export default function RegisterCandidate() {
             </InstructionStep>
           </InstructionSection2>
         </Instructions>
+
+        <TitleBottomBar title="Hora de Cadastrar o político que quer acompanhar as métricas" barColor="#fff" textColor="#fff" width="35rem" />
+
+        
       </Main>
       <Footer type="dark" />
     </Container>
