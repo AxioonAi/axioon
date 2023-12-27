@@ -16,14 +16,14 @@ const RootLayout = ({
 }) => {
   return (
     <>
-    <div className="hidden bg-black overflow-hidden min-h-screen lg:flex ">
+      <div className="hidden bg-black overflow-hidden min-h-screen lg:flex ">
         <Sidebar fadeOut={() => fadeOut()} />
-      {children}
-    </div>
-    <div className="flex bg-black overflow-hidden min-h-screen lg:hidden ">
+        {children}
+      </div>
+      <div className="flex flex-col bg-black overflow-hidden min-h-screen lg:hidden ">
         <HeaderComponent fadeOut={() => fadeOut()} />
         {children}
-    </div>
+      </div>
     </>
   );
 };
