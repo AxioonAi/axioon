@@ -20,8 +20,8 @@ export function HeaderComponent({ fadeOut }: SidebarProps) {
 
   return (
     <>
-      <header className="flex w-full items-center justify-center relative h-16">
-        <button className="absolute left-4 top-2/4 bg-transparent border-0">
+      <header className="flex w-full items-center justify-center relative h-16 lg:hidden">
+        <button className="absolute left-4 top-1/4 bg-transparent border-0">
           <Image
             onClick={handleShow}
             style={{ cursor: "pointer" }}

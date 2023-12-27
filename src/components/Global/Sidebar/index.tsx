@@ -15,7 +15,7 @@ export function Sidebar({ fadeOut }: SidebarProps) {
   // const isHeightAbove991 = useWindowDimensions();
 
   return (
-    <nav className="position-sticky top-0 bg-black text-white w-72">
+    <nav className="hidden position-sticky top-0 bg-black text-white w-72 lg:flex">
       <div className="position-fixed top-0 w-72">
         <div className="flex justify-center align-center">
           <img
