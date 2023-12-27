@@ -3,6 +3,7 @@ import { RegisterAccountHeader } from "@/components/register-account/Header";
 import { useState } from "react";
 import {
   Container,
+  FormContainer,
   InstructionSection1,
   InstructionSection2,
   InstructionStep,
@@ -11,6 +12,7 @@ import {
   StepName,
 } from "./styles";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
+import { CandidateForm } from "@/components/register-candidate/CandidateForm";
 
 export default function RegisterCandidate() {
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -68,9 +70,16 @@ export default function RegisterCandidate() {
           </InstructionSection2>
         </Instructions>
 
-        <TitleBottomBar title="Hora de Cadastrar o político que quer acompanhar as métricas" barColor="#fff" textColor="#fff" width="35rem" />
+        <FormContainer>
+          <TitleBottomBar
+            title="Hora de Cadastrar o político que quer acompanhar as métricas"
+            barColor="#fff"
+            textColor="#fff"
+            width="35rem"
+          />
 
-        
+          <CandidateForm />
+        </FormContainer>
       </Main>
       <Footer type="dark" />
     </Container>

@@ -21,7 +21,7 @@ export const TitleContainer = styled.div<Props>`
     height: 0.75rem;
     width: 5.5rem;
     background-color: ${({ barColor }) => barColor};
-    bottom: 0;
+    bottom: -0.5rem;
   }
 
   @media(max-width: 768px) {

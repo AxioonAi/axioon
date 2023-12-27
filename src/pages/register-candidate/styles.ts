@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  padding-bottom: 4rem;
+  padding-bottom: 12rem;
   min-height: 100vh;
   background: linear-gradient(117deg, #0d123c 0%, #34374c 100%);
 
@@ -130,5 +130,13 @@ export const StepName = styled.div`
   @media (max-width: 768px) {
     font-size: 1.125rem;
     width: 190px;
+  }
+`;
+
+export const FormContainer = styled.div`
+  padding: 0;
+
+  @media(max-width: 1240px) {
+    padding: 0 1rem;
   }
 `;
