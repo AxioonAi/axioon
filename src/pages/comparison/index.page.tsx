@@ -86,7 +86,7 @@ export default function Comparison() {
       gsap.to(".mainContent", {
         x: "-100%",
         opacity: 1,
-        duration: 0.5,
+        duration: 1,
         delay: 0.2,
       });
     }, main);
@@ -97,7 +97,7 @@ export default function Comparison() {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         opacity: 0,
-        duration: 0.5,
+        duration: 1,
       });
     }, main);
     return () => ctx.revert();
@@ -254,31 +254,31 @@ export default function Comparison() {
             <Grid>
               <IndividualContainer>
                 {selectedPage === "facebook" && (
-                  <SocialMidiaPage id={"comparison"} pageType="facebook" />
+                  <SocialMidiaPage id={"comparison1a"} pageType="facebook" />
                 )}
                 {selectedPage === "instagram" && (
-                  <SocialMidiaPage id={"comparison"} pageType="instagram" />
+                  <SocialMidiaPage id={"comparison1b"} pageType="instagram" />
                 )}
                 {selectedPage === "tiktok" && (
-                  <SocialMidiaPage id={"comparison"} pageType="tiktok" />
+                  <SocialMidiaPage id={"comparison1c"} pageType="tiktok" />
                 )}
                 {selectedPage === "youtube" && (
-                  <SocialMidiaPage id={"comparison"} pageType="youtube" />
+                  <SocialMidiaPage id={"comparison1d"} pageType="youtube" />
                 )}
               </IndividualContainer>
 
               <IndividualContainer>
                 {selectedPage === "facebook" && (
-                  <SocialMidiaPage id={"comparison2"} pageType="facebook" />
+                  <SocialMidiaPage id={"comparison2a"} pageType="facebook" />
                 )}
                 {selectedPage === "instagram" && (
-                  <SocialMidiaPage id={"comparison2"} pageType="instagram" />
+                  <SocialMidiaPage id={"comparison2b"} pageType="instagram" />
                 )}
                 {selectedPage === "tiktok" && (
-                  <SocialMidiaPage id={"comparison2"} pageType="tiktok" />
+                  <SocialMidiaPage id={"comparison2c"} pageType="tiktok" />
                 )}
                 {selectedPage === "youtube" && (
-                  <SocialMidiaPage id={"comparison2"} pageType="youtube" />
+                  <SocialMidiaPage id={"comparison2d"} pageType="youtube" />
                 )}
               </IndividualContainer>
             </Grid>

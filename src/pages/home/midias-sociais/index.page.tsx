@@ -16,7 +16,7 @@ export default function MidiasSociais() {
       gsap.to(".mainContent", {
         x: "-100%",
         opacity: 1,
-        duration: 0.5,
+        duration: 1,
         delay: 0.2,
       });
     }, main);
@@ -27,7 +27,7 @@ export default function MidiasSociais() {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         opacity: 0,
-        duration: 0.5,
+        duration: 1,
       });
     }, main);
     return () => ctx.revert();

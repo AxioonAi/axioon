@@ -26,7 +26,7 @@ export default function InteligenciaArtificial() {
       gsap.to(".mainContent", {
         x: "-100%",
         opacity: 1,
-        duration: 0.5,
+        duration: 1,
         delay: 0.2,
       });
     }, main);
@@ -37,7 +37,7 @@ export default function InteligenciaArtificial() {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         opacity: 0,
-        duration: 0.5,
+        duration: 1,
       });
     }, main);
     return () => ctx.revert();

@@ -20,8 +20,8 @@ export function HeaderComponent({ fadeOut }: SidebarProps) {
 
   return (
     <>
-      <HeaderContainer>
-        <button>
+      <header className="flex w-full items-center justify-center relative h-16">
+        <button className="absolute left-4 top-2/4 bg-transparent border-0">
           <Image
             onClick={handleShow}
             style={{ cursor: "pointer" }}
@@ -37,9 +37,9 @@ export function HeaderComponent({ fadeOut }: SidebarProps) {
           height={46}
           src={"/sidebar/axion-white.svg"}
           alt={""}
-          className="logo"
+          className="w-52 h-auto self-center"
         />
-      </HeaderContainer>
+      </header>
 
       <StyledOffcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header

@@ -15,15 +15,15 @@ export function Sidebar({ fadeOut }: SidebarProps) {
   // const isHeightAbove991 = useWindowDimensions();
 
   return (
-    <SidebarContainer>
-      <SidebarContent>
-        <AxionLogoContainer>
+    <nav className="position-sticky top-0 bg-black text-white w-72">
+      <div className="position-fixed top-0 w-72">
+        <div className="flex justify-center align-center">
           <img
             src="/sidebar/axion-white.svg"
             alt=""
-            style={{ width: "11rem", margin: "3rem auto 0" }}
+            className="w-44 mt-12 mx-auto"
           />
-        </AxionLogoContainer>
+        </div>
         <div
           style={{
             display: "flex",
@@ -38,7 +38,7 @@ export function Sidebar({ fadeOut }: SidebarProps) {
             fadeOut={() => fadeOut()}
             name="Dashboard"
             imgSrc={<Dashboard />}
-            href="/home"
+            href="/home/seu-eleitorado"
           />
           <LinkComponent
             fadeOut={() => fadeOut()}
@@ -83,7 +83,7 @@ export function Sidebar({ fadeOut }: SidebarProps) {
           href="/settings"
         /> */}
         </div>
-      </SidebarContent>
-    </SidebarContainer>
+      </div>
+    </nav>
   );
 }

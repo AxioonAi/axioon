@@ -11,22 +11,17 @@ import {
 } from "./styles";
 import { maskCpfCnpj } from "@/utils/masks";
 
-export function PersonalDataForm() {
-  const [cpf, setCpf] = useState("");
-  const [selectedGender, setSelectedGender] = useState("");
-
-  const handleRadioChange = (event: { target: { value: string } }) => {
-    setSelectedGender(event.target.value);
+interface FormDataProps {
+  formData: {
+    social_name: string;
+    cpfCnpj: string;
+    birth_date: string;
+    sex: string;
   };
+  setFormData: any;
+}
 
-  function handleCpfChange(cpf: string) {
-    let cleanedCpf = cpf.replace(/\D/g, "");
-    if (cleanedCpf.length >= 11) {
-      return setCpf(maskCpfCnpj(cleanedCpf.slice(0, 11)));
-    }
-    setCpf(maskCpfCnpj(cpf));
-  }
-
+export function PersonalDataForm({ formData, setFormData }: FormDataProps) {
   return (
     <RegisterForm>
       <RegisterFormHeader>
@@ -35,54 +30,74 @@ export function PersonalDataForm() {
       </RegisterFormHeader>
 
       <FormGroup>
+        <label htmlFor="social_name">Nome Social</label>
+        <input
+          type="text"
+          id="social_name"
+          placeholder="Digite seu Nome Social"
+          value={formData.social_name}
+          onChange={(e) =>
+            setFormData({ ...formData, social_name: e.target.value })
+          }
+        />
+      </FormGroup>
+
+      <FormGroup>
         <label htmlFor="cpf">Seu CPF</label>
         <input
           type="text"
           id="cpf"
           placeholder="Digite seu CPF"
-          value={cpf}
-          onChange={(e) => handleCpfChange(e.target.value)}
+          maxLength={14}
+          value={formData.cpfCnpj}
+          onChange={(e) =>
+            setFormData({ ...formData, cpfCnpj: maskCpfCnpj(e.target.value) })
+          }
         />
       </FormGroup>
       <FormGroup>
         <label htmlFor="bithDate">Data de Nascimento</label>
-        <input type="date" placeholder="Sua Data de Nascimento" />
+        <input
+          type="date"
+          placeholder="Sua Data de Nascimento"
+          value={formData.birth_date}
+          onChange={(e) =>
+            setFormData({ ...formData, birth_date: e.target.value })
+          }
+        />
       </FormGroup>
-      <label
-        htmlFor="gender"
-        style={{ fontWeight: "bold", marginBottom: "1rem" }}
-      >
+      <label htmlFor="sex" style={{ fontWeight: "bold", marginBottom: "1rem" }}>
         Sexo
       </label>
       <RadioContainer>
         <RadioGroup>
-          <RadioSelector htmlFor="male" checked={selectedGender === "male"}>
+          <RadioSelector htmlFor="MALE" checked={formData.sex === "MALE"}>
             <div />
           </RadioSelector>
           <input
             type="radio"
-            name="gender"
-            id="male"
-            value="male"
-            checked={selectedGender === "male"}
-            onChange={handleRadioChange}
+            name="sex"
+            id="MALE"
+            value="MALE"
+            checked={formData.sex === "MALE"}
+            onChange={(e) => setFormData({ ...formData, sex: e.target.value })}
           />
-          <label htmlFor="male">Masculino</label>
+          <label htmlFor="MALE">Masculino</label>
         </RadioGroup>
 
         <RadioGroup>
-          <RadioSelector htmlFor="female" checked={selectedGender === "female"}>
+          <RadioSelector htmlFor="FEMALE" checked={formData.sex === "FEMALE"}>
             <div />
           </RadioSelector>
           <input
             type="radio"
-            name="gender"
-            id="female"
-            value="female"
-            checked={selectedGender === "female"}
-            onChange={handleRadioChange}
+            name="sex"
+            id="FEMALE"
+            value="FEMALE"
+            checked={formData.sex === "FEMALE"}
+            onChange={(e) => setFormData({ ...formData, sex: e.target.value })}
           />
-          <label htmlFor="female">Feminino</label>
+          <label htmlFor="FEMALE">Feminino</label>
         </RadioGroup>
       </RadioContainer>
     </RegisterForm>

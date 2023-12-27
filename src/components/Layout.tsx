@@ -15,14 +15,16 @@ const RootLayout = ({
   fadeOut: LayoutProps["fadeOut"];
 }) => {
   return (
-    <Container>
-      {windowWidth(1024) ? (
-        <HeaderComponent fadeOut={() => fadeOut()} />
-      ) : (
+    <>
+    <div className="hidden bg-black overflow-hidden min-h-screen lg:flex ">
         <Sidebar fadeOut={() => fadeOut()} />
-      )}
       {children}
-    </Container>
+    </div>
+    <div className="flex bg-black overflow-hidden min-h-screen lg:hidden ">
+        <HeaderComponent fadeOut={() => fadeOut()} />
+        {children}
+    </div>
+    </>
   );
 };
 
@@ -30,7 +32,7 @@ export default RootLayout;
 
 const Container = styled.div`
   display: flex;
-  background-color: #111;
+  background-color: #000;
   overflow: hidden;
   min-height: 100vh;
 

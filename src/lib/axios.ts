@@ -1,10 +1,11 @@
 import axios from "axios";
 
-export const api_url = "";
+export const api_url = "http://18.231.150.215";
+export const amazonik = "http://192.168.0.224:3333";
 export const token = "";
 
 export const api = axios.create({
-  baseURL: api_url,
+  baseURL: amazonik,
 });
 
 export const PostAPI = async (url: string, data: any) => {

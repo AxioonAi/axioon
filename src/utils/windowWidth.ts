@@ -11,5 +11,5 @@ export const windowWidth = (maxWidth: number) => {
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
-  return width < maxWidth ? true : false;
-}
+  return width <= maxWidth ? true : false;
+};

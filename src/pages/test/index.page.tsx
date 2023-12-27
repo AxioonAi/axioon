@@ -11,7 +11,7 @@
 // import { Footer } from "@/components/register-account/Footer";
 // import Image from "next/image";
 
-import { FollowerData } from "@/components/home/midias-sociais/FollowerData";
+// import { FollowerData } from "@/components/home/midias-sociais/FollowerData";
 
 // export default function Test() {
 //   const cards = [1, 2, 3];
@@ -98,17 +98,23 @@ import { FollowerData } from "@/components/home/midias-sociais/FollowerData";
 //   );
 //
 
-export default function Test() {
-  const followerData = [
-    { name: "Instagram", count: 40000 },
-    { name: "Facebook", count: 30000 },
-    { name: "Youtube", count: 20000 },
-    { name: "Tiktok", count: 10000 },
-  ];
+// export default function Test() {
+//   const followerData = [
+//     { name: "Instagram", count: 40000 },
+//     { name: "Facebook", count: 30000 },
+//     { name: "Youtube", count: 20000 },
+//     { name: "Tiktok", count: 10000 },
+//   ];
 
-  return (
-    <div style={{}}>
-      <FollowerData data={followerData} />
-    </div>
-  );
+//   return (
+//     <div style={{}}>
+//       <FollowerData data={followerData} />
+//     </div>
+//   );
+// }
+
+export default function Test() {
+  return(
+    <div className="bg-red-800 w-44 h-44 text-white">dfgasdjfaoiwjefi</div>
+  )
 }

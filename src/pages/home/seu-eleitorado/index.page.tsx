@@ -269,8 +269,8 @@ export default function SeuEleitorado() {
                 <VotersGender />
               </VotersGenderContainer>
             </ChartsContainer>
-          </Main>
-        </Content>
+          </Main> 
+        </Content> 
       </RootLayout>
     </main>
   );

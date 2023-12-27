@@ -8,9 +8,17 @@ export const Content = styled.div`
   border-radius: 25px 0 0 25px;
   padding: 1.2rem;
   position: relative;
-  width: calc(100% - 17rem);
-  left: calc(100% - 17rem);
+  width: calc(100% - 18rem);
+  left: calc(100% - 18rem);
   align-items: center;
+  @media (max-width: 1024px) {
+    width: 100%;
+    left: 100%;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `;
 
 export const Main = styled.main`

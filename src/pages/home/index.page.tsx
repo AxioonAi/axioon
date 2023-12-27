@@ -8,5 +8,5 @@ export default function Home() {
     router.push("/home/seu-eleitorado");
   }, []);
 
-  return <div></div>;
+  return;
 }

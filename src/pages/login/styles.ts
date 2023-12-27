@@ -14,7 +14,7 @@ export const Main = styled.main`
   align-items: center;
   margin-bottom: 6.1rem;
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     margin-bottom: 0;
   }
 
@@ -33,8 +33,8 @@ export const LoginForm = styled.div`
 
   .loginButton {
     width: 100%;
-    padding: 1rem 0;
-    margin: 2.8rem 0 2rem;
+    padding: 0.5rem 0;
+    margin: 2rem 0 2rem;
   }
 `;
 
@@ -136,7 +136,7 @@ export const ArtSection = styled.div`
   background-repeat: no-repeat;
   background-position: top center;
 
-  @media(min-width: 1024px) {
+  @media (min-width: 1024px) {
     width: 50vw;
   }
 `;

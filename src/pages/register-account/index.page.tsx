@@ -16,13 +16,99 @@ import { PersonalDataForm } from "@/components/register-account/PersonalDataForm
 import { CompanyDataForm } from "@/components/register-account/CompanyDataForm";
 import { AnialiasingFormData } from "@/components/register-account/AnaliasingData";
 import { Messages } from "@/components/Global/Messages";
+import { PostAPI } from "@/lib/axios";
 
 export default function RegisterAccount() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
+  const [terms, setTerms] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    social_name: "",
+    password: "",
+    cpfCnpj: "",
+    birth_date: "",
+    sex: "",
+    mobilePhone: "",
+  });
+
+  console.log("formData: ", formData);
+  console.log("terms: ", terms);
+
+  async function handleRegister() {
+    const birthDate = new Date(formData.birth_date).toISOString();
+    console.log("birthDate: ", birthDate);
+    const connect = await PostAPI("/register", {
+      name: formData.name,
+      email: formData.email,
+      social_name: formData.social_name,
+      password: formData.password,
+      cpfCnpj: formData.cpfCnpj,
+      birth_date: birthDate,
+      sex: formData.sex,
+      mobilePhone: formData.mobilePhone,
+    });
+    console.log("connect: ", connect);
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    if (connect.status === 200) {
+      setStep(3);
+      return setTimeout(() => {
+        router.push("/finish-register");
+      }, 5000);
+    }
+  }
+
+  const handleNext = () => {
+    if (
+      step === 1 &&
+      formData.name !== "" &&
+      formData.email !== "" &&
+      formData.mobilePhone !== "" &&
+      formData.password !== "" &&
+      terms === true
+    ) {
+      return setStep(2);
+    }
+    if (
+      (step === 1 && terms === true && formData.name === "") ||
+      formData.email === "" ||
+      formData.mobilePhone === "" ||
+      formData.password === ""
+    ) {
+      return alert("Preencha todos os campos");
+    }
+    if (step === 1 && terms === false) {
+      return alert("Aceite os termos de uso");
+    }
+    if (
+      step === 2 &&
+      formData.name !== "" &&
+      formData.email !== "" &&
+      formData.mobilePhone !== "" &&
+      formData.password !== "" &&
+      formData.social_name !== "" &&
+      formData.cpfCnpj !== "" &&
+      formData.birth_date !== "" &&
+      formData.sex !== ""
+    ) {
+      return handleRegister();
+    }
+    if (
+      (step === 2 && formData.social_name === "") ||
+      formData.cpfCnpj === "" ||
+      formData.birth_date === "" ||
+      formData.sex === ""
+    ) {
+      return alert("Preencha todos os campos");
+    }
+  };
 
   return (
     <Container>
-      {step === 4 ? (
+      {step === 3 ? (
         <AnialiasingFormData />
       ) : (
         <>
@@ -32,29 +118,22 @@ export default function RegisterAccount() {
             <FormContainer>
               {step === 1 ? (
                 <>
-                  <BasicDataForm />
+                  <BasicDataForm
+                    formData={formData}
+                    setFormData={setFormData}
+                    terms={terms}
+                    setTerms={setTerms}
+                  />
                 </>
-              ) : step === 2 ? (
-                <PersonalDataForm />
               ) : (
-                <CompanyDataForm />
+                <PersonalDataForm
+                  formData={formData}
+                  setFormData={setFormData}
+                />
               )}
 
               {step === 1 ? (
-                <NextButton onClick={() => setStep(step + 1)}>
-                  Proximo
-                </NextButton>
-              ) : step === 2 ? (
-                <div
-                  style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}
-                >
-                  <BackButton onClick={() => setStep(step - 1)}>
-                    Voltar
-                  </BackButton>
-                  <NextButton onClick={() => setStep(step + 1)}>
-                    Continuar
-                  </NextButton>
-                </div>
+                <NextButton onClick={handleNext}>Proximo</NextButton>
               ) : (
                 <div
                   style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}
@@ -62,7 +141,7 @@ export default function RegisterAccount() {
                   <BackButton onClick={() => setStep(step - 1)}>
                     Voltar
                   </BackButton>
-                  <NextButton onClick={() => setStep(step + 1)}>
+                  <NextButton onClick={handleNext}>
                     Finalizar Cadastro
                   </NextButton>
                 </div>

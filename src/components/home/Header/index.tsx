@@ -43,7 +43,6 @@ export function HeaderComponent({ fadeOut }: headerProps) {
           Clique nos <em>Cards</em> para ver os dados do seu Candidato
         </Instruction>
         <UserMenu>
-          <img src="/dashboard/user.png" alt="" className="user" />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <strong>Robert Martins</strong>
             <span>contato@robertmartins.com.br</span>

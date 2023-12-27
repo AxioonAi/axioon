@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArtSection,
   AxionLogo,
@@ -15,11 +15,17 @@ import Theme from "@/styles/themes";
 import { Footer } from "@/components/register-account/Footer";
 import { useRouter } from "next/router";
 import { Messages } from "@/components/Global/Messages";
+import { PostAPI, getAPI } from "@/lib/axios";
 import { GlobalButton } from "@/components/Global/Button";
 
 export default function Login() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState("password");
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
   function toggleShowPassword() {
     if (showPassword === "password") {
@@ -27,6 +33,21 @@ export default function Login() {
     } else {
       setShowPassword("password");
     }
+  }
+
+  async function handleLogin() {
+    setButtonLoading(true);
+    const connect = await PostAPI("/login", {
+      email: formData.email,
+      password: formData.password,
+    });
+    console.log("connect: ", connect);
+    if (connect.status !== 200) {
+      alert(connect.body);
+      return setButtonLoading(false);
+    }
+    router.push("/");
+    return setButtonLoading(false);
   }
 
   return (
@@ -69,12 +90,24 @@ export default function Login() {
 
           <FormGroup>
             <label htmlFor="email">Email</label>
-            <input type="email" />
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+            />
           </FormGroup>
 
           <FormGroup style={{ position: "relative" }}>
             <label htmlFor="password">Senha</label>
-            <input type={showPassword} />
+            <input
+              type={showPassword}
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+            />
             <img src="/eye-slash.svg" alt="" onClick={toggleShowPassword} />
           </FormGroup>
           <PasswordRecovery>
@@ -82,7 +115,16 @@ export default function Login() {
               Esqueceu sua senha?
             </button>
           </PasswordRecovery>
-          <GlobalButton content="Entrar" className="loginButton" />
+          <GlobalButton
+            background={Theme.color.darkBlueAxion}
+            color="white"
+            width="100%"
+            height="5vh"
+            content="Entrar"
+            className="loginButton"
+            onClick={handleLogin}
+            loading={buttonLoading}
+          />
           <p style={{ fontSize: "0.9rem", fontWeight: "bold" }}>
             Não tem uma conta?{" "}
             <span
