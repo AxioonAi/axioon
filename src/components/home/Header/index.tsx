@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeaderCandidateSelect } from "./CandidateSelect";
 import { MenuItemComponent } from "./MenuItem";
 import { HeaderTimeSelect } from "./TimeSelect";
@@ -15,25 +15,46 @@ import {
   Register,
   UserMenu,
 } from "./styles";
+import { authGetAPI, getAPI } from "@/lib/axios";
 
 interface headerProps {
   fadeOut: any;
+  selectedProfile: {
+    name: string;
+    politicalGroup: string;
+    id: string;
+  };
+  setSelectedProfile: any;
 }
 
-export function HeaderComponent({ fadeOut }: headerProps) {
+export function HeaderComponent({
+  fadeOut,
+  selectedProfile,
+  setSelectedProfile,
+}: headerProps) {
   const router = useRouter();
 
   const [selectedTimeValue, setSelectedTimeValue] = useState("Últimos 15 Dias");
   const timeValues = ["Últimos 7 Dias", "Últimos 15 Dias", "Últimos 30 Dias"];
 
-  const [selectedCandidateValue, setSelectedCandidateValue] = useState(
-    "Roberto Dorner - PSDB"
-  );
-  const candidateValues = [
-    "Roberto Dorner - PSDB",
-    "Roberto Dorner - PSDB",
-    "Roberto Dorner - PSDB",
-  ];
+  const [monitoredProfiles, setMonitoredProfiles] = useState([]);
+
+  async function getPoliticians() {
+    const connect = await authGetAPI("/profile/monitoring");
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setMonitoredProfiles(connect.body.profile);
+    setSelectedProfile({
+      name: connect.body.profile[0].name,
+      politicalGroup: connect.body.profile[0].politicalGroup,
+      id: connect.body.profile[0].id,
+    });
+  }
+
+  useEffect(() => {
+    getPoliticians();
+  }, []);
 
   return (
     <HeaderContainer>
@@ -86,9 +107,9 @@ export function HeaderComponent({ fadeOut }: headerProps) {
           />
           <div className="info">
             <HeaderCandidateSelect
-              values={candidateValues}
-              selectedValue={selectedCandidateValue}
-              setSelectedValue={setSelectedCandidateValue}
+              profiles={monitoredProfiles}
+              selectedProfile={selectedProfile}
+              setSelectedProfile={setSelectedProfile}
             />
             <span className="candidateNumber">
               Número do Candidato: xxxxxxxxxx

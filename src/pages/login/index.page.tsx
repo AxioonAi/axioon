@@ -15,7 +15,7 @@ import Theme from "@/styles/themes";
 import { Footer } from "@/components/register-account/Footer";
 import { useRouter } from "next/router";
 import { Messages } from "@/components/Global/Messages";
-import { PostAPI, getAPI } from "@/lib/axios";
+import { PostAPI, getAPI, refreshToken, token } from "@/lib/axios";
 import { GlobalButton } from "@/components/Global/Button";
 
 export default function Login() {
@@ -46,6 +46,8 @@ export default function Login() {
       alert(connect.body);
       return setButtonLoading(false);
     }
+    localStorage.setItem(token, connect.body.token);
+    localStorage.setItem(refreshToken, connect.body.refreshToken);
     router.push("/");
     return setButtonLoading(false);
   }
