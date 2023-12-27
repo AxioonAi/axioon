@@ -22,120 +22,11 @@ import {
   VotersInfoContainer,
   VotersInfoTitle,
 } from "./styles";
+import { authGetAPI } from "@/lib/axios";
+import { Spinner } from "react-bootstrap";
 
 export default function SeuEleitorado() {
   const router = useRouter();
-
-  const [selectedVoterOption, setSelectedVoterOption] = useState("education");
-  const [selectedVoterLabels, setSelectedVoterLabels] = useState([""]);
-
-  useEffect(() => {
-    if (selectedVoterOption === "age") {
-      setSelectedVoterLabels([
-        "16-18",
-        "19-29",
-        "30-40",
-        "41-50",
-        "51-60",
-        "61-70",
-        "+70",
-      ]);
-    } else if (selectedVoterOption === "gender") {
-      setSelectedVoterLabels(["Homens", "Mulheres"]);
-    } else if (selectedVoterOption === "education") {
-      setSelectedVoterLabels([
-        "Ensino Médio Incompleto",
-        "Não Informado",
-        "Ensino Médio Completo",
-        "Ensino Fundamental Completo",
-        "Analfabeto",
-        "Sabe Ler e Escrever",
-        "Ensino Fundamental Incompleto",
-      ]);
-    }
-  }, [selectedVoterOption]);
-
-  const selectVotersValue = ["education", "gender", "age"];
-
-  useEffect(() => {
-    if (router.pathname === "/") {
-      router.push("/home/seu-eleitorado");
-    }
-  }, []);
-
-  const groupGenderData = [
-    {
-      name: "16-18",
-      Homens: 590,
-      Mulheres: 800,
-    },
-    {
-      name: "19-29",
-      Homens: 868,
-      Mulheres: 967,
-    },
-    {
-      name: "30-40",
-      Homens: 1397,
-      Mulheres: 1098,
-    },
-    {
-      name: "41-50",
-      Homens: 1480,
-      Mulheres: 1200,
-    },
-    {
-      name: "51-60",
-      Homens: 1520,
-      Mulheres: 1108,
-    },
-    {
-      name: "61-70",
-      Homens: 1400,
-      Mulheres: 680,
-    },
-    {
-      name: "+70",
-      Homens: 250,
-      Mulheres: 500,
-    },
-  ];
-
-  const total = {
-    homens: groupGenderData.reduce((acc, curr) => acc + curr.Homens, 0),
-    mulheres: groupGenderData.reduce((acc, curr) => acc + curr.Mulheres, 0),
-  };
-
-  const groupGenderConf = [
-    {
-      dataKey: "Homens",
-      color: "#0D123C",
-      total: total.homens,
-    },
-    {
-      dataKey: "Mulheres",
-      color: "#E7298A",
-      total: total.mulheres,
-    },
-  ];
-
-  const votersInfoData = {
-    education: [100, 100, 100, 100, 100, 100, 100],
-    gender: [100, 250],
-    age: [100, 100, 100, 100, 100, 100, 100],
-  };
-
-  const [selectedData, setSelectedData] = useState<any>([]);
-
-  useEffect(() => {
-    if (selectedVoterOption === "education") {
-      setSelectedData(votersInfoData.education);
-    } else if (selectedVoterOption === "gender") {
-      setSelectedData(votersInfoData.gender);
-    } else if (selectedVoterOption === "age") {
-      setSelectedData(votersInfoData.age);
-    }
-  }, [selectedVoterOption]);
 
   const main = useRef(null);
   const content = useRef(null);
@@ -169,108 +60,225 @@ export default function SeuEleitorado() {
     },
   ];
 
+  const [selectedProfile, setSelectedProfile] = useState({
+    name: "",
+    politicalGroup: "",
+    id: "",
+  });
+
+  const [cityData, setCityData] = useState();
+
+  async function getCityDetails() {
+    const connect = await authGetAPI(`/city/statistics/${selectedProfile.id}`);
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setCityData(connect.body.city);
+  }
+
+  console.log("cityData: ", cityData);
+
+  const groupGenderConf = [
+    {
+      dataKey: "Homens",
+      color: "#0D123C",
+      total: cityData?.population.male,
+    },
+    {
+      dataKey: "Mulheres",
+      color: "#E7298A",
+      total: cityData?.population.female,
+    },
+  ];
+
+  const [selectedVoterOption, setSelectedVoterOption] = useState("education");
+  const [selectedVoterLabels, setSelectedVoterLabels] = useState([""]);
+
+  useEffect(() => {
+    if (selectedProfile.id) {
+      getCityDetails();
+      if (selectedVoterOption === "age") {
+        null;
+      } else if (selectedVoterOption === "gender") {
+        setSelectedVoterLabels(["Homens", "Mulheres"]);
+      } else if (selectedVoterOption === "education") {
+        setSelectedVoterLabels([
+          "Ensino Médio Incompleto",
+          "Não Informado",
+          "Ensino Médio Completo",
+          "Ensino Fundamental Completo",
+          "Analfabeto",
+          "Sabe Ler e Escrever",
+          "Ensino Fundamental Incompleto",
+        ]);
+      }
+    }
+  }, [selectedProfile, selectedVoterOption]);
+
+  const selectVotersValue = ["education", "gender", "age"];
+
+  useEffect(() => {
+    if (router.pathname === "/") {
+      router.push("/home/seu-eleitorado");
+    }
+  }, []);
+
+  const votersInfoData = {
+    education: [100, 100, 100, 100, 100, 100, 100],
+    gender: [100, 250],
+    age: [100, 100, 100, 100, 100, 100, 100],
+  };
+
+  const [selectedData, setSelectedData] = useState<any>([]);
+
+  useEffect(() => {
+    if (selectedVoterOption === "education") {
+      setSelectedData(votersInfoData.education);
+    } else if (selectedVoterOption === "gender") {
+      setSelectedData(votersInfoData.gender);
+    } else if (selectedVoterOption === "age") {
+      setSelectedData(votersInfoData.age);
+    }
+  }, [selectedVoterOption]);
+
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
         <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
-          <HeaderComponent fadeOut={() => fadeOut()} />
+          <HeaderComponent
+            fadeOut={() => fadeOut()}
+            selectedProfile={selectedProfile}
+            setSelectedProfile={setSelectedProfile}
+          />
           <Main>
             <SeuEleitoradoCards />
-            <ChartsContainer>
-              <AgeGroupContainer>
-                <VotersInfoTitle>
-                  <TitleWithBar
-                    content="Faixa etária da População por gênero"
-                    barColor="#2F5CFC"
-                    width={"16rem"}
-                    className="title"
-                  />
-                  <AgeGroupLegend>
-                    {groupGenderConf.map((item) => {
-                      return (
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
+            {cityData ? (
+              <ChartsContainer>
+                <AgeGroupContainer>
+                  <VotersInfoTitle>
+                    <TitleWithBar
+                      content="Faixa etária da População por gênero"
+                      barColor="#2F5CFC"
+                      width={"16rem"}
+                      className="title"
+                    />
+                    <AgeGroupLegend>
+                      {groupGenderConf.map((item) => {
+                        return (
                           <div
-                            key={item.dataKey}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.5rem",
-                            }}
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
                             <div
+                              key={item.dataKey}
                               style={{
-                                width: "0.625rem",
-                                height: "0.625rem",
-                                borderRadius: "50%",
-                                backgroundColor: item.color,
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.5rem",
                               }}
-                            />
-                            <strong style={{ lineHeight: 1 }}>
-                              {item.total}
-                            </strong>
+                            >
+                              <div
+                                style={{
+                                  width: "0.625rem",
+                                  height: "0.625rem",
+                                  borderRadius: "50%",
+                                  backgroundColor: item.color,
+                                }}
+                              />
+                              <strong style={{ lineHeight: 1 }}>
+                                {item.total}
+                              </strong>
+                            </div>
+                            <span
+                              style={{ fontSize: "0.625rem", color: "#8790AB" }}
+                            >
+                              {item.dataKey}
+                            </span>
                           </div>
-                          <span
-                            style={{ fontSize: "0.625rem", color: "#8790AB" }}
-                          >
-                            {item.dataKey}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </AgeGroupLegend>
-                </VotersInfoTitle>
-                <div className="chart">
-                  <AgeGroupByGender
-                    data={groupGenderData}
-                    conf={groupGenderConf}
-                  />
-                </div>
-              </AgeGroupContainer>
-
-              <VotersInfoContainer>
-                <div className="title">
-                  <TitleWithBar
-                    barColor="#2F5CFC"
-                    content={
-                      selectedVoterOption === "education"
-                        ? "Escolaridade dos Eleitores"
-                        : "Idade dos Eleitores"
-                    }
-                  />
-                  <div className="select">
-                    <VotersInfoSelect
-                      selectedValue={selectedVoterOption}
-                      setSelectedValue={setSelectedVoterOption}
-                      values={selectVotersValue}
+                        );
+                      })}
+                    </AgeGroupLegend>
+                  </VotersInfoTitle>
+                  <div className="chart">
+                    <AgeGroupByGender
+                      data={cityData.population.ageRange}
+                      conf={groupGenderConf}
                     />
                   </div>
-                </div>
-                <div className="chart">
-                  <VotersInfo
-                    chartData={selectedData}
-                    labels={selectedVoterLabels}
-                  />
-                </div>
-              </VotersInfoContainer>
-              <MapContainer>
-                <GoogleMapsWrapper>
-                  <GoogleMaps mapId="map_id" locations={locations} />
-                </GoogleMapsWrapper>
-              </MapContainer>
-              <VotersGenderContainer>
-                <div className="title">
-                  <TitleWithBar
-                    content="Gêneros dos Eleitores"
-                    barColor="#2F5CFC"
-                  />
-                </div>
-                <VotersGender />
-              </VotersGenderContainer>
-            </ChartsContainer>
-          </Main> 
-        </Content> 
+                </AgeGroupContainer>
+
+                <VotersInfoContainer>
+                  <div className="title">
+                    <TitleWithBar
+                      barColor="#2F5CFC"
+                      content={
+                        selectedVoterOption === "education"
+                          ? "Escolaridade dos Eleitores"
+                          : selectedVoterOption === "age"
+                          ? "Idade dos Eleitores"
+                          : "Gênero dos Eleitores"
+                      }
+                    />
+                    <div className="select">
+                      <VotersInfoSelect
+                        selectedValue={selectedVoterOption}
+                        setSelectedValue={setSelectedVoterOption}
+                        values={selectVotersValue}
+                      />
+                    </div>
+                  </div>
+                  <div className="chart">
+                    <VotersInfo
+                      chartData={
+                        selectedVoterOption === "age"
+                          ? cityData.electorate.ageRange.map(
+                              (item: any) => item.value
+                            )
+                          : selectedVoterOption === "gender"
+                          ? cityData.electorate.gender.map(
+                              (item: any) => item.value
+                            )
+                          : cityData.electorate.schoolLevel.map(
+                              (item: any) => item.value
+                            )
+                      }
+                      labels={
+                        selectedVoterOption === "age"
+                          ? cityData.electorate.ageRange.map(
+                              (item: any) => item.name
+                            )
+                          : selectedVoterOption === "gender"
+                          ? cityData.electorate.gender.map(
+                              (item: any) => item.name
+                            )
+                          : cityData.electorate.schoolLevel.map(
+                              (item: any) => item.name
+                            )
+                      }
+                    />
+                  </div>
+                </VotersInfoContainer>
+                <MapContainer>
+                  <GoogleMapsWrapper>
+                    <GoogleMaps mapId="map_id" locations={locations} />
+                  </GoogleMapsWrapper>
+                </MapContainer>
+                <VotersGenderContainer>
+                  <div className="title">
+                    <TitleWithBar
+                      content="Gêneros dos Eleitores"
+                      barColor="#2F5CFC"
+                    />
+                  </div>
+                  <VotersGender />
+                </VotersGenderContainer>
+              </ChartsContainer>
+            ) : (
+              <>
+                <Spinner animation="border" />
+              </>
+            )}
+          </Main>
+        </Content>
       </RootLayout>
     </main>
   );

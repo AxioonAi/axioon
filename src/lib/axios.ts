@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const api_url = "http://18.231.150.215";
 export const amazonik = "http://192.168.0.224:3333";
-export const token = "";
+export const token = "axioonToken";
+export const refreshToken = "axioonRefreshToken";
 
 export const api = axios.create({
   baseURL: amazonik,

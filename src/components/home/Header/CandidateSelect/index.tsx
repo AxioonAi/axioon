@@ -1,48 +1,41 @@
 import { useState } from "react";
 import { SelectContainer } from "./styles";
 import { DropDownIconSVG } from "../../../../../public/dashboard/DropdownIconSVG";
+import { ProfileSelector } from "@/components/Global/CitySelector";
+import { Spinner } from "react-bootstrap";
 
 interface Props {
-  values: string[];
-  selectedValue: string;
-  setSelectedValue: (value: string) => void;
+  profiles: string[];
+  selectedProfile: {
+    name: string;
+    politicalGroup: string;
+  };
+  setSelectedProfile: any;
   id?: string;
 }
 
 export function HeaderCandidateSelect({
-  values,
-  selectedValue,
-  setSelectedValue,
+  profiles,
+  selectedProfile,
+  setSelectedProfile,
   id,
 }: Props) {
-  const [isFocused, setIsFocused] = useState(false);
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
-
-  function handleSelect(value: string) {
-    setSelectedValue(value);
-    setIsFocused(false);
-    handleBlur();
-  }
-
   return (
     <>
-      <SelectContainer
+      {/* <SelectContainer
         tabIndex={0}
         onClick={() => setIsFocused(!isFocused)}
         onBlur={handleBlur}
         isOpen={isFocused}
         id={id}
       >
-        <strong style={{ letterSpacing: 2 }} className="white">
-          {selectedValue.split("-")[0]}
-        </strong>
-        {selectedValue.split("-")[1] && (
-          <>
-            -<strong className="white">{`${selectedValue.split("-")[1]}`}</strong>
-          </>
+
+        {selectedValue ? (
+          <strong style={{ color: "white", letterSpacing: 2 }}>
+            {selectedValue.name} - {selectedValue.politicalGroup}
+          </strong>
+        ) : (
+          <></>
         )}
         <div className="icon">
           <DropDownIconSVG color="white" />
@@ -52,12 +45,25 @@ export function HeaderCandidateSelect({
             <div
               className="option"
               onClick={() => handleSelect(value.toString())}
+              style={{
+                backgroundColor:
+                  value === selectedValue ? "#FC792F" : "transparent",
+              }}
             >
-              {value}
+              {value.name} - {value.politicalGroup}
             </div>
           ))}
         </div>
-      </SelectContainer>
+      </SelectContainer> */}
+      {profiles ? (
+        <ProfileSelector
+          selectedProfile={selectedProfile}
+          setSelectedProfile={setSelectedProfile}
+          profiles={profiles}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 }
