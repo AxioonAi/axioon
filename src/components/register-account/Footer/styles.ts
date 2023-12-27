@@ -18,7 +18,7 @@ export const StyledFooter = styled.footer<Props>`
   width: 100%;
 
   & > * {
-    margin: 0 3rem;
+    margin: 0 1rem;
   }
 
   p {

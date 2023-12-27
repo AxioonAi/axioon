@@ -22,28 +22,75 @@ export const Main = styled.main`
 `;
 
 export const Instructions = styled.div`
+  padding: 4rem 0;
   display: grid;
-  grid-template-columns: 90% 90%;
-  grid-template-areas:
-    'step2 step4'
-    'step1 step3';
-
+  margin: auto;
+  grid-template-columns: 37rem 33rem;
 
   .step1 {
     grid-area: step1;
   }
   .step2 {
     grid-area: step2;
-    justify-self: end;
-
+    align-self: flex-end;
   }
   .step3 {
     grid-area: step3;
   }
   .step4 {
     grid-area: step4;
-    justify-self: end;
+    align-self: flex-end;
+  }
 
+  @media (max-width: 1150px) {
+    grid-template-columns: 33rem 29rem;
+  }
+
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 4rem 5%;
+
+    img {
+      width: 5rem;
+    }
+  }
+`;
+
+export const InstructionSection1 = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 3rem;
+
+  @media (max-width: 1024px) {
+    padding: 0;
+    flex-direction: row;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+
+    .step1 {
+      align-self: flex-start;
+    }
+  }
+`;
+
+export const InstructionSection2 = styled(InstructionSection1)`
+  margin-left: -6rem;
+
+  @media (max-width: 1150px) {
+    margin-left: -8rem;
+  }
+
+  @media (max-width: 1024px) {
+    margin-left: 0;
   }
 `;
 
@@ -64,16 +111,29 @@ export const InstructionStep = styled.div`
     color: #fff;
     font-weight: 500;
   }
+
+  @media (max-width: 768px) {
+    .description {
+      width: 190px;
+    }
+  }
 `;
 
 export const StepName = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  line-height: 23px;
   font-size: 1.25rem;
   font-weight: 600;
   background-color: #fff;
   border-radius: 30px;
   width: 211px;
   height: 50px;
+
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+    width: 190px;
+  }
 `;
