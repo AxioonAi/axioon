@@ -45,6 +45,7 @@ export const FormGroup = styled.div`
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
+      pointer-events: none;
     }
 
     select {
