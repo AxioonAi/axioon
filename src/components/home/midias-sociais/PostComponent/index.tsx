@@ -13,12 +13,21 @@ import { windowWidth } from "@/utils/windowWidth";
 
 interface Props {
   type: "instagram" | "facebook" | "youtube" | "tiktok";
-  likes: number;
-  comments: number;
-  feedbacks: number;
+  pageData: any;
+  post: any;
+  index: any;
+  selectedPostId: string;
+  setSelectedPostId: any;
 }
 
-export function PostComponent({ type, likes, comments, feedbacks }: Props) {
+export function PostComponent({
+  type,
+  post,
+  index,
+  pageData,
+  selectedPostId,
+  setSelectedPostId,
+}: Props) {
   function formatNumber(number: number) {
     if (number >= 1000) {
       return (number / 1000).toFixed(1) + "k";
@@ -27,42 +36,32 @@ export function PostComponent({ type, likes, comments, feedbacks }: Props) {
     }
   }
 
+  const date = new Date(post.date || post.created_at);
+
   return (
-    <PostContainer type={type}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Image
-          width={80}
-          height={80}
-          src={
-            type === "facebook"
-              ? "/dashboard/midias-sociais/facebookLogo.png"
-              : type === "instagram"
-              ? "/dashboard/midias-sociais/instagramLogo.png"
-              : type === "youtube"
-              ? "/dashboard/midias-sociais/youtubeLogo.png"
-              : "/dashboard/midias-sociais/tiktokLogo.png"
-          }
-          alt={""}
-          className="logo"
-        />
-        {windowWidth(768) && <PostDate>02/12/2023 - 16:32</PostDate>}
-      </div>
+    <PostContainer
+      type={type}
+      className="hover:cursor-pointer"
+      onClick={() => setSelectedPostId(post.id)}
+    >
+      <Image
+        width={80}
+        height={80}
+        src={
+          type === "facebook"
+            ? "/dashboard/midias-sociais/facebookLogo.png"
+            : type === "instagram"
+            ? "/dashboard/midias-sociais/instagramLogo.png"
+            : type === "youtube"
+            ? "/dashboard/midias-sociais/youtubeLogo.png"
+            : "/dashboard/midias-sociais/tiktokLogo.png"
+        }
+        alt={""}
+        style={{ objectFit: "cover", width: 80, height: 80, margin: 0 }}
+      />
+      {windowWidth(768) && <PostDate>{date.toLocaleDateString()}</PostDate>}
       <PostContent>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita
-          illo sint voluptates fuga aut est debitis enim, eligendi perferendis
-          minus consequatur saepe asperiores corporis officia, impedit
-          reiciendis nihil non quam. Lorem ipsum dolor sit, amet consectetur
-          adipisicing elit. Molestiae magnam explicabo accusantium eligendi?
-          Obcaecati voluptatibus alias tempora qui laudantium consequuntur,
-          saepe sequi at minima blanditiis quas vitae, itaque ad culpa!
-        </p>
+        <p>{post.text || post.description}</p>
         <div
           style={{
             display: "flex",
@@ -80,7 +79,7 @@ export function PostComponent({ type, likes, comments, feedbacks }: Props) {
                   alt=""
                 />
                 <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
-                  {formatNumber(likes)}
+                  {pageData?.posts[index].like}
                 </strong>
               </FeedbackContainer>
               <FeedbackContainer
@@ -93,7 +92,7 @@ export function PostComponent({ type, likes, comments, feedbacks }: Props) {
                   alt=""
                 />
                 <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
-                  {formatNumber(comments)}
+                  {pageData?.posts[index].commentCount}
                 </strong>
               </FeedbackContainer>
               <FeedbackContainer
@@ -106,7 +105,7 @@ export function PostComponent({ type, likes, comments, feedbacks }: Props) {
                   alt=""
                 />
                 <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
-                  {formatNumber(feedbacks)}
+                  {pageData?.posts[index].shares}
                 </strong>
               </FeedbackContainer>
             </PostFeedback>
@@ -125,7 +124,7 @@ export function PostComponent({ type, likes, comments, feedbacks }: Props) {
                     fontSize: "0.85rem",
                   }}
                 >
-                  {formatNumber(likes)}
+                  {pageData?.posts[index].like}
                 </strong>
               </FeedbackContainer>
 
@@ -141,25 +140,37 @@ export function PostComponent({ type, likes, comments, feedbacks }: Props) {
                     fontSize: "0.85rem",
                   }}
                 >
-                  {formatNumber(comments)}
+                  {pageData?.posts[index].commentCount}
                 </strong>
               </FeedbackContainer>
-              <FeedbackContainer
-                style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}
-              >
-                <ViewSVG color={type === "instagram" ? "#EB4956" : "#292D32"} />
-                <strong
+              {pageData?.posts[index].shares ? (
+                <FeedbackContainer
                   style={{
-                    color: type === "instagram" ? "#EB4956" : "#292D32",
-                    fontSize: "0.85rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
                   }}
                 >
-                  {formatNumber(feedbacks)}
-                </strong>
-              </FeedbackContainer>
+                  <ViewSVG
+                    color={type === "instagram" ? "#EB4956" : "#292D32"}
+                  />
+                  <strong
+                    style={{
+                      color: type === "instagram" ? "#EB4956" : "#292D32",
+                      fontSize: "0.85rem",
+                    }}
+                  >
+                    {pageData?.posts[index].shares}
+                  </strong>
+                </FeedbackContainer>
+              ) : (
+                <></>
+              )}
             </PostFeedback>
           )}
-          {!windowWidth(768) && <PostDate>02/12/2023 - 16:32</PostDate>}
+          {!windowWidth(768) && (
+            <PostDate>{date.toLocaleDateString()}</PostDate>
+          )}
         </div>
       </PostContent>
     </PostContainer>

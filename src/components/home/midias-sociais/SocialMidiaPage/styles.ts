@@ -144,6 +144,8 @@ export const PostsAndComments = styled.div`
 `;
 
 export const PostsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   background-color: white;
   border-radius: 15px;
   margin-top: 0.5rem;
@@ -180,7 +182,7 @@ export const LabelAndSelect = styled.div`
 export const SeeMorePosts = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 1rem;
   padding: 0.5rem;
 
   button {
@@ -221,6 +223,8 @@ export const Comments = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  height: 70vh;
+  overflow: scroll;
 `;
 
 export const MetaAdsContainer = styled.div`

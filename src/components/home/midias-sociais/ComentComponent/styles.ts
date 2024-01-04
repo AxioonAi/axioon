@@ -55,9 +55,9 @@ interface ScoreProps {
   score: number;
 }
 
-export const CommentScore = styled.div<ScoreProps>`
+export const CommentScore = styled.div`
   position: relative;
-  width: 4.875rem;
+  width: 5rem;
   height: 0.625rem;
   border-radius: 0.35rem;
   background-image: linear-gradient(
@@ -67,16 +67,17 @@ export const CommentScore = styled.div<ScoreProps>`
     #22c24f,
     #008425
   );
+`;
 
-  .bar {
-    position: absolute;
-    width: 3px;
-    height: 14px;
-    background-color: #3c3c3c;
-    left: 70%;
-    border-radius: 2px;
-    top: -2px;
-  }
+export const Bar = styled.div<ScoreProps>`
+  position: absolute;
+  width: 3px;
+  height: 14px;
+  margin-left: ${({ score }) => score / 10}%;
+  background-color: #3c3c3c;
+  border-radius: 2px;
+  top: -2px;
+  transform: translateX(-50%);
 `;
 
 export const CommentDate = styled.div`

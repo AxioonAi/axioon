@@ -54,7 +54,7 @@ export function LikesAndComentsCard({
         <FeedbackGroup>
           <div className="group">
             <img src={typeData[type].leftImg} alt="" />
-            <strong>{likes}K</strong>
+            <strong>{likes}</strong>
           </div>
           <span>{typeData[type].leftLabel}</span>
         </FeedbackGroup>
@@ -62,7 +62,7 @@ export function LikesAndComentsCard({
         <FeedbackGroup>
           <div className="group">
             <img src={typeData[type].rightImg} alt="" />
-            <strong>{coments}K</strong>
+            <strong>{coments}</strong>
           </div>
           <span>{typeData[type].rightLabel}</span>
         </FeedbackGroup>

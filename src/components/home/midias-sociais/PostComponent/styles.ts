@@ -35,6 +35,7 @@ export const PostContent = styled.div`
     font-size: 1rem;
     font-weight: 500;
     color: #1f1f1f;
+    width: 100%;
     max-height: 5rem;
     overflow: hidden;
     text-overflow: ellipsis;

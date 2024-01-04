@@ -39,11 +39,21 @@ export default function SeuEleitorado() {
     return () => ctx.revert();
   };
 
+  const [selectedProfile, setSelectedProfile] = useState({
+    name: "",
+    politicalGroup: "",
+    id: "",
+  });
+
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
         <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
-          <HeaderComponent fadeOut={() => fadeOut()} />
+          <HeaderComponent
+            selectedProfile={selectedProfile}
+            setSelectedProfile={setSelectedProfile}
+            fadeOut={() => fadeOut()}
+          />
           <Main>
             <h2
               style={{

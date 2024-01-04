@@ -1,12 +1,55 @@
 import { ChartBar, ChartContainer, Container, Legend } from "./styles";
 
-export function SmallBarChart() {
+interface pageData {
+  pageData: any;
+}
+
+export function SmallBarChart({ pageData }: pageData) {
   return (
     <Container>
       <ChartContainer>
-        <ChartBar height="60%" color="#22C24F" />
-        <ChartBar height="40%" color="#FFE14D" />
-        <ChartBar height="100%" color="#C22222" />
+        <ChartBar
+          height={`${
+            (pageData?.commentsStatistics.sentimentStatistics
+              .countSentiment0To350 /
+              (pageData?.commentsStatistics.sentimentStatistics
+                .countSentiment0To350 +
+                pageData?.commentsStatistics.sentimentStatistics
+                  .countSentiment351To650 +
+                pageData?.commentsStatistics.sentimentStatistics
+                  .countSentiment651To1000)) *
+            100
+          }%`}
+          color="#C22222"
+        />
+        <ChartBar
+          height={`${
+            (pageData?.commentsStatistics.sentimentStatistics
+              .countSentiment351To650 /
+              (pageData?.commentsStatistics.sentimentStatistics
+                .countSentiment0To350 +
+                pageData?.commentsStatistics.sentimentStatistics
+                  .countSentiment351To650 +
+                pageData?.commentsStatistics.sentimentStatistics
+                  .countSentiment651To1000)) *
+            100
+          }%`}
+          color="#FFE14D"
+        />
+        <ChartBar
+          height={`${
+            (pageData?.commentsStatistics.sentimentStatistics
+              .countSentiment651To1000 /
+              (pageData?.commentsStatistics.sentimentStatistics
+                .countSentiment0To350 +
+                pageData?.commentsStatistics.sentimentStatistics
+                  .countSentiment351To650 +
+                pageData?.commentsStatistics.sentimentStatistics
+                  .countSentiment651To1000)) *
+            100
+          }%`}
+          color="#22C24F"
+        />
         <div
           style={{
             width: "120%",
@@ -28,7 +71,7 @@ export function SmallBarChart() {
         />
       </ChartContainer>
       <div>
-        <Legend color="#22C24F">
+        <Legend color="#c22222">
           <div className="circle" />
           <span>0 - 350: Ruim</span>
         </Legend>
@@ -36,7 +79,7 @@ export function SmallBarChart() {
           <div className="circle" />
           <span>350 - 650: Regular</span>
         </Legend>
-        <Legend color="#C22222">
+        <Legend color="#22C24F">
           <div className="circle" />
           <span>650 - 1000: Muito Bom</span>
         </Legend>

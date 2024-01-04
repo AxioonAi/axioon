@@ -16,6 +16,7 @@ import {
   UserMenu,
 } from "./styles";
 import { authGetAPI, getAPI } from "@/lib/axios";
+import { Dropdown } from "react-bootstrap";
 
 interface headerProps {
   fadeOut: any;
@@ -63,13 +64,40 @@ export function HeaderComponent({
           <img src="/dashboard/click.svg" alt="" />
           Clique nos <em>Cards</em> para ver os dados do seu Candidato
         </Instruction>
-        <UserMenu>
+        {/* <UserMenu>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <strong>Robert Martins</strong>
             <span>contato@robertmartins.com.br</span>
           </div>
           <img src="/arrow-down.svg" alt="" className="arrow" />
-        </UserMenu>
+        </UserMenu> */}
+        <Dropdown style={{ alignSelf: "center", marginLeft: "auto" }}>
+          <Dropdown.Toggle
+            style={{
+              backgroundColor: "#232323",
+              border: 0,
+              fontSize: 15,
+            }}
+          >
+            <strong>Robert Martins</strong> <br />
+            <span>contato@robertmartins.com.br</span>
+          </Dropdown.Toggle>
+          <Dropdown.Menu style={{ backgroundColor: "#232323" }}>
+            <Dropdown.Item className="text-white hover:bg-black">
+              Perfil
+            </Dropdown.Item>
+            <Dropdown.Item className="text-white hover:bg-black">
+              Alterar Senha
+            </Dropdown.Item>
+            <Dropdown.Item className="text-white hover:bg-black">
+              Configurações
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className="text-white hover:bg-black">
+              Sair
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </HeaderTop>
       <HeaderMenu>
         <MenuItemComponent

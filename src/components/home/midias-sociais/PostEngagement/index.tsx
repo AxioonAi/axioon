@@ -13,56 +13,17 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export function PostEngagement() {
+interface pageData {
+  pageData: any;
+}
+
+export function PostEngagement({ pageData }: pageData) {
   const data = [
     {
-      name: <img src="https://picsum.photos/200/300" alt="" />,
       likes: 4000,
       comments: 2400,
       sentiment: 2400,
       shares: 1620,
-    },
-    {
-      name: "Page B",
-      likes: 3000,
-      comments: 1398,
-      sentiment: 2210,
-      shares: 800,
-    },
-    {
-      name: "Page C",
-      likes: 2000,
-      comments: 9800,
-      sentiment: 2290,
-      shares: 1250,
-    },
-    {
-      name: "Page D",
-      likes: 2780,
-      comments: 3908,
-      sentiment: 2000,
-      shares: 250,
-    },
-    {
-      name: "Page E",
-      likes: 1890,
-      comments: 4800,
-      sentiment: 2181,
-      shares: 890,
-    },
-    {
-      name: "Page F",
-      likes: 2390,
-      comments: 3800,
-      sentiment: 2500,
-      shares: 621,
-    },
-    {
-      name: "Page G",
-      likes: 3490,
-      comments: 4300,
-      sentiment: 2100,
-      shares: 200,
     },
   ];
 
@@ -73,7 +34,12 @@ export function PostEngagement() {
       <BarChart
         width={500}
         height={300}
-        data={data}
+        data={pageData?.posts.slice(0, 10).map((post: any) => ({
+          likes: post.like,
+          comments: post.commentCount,
+          sentiment: post.sentiment,
+          shares: post.shares,
+        }))}
         margin={{
           top: 20,
           right: 30,
@@ -84,10 +50,7 @@ export function PostEngagement() {
         <YAxis />
         <XAxis
           tick={
-            <img
-              src="/eye-slash.svg"
-              style={{ width: "25px", height: "25px" }}
-            />
+            <img src="/axionLogo" style={{ width: "25px", height: "25px" }} />
           }
         />
         <Tooltip />

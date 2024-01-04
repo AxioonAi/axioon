@@ -1,5 +1,6 @@
 import Image from "next/image";
 import {
+  Bar,
   CommentContainer,
   CommentContent,
   CommentDate,
@@ -14,17 +15,11 @@ import { windowWidth } from "@/utils/windowWidth";
 
 interface Props {
   type: "instagram" | "facebook" | "youtube" | "tiktok";
-  likes: number;
-  comments: number;
-  commentScore: number;
+  comment: any;
+  index: any;
 }
 
-export function CommentComponent({
-  type,
-  likes,
-  comments,
-  commentScore,
-}: Props) {
+export function CommentComponent({ type, comment, index }: Props) {
   function formatNumber(number: number) {
     if (number >= 1000) {
       return (number / 1000).toFixed(1) + "k";
@@ -32,6 +27,10 @@ export function CommentComponent({
       return number;
     }
   }
+
+  const commentDate = new Date(
+    comment.date || comment.timestamp || comment.created_at
+  );
 
   return (
     <CommentContainer type={type}>
@@ -51,53 +50,41 @@ export function CommentComponent({
             className="rounded-5"
           />
           {windowWidth(768) && (
-            <strong style={{ fontSize: "0.925rem" }}>Nome</strong>
+            <strong style={{ fontSize: "0.925rem" }}>{comment.username}</strong>
           )}
         </div>
         {windowWidth(768) && (
           <CommentDate>
-            <span>23/10/2023 - 16:42</span>
+            <span>{commentDate.toLocaleDateString()}</span>
           </CommentDate>
         )}
       </div>
       <CommentContent>
         <NameAndContent>
-          {!windowWidth(768) && <strong>Nome</strong>}
-          <p>my text of the printing and typesetting industry.</p>
+          {!windowWidth(768) && <strong>{comment.username}</strong>}
+          <p>{comment.text}</p>
         </NameAndContent>
         <CommentFeedback type={type}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
+          <div className="flex justify-evenly items-center w-full">
             {type === "facebook" && (
-              <CommentFeedback>
-                <FeedbackContainer>
-                  <Image
-                    width={24}
-                    height={24}
-                    src="/dashboard/midias-sociais/facebookLike.png"
-                    alt=""
-                  />
-                  <strong style={{ color: "#0037C1", fontSize: "0.75rem" }}>
-                    {formatNumber(likes)}
-                  </strong>
-                </FeedbackContainer>
-                <FeedbackContainer
-                  style={{
-                    display: "flex",
-                    gap: "0.4rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <Image
-                    width={18}
-                    height={18}
-                    src="/dashboard/midias-sociais/facebookComment.png"
-                    alt=""
-                  />
-                  <strong style={{ color: "#0037C1", fontSize: "0.75rem" }}>
-                    {formatNumber(comments)}
-                  </strong>
-                </FeedbackContainer>
-              </CommentFeedback>
+              <>
+                <CommentFeedback>
+                  <div className="flex justify-center items-center">
+                    <Image
+                      width={24}
+                      height={24}
+                      src="/dashboard/midias-sociais/facebookLike.png"
+                      alt=""
+                    />
+                    <strong style={{ color: "#0037C1", fontSize: "0.75rem" }}>
+                      {comment.likeCount}
+                    </strong>
+                  </div>
+                </CommentFeedback>
+                <CommentDate>
+                  <span>{commentDate.toLocaleDateString()}</span>
+                </CommentDate>
+              </>
             )}
             {type !== "facebook" && (
               <CommentFeedback>
@@ -118,40 +105,43 @@ export function CommentComponent({
                       fontSize: "0.85rem",
                     }}
                   >
-                    {formatNumber(likes)}
+                    {comment.likeCount}
                   </strong>
                 </FeedbackContainer>
 
-                <FeedbackContainer
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.4rem",
-                  }}
-                >
-                  <MessageSVG
-                    color={type === "instagram" ? "#EB4956" : "#292D32"}
-                    size="small"
-                  />
-                  <strong
+                {comment.replyCount ? (
+                  <FeedbackContainer
                     style={{
-                      color: type === "instagram" ? "#EB4956" : "#292D32",
-                      fontSize: "0.85rem",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
                     }}
                   >
-                    {formatNumber(comments)}
-                  </strong>
-                </FeedbackContainer>
+                    <MessageSVG
+                      color={type === "instagram" ? "#EB4956" : "#292D32"}
+                      size="small"
+                    />
+                    <strong
+                      style={{
+                        color: type === "instagram" ? "#EB4956" : "#292D32",
+                        fontSize: "0.85rem",
+                      }}
+                    >
+                      {comment.replyCount}
+                    </strong>
+                  </FeedbackContainer>
+                ) : (
+                  <></>
+                )}
               </CommentFeedback>
             )}
-
-            <CommentScore score={commentScore}>
-              <div className="bar" />
+            <CommentScore>
+              <Bar className="bar" score={comment.sentimentAnalysis} />
             </CommentScore>
           </div>
           {type !== "facebook" && !windowWidth(768) && (
             <CommentDate>
-              <span>23/10/2023 - 16:42</span>
+              <span>{commentDate.toLocaleDateString()}</span>
             </CommentDate>
           )}
         </CommentFeedback>

@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 interface FillProps {
-  fill: string;
+  fill: string | number;
   fillColor: string;
 }
 
@@ -25,7 +25,7 @@ export const SliderFilled = styled.div<FillProps>`
 `;
 
 interface EmptyProps {
-  empty: string;
+  empty: string | number;
   emptyColor: string;
 }
 

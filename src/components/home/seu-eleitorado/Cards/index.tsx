@@ -8,13 +8,10 @@ import {
 } from "./styles";
 
 interface Props {
-  contentTop: string;
-  contentBottom: string;
-  contentRight: string;
-  barColor: string;
+  cityData: any;
 }
 
-export function SeuEleitoradoCards() {
+export function SeuEleitoradoCards({ cityData }: Props) {
   return (
     <Container>
       <CardContainer>
@@ -22,7 +19,9 @@ export function SeuEleitoradoCards() {
         <Content>
           <p>Cidade:</p>
           <CardBottomInfo>
-            <strong style={{ fontSize: "1.375rem" }}>Sinop-MT</strong>
+            <strong style={{ fontSize: "1.375rem" }}>
+              {cityData?.name} - {cityData?.state}
+            </strong>
             <div
               style={{
                 display: "flex",
@@ -35,7 +34,7 @@ export function SeuEleitoradoCards() {
                   fontSize: "1.125rem",
                 }}
               >
-                196 Mil
+                {cityData?.population.total.toLocaleString("pt-BR")}
               </strong>
               <span style={{ fontSize: "0.75rem" }}>Habitantes</span>
             </div>
@@ -57,7 +56,9 @@ export function SeuEleitoradoCards() {
         <Content>
           <p>Eleitores no Município:</p>
           <CardBottomInfo>
-            <strong style={{ fontSize: "1.625rem" }}>106.987 Mil</strong>
+            <strong style={{ fontSize: "1.625rem" }}>
+              {cityData?.electorate.total.toLocaleString("pt-BR")}
+            </strong>
           </CardBottomInfo>
         </Content>
       </CardContainer>
@@ -75,7 +76,7 @@ export function SeuEleitoradoCards() {
               }}
             >
               <strong style={{ fontSize: "2rem", lineHeight: "1.2" }}>
-                29
+                {cityData?.politician}
               </strong>
               <span style={{ fontSize: "1.125rem", fontWeight: "600" }}>
                 Prefeitos

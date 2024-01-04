@@ -6,8 +6,9 @@ export const HeaderContainer = styled.header`
 
 export const HeaderTop = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
+  width: 100%;
 `;
 
 export const Instruction = styled.div`
@@ -17,7 +18,7 @@ export const Instruction = styled.div`
   border: 1px solid #c3c3c3;
   font-weight: bold;
   font-size: 1.1rem;
-
+  margin-left: auto;
   img {
     margin-right: 0.3rem;
   }

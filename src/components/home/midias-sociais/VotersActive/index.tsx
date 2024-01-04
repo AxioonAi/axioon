@@ -34,7 +34,11 @@ const data = [
   },
 ];
 
-export function VotersActive() {
+interface Props {
+  pageData: any;
+}
+
+export function VotersActive({ pageData }: Props) {
   const chartId = useId();
 
   return (
@@ -42,7 +46,10 @@ export function VotersActive() {
       <BarChart
         id={chartId}
         layout="vertical"
-        data={data}
+        data={pageData?.commentsStatistics.commentTime.map((item: any) => ({
+          name: item.name,
+          Quantidade: item.value,
+        }))}
         margin={{
           top: 20,
           right: 20,

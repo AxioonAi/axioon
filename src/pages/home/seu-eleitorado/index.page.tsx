@@ -76,8 +76,6 @@ export default function SeuEleitorado() {
     setCityData(connect.body.city);
   }
 
-  console.log("cityData: ", cityData);
-
   const groupGenderConf = [
     {
       dataKey: "Homens",
@@ -123,24 +121,6 @@ export default function SeuEleitorado() {
     }
   }, []);
 
-  const votersInfoData = {
-    education: [100, 100, 100, 100, 100, 100, 100],
-    gender: [100, 250],
-    age: [100, 100, 100, 100, 100, 100, 100],
-  };
-
-  const [selectedData, setSelectedData] = useState<any>([]);
-
-  useEffect(() => {
-    if (selectedVoterOption === "education") {
-      setSelectedData(votersInfoData.education);
-    } else if (selectedVoterOption === "gender") {
-      setSelectedData(votersInfoData.gender);
-    } else if (selectedVoterOption === "age") {
-      setSelectedData(votersInfoData.age);
-    }
-  }, [selectedVoterOption]);
-
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
@@ -151,7 +131,7 @@ export default function SeuEleitorado() {
             setSelectedProfile={setSelectedProfile}
           />
           <Main>
-            <SeuEleitoradoCards />
+            <SeuEleitoradoCards cityData={cityData} />
             {cityData ? (
               <ChartsContainer>
                 <AgeGroupContainer>
@@ -269,7 +249,7 @@ export default function SeuEleitorado() {
                       barColor="#2F5CFC"
                     />
                   </div>
-                  <VotersGender />
+                  <VotersGender population={cityData.population} />
                 </VotersGenderContainer>
               </ChartsContainer>
             ) : (

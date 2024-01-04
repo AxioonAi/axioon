@@ -62,7 +62,6 @@ export default function InteligenciaArtificial() {
       textarea.style.height = `${textarea.scrollHeight / 16}rem`;
       textarea.style.minHeight = "2rem";
       textarea.style.maxHeight = "12.5rem";
-      console.log(textarea.style.height);
       if (Number(textarea.style.height.split("rem")[0]) > 12.5) {
         textarea.style.overflowY = "scroll";
       } else {
@@ -72,12 +71,21 @@ export default function InteligenciaArtificial() {
   }, []);
 
   const [textareaValue, setTextareaValue] = useState("");
+  const [selectedProfile, setSelectedProfile] = useState({
+    name: "",
+    politicalGroup: "",
+    id: "",
+  });
 
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
         <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
-          <HeaderComponent fadeOut={() => fadeOut()} />
+          <HeaderComponent
+            selectedProfile={selectedProfile}
+            setSelectedProfile={setSelectedProfile}
+            fadeOut={() => fadeOut()}
+          />
           <ChatConteiner>
             <ChatContent>
               <ChatHeader>

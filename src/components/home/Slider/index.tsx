@@ -1,9 +1,9 @@
 import { Container, SliderEmpty, SliderFilled } from "./styles";
 
 interface Props {
-  fill: string;
+  fill: string | number;
   fillColor: string;
-  empty: string;
+  empty: string | number;
   emptyColor: string;
 }
 

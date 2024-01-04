@@ -177,7 +177,6 @@ export const AuthPostAPI = async (url: string, data: any) => {
       const status = err.response.status;
       return { status: status, body: message };
     });
-  console.log(connect);
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413

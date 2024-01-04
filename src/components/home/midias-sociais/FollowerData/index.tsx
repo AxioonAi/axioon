@@ -38,7 +38,6 @@ export function FollowerData({ data }: Props) {
     const sliceThickness = {
       id: "sliceThickness",
       beforeDraw(chart: any, plugins: any) {
-        console.log(chart.getDatasetMeta(0).data[0].outerRadius);
         const chart_width = chart.getDatasetMeta(0).data[0].outerRadius;
         let sliceThicknessPixels = [
           456 * (1 - 40 / 100),

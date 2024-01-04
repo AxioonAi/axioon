@@ -17,12 +17,15 @@ import Image from "next/image";
 import { FollowerData } from "../FollowerData";
 import { FollowerDataLegend } from "../FollowerData/Legend";
 
-export function InitialPage() {
+interface InitialProps {
+  SocialMidiaData: any;
+}
+export function InitialPage({ SocialMidiaData }: InitialProps) {
   const followerData = [
-    { name: "Instagram", count: 40000 },
-    { name: "Facebook", count: 30000 },
-    { name: "Youtube", count: 20000 },
-    { name: "Tiktok", count: 10000 },
+    { name: "Instagram", count: SocialMidiaData?.followers.current.instagram },
+    { name: "Facebook", count: SocialMidiaData?.followers.current.facebook },
+    { name: "Youtube", count: SocialMidiaData?.followers.current.youtube },
+    { name: "Tiktok", count: SocialMidiaData?.followers.current.tiktok },
   ];
 
   const colors = ["#2F5CFC", "#0A2BA0", "#000411", "#E5E8F0"];
