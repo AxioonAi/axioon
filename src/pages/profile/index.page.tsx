@@ -4,7 +4,7 @@ import { Sidebar } from "@/components/Global/Sidebar";
 import { BlockAccountModal } from "@/components/profile/BlockAccountModal";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
 import Theme from "@/styles/themes";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { UserEditSVG } from "../../../public/UserEdit";
 import { TrashCanSVG } from "../../../public/profile/TrashCan";
 import {
@@ -22,17 +22,26 @@ import gsap from "gsap";
 import RootLayout from "@/components/Layout";
 import { UsersTable } from "@/components/users/Table";
 import { NewUserModal } from "@/components/profile/NewUserModal";
+import { AuthPutAPI, authGetAPI } from "@/lib/axios";
+import { maskCpfCnpj, maskDate, maskPhone } from "@/utils/masks";
+import { useRouter } from "next/router";
 
 export default function Profile() {
-  const [selectedGender, setSelectedGender] = useState("male");
+  const router = useRouter();
   const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
   const [showBlockAccountModal, setShowBlockAccountModal] = useState(false);
   const [showNewUserModal, setShowNewUserModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [profileData, setProfileData] = useState({
+    name: "",
+    social_name: "",
+    email: "",
+    mobilePhone: "",
+    cpfCnpj: "",
+    birth_date: "",
+    sex: "",
+  });
   const [isEditing, setIsEditing] = useState(false);
-
-  const handleRadioChange = (event: { target: { value: string } }) => {
-    setSelectedGender(event.target.value);
-  };
 
   const main = useRef(null);
   const content = useRef(null);
@@ -59,6 +68,52 @@ export default function Profile() {
     return () => ctx.revert();
   };
 
+  async function GetProfile() {
+    const connect = await authGetAPI("/user/profile");
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setProfileData(connect.body.user);
+  }
+
+  async function UpdateProfile() {
+    setLoading(true);
+    const connect = await AuthPutAPI("/user/profile", {
+      name: profileData.name,
+      social_name: profileData.social_name,
+      email: profileData.email,
+      mobilePhone: profileData.mobilePhone,
+      cpfCnpj: profileData.cpfCnpj,
+      birth_date: new Date(
+        Number(profileData.birth_date.split("/")[2]),
+        Number(profileData.birth_date.split("/")[1]) - 1,
+        Number(profileData.birth_date.split("/")[0])
+      ),
+      sex: profileData.sex,
+    });
+    console.log("connect", connect);
+    if (connect.status !== 200) {
+      alert(connect.body);
+      return setLoading(false);
+    }
+    router.reload();
+    return setLoading(false);
+  }
+
+  useEffect(() => {
+    GetProfile();
+  }, []);
+
+  console.log("profileData.birth_date: ", profileData.birth_date);
+  console.log(
+    new Date(
+      Number(profileData.birth_date.split("/")[2]),
+      Number(profileData.birth_date.split("/")[1]) - 1,
+      Number(profileData.birth_date.split("/")[0])
+    )
+  );
+  console.log("profileData", profileData);
+
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
@@ -66,53 +121,143 @@ export default function Profile() {
           <Main>
             <header>
               <h2>Meu Perfil</h2>
-              <button
-                style={{
-                  marginLeft: "auto",
-                  marginRight: "5rem",
-                  background: Theme.color.darkBlueAxion,
-                }}
-                onClick={() => setShowNewUserModal(true)}
-              >
-                Cadastrar novo Usuário {""}
-                <img src="/newUser.svg" alt="" />
-              </button>
-              <button onClick={() => setShowNewPasswordModal(true)}>
-                Trocar Senha
-              </button>
+              <div className="flex flex-row gap-10">
+                <GlobalButton
+                  onClick={() => setShowNewUserModal(true)}
+                  content=""
+                  background={Theme.color.darkBlueAxion}
+                  color={Theme.color.gray_10}
+                  width="auto"
+                  height="auto"
+                  fontSize={10}
+                  className="p-2 rounded flex flex-row items-center gap-2 "
+                >
+                  Cadastrar novo Usuário {""}
+                  <img src="/newUser.svg" alt="" />
+                </GlobalButton>
+                <GlobalButton
+                  content=""
+                  background={Theme.color.brand_blue}
+                  color={Theme.color.gray_10}
+                  width="auto"
+                  height="auto"
+                  fontSize={10}
+                  className="p-2 rounded flex flex-row items-center gap-2 "
+                  onClick={() => setShowNewPasswordModal(true)}
+                >
+                  Trocar Senha
+                </GlobalButton>
+              </div>
             </header>
             <PersonalInfo>
               <AvatarContainer>
                 <img src="/sidebar/user.png" alt="" />
-                <button>
+                <GlobalButton
+                  content=""
+                  background="transparent"
+                  color="blue"
+                  fontSize={8}
+                  width="auto"
+                  height="auto"
+                  className="flex flex-row items-center gap-2"
+                >
                   <UserEditSVG />
                   Substituir
-                </button>
+                </GlobalButton>
               </AvatarContainer>
 
               <FormSection>
                 <FormGroup>
                   <label htmlFor="name">Nome Completo</label>
-                  <input type="text" id="name" value={"Robert Martins"} />
+                  <input
+                    type="text"
+                    id="name"
+                    value={profileData?.name}
+                    onChange={(e) =>
+                      setProfileData({
+                        ...profileData,
+                        name: e.target.value,
+                      })
+                    }
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <label htmlFor="name">Nome Social</label>
+                  <input
+                    type="text"
+                    id="social_name"
+                    value={profileData?.social_name}
+                    onChange={(e) =>
+                      setProfileData({
+                        ...profileData,
+                        social_name: e.target.value,
+                      })
+                    }
+                  />
                 </FormGroup>
                 <FormGroup>
                   <label htmlFor="email">Email</label>
-                  <input type="email" id="email" value={"rober@axion.com.br"} />
+                  <input
+                    type="email"
+                    id="email"
+                    value={profileData?.email}
+                    onChange={(e) =>
+                      setProfileData({
+                        ...profileData,
+                        email: e.target.value,
+                      })
+                    }
+                  />
                 </FormGroup>
                 <FormGroup>
                   <label htmlFor="phone">Telefone</label>
-                  <input type="tel" id="phone" value={"(11) 99999-999"} />
+                  <input
+                    type="tel"
+                    id="phone"
+                    value={profileData?.mobilePhone}
+                    onChange={(e) =>
+                      setProfileData({
+                        ...profileData,
+                        mobilePhone: maskPhone(e.target.value),
+                      })
+                    }
+                    maxLength={14}
+                  />
                 </FormGroup>
               </FormSection>
 
               <FormSection>
                 <FormGroup>
                   <label htmlFor="CPF">Seu CPF</label>
-                  <input type="text" id="CPF" value={"111.111.111-11"} />
+                  <input
+                    type="text"
+                    id="CPF"
+                    value={profileData?.cpfCnpj}
+                    onChange={(e) =>
+                      setProfileData({
+                        ...profileData,
+                        cpfCnpj: maskCpfCnpj(e.target.value),
+                      })
+                    }
+                  />
                 </FormGroup>
                 <FormGroup>
                   <label htmlFor="birthDate">Data de Nascimento</label>
-                  <input type="date" id="birthDate" />
+                  <input
+                    type="text"
+                    id="birthDate"
+                    value={profileData?.birth_date
+                      .split("T")[0]
+                      .split("-")
+                      .reverse()
+                      .join("/")}
+                    onChange={(e) =>
+                      setProfileData({
+                        ...profileData,
+                        birth_date: maskDate(e.target.value),
+                      })
+                    }
+                  />
                 </FormGroup>
 
                 <div>
@@ -122,43 +267,58 @@ export default function Profile() {
                   <RadioContainer>
                     <RadioGroup>
                       <RadioSelector
-                        htmlFor="male"
-                        checked={selectedGender === "male"}
+                        htmlFor="MALE"
+                        checked={profileData?.sex === "MALE"}
                       >
                         <div />
                       </RadioSelector>
                       <input
                         type="radio"
                         name="gender"
-                        id="male"
-                        value="male"
-                        checked={selectedGender === "male"}
-                        onChange={handleRadioChange}
+                        id="MALE"
+                        value="MALE"
+                        onChange={(e) =>
+                          setProfileData({
+                            ...profileData,
+                            sex: e.target.value,
+                          })
+                        }
                       />
-                      <label htmlFor="male">Masculino</label>
+                      <label htmlFor="MALE">Masculino</label>
                     </RadioGroup>
 
                     <RadioGroup>
                       <RadioSelector
-                        htmlFor="female"
-                        checked={selectedGender === "female"}
+                        htmlFor="FEMALE"
+                        checked={profileData?.sex === "FEMALE"}
                       >
                         <div />
                       </RadioSelector>
                       <input
                         type="radio"
                         name="gender"
-                        id="female"
-                        value="female"
-                        checked={selectedGender === "female"}
-                        onChange={handleRadioChange}
+                        id="FEMALE"
+                        value="FEMALE"
+                        onChange={(e) =>
+                          setProfileData({
+                            ...profileData,
+                            sex: e.target.value,
+                          })
+                        }
                       />
-                      <label htmlFor="female">Feminino</label>
+                      <label htmlFor="FEMALE">Feminino</label>
                     </RadioGroup>
                   </RadioContainer>
                   <GlobalButton
+                    background={Theme.color.darkBlueAxion}
+                    color={Theme.color.gray_10}
+                    width="100%"
+                    height="auto"
+                    fontSize={10}
+                    className="p-2 rounded flex flex-row items-center gap-2 text-center justify-center mt-5"
                     content="Atualizar Cadastro"
-                    style={{ width: "100%", marginTop: "2rem" }}
+                    onClick={() => UpdateProfile()}
+                    loading={loading}
                   />
                 </div>
               </FormSection>
@@ -172,7 +332,7 @@ export default function Profile() {
             />
 
             <div />
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div className="flex flex-row items-center gap-2">
               <h2>Minha Assinatura</h2>
               <img
                 src="/axionLogo.png"
@@ -180,7 +340,10 @@ export default function Profile() {
                 style={{ height: "1.5rem", marginLeft: "0.5rem" }}
               />
             </div>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div
+              style={{ display: "flex", flexDirection: "row" }}
+              className="mt-5"
+            >
               <div
                 style={{
                   width: "50%",
@@ -348,15 +511,19 @@ export default function Profile() {
           <Main>
             <header>
               <h2>Usuários</h2>
-              <button
-                style={{
-                  background: Theme.color.darkBlueAxion,
-                }}
+              <GlobalButton
+                background={Theme.color.darkBlueAxion}
+                color={Theme.color.gray_10}
+                content=""
+                width="auto"
+                height="auto"
+                fontSize={10}
+                className="p-2 rounded flex flex-row items-center gap-2 text-center justify-center mt-5"
                 onClick={() => setShowNewUserModal(true)}
               >
                 Cadastrar novo Usuário {""}
                 <img src="/newUser.svg" alt="" />
-              </button>
+              </GlobalButton>
             </header>
             <UsersTable />
           </Main>

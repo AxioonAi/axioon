@@ -1,3 +1,4 @@
+import Theme from "@/styles/themes";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -7,7 +8,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 15rem;
+  padding-bottom: 22rem;
+  color: ${Theme.color.gray_10};
 
   strong {
     font-size: 1.5rem;
@@ -17,18 +19,6 @@ export const Container = styled.div`
     font-size: 1.1rem;
   }
 
-  img {
-    width: 8rem;
-    height: auto;
-  }
-
-  .logo {
-    img {
-      width: 11rem;
-      height: auto;
-    }
-  }
-
   @media (min-width: 768px) {
     strong {
       font-size: 3rem;
@@ -36,17 +26,6 @@ export const Container = styled.div`
 
     span {
       font-size: 1.4rem;
-    }
-
-    img {
-      width: 12rem;
-    }
-
-    .logo {
-      img {
-        width: 16.75rem;
-        height: auto;
-      }
     }
   }
 `;
@@ -59,7 +38,6 @@ export const AccessButton = styled.button`
   border-radius: 5px;
   margin-top: 2rem;
   transition: 0.3s;
-  max-width: 96%;
 
   &:hover {
     background-color: ${({ theme }) => theme.color.hoverDarkBlueAxion};

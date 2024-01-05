@@ -9,28 +9,35 @@ export default function FinishPayment() {
 
   return (
     <>
-      <Container>
-        <div className="logo mb-5 mt-3">
-          <Image width={267} height={52} src={'/axionLogo.png'} alt="" />
+      <Container className="bg-gradient-to-br from-[#0D123C] to-[#34374C]">
+        <img
+          src={"AxioonLogoWhite.svg"}
+          alt=""
+          className={`w-1/2 md:w-1/4 transition ease-linear duration-1000 delay-100`}
+        />
+        <div className="flex flex-col items-center">
+          <strong>Pagamento aprovado!</strong>
+          <span
+            style={{
+              color: Theme.color.gray_60,
+              maxWidth: "480px",
+              textAlign: "center",
+            }}
+            className="mt-3 mb-3"
+          >
+            Seu Pagamento foi aprovado, acesse agora mesmo a Axioon e desfrute
+            de todos os benefícios.
+          </span>
+          <img src="/verify.svg" alt="" className="w-25 h-25 self-center" />
+          <AccessButton
+            className="bg-white text-black font-bold"
+            onClick={() => router.push("/register-candidate")}
+          >
+            Monitorar Agentes Políticos
+          </AccessButton>
         </div>
-        <strong>Pagamento Aprovado!</strong>
-        <span
-          style={{
-            color: Theme.color.gray_80,
-            maxWidth: "480px",
-            textAlign: "center",
-          }}
-          className="mt-3 mb-3"
-        >
-          Acesse agora mesmo o sistema Axioon e saia na frente tomando decisões
-          inteligentes.
-        </span>
-        <img src="/verify.svg" alt="" />
-        <AccessButton onClick={() => router.push("/register-candidate")}>
-          Utilizar Inteligência de Dados
-        </AccessButton>
       </Container>
-      <Footer />
+      <Footer type={"dark"} />
     </>
   );
 }

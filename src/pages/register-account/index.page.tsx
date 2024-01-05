@@ -17,11 +17,13 @@ import { CompanyDataForm } from "@/components/register-account/CompanyDataForm";
 import { AnialiasingFormData } from "@/components/register-account/AnaliasingData";
 import { Messages } from "@/components/Global/Messages";
 import { PostAPI } from "@/lib/axios";
+import { Spinner } from "react-bootstrap";
 
 export default function RegisterAccount() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [terms, setTerms] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,6 +36,7 @@ export default function RegisterAccount() {
   });
 
   async function handleRegister() {
+    setLoading(true);
     const birthDate = new Date(formData.birth_date).toISOString();
     const connect = await PostAPI("/register", {
       name: formData.name,
@@ -46,13 +49,15 @@ export default function RegisterAccount() {
       mobilePhone: formData.mobilePhone,
     });
     if (connect.status !== 200) {
-      return alert(connect.body);
+      alert(connect.body);
+      return setLoading(false);
     }
     if (connect.status === 200) {
       setStep(3);
-      return setTimeout(() => {
+      setTimeout(() => {
         router.push("/finish-register");
       }, 5000);
+      return setLoading(false);
     }
   }
 
@@ -137,7 +142,11 @@ export default function RegisterAccount() {
                     Voltar
                   </BackButton>
                   <NextButton onClick={handleNext}>
-                    Finalizar Cadastro
+                    {loading ? (
+                      <Spinner animation="border" />
+                    ) : (
+                      "Finalizar Cadastro"
+                    )}
                   </NextButton>
                 </div>
               )}

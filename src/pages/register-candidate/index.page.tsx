@@ -21,7 +21,7 @@ export default function RegisterCandidate() {
     setSelectedMethod(event.target.value);
   };
   return (
-    <Container>
+    <Container className="bg-gradient-to-br from-[#0D123C] to-[#34374C]">
       <RegisterAccountHeader type="dark" />
       <Main>
         <Instructions>

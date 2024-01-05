@@ -22,7 +22,7 @@ import {
   VotersInfoContainer,
   VotersInfoTitle,
 } from "./styles";
-import { authGetAPI } from "@/lib/axios";
+import { authGetAPI, loginVerifyAPI } from "@/lib/axios";
 import { Spinner } from "react-bootstrap";
 
 export default function SeuEleitorado() {
@@ -194,8 +194,8 @@ export default function SeuEleitorado() {
                         selectedVoterOption === "education"
                           ? "Escolaridade dos Eleitores"
                           : selectedVoterOption === "age"
-                          ? "Idade dos Eleitores"
-                          : "Gênero dos Eleitores"
+                            ? "Idade dos Eleitores"
+                            : "Gênero dos Eleitores"
                       }
                     />
                     <div className="select">
@@ -214,12 +214,12 @@ export default function SeuEleitorado() {
                               (item: any) => item.value
                             )
                           : selectedVoterOption === "gender"
-                          ? cityData.electorate.gender.map(
-                              (item: any) => item.value
-                            )
-                          : cityData.electorate.schoolLevel.map(
-                              (item: any) => item.value
-                            )
+                            ? cityData.electorate.gender.map(
+                                (item: any) => item.value
+                              )
+                            : cityData.electorate.schoolLevel.map(
+                                (item: any) => item.value
+                              )
                       }
                       labels={
                         selectedVoterOption === "age"
@@ -227,12 +227,12 @@ export default function SeuEleitorado() {
                               (item: any) => item.name
                             )
                           : selectedVoterOption === "gender"
-                          ? cityData.electorate.gender.map(
-                              (item: any) => item.name
-                            )
-                          : cityData.electorate.schoolLevel.map(
-                              (item: any) => item.name
-                            )
+                            ? cityData.electorate.gender.map(
+                                (item: any) => item.name
+                              )
+                            : cityData.electorate.schoolLevel.map(
+                                (item: any) => item.name
+                              )
                       }
                     />
                   </div>

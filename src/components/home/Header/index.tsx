@@ -17,6 +17,7 @@ import {
 } from "./styles";
 import { authGetAPI, getAPI } from "@/lib/axios";
 import { Dropdown } from "react-bootstrap";
+import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
 
 interface headerProps {
   fadeOut: any;
@@ -36,6 +37,7 @@ export function HeaderComponent({
   const router = useRouter();
 
   const [selectedTimeValue, setSelectedTimeValue] = useState("Últimos 15 Dias");
+  const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
   const timeValues = ["Últimos 7 Dias", "Últimos 15 Dias", "Últimos 30 Dias"];
 
   const [monitoredProfiles, setMonitoredProfiles] = useState([]);
@@ -53,116 +55,121 @@ export function HeaderComponent({
     });
   }
 
+  async function logOut() {
+    localStorage.removeItem("axioonToken");
+    localStorage.removeItem("axioonRefreshToken");
+    router.push("/");
+  }
+
   useEffect(() => {
     getPoliticians();
   }, []);
 
   return (
-    <HeaderContainer>
-      <HeaderTop>
-        <Instruction>
-          <img src="/dashboard/click.svg" alt="" />
-          Clique nos <em>Cards</em> para ver os dados do seu Candidato
-        </Instruction>
-        {/* <UserMenu>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <strong>Robert Martins</strong>
-            <span>contato@robertmartins.com.br</span>
-          </div>
-          <img src="/arrow-down.svg" alt="" className="arrow" />
-        </UserMenu> */}
-        <Dropdown style={{ alignSelf: "center", marginLeft: "auto" }}>
-          <Dropdown.Toggle
-            style={{
-              backgroundColor: "#232323",
-              border: 0,
-              fontSize: 15,
-            }}
-          >
-            <strong>Robert Martins</strong> <br />
-            <span>contato@robertmartins.com.br</span>
-          </Dropdown.Toggle>
-          <Dropdown.Menu style={{ backgroundColor: "#232323" }}>
-            <Dropdown.Item className="text-white hover:bg-black">
-              Perfil
-            </Dropdown.Item>
-            <Dropdown.Item className="text-white hover:bg-black">
-              Alterar Senha
-            </Dropdown.Item>
-            <Dropdown.Item className="text-white hover:bg-black">
-              Configurações
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="text-white hover:bg-black">
-              Sair
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </HeaderTop>
-      <HeaderMenu>
-        <MenuItemComponent
-          fadeOut={() => fadeOut()}
-          imgSrc="/dashboard/seu-eleitorado-menu.png"
-          href="/seu-eleitorado"
-          name="SEU ELEITORADO"
-        />
-        <MenuItemComponent
-          fadeOut={() => fadeOut()}
-          imgSrc="/dashboard/midias-sociais-menu.png"
-          href="/midias-sociais"
-          name="MÍDIAS SOCIAIS"
-        />
-        <MenuItemComponent
-          fadeOut={() => fadeOut()}
-          imgSrc="/dashboard/suas-noticias-menu.png"
-          href="/mencoes"
-          name="MENÇÕES"
-        />
-        <MenuItemComponent
-          fadeOut={() => fadeOut()}
-          imgSrc="/dashboard/inteligencia-artificial-menu.png"
-          href="/inteligencia-artificial"
-          name="INTELIGENCIA ARTIFICIAL"
-        />
-      </HeaderMenu>
-      <Candidate>
-        <CandidateInfo>
-          <Image
-            src={"/dashboard/candidate.png"}
-            width={200}
-            height={200}
-            alt=""
+    <>
+      <HeaderContainer>
+        <HeaderTop>
+          <Instruction>
+            <img src="/dashboard/click.svg" alt="" />
+            Clique nos <em>Cards</em> para ver os dados do seu Candidato
+          </Instruction>
+          <Dropdown style={{ alignSelf: "center", marginLeft: "auto" }}>
+            <Dropdown.Toggle
+              style={{
+                backgroundColor: "#232323",
+                border: 0,
+                fontSize: 15,
+              }}
+            >
+              <strong>Robert Martins</strong> <br />
+              <span>contato@robertmartins.com.br</span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu style={{ backgroundColor: "#232323" }}>
+              <Dropdown.Item
+                className="text-white hover:bg-black"
+                onClick={() => setShowNewPasswordModal(true)}
+              >
+                Alterar Senha
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item
+                className="text-white hover:bg-black"
+                onClick={logOut}
+              >
+                Sair
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </HeaderTop>
+        <HeaderMenu>
+          <MenuItemComponent
+            fadeOut={() => fadeOut()}
+            imgSrc="/dashboard/seu-eleitorado-menu.png"
+            href="/seu-eleitorado"
+            name="SEU ELEITORADO"
           />
-          <div className="info">
-            <HeaderCandidateSelect
-              profiles={monitoredProfiles}
-              selectedProfile={selectedProfile}
-              setSelectedProfile={setSelectedProfile}
+          <MenuItemComponent
+            fadeOut={() => fadeOut()}
+            imgSrc="/dashboard/midias-sociais-menu.png"
+            href="/midias-sociais"
+            name="MÍDIAS SOCIAIS"
+          />
+          <MenuItemComponent
+            fadeOut={() => fadeOut()}
+            imgSrc="/dashboard/suas-noticias-menu.png"
+            href="/mencoes"
+            name="MENÇÕES"
+          />
+          <MenuItemComponent
+            fadeOut={() => fadeOut()}
+            imgSrc="/dashboard/inteligencia-artificial-menu.png"
+            href="/inteligencia-artificial"
+            name="INTELIGENCIA ARTIFICIAL"
+          />
+        </HeaderMenu>
+        <Candidate>
+          <CandidateInfo>
+            <Image
+              src={"/dashboard/candidate.png"}
+              width={200}
+              height={200}
+              alt=""
             />
-            <span className="candidateNumber">
-              Número do Candidato: xxxxxxxxxx
-            </span>
-            <span className="status">
-              <div className="statusCircle" />
-              Participando da Eleição
-            </span>
-          </div>
-        </CandidateInfo>
+            <div className="info">
+              <HeaderCandidateSelect
+                profiles={monitoredProfiles}
+                selectedProfile={selectedProfile}
+                setSelectedProfile={setSelectedProfile}
+              />
+              <span className="candidateNumber">
+                Número do Candidato: xxxxxxxxxx
+              </span>
+              <span className="status">
+                <div className="statusCircle" />
+                Participando da Eleição
+              </span>
+            </div>
+          </CandidateInfo>
 
-        <ButtonAndSelect>
-          {router.asPath.split("/")[2] === "seu-eleitorado" && (
-            <Register>Cadastro</Register>
-          )}
+          <ButtonAndSelect>
+            {router.asPath.split("/")[2] === "seu-eleitorado" && (
+              <Register>Cadastro</Register>
+            )}
 
-          {router.asPath.split("/")[2] !== "inteligencia-artificial" && (
-            <HeaderTimeSelect
-              values={timeValues}
-              selectedValue={selectedTimeValue}
-              setSelectedValue={setSelectedTimeValue}
-            />
-          )}
-        </ButtonAndSelect>
-      </Candidate>
-    </HeaderContainer>
+            {router.asPath.split("/")[2] !== "inteligencia-artificial" && (
+              <HeaderTimeSelect
+                values={timeValues}
+                selectedValue={selectedTimeValue}
+                setSelectedValue={setSelectedTimeValue}
+              />
+            )}
+          </ButtonAndSelect>
+        </Candidate>
+      </HeaderContainer>
+      <NewPasswordModal
+        show={showNewPasswordModal}
+        onHide={() => setShowNewPasswordModal(false)}
+      />
+    </>
   );
 }

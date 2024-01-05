@@ -7,20 +7,15 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 15rem;
+  padding-bottom: 22rem;
 
   strong {
-      font-size: 1.5rem;
-    }
+    font-size: 1.5rem;
+  }
 
-    span {
-      font-size: 1.1rem;
-    }
-
-    img {
-      width: 8rem;
-      height: auto;
-    }
+  span {
+    font-size: 1.1rem;
+  }
 
   @media (min-width: 768px) {
     strong {
@@ -29,10 +24,6 @@ export const Container = styled.div`
 
     span {
       font-size: 1.4rem;
-    }
-
-    img {
-      width: 12rem;
     }
   }
 `;
@@ -50,7 +41,7 @@ export const AccessButton = styled.button`
     background-color: ${({ theme }) => theme.color.hoverDarkBlueAxion};
   }
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     padding: 1rem 10rem;
   }
 `;

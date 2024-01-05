@@ -1,1 +1,1 @@
-export { default } from "./home/seu-eleitorado/index.page";
+export { default } from "./home/index.page";

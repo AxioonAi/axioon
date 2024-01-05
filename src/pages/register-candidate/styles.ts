@@ -2,13 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  padding-bottom: 12rem;
   min-height: 100vh;
-  background: linear-gradient(117deg, #0d123c 0%, #34374c 100%);
-
-  @media (max-width: 768px) {
-    padding-bottom: 11rem;
-  }
 `;
 
 export const Main = styled.main`
@@ -17,9 +11,6 @@ export const Main = styled.main`
   /* justify-content: space-between; */
   max-width: 1200px;
   margin: auto;
-
-  @media (max-width: 1180px) {
-  }
 `;
 
 export const Instructions = styled.div`
@@ -136,7 +127,7 @@ export const StepName = styled.div`
 export const FormContainer = styled.div`
   padding: 0;
 
-  @media(max-width: 1240px) {
+  @media (max-width: 1240px) {
     padding: 0 1rem;
   }
 `;

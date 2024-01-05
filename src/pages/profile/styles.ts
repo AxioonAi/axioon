@@ -70,7 +70,7 @@ export const Main = styled.main`
       font-weight: 600;
     }
 
-    button {
+    /* button {
       background-color: ${({ theme }) => theme.color.brand_blue};
       color: white;
       border: 0;
@@ -81,7 +81,7 @@ export const Main = styled.main`
       &:hover {
         background-color: ${({ theme }) => theme.color.brand_blue_hover};
       }
-    }
+    } */
   }
 
   label {
