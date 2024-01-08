@@ -7,8 +7,6 @@ interface Props {
 }
 
 export function KeyIndicators({ pageData }: Props) {
-  console.log("pageData: ", pageData);
-
   return (
     <KeyIndicatorsContainer>
       {!pageData ? (

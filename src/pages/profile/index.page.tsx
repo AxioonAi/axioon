@@ -91,7 +91,6 @@ export default function Profile() {
       ),
       sex: profileData.sex,
     });
-    console.log("connect", connect);
     if (connect.status !== 200) {
       alert(connect.body);
       return setLoading(false);
@@ -103,16 +102,6 @@ export default function Profile() {
   useEffect(() => {
     GetProfile();
   }, []);
-
-  console.log("profileData.birth_date: ", profileData.birth_date);
-  console.log(
-    new Date(
-      Number(profileData.birth_date.split("/")[2]),
-      Number(profileData.birth_date.split("/")[1]) - 1,
-      Number(profileData.birth_date.split("/")[0])
-    )
-  );
-  console.log("profileData", profileData);
 
   return (
     <main ref={main}>

@@ -47,12 +47,14 @@ export function HeaderComponent({
     if (connect.status !== 200) {
       return alert(connect.body);
     }
-    setMonitoredProfiles(connect.body.profile);
-    setSelectedProfile({
-      name: connect.body.profile[0].name,
-      politicalGroup: connect.body.profile[0].politicalGroup,
-      id: connect.body.profile[0].id,
-    });
+    if (connect.body.profile.length !== 0) {
+      setMonitoredProfiles(connect.body.profile);
+      setSelectedProfile({
+        name: connect.body.profile[0].name,
+        politicalGroup: connect.body.profile[0].politicalGroup,
+        id: connect.body.profile[0].id,
+      });
+    }
   }
 
   async function logOut() {

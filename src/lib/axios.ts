@@ -6,8 +6,36 @@ export const token = "axioonToken";
 export const refreshToken = "axioonRefreshToken";
 
 export const api = axios.create({
-  baseURL: amazonik,
+  baseURL: api_url,
 });
+
+export const IBGE = axios.create({
+  baseURL: "https://servicodados.ibge.gov.br/api/v1/localidades/",
+});
+
+export const IBGEAPI = async (url: string) => {
+  const connect = await IBGE.get(url)
+    .then(({ data }) => {
+      return {
+        status: 200,
+        body: data,
+      };
+    })
+    .catch((err) => {
+      const message = err.response.data;
+      const status = err.response.status;
+      return { status: status, body: message };
+    });
+
+  return connect.status === 500
+    ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
+    : connect.status === 413
+      ? {
+          status: connect.status,
+          body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
+        }
+      : connect;
+};
 
 export const PostAPI = async (url: string, data: any) => {
   const connect = await api
@@ -27,11 +55,11 @@ export const PostAPI = async (url: string, data: any) => {
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413
-    ? {
-        status: connect.status,
-        body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
-      }
-    : connect;
+      ? {
+          status: connect.status,
+          body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
+        }
+      : connect;
 };
 
 export const PutAPI = async (url: string, data: any) => {
@@ -52,11 +80,11 @@ export const PutAPI = async (url: string, data: any) => {
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413
-    ? {
-        status: connect.status,
-        body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
-      }
-    : connect;
+      ? {
+          status: connect.status,
+          body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
+        }
+      : connect;
 };
 
 export const getAPI = async (url: string) => {
@@ -77,11 +105,11 @@ export const getAPI = async (url: string) => {
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413
-    ? {
-        status: connect.status,
-        body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
-      }
-    : connect;
+      ? {
+          status: connect.status,
+          body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
+        }
+      : connect;
 };
 
 export const authGetAPI = async (url: string) => {
@@ -112,11 +140,11 @@ export const authGetAPI = async (url: string) => {
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413
-    ? {
-        status: connect.status,
-        body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
-      }
-    : connect;
+      ? {
+          status: connect.status,
+          body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
+        }
+      : connect;
 };
 
 export const authDeleteAPI = async (url: string) => {
@@ -147,11 +175,11 @@ export const authDeleteAPI = async (url: string) => {
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413
-    ? {
-        status: connect.status,
-        body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
-      }
-    : connect;
+      ? {
+          status: connect.status,
+          body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
+        }
+      : connect;
 };
 export const AuthPostAPI = async (url: string, data: any) => {
   const storageToken = localStorage.getItem(token);
@@ -180,11 +208,11 @@ export const AuthPostAPI = async (url: string, data: any) => {
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413
-    ? {
-        status: connect.status,
-        body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
-      }
-    : connect;
+      ? {
+          status: connect.status,
+          body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
+        }
+      : connect;
 };
 
 export const AuthPutAPI = async (url: string, data: any) => {
@@ -215,11 +243,11 @@ export const AuthPutAPI = async (url: string, data: any) => {
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413
-    ? {
-        status: connect.status,
-        body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
-      }
-    : connect;
+      ? {
+          status: connect.status,
+          body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
+        }
+      : connect;
 };
 
 export const loginVerifyAPI = async () => {

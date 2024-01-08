@@ -1,6 +1,6 @@
 import { Footer } from "@/components/register-account/Footer";
 import { RegisterAccountHeader } from "@/components/register-account/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   FormContainer,
@@ -13,13 +13,81 @@ import {
 } from "./styles";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { CandidateForm } from "@/components/register-candidate/CandidateForm";
+import { AuthPostAPI, IBGEAPI, PostAPI, getAPI } from "@/lib/axios";
+import { GlobalButton } from "@/components/Global/Button";
+import Theme from "@/styles/themes";
+import { useRouter } from "next/router";
 
 export default function RegisterCandidate() {
-  const [selectedMethod, setSelectedMethod] = useState("");
+  const router = useRouter();
+  const [step, setStep] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [cpfCheck, setCpfCheck] = useState("");
+  const [formData, setFormData] = useState({
+    social_name: "",
+    full_name: "",
+    role: {
+      value: "",
+      label: "",
+    },
+    youtube: "",
+    instagram: "",
+    tiktok: "",
+    facebook: "",
+    state: {
+      id: 0,
+      value: "",
+      label: "",
+    },
+    city: {
+      id: 0,
+      value: "",
+      label: "",
+    },
+    political_group_id: {
+      acronym: "",
+      id: "",
+      number: 0,
+      label: "",
+    },
+  });
 
-  const handleRadioChange = (event: { target: { value: string } }) => {
-    setSelectedMethod(event.target.value);
-  };
+  console.log("formData", formData);
+
+  async function checkCpf() {
+    const connect = await getAPI(`/profile/cpf/${cpfCheck}`);
+    if (connect.status !== 200) {
+      return setStep(true);
+    }
+    return router.push("/");
+  }
+
+  async function handleRegister() {
+    setLoading(true);
+    const connect = await AuthPostAPI("/profile", {
+      social_name: formData.social_name,
+      full_name: formData.full_name,
+      cpf: cpfCheck,
+      role: formData.role.value,
+      youtube: formData.youtube,
+      instagram: formData.instagram,
+      tiktok: formData.tiktok,
+      facebook: formData.facebook,
+      city: {
+        name: formData.city.label,
+        state: formData.state.value,
+      },
+      political_group_id: formData.political_group_id.id,
+    });
+    console.log("connect: ", connect);
+    if (connect.status !== 200) {
+      alert(connect.body);
+      return setLoading(false);
+    }
+    router.push("/");
+    return setLoading(false);
+  }
+
   return (
     <Container className="bg-gradient-to-br from-[#0D123C] to-[#34374C]">
       <RegisterAccountHeader type="dark" />
@@ -70,16 +138,50 @@ export default function RegisterCandidate() {
           </InstructionSection2>
         </Instructions>
 
-        <FormContainer>
-          <TitleBottomBar
-            title="Hora de Cadastrar o político que quer acompanhar as métricas"
-            barColor="#fff"
-            textColor="#fff"
-            width="35rem"
-          />
+        {!step ? (
+          <>
+            <TitleBottomBar
+              title="Insira o CPF do usuário para realizar o cadastro"
+              barColor="#fff"
+              textColor="#fff"
+              width="35rem"
+            />
+            <input
+              type="number"
+              placeholder="Insira o CPF"
+              className="mt-5 w-1/2 self-center p-3 rounded-lg"
+              value={cpfCheck}
+              onChange={(e) => setCpfCheck(e.target.value)}
+            />
+            <GlobalButton
+              content="Avançar"
+              background={Theme.color.darkBlueAxion}
+              color={Theme.color.gray_10}
+              width="auto"
+              height="auto"
+              className="mt-5 p-3 w-1/2 self-center rounded-lg px-5 border-1  border border-white"
+              onClick={checkCpf}
+            />
+          </>
+        ) : (
+          <FormContainer>
+            <TitleBottomBar
+              title="Hora de Cadastrar o político que quer acompanhar as métricas"
+              barColor="#fff"
+              textColor="#fff"
+              width="35rem"
+            />
 
-          <CandidateForm />
-        </FormContainer>
+            <CandidateForm
+              // stateList={stateList}
+              // cityList={cityList}
+              formData={formData}
+              setFormData={setFormData}
+              loading={loading}
+              handleRegister={handleRegister}
+            />
+          </FormContainer>
+        )}
       </Main>
       <Footer type="dark" />
     </Container>

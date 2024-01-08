@@ -41,7 +41,6 @@ export default function Login() {
       email: formData.email,
       password: formData.password,
     });
-    console.log("connectLogin: ", connect);
     if (connect.status !== 200) {
       alert(connect.body);
       return setButtonLoading(false);

@@ -35,9 +35,12 @@ export default function RegisterAccount() {
     mobilePhone: "",
   });
 
+  console.log("formData: ", formData);
+
   async function handleRegister() {
-    setLoading(true);
+    // setLoading(true);
     const birthDate = new Date(formData.birth_date).toISOString();
+    console.log("birthDate: ", birthDate);
     const connect = await PostAPI("/register", {
       name: formData.name,
       email: formData.email,

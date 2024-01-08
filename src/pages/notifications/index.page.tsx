@@ -68,8 +68,6 @@ export default function Notifications() {
     getNotifications();
   }, []);
 
-  console.log("notifications: ", notifications);
-
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
@@ -149,10 +147,10 @@ export default function Notifications() {
                           notification.type === "Instagram"
                             ? "/InstagramLogo.svg"
                             : notification.type === "Facebook"
-                            ? "/FacebookLogo.svg"
-                            : notification.type === "Tiktok"
-                            ? "/TiktokLogo.svg"
-                            : "/YoutubeLogo.svg"
+                              ? "/FacebookLogo.svg"
+                              : notification.type === "Tiktok"
+                                ? "/TiktokLogo.svg"
+                                : "/YoutubeLogo.svg"
                         }
                         alt=""
                         style={{ width: 25, height: 25, marginRight: 10 }}
@@ -293,10 +291,10 @@ export default function Notifications() {
                           notification.type === "Instagram"
                             ? "/InstagramLogo.svg"
                             : notification.type === "Facebook"
-                            ? "/FacebookLogo.svg"
-                            : notification.type === "Tiktok"
-                            ? "/TiktokLogo.svg"
-                            : "/YoutubeLogo.svg"
+                              ? "/FacebookLogo.svg"
+                              : notification.type === "Tiktok"
+                                ? "/TiktokLogo.svg"
+                                : "/YoutubeLogo.svg"
                         }
                         alt=""
                         style={{ width: 25, height: 25, marginRight: 10 }}
@@ -433,10 +431,10 @@ export default function Notifications() {
                           notification.type === "Instagram"
                             ? "/InstagramLogo.svg"
                             : notification.type === "Facebook"
-                            ? "/FacebookLogo.svg"
-                            : notification.type === "Tiktok"
-                            ? "/TiktokLogo.svg"
-                            : "/YoutubeLogo.svg"
+                              ? "/FacebookLogo.svg"
+                              : notification.type === "Tiktok"
+                                ? "/TiktokLogo.svg"
+                                : "/YoutubeLogo.svg"
                         }
                         alt=""
                         style={{ width: 25, height: 25, marginRight: 10 }}

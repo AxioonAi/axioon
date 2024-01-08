@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   position: relative;
   min-height: 100vh;
+  max-height: 100vh;
+  overflow: auto;
 `;
 
 export const Main = styled.main`
