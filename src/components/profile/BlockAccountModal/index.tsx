@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ConfirmBlockAccountModal } from "./ConfirmBlockAccount";
 import { DeleteAccount } from "@/pages/profile/styles";
 import { DeleteAccountModal } from "./DeleteAccount";
+import Theme from "@/styles/themes";
 
 interface ModalProps {
   show: boolean;
@@ -43,14 +44,17 @@ export function BlockAccountModal({ show, onHide }: ModalProps) {
           suas informações e conta serão totalmente apagadas.
         </span>
         <GlobalButton
+          background={Theme.color.darkBlueAxion}
+          color={Theme.color.gray_10}
           content="Bloquear Conta"
           className="button1"
           onClick={handleOpenBlockAccount}
         />
 
         <GlobalButton
+          background={Theme.color.gray_10}
+          color={Theme.color.darkBlueAxion}
           content="Excluir Conta"
-          variant="secondary"
           className="button2"
           onClick={handleOpenDeleteAccount}
         />
