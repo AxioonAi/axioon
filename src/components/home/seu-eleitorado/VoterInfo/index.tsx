@@ -8,6 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 interface Props {
   chartData: [];
+  labels?: string[];
 }
 
 export const footer = (tooltipItems: any) => {
@@ -24,7 +25,7 @@ export const footer = (tooltipItems: any) => {
   return ((currentValue * 100) / total).toFixed(1) + "%";
 };
 
-export function VotersInfo({ chartData }: Props) {
+export function VotersInfo({ chartData, labels }: Props) {
   const options = {
     responsive: true,
     plugins: {
@@ -61,6 +62,7 @@ export function VotersInfo({ chartData }: Props) {
   };
 
   const data = {
+    labels: labels,
     datasets: [
       {
         label: "Número de eleitores",

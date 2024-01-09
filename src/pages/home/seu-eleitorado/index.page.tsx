@@ -66,10 +66,11 @@ export default function SeuEleitorado() {
     id: "",
   });
 
-  const [cityData, setCityData] = useState();
+  const [cityData, setCityData] = useState<any>();
 
   async function getCityDetails() {
     const connect = await authGetAPI(`/city/statistics/${selectedProfile.id}`);
+    console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -221,19 +222,19 @@ export default function SeuEleitorado() {
                                 (item: any) => item.value
                               )
                       }
-                      labels={
-                        selectedVoterOption === "age"
-                          ? cityData.electorate.ageRange.map(
-                              (item: any) => item.name
-                            )
-                          : selectedVoterOption === "gender"
-                            ? cityData.electorate.gender.map(
-                                (item: any) => item.name
-                              )
-                            : cityData.electorate.schoolLevel.map(
-                                (item: any) => item.name
-                              )
-                      }
+                      // labels={
+                      //   selectedVoterOption === "age"
+                      //     ? cityData.electorate.ageRange.map(
+                      //         (item: any) => item.name
+                      //       )
+                      //     : selectedVoterOption === "gender"
+                      //       ? cityData.electorate.gender.map(
+                      //           (item: any) => item.name
+                      //         )
+                      //       : cityData.electorate.schoolLevel.map(
+                      //           (item: any) => item.name
+                      //         )
+                      // }
                     />
                   </div>
                 </VotersInfoContainer>
