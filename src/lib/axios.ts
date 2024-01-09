@@ -151,7 +151,7 @@ export const authDeleteAPI = async (url: string) => {
   const storageToken = localStorage.getItem(token);
 
   if (!storageToken) {
-    return 400;
+    return { status: 400, body: null };
   }
 
   const config = {
@@ -185,7 +185,7 @@ export const AuthPostAPI = async (url: string, data: any) => {
   const storageToken = localStorage.getItem(token);
 
   if (!storageToken) {
-    return 400;
+    return { status: 400, body: null };
   }
 
   const config = {
@@ -219,7 +219,7 @@ export const AuthPutAPI = async (url: string, data: any) => {
   const storageToken = localStorage.getItem(token);
 
   if (!storageToken) {
-    return 400;
+    return { status: 400, body: null };
   }
 
   const config = {
