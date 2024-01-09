@@ -64,8 +64,9 @@ export function NewUserModal({ show, onHide }: ModalProps) {
                 <input type="password" placeholder="******************" />
               </FormGroup>
               <GlobalButton
+                background={Theme.color.darkBlueAxion}
+                color={Theme.color.gray_10}
                 content="Cadastrar Novo Usuário"
-                padding="1rem"
                 style={{ marginBottom: "4rem" }}
                 onClick={handleUpdatePassword}
               />
@@ -81,6 +82,8 @@ export function NewUserModal({ show, onHide }: ModalProps) {
           <h2>Cadastrado!</h2>
           <span>Seu acesso foi adicionado com sucesso, parabéns!</span>
           <GlobalButton
+            background={Theme.color.darkBlueAxion}
+            color={Theme.color.gray_10}
             content="Finalizar"
             className="button"
             onClick={handleClose}
@@ -105,12 +108,16 @@ export function NewUserModal({ show, onHide }: ModalProps) {
             }}
           >
             <GlobalButton
+              background={Theme.color.gray_10}
+              color={Theme.color.darkBlueAxion}
               content="Voltar"
               className="button"
               onClick={handleClose}
               style={{ width: "40%" }}
             />
             <GlobalButton
+              background={Theme.color.darkBlueAxion}
+              color={Theme.color.gray_10}
               content="Mais um Cadastro"
               className="button"
               onClick={handleClose}

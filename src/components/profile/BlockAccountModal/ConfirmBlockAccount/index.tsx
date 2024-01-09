@@ -2,6 +2,7 @@ import { CloseButton } from "@/components/Global/Close";
 import { Modal } from "react-bootstrap";
 import { Content } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
+import Theme from "@/styles/themes";
 
 interface ModalProps {
   show: boolean;
@@ -9,7 +10,11 @@ interface ModalProps {
   closePreviousModal: () => void;
 }
 
-export function ConfirmBlockAccountModal({ show, onHide, closePreviousModal }: ModalProps) {
+export function ConfirmBlockAccountModal({
+  show,
+  onHide,
+  closePreviousModal,
+}: ModalProps) {
   function handleClose() {
     closePreviousModal();
     onHide();
@@ -26,12 +31,18 @@ export function ConfirmBlockAccountModal({ show, onHide, closePreviousModal }: M
           acessar a conta novamente você deve acionar o nosso email
           suporte@axion.com.br , tem certeza dessa decisão?
         </span>
-        <GlobalButton content="Bloquear Conta" className="button1" />
+        <GlobalButton
+          background={Theme.color.darkBlueAxion}
+          color={Theme.color.gray_10}
+          content="Bloquear Conta"
+          className="button1"
+        />
 
         <GlobalButton
           content="Cancelar"
-          variant="secondary"
           className="button2"
+          background={Theme.color.darkBlueAxion}
+          color={Theme.color.gray_10}
           onClick={handleClose}
         />
       </Content>

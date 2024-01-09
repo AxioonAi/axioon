@@ -2,6 +2,7 @@ import { CloseButton } from "@/components/Global/Close";
 import { Modal } from "react-bootstrap";
 import { Content } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
+import Theme from "@/styles/themes";
 
 interface ModalProps {
   show: boolean;
@@ -30,11 +31,17 @@ export function DeleteAccountModal({
           para acessa a plataforma novamente você deve realizar uma nova
           assinatura. <br /> <strong>Tem certeza dessa decisão?</strong>
         </span>
-        <GlobalButton content="Bloquear Conta" className="button1" />
+        <GlobalButton
+          background={Theme.color.darkBlueAxion}
+          color={Theme.color.gray_10}
+          content="Bloquear Conta"
+          className="button1"
+        />
 
         <GlobalButton
+          background={Theme.color.gray_10}
+          color={Theme.color.darkBlueAxion}
           content="Cancelar"
-          variant="secondary"
           className="button2"
           onClick={handleClose}
         />

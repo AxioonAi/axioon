@@ -3,6 +3,7 @@ import { Modal } from "react-bootstrap";
 import { Content, EmailInputContainer, SuccessModal } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
 import { useEffect, useState } from "react";
+import Theme from "@/styles/themes";
 
 interface ModalProps {
   show: boolean;
@@ -50,7 +51,9 @@ export function AddNewUserModal({ show, onHide }: ModalProps) {
             </EmailInputContainer>
 
             <GlobalButton
+              background={Theme.color.darkBlueAxion}
               content="Enviar Convite"
+              color={Theme.color.gray_10}
               className="button1"
               onClick={handleSendInvite}
             />
@@ -71,6 +74,8 @@ export function AddNewUserModal({ show, onHide }: ModalProps) {
           <h2>Senha Alterada!</h2>
           <span>Sua senha foi alterada com sucesso, parabéns!</span>
           <GlobalButton
+            background={Theme.color.darkBlueAxion}
+            color={Theme.color.gray_10}
             content="Finalizar"
             className="button"
             onClick={handleClose}
