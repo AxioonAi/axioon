@@ -3,6 +3,7 @@ import { CloseButton } from "@/components/Global/Close";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Content, Form } from "./styles";
+import Theme from "@/styles/themes";
 
 interface ModalProps {
   show: boolean;
@@ -51,7 +52,11 @@ export function NewPasswordModal({ show, onHide }: ModalProps) {
             </Form>
             <GlobalButton
               content="Voltar"
-              style={{ width: "30%", alignSelf: "center" }}
+              background={Theme.color.darkBlueAxion}
+              color={Theme.color.gray_10}
+              width="50%"
+              className="self-center rounded"
+              height="auto"
               onClick={() => onHide()}
             />
           </Content>
