@@ -1167,7 +1167,7 @@ export function SimpleWordcloud() {
     colors: ["#556AFB", "#33429A", "#0A27E6"],
     fontWeight: "700",
     fontFamily: "Impact",
-    fontSizes: [20, 40],
+    fontSizes: [20, 40] as [number, number],
   };
 
   return (
