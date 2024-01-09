@@ -116,7 +116,7 @@ export const authGetAPI = async (url: string) => {
   const storageToken = localStorage.getItem(token);
 
   if (!storageToken) {
-    return 400;
+    return { status: 400, body: null };
   }
 
   const config = {
@@ -251,20 +251,22 @@ export const AuthPutAPI = async (url: string, data: any) => {
 };
 
 export const loginVerifyAPI = async () => {
-  const storageToken = localStorage.getItem(token);
-
-  if (!storageToken) {
+  const token = localStorage.getItem(refreshToken);
+  if (!token) {
     return 400;
   }
 
   const config = {
-    headers: { Authorization: `Bearer ${storageToken}` },
+    headers: { Authorization: `Bearer ${token}` },
   };
 
-  const requisition = await api
-    .get("/token", config)
-    .then(async ({ data }) => {
-      return { status: 200, body: "" };
+  const connect = await api
+    .patch("/user/token", {}, config)
+    .then(({ data }) => {
+      return {
+        status: 200,
+        body: data,
+      };
     })
     .catch((err) => {
       const message = err.response.data;
@@ -272,5 +274,5 @@ export const loginVerifyAPI = async () => {
       return { status: status, body: message };
     });
 
-  return requisition.status;
+  return connect.status;
 };

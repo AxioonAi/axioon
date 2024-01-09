@@ -114,7 +114,5 @@
 // }
 
 export default function Test() {
-  return(
-    <div className="bg-red-800 w-44 h-44 text-white">dfgasdjfaoiwjefi</div>
-  )
+  return <div className="bg-red-800 w-44 h-44 text-white"></div>;
 }

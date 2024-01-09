@@ -41,6 +41,12 @@ export default function Profile() {
     birth_date: "",
     sex: "",
   });
+  const [loading1, setLoading1] = useState(false);
+  const [formData, setFormData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
   const [isEditing, setIsEditing] = useState(false);
 
   const main = useRef(null);
@@ -97,6 +103,36 @@ export default function Profile() {
     }
     router.reload();
     return setLoading(false);
+  }
+
+  async function changePassword() {
+    setLoading1(true);
+    if (
+      formData.currentPassword === "" ||
+      formData.newPassword === "" ||
+      formData.confirmPassword === ""
+    ) {
+      return alert("Preencha todos os campos");
+    }
+    if (formData.newPassword !== formData.confirmPassword) {
+      return alert("As senhas precisam ser iguais");
+    }
+    const connect = await AuthPutAPI("/user/password", {
+      password: formData.currentPassword,
+      newPassword: formData.newPassword,
+    });
+    if (connect.status !== 200) {
+      alert(connect.body);
+      return setLoading1(false);
+    }
+    setShowNewPasswordModal(false);
+    alert(connect.body);
+    setFormData({
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+    return setLoading1(false);
   }
 
   useEffect(() => {
@@ -521,6 +557,10 @@ export default function Profile() {
         <NewPasswordModal
           show={showNewPasswordModal}
           onHide={() => setShowNewPasswordModal(false)}
+          formData={formData}
+          setFormData={setFormData}
+          changePassword={changePassword}
+          loading={loading1}
         />
 
         <BlockAccountModal

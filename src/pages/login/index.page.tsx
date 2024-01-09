@@ -22,6 +22,7 @@ export default function Login() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState("password");
   const [buttonLoading, setButtonLoading] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -37,7 +38,7 @@ export default function Login() {
 
   async function handleLogin() {
     setButtonLoading(true);
-    const connect = await PostAPI("/login", {
+    const connect = await PostAPI(checked ? "/login" : "/login", {
       email: formData.email,
       password: formData.password,
     });
@@ -62,10 +63,37 @@ export default function Login() {
             <strong>Faça seu login para utilizar a plataforma.</strong>
             <span>Acesse aqui todas as suas contas pelo painel principal.</span>
           </LoginFormHeader>
-          <GoogleLogin>
-            <img src="/Google.svg" alt="" />
-            <strong>Entrar com conta Google</strong>
-          </GoogleLogin>
+          <div className="LoginTypeSelector flex w-full h-20 justify-between">
+            <label
+              htmlFor="loginType1"
+              className={`Selector1 flex w-2/5 items-center justify-start gap-2 p-3 lg:px-2 border-2 rounded cursor-pointer ${
+                checked ? "  " : "border-[#323452]"
+              } ${checked ? "" : "bg-primary/10"}`}
+            >
+              <input
+                type="radio"
+                id="loginType1"
+                name="loginType"
+                defaultChecked
+                onChange={() => setChecked(!checked)}
+              />
+              <span>Login</span>
+            </label>
+            <label
+              htmlFor="loginType2"
+              className={`Selector1 flex w-2/5 items-center justify-start gap-2 p-3 lg:px-2 border-2 rounded cursor-pointer ${
+                checked ? "border-[#323452]" : ""
+              } ${checked ? "bg-primary/10" : ""}`}
+            >
+              <input
+                type="radio"
+                id="loginType2"
+                name="loginType"
+                onChange={() => setChecked(!checked)}
+              />
+              <span>Login</span>
+            </label>
+          </div>
           <div
             style={{
               position: "relative",
@@ -109,7 +137,11 @@ export default function Login() {
                 setFormData({ ...formData, password: e.target.value })
               }
             />
-            <img src="/eye-slash.svg" alt="" onClick={toggleShowPassword} />
+            {showPassword === "password" ? (
+              <img src="/eye.svg" alt="" onClick={toggleShowPassword} />
+            ) : (
+              <img src="/eye-slash.svg" alt="" onClick={toggleShowPassword} />
+            )}
           </FormGroup>
           <PasswordRecovery>
             <button onClick={() => router.push("/recover-password")}>
@@ -120,9 +152,10 @@ export default function Login() {
             background={Theme.color.darkBlueAxion}
             color="white"
             width="100%"
-            height="5vh"
+            height="auto"
             content="Entrar"
             className="loginButton"
+            fontSize={15}
             onClick={handleLogin}
             loading={buttonLoading}
           />

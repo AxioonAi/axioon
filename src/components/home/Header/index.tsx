@@ -15,7 +15,7 @@ import {
   Register,
   UserMenu,
 } from "./styles";
-import { authGetAPI, getAPI } from "@/lib/axios";
+import { AuthPutAPI, authGetAPI, getAPI, loginVerifyAPI } from "@/lib/axios";
 import { Dropdown } from "react-bootstrap";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
 
@@ -39,8 +39,43 @@ export function HeaderComponent({
   const [selectedTimeValue, setSelectedTimeValue] = useState("Últimos 15 Dias");
   const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
   const timeValues = ["Últimos 7 Dias", "Últimos 15 Dias", "Últimos 30 Dias"];
-
   const [monitoredProfiles, setMonitoredProfiles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  async function changePassword() {
+    setLoading(true);
+    if (
+      formData.currentPassword === "" ||
+      formData.newPassword === "" ||
+      formData.confirmPassword === ""
+    ) {
+      return alert("Preencha todos os campos");
+    }
+    if (formData.newPassword !== formData.confirmPassword) {
+      return alert("As senhas precisam ser iguais");
+    }
+    const connect = await AuthPutAPI("/user/password", {
+      password: formData.currentPassword,
+      newPassword: formData.newPassword,
+    });
+    if (connect.status !== 200) {
+      alert(connect.body);
+      return setLoading(false);
+    }
+    setShowNewPasswordModal(false);
+    alert(connect.body);
+    setFormData({
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+    return setLoading(false);
+  }
 
   async function getPoliticians() {
     const connect = await authGetAPI("/profile/monitoring");
@@ -49,23 +84,64 @@ export function HeaderComponent({
     }
     if (connect.body.profile.length !== 0) {
       setMonitoredProfiles(connect.body.profile);
-      setSelectedProfile({
-        name: connect.body.profile[0].name,
-        politicalGroup: connect.body.profile[0].politicalGroup,
-        id: connect.body.profile[0].id,
-      });
+      if (localStorage.getItem("selectedProfile") === null) {
+        setSelectedProfile({
+          name: connect.body.profile[0].name,
+          politicalGroup: connect.body.profile[0].politicalGroup,
+          id: connect.body.profile[0].id,
+        });
+      } else {
+        setSelectedProfile({
+          name: connect.body.profile.filter(
+            (profile: any) =>
+              profile.id === localStorage.getItem("selectedProfile")
+          )[0].name,
+          politicalGroup: connect.body.profile.filter(
+            (profile: any) =>
+              profile.id === localStorage.getItem("selectedProfile")
+          )[0].politicalGroup,
+          id: connect.body.profile.filter(
+            (profile: any) =>
+              profile.id === localStorage.getItem("selectedProfile")
+          )[0].id,
+        });
+      }
     }
   }
+
+  async function handleVerify() {
+    const connect = await loginVerifyAPI();
+    if (connect !== 200) {
+      return router.push("/login");
+    }
+    return await getPoliticians();
+  }
+
+  useEffect(() => {
+    handleVerify();
+    if (localStorage.getItem("selectedProfile") !== null) {
+      // setSelectedProfile({
+      //   name: monitoredProfiles.filter(
+      //     (profile: any) =>
+      //       profile.id === localStorage.getItem("selectedProfile")
+      //   )[0].name,
+      //   politicalGroup: monitoredProfiles.filter(
+      //     (profile: any) =>
+      //       profile.id === localStorage.getItem("selectedProfile")
+      //   )[0].politicalGroup,
+      //   id: monitoredProfiles.filter(
+      //     (profile: any) =>
+      //       profile.id === localStorage.getItem("selectedProfile")
+      //   )[0].id,
+      // });
+    }
+  }, []);
 
   async function logOut() {
     localStorage.removeItem("axioonToken");
     localStorage.removeItem("axioonRefreshToken");
     router.push("/");
   }
-
-  useEffect(() => {
-    getPoliticians();
-  }, []);
 
   return (
     <>
@@ -171,6 +247,10 @@ export function HeaderComponent({
       <NewPasswordModal
         show={showNewPasswordModal}
         onHide={() => setShowNewPasswordModal(false)}
+        formData={formData}
+        setFormData={setFormData}
+        changePassword={changePassword}
+        loading={loading}
       />
     </>
   );

@@ -52,8 +52,6 @@ export default function RegisterCandidate() {
     },
   });
 
-  console.log("formData", formData);
-
   async function checkCpf() {
     const connect = await getAPI(`/profile/cpf/${cpfCheck}`);
     if (connect.status !== 200) {
@@ -79,7 +77,6 @@ export default function RegisterCandidate() {
       },
       political_group_id: formData.political_group_id.id,
     });
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       alert(connect.body);
       return setLoading(false);

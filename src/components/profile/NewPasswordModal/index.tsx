@@ -8,9 +8,24 @@ import { Content, Form, FormGroup, FormHeader, SuccessModal } from "./styles";
 interface ModalProps {
   show: boolean;
   onHide: () => void;
+  formData: {
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<ModalProps["formData"]>>;
+  changePassword: () => void;
+  loading: boolean;
 }
 
-export function NewPasswordModal({ show, onHide }: ModalProps) {
+export function NewPasswordModal({
+  show,
+  onHide,
+  formData,
+  setFormData,
+  changePassword,
+  loading,
+}: ModalProps) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -18,9 +33,8 @@ export function NewPasswordModal({ show, onHide }: ModalProps) {
     setIsVisible(true);
   }, [show]);
 
-  function handleUpdatePassword() {
-    setShowSuccess(true);
-    setIsVisible(false);
+  async function handleUpdatePassword() {
+    await changePassword();
   }
 
   function handleClose() {
@@ -44,7 +58,17 @@ export function NewPasswordModal({ show, onHide }: ModalProps) {
             <Form>
               <FormGroup>
                 <label htmlFor="current-password">Senha Atual</label>
-                <input type="password" placeholder="Digite sua senha atual" />
+                <input
+                  type="password"
+                  placeholder="Digite sua senha atual"
+                  value={formData.currentPassword}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      currentPassword: e.target.value,
+                    })
+                  }
+                />
               </FormGroup>
               <div
                 style={{
@@ -54,16 +78,37 @@ export function NewPasswordModal({ show, onHide }: ModalProps) {
               />
               <FormGroup>
                 <label htmlFor="new-password">Nova Senha</label>
-                <input type="password" placeholder="Digite sua nova senha" />
+                <input
+                  type="password"
+                  placeholder="Digite sua nova senha"
+                  value={formData.newPassword}
+                  onChange={(e) =>
+                    setFormData({ ...formData, newPassword: e.target.value })
+                  }
+                />
               </FormGroup>
               <FormGroup>
                 <label htmlFor="confirm-password">Repetir Senha</label>
-                <input type="password" placeholder="Confirme sua nova senha" />
+                <input
+                  type="password"
+                  placeholder="Confirme sua nova senha"
+                  value={formData.confirmPassword}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      confirmPassword: e.target.value,
+                    })
+                  }
+                />
               </FormGroup>
               <GlobalButton
                 content="Atualizar Senha"
-                padding="1rem"
-                style={{ marginBottom: "4rem" }}
+                background={Theme.color.darkBlueAxion}
+                color={Theme.color.gray_10}
+                width="auto"
+                height="auto"
+                fontSize={12}
+                className="mb-5 p-2 rounded"
                 onClick={handleUpdatePassword}
               />
             </Form>
@@ -81,6 +126,11 @@ export function NewPasswordModal({ show, onHide }: ModalProps) {
             content="Finalizar"
             className="button"
             onClick={handleClose}
+            loading={loading}
+            background={Theme.color.darkBlueAxion}
+            color={Theme.color.gray_10}
+            width="auto"
+            height="auto"
           />
         </SuccessModal>
       </Modal>

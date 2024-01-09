@@ -7,6 +7,7 @@ interface ProfileProps {
   selectedProfile: {
     name: string;
     politicalGroup: string;
+    id: string;
   };
   setSelectedProfile?: any;
   profiles?: any;
@@ -18,6 +19,10 @@ export function ProfileSelector({
   profiles,
   ...rest
 }: ProfileProps) {
+  const Remember = (item: any) => {
+    setSelectedProfile(item);
+    localStorage.setItem("selectedProfile", item.id);
+  };
   return (
     <>
       <Container {...rest}>
@@ -39,7 +44,7 @@ export function ProfileSelector({
           </Toggle>
           <Menu>
             {profiles.map((item: any) => (
-              <Item onClick={() => setSelectedProfile(item)} key={item}>
+              <Item onClick={() => Remember(item)} key={item}>
                 {item.name} - {item.politicalGroup}
               </Item>
             ))}

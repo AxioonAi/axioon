@@ -66,6 +66,10 @@ export default function Help() {
                   printer took
                   <GlobalButton
                     content="Ver Vídeo"
+                    background={Theme.color.darkBlueAxion}
+                    color={Theme.color.gray_10}
+                    fontSize={12}
+                    className="p-2 rounded"
                     onClick={() => setShowVideo(true)}
                   />
                 </Cards>
@@ -82,7 +86,12 @@ export default function Help() {
               <h3>Não Encontrou o quê estava procurando?</h3>
               <GlobalButton
                 content="Fale Diretamente com nosso Time para que possamos te Ajudar"
-                style={{ width: "30%", alignSelf: "center", marginTop: "5%" }}
+                background={Theme.color.darkBlueAxion}
+                color={Theme.color.gray_10}
+                fontSize={12}
+                width="60%"
+                height="auto"
+                className="p-2 self-center rounded"
               />
             </div>
           </Main>

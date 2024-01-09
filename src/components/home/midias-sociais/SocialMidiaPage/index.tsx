@@ -181,8 +181,10 @@ export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
               >
                 <ScoreChart
                   id={id}
-                  score={pageData?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
-                    2
+                  score={Number(
+                    pageData?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
+                      2
+                    )
                   )}
                 />
               </div>
