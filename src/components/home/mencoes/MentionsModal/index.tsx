@@ -121,32 +121,27 @@ export function MentionsModal({ show, onHide }: Props) {
           <Comments>
             <CommentComponent
               type={"instagram"}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
+              comment={Math.floor(Math.random() * 5000)}
               commentScore={700}
             />
             <CommentComponent
               type={"instagram"}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
+              comment={Math.floor(Math.random() * 5000)}
               commentScore={700}
             />
             <CommentComponent
               type={"instagram"}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
+              comment={Math.floor(Math.random() * 5000)}
               commentScore={700}
             />
             <CommentComponent
               type={"instagram"}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
+              comment={Math.floor(Math.random() * 5000)}
               commentScore={700}
             />
             <CommentComponent
               type={"instagram"}
-              likes={Math.floor(Math.random() * 5000)}
-              comments={Math.floor(Math.random() * 5000)}
+              comment={Math.floor(Math.random() * 5000)}
               commentScore={700}
             />
           </Comments>
