@@ -97,7 +97,6 @@ export default function Help() {
           </Main>
         </Content>
       </RootLayout>
-      <NewPasswordModal show={showVideo} onHide={() => setShowVideo(false)} />
     </main>
   );
 }
