@@ -133,7 +133,7 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
           subTitle
         />
         <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
-        <KeyIndicators />
+        <KeyIndicators pageData={SocialMidiaData} />
       </KeyIndicatorsContainer>
     </ChartsContainer>
   );
