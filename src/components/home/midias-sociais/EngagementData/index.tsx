@@ -50,7 +50,6 @@ export function EngagmentChart({ chartData }: Props) {
         },
         color: "#fff",
         font: {
-          weight: "bold",
           size: 12,
         },
       },
