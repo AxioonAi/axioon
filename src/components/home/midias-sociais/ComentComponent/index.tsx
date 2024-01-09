@@ -16,10 +16,9 @@ import { windowWidth } from "@/utils/windowWidth";
 interface Props {
   type: "instagram" | "facebook" | "youtube" | "tiktok";
   comment: any;
-  commentScore: any;
 }
 
-export function CommentComponent({ type, comment, commentScore }: Props) {
+export function CommentComponent({ type, comment }: Props) {
   function formatNumber(number: number) {
     if (number >= 1000) {
       return (number / 1000).toFixed(1) + "k";

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { _DeepPartialObject } from "chart.js/dist/types/utils";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 interface Props {
   chartData: [];
-  labels: string[];
 }
 
 export const footer = (tooltipItems: any) => {
@@ -24,21 +24,12 @@ export const footer = (tooltipItems: any) => {
   return ((currentValue * 100) / total).toFixed(1) + "%";
 };
 
-export function VotersInfo({ chartData, labels }: Props) {
-  const [legendPosition, setLegendPosition] = useState("right");
-
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      setLegendPosition("top");
-    }
-  }, []);
-
+export function VotersInfo({ chartData }: Props) {
   const options = {
     responsive: true,
     plugins: {
       ChartDataLabels,
       legend: {
-        position: legendPosition,
         labels: {
           usePointStyle: true,
         },
@@ -58,7 +49,6 @@ export function VotersInfo({ chartData, labels }: Props) {
         },
         color: "#fff",
         font: {
-          weight: "bold",
           size: 12,
         },
       },
@@ -71,7 +61,6 @@ export function VotersInfo({ chartData, labels }: Props) {
   };
 
   const data = {
-    labels: labels,
     datasets: [
       {
         label: "Número de eleitores",

@@ -337,7 +337,6 @@ export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
                               <CommentComponent
                                 type={pageType}
                                 comment={comment}
-                                index={index}
                               />
                             ))
                       )

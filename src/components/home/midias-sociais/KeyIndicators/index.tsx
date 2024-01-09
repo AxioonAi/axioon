@@ -12,6 +12,7 @@ export function KeyIndicators({ pageData }: Props) {
       {!pageData ? (
         <Spinner animation="border" />
       ) : (
+        pageData &&
         pageData.keyIndicators.map((item: any) => (
           <>
             <div>

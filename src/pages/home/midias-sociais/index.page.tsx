@@ -112,7 +112,7 @@ export default function MidiasSociais() {
                   type="facebook"
                   barColor="#5162FF"
                   coments={1}
-                  likes={socialMidiaData?.engagement.facebook.likes}
+                  likes={25}
                   name="Facebook"
                   onClick={() => setSelectedPage("facebook")}
                   isSelected={
