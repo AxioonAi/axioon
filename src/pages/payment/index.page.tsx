@@ -18,7 +18,7 @@ import { windowWidth } from "@/utils/windowWidth";
 import { PixPayment } from "@/components/payment/PixPayment";
 
 export default function Payment() {
-  const [selectedMethod, setSelectedMethod] = useState("");
+  const [selectedMethod, setSelectedMethod] = useState("creditCard");
 
   const handleRadioChange = (event: { target: { value: string } }) => {
     setSelectedMethod(event.target.value);

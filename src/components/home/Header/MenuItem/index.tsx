@@ -6,15 +6,29 @@ interface ItemProps {
   href: string;
   name: string;
   fadeOut: any;
+  selectedPage?: string;
+  setSelectedPage?: any;
 }
 
-export function MenuItemComponent({ imgSrc, href, name, fadeOut }: ItemProps) {
+export function MenuItemComponent({
+  imgSrc,
+  href,
+  name,
+  fadeOut,
+  selectedPage,
+  setSelectedPage,
+}: ItemProps) {
   const router = useRouter();
 
   const isActive = `/${router.asPath.split("/")[2]}` === href;
 
   const navigate = () => {
-    fadeOut();
+    if (isActive && selectedPage !== "initial") {
+      return setSelectedPage("initial");
+    }
+    if (!isActive && selectedPage !== href) {
+      fadeOut();
+    }
     router.push(`/home/${href}`);
   };
 

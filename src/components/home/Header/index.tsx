@@ -27,12 +27,16 @@ interface headerProps {
     id: string;
   };
   setSelectedProfile: any;
+  selectedPage?: string;
+  setSelectedPage?: any;
 }
 
 export function HeaderComponent({
   fadeOut,
   selectedProfile,
   setSelectedProfile,
+  selectedPage,
+  setSelectedPage,
 }: headerProps) {
   const router = useRouter();
 
@@ -119,22 +123,6 @@ export function HeaderComponent({
 
   useEffect(() => {
     handleVerify();
-    if (localStorage.getItem("selectedProfile") !== null) {
-      // setSelectedProfile({
-      //   name: monitoredProfiles.filter(
-      //     (profile: any) =>
-      //       profile.id === localStorage.getItem("selectedProfile")
-      //   )[0].name,
-      //   politicalGroup: monitoredProfiles.filter(
-      //     (profile: any) =>
-      //       profile.id === localStorage.getItem("selectedProfile")
-      //   )[0].politicalGroup,
-      //   id: monitoredProfiles.filter(
-      //     (profile: any) =>
-      //       profile.id === localStorage.getItem("selectedProfile")
-      //   )[0].id,
-      // });
-    }
   }, []);
 
   async function logOut() {
@@ -191,6 +179,8 @@ export function HeaderComponent({
             imgSrc="/dashboard/midias-sociais-menu.png"
             href="/midias-sociais"
             name="MÍDIAS SOCIAIS"
+            selectedPage={selectedPage}
+            setSelectedPage={setSelectedPage}
           />
           <MenuItemComponent
             fadeOut={() => fadeOut()}
@@ -231,16 +221,18 @@ export function HeaderComponent({
 
           <ButtonAndSelect>
             {router.asPath.split("/")[2] === "seu-eleitorado" && (
-              <Register>Cadastro</Register>
+              <Register onClick={() => router.push("/register-candidate")}>
+                Cadastro
+              </Register>
             )}
-
-            {router.asPath.split("/")[2] !== "inteligencia-artificial" && (
-              <HeaderTimeSelect
-                values={timeValues}
-                selectedValue={selectedTimeValue}
-                setSelectedValue={setSelectedTimeValue}
-              />
-            )}
+            {selectedPage !== "seu-eleitorado" &&
+              router.asPath.split("/")[2] !== "inteligencia-artificial" && (
+                <HeaderTimeSelect
+                  values={timeValues}
+                  selectedValue={selectedTimeValue}
+                  setSelectedValue={setSelectedTimeValue}
+                />
+              )}
           </ButtonAndSelect>
         </Candidate>
       </HeaderContainer>

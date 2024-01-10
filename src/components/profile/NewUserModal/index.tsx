@@ -20,13 +20,13 @@ export function NewUserModal({ show, onHide }: ModalProps) {
   }, [show]);
 
   function handleUpdatePassword() {
-    // setShowSuccess(true);
-    setShowError(true);
+    setShowSuccess(true);
+    // setShowError(true);
     setIsVisible(false);
   }
 
   function handleClose() {
-    // setShowSuccess(false);
+    setShowSuccess(false);
     setShowError(false);
     onHide();
   }
@@ -66,9 +66,11 @@ export function NewUserModal({ show, onHide }: ModalProps) {
               <GlobalButton
                 background={Theme.color.darkBlueAxion}
                 color={Theme.color.gray_10}
+                width="auto"
+                height="auto"
                 content="Cadastrar Novo Usuário"
-                style={{ marginBottom: "4rem" }}
                 onClick={handleUpdatePassword}
+                className="rounded mb-4 py-2"
               />
             </Form>
           </Content>
@@ -85,8 +87,8 @@ export function NewUserModal({ show, onHide }: ModalProps) {
             background={Theme.color.darkBlueAxion}
             color={Theme.color.gray_10}
             content="Finalizar"
-            className="button"
             onClick={handleClose}
+            className="my-5 rounded w-1/5"
           />
         </SuccessModal>
       </Modal>
@@ -111,17 +113,17 @@ export function NewUserModal({ show, onHide }: ModalProps) {
               background={Theme.color.gray_10}
               color={Theme.color.darkBlueAxion}
               content="Voltar"
-              className="button"
               onClick={handleClose}
-              style={{ width: "40%" }}
+              fontSize={10}
+              className="my-5 rounded w-2/5"
             />
             <GlobalButton
               background={Theme.color.darkBlueAxion}
               color={Theme.color.gray_10}
               content="Mais um Cadastro"
-              className="button"
               onClick={handleClose}
-              style={{ width: "40%" }}
+              fontSize={10}
+              className="my-5 rounded w-2/5"
             />
           </div>
         </SuccessModal>

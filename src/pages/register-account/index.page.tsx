@@ -48,7 +48,6 @@ export default function RegisterAccount() {
       sex: formData.sex,
       mobilePhone: formData.mobilePhone,
     });
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       alert(connect.body);
       return setLoading(false);

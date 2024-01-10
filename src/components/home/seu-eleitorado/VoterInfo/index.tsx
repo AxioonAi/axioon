@@ -31,6 +31,8 @@ export function VotersInfo({ chartData, labels }: Props) {
     plugins: {
       ChartDataLabels,
       legend: {
+        display: true,
+        position: "right" as const,
         labels: {
           usePointStyle: true,
         },

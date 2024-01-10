@@ -18,7 +18,7 @@ export default function FinishRegisterAccount() {
   const handleFinish = () => {
     setFinished(true);
     setTimeout(() => {
-      router.push("/finish-payment");
+      router.push("/plan");
     }, 500);
   };
 

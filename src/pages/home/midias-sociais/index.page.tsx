@@ -41,7 +41,7 @@ export default function MidiasSociais() {
     politicalGroup: "",
     id: "",
   });
-  const [socialMidiaData, setSocialMidiaData] = useState();
+  const [socialMidiaData, setSocialMidiaData] = useState<any>();
   const [facebookData, setFacebookData] = useState();
   const [metaadsData, setMetaadsData] = useState();
   const [instagramData, setInstagramData] = useState();
@@ -103,6 +103,8 @@ export default function MidiasSociais() {
             selectedProfile={selectedProfile}
             setSelectedProfile={setSelectedProfile}
             fadeOut={() => fadeOut()}
+            selectedPage={selectedPage}
+            setSelectedPage={setSelectedPage}
           />
           {socialMidiaData ? (
             <Main>

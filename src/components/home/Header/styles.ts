@@ -19,13 +19,8 @@ export const Instruction = styled.div`
   font-weight: bold;
   font-size: 1.1rem;
   margin-left: auto;
-  img {
-    margin-right: 0.3rem;
-  }
-
-  @media (max-width: 1320px) {
-    margin-right: calc(40vw - 17rem);
-  }
+  display: flex;
+  gap: 5px;
 `;
 
 export const UserMenu = styled.div`

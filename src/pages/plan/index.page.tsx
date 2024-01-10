@@ -1,7 +1,9 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Plan() {
+  const router = useRouter();
   const [selected, setSelected] = useState("Plan1");
   const plans = [
     {
@@ -185,7 +187,10 @@ export default function Plan() {
                   </div>
                 ))}
       </div>
-      <button className="Select self-center md:w-2/5 w-4/5 h-12 md:h-20 bg-white rounded-xl mt-10 font-bold text-lg md:text-2xl">
+      <button
+        className="Select self-center md:w-2/5 w-4/5 h-12 md:h-20 bg-white rounded-xl mt-10 font-bold text-lg md:text-2xl"
+        onClick={() => router.push("/finish-payment")}
+      >
         Selecionar Plano
       </button>
     </div>

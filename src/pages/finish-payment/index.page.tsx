@@ -31,7 +31,7 @@ export default function FinishPayment() {
           <img src="/verify.svg" alt="" className="w-25 h-25 self-center" />
           <AccessButton
             className="bg-white text-black font-bold"
-            onClick={() => router.push("/plan")}
+            onClick={() => router.push("/register-candidate")}
           >
             Monitorar Agentes Políticos
           </AccessButton>

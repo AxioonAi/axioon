@@ -61,6 +61,7 @@ export const SuccessModal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 2rem;
 
   img {
     width: 7.5rem;

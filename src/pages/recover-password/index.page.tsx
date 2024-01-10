@@ -31,7 +31,6 @@ export default function RecoverPassword() {
     const connect = await PostAPI("/user/recover-password/code", {
       email: forgotPassword,
     });
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       alert(connect.body);
       return setLoading(false);
