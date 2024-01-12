@@ -221,7 +221,7 @@ export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
                   />
                 </div>
                 <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
-                {/* <SimpleWordcloud socialMediaData={pageData} /> */}
+                <SimpleWordcloud socialMediaData={pageData.wordCloud} />
               </WordCloudContainer>
             ) : (
               <VotersActiveContainer>
