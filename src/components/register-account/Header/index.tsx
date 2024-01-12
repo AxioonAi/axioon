@@ -3,9 +3,13 @@ import { RegisterHeader } from "./styles";
 
 interface Props {
   type?: "light" | "dark";
+  logged: boolean;
 }
 
-export function RegisterAccountHeader({ type = "light" }: Props) {
+export function RegisterAccountHeader({ type = "light", logged }: Props) {
+  const handleClick = () => {
+    logged ? router.push("/") : router.push("/login");
+  };
   const router = useRouter();
 
   return (
@@ -15,8 +19,8 @@ export function RegisterAccountHeader({ type = "light" }: Props) {
       ) : (
         <img src="/sidebar/axion-white.svg" alt="" />
       )}
-      <button onClick={() => router.push("/login")}>
-        Já é cliente? Acessar
+      <button onClick={handleClick}>
+        {logged ? "Voltar" : "Já é cliente? Acessar"}
       </button>
     </RegisterHeader>
   );

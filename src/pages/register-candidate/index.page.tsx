@@ -13,7 +13,13 @@ import {
 } from "./styles";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { CandidateForm } from "@/components/register-candidate/CandidateForm";
-import { AuthPostAPI, IBGEAPI, PostAPI, getAPI } from "@/lib/axios";
+import {
+  AuthPostAPI,
+  IBGEAPI,
+  PostAPI,
+  getAPI,
+  loginVerifyAPI,
+} from "@/lib/axios";
 import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
 import { useRouter } from "next/router";
@@ -23,6 +29,7 @@ export default function RegisterCandidate() {
   const [step, setStep] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cpfCheck, setCpfCheck] = useState("");
+  const [logged, setLogged] = useState(false);
   const [formData, setFormData] = useState({
     social_name: "",
     full_name: "",
@@ -85,9 +92,21 @@ export default function RegisterCandidate() {
     return setLoading(false);
   }
 
+  async function verifyLogin() {
+    const connect = await loginVerifyAPI();
+    if (connect !== 200) {
+      return;
+    }
+    return setLogged(true);
+  }
+
+  useEffect(() => {
+    verifyLogin();
+  }, []);
+
   return (
     <Container className="bg-gradient-to-br from-[#0D123C] to-[#34374C]">
-      <RegisterAccountHeader type="dark" />
+      <RegisterAccountHeader type="dark" logged={logged} />
       <Main>
         <Instructions>
           <InstructionSection1>

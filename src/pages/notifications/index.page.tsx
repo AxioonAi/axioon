@@ -12,26 +12,6 @@ import { authGetAPI } from "@/lib/axios";
 export default function Notifications() {
   const main = useRef(null);
   const content = useRef(null);
-  // const Notifications = [
-  //   {
-  //     type: "Instagram",
-  //     description: "Roberto Dorner foi marcado em uma publicação",
-  //     date: "05/12/2023 - 19:00",
-  //     action: "Read",
-  //   },
-  //   {
-  //     type: "Facebook",
-  //     description: "Roberto Dorner foi marcado em uma publicação",
-  //     date: "05/12/2023 - 19:00",
-  //     action: "Unread",
-  //   },
-  //   {
-  //     type: "Tiktok",
-  //     description: "Roberto Dorner foi marcado em uma publicação",
-  //     date: "05/12/2023 - 19:00",
-  //     action: "Unread",
-  //   },
-  // ];
   const [notifications, setNotifications] = useState<any>([]);
 
   useLayoutEffect(() => {
@@ -64,6 +44,8 @@ export default function Notifications() {
     setNotifications(connect.body.notification);
   }
 
+  console.log("notifications: ", notifications);
+
   useEffect(() => {
     getNotifications();
   }, []);
@@ -73,437 +55,524 @@ export default function Notifications() {
       <RootLayout fadeOut={() => fadeOut()}>
         <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
           <DateSelectorDropdown />
-
           <Main>
-            <header style={{ display: "flex", width: "100%" }}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div
+            {notifications.length === 0 && (
+              <div className="noNotifications text-2xl font-semibold">
+                Nenhuma notificação ativa
+              </div>
+            )}
+            {notifications.filter(
+              (item: any) =>
+                new Date(item.date).toLocaleDateString("pt-BR") ===
+                new Date().toLocaleDateString("pt-BR")
+            ).length !== 0 ? (
+              <>
+                <header
                   style={{
                     display: "flex",
-                    flexDirection: "row",
-                    gap: "1rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src={"/NotificationsIcon1.svg"}
-                    width={50}
-                    height={50}
-                    alt=""
-                  />
-                  <h2>Hoje</h2>
-                </div>
-                <GlobalButton
-                  background={Theme.color.darkBlueAxion}
-                  color={Theme.color.gray_10}
-                  content="Limpar Notificações"
-                  fontSize={10}
-                  className="rounded"
-                />
-              </div>
-            </header>
-            <NotificationsRows>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "1rem" }}
-              >
-                <img src="/NotificationsIcon4.svg" alt="" />
-                {""} Notificações
-              </div>
-              <div style={{ display: "flex", alignSelf: "center" }}>Data</div>
-              <div></div>
-            </NotificationsRows>
-            {notifications
-              .filter(
-                (notification: any) =>
-                  new Date(notification.date).toLocaleDateString() <=
-                  new Date().toLocaleDateString()
-              )
-              .map((notification: any, index: any) => (
-                <NotificationsRows
-                  style={{
-                    borderBottom: `1px solid ${Theme.color.gray_100}`,
-                    marginTop: "1rem",
+                    width: "100%",
+                    marginTop: "5rem",
                   }}
                 >
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      maxWidth: "40%",
-                      alignItems: "flex-start",
+                      flexDirection: "row",
+                      width: "100%",
+                      alignItems: "center",
+                      justifyContent: "space-between",
                     }}
                   >
-                    <div className="flex flex-row">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "1rem",
+                        alignItems: "center",
+                      }}
+                    >
                       <img
-                        src={
-                          notification.type === "Instagram"
-                            ? "/InstagramLogo.svg"
-                            : notification.type === "Facebook"
-                              ? "/FacebookLogo.svg"
-                              : notification.type === "Tiktok"
-                                ? "/TiktokLogo.svg"
-                                : "/YoutubeLogo.svg"
-                        }
+                        src={"/NotificationsIcon1.svg"}
+                        width={50}
+                        height={50}
                         alt=""
-                        style={{ width: 25, height: 25, marginRight: 10 }}
                       />
-                      {notification.type}
-                    </div>
-                    <div style={{ marginLeft: 35 }}>
-                      <strong>{notification.description}</strong>
+                      <h2>Hoje</h2>
                     </div>
                   </div>
+                </header>
+                <NotificationsRows>
                   <div
                     style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      maxWidth: "20%",
-                      alignSelf: "center",
-                    }}
-                  >
-                    {new Date(notification.date).toLocaleDateString()}
-                  </div>
-                  <div
-                    style={{
-                      width: "20%",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "space-evenly",
+                      gap: "1rem",
                     }}
                   >
-                    {notification.action === "Read" ? (
-                      <GlobalButton
-                        background="#fff"
-                        color={Theme.color.darkBlueAxion}
-                        fontSize={10}
-                        width="auto"
-                        height="auto"
-                        className="rounded p-2 flex flex-row"
-                        style={{
-                          border: `2px solid ${Theme.color.darkBlueAxion}`,
-                        }}
-                        content="Marcar como Não Lida"
-                      ></GlobalButton>
-                    ) : (
-                      <>
-                        <GlobalButton
-                          background="#fff"
-                          color={Theme.color.darkBlueAxion}
-                          fontSize={10}
-                          width="auto"
-                          height="auto"
-                          className="rounded p-2 flex flex-row"
-                          style={{
-                            border: `2px solid ${Theme.color.darkBlueAxion}`,
-                          }}
-                          content="Acessar"
-                        />
-                        <GlobalButton
-                          background={Theme.color.darkBlueAxion}
-                          color={Theme.color.gray_10}
-                          fontSize={10}
-                          width="auto"
-                          height="auto"
-                          className="rounded p-2 flex flex-row"
-                          content="Visto"
-                        />
-                      </>
-                    )}
+                    <img src="/NotificationsIcon4.svg" alt="" />
+                    {""} Notificações
                   </div>
+                  <div style={{ display: "flex", alignSelf: "center" }}>
+                    Data
+                  </div>
+                  <div></div>
                 </NotificationsRows>
-              ))}
-            <header
-              style={{ display: "flex", width: "100%", marginTop: "5rem" }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div
+                {notifications
+                  .filter(
+                    (item: any) =>
+                      new Date(item.date).toLocaleDateString("pt-BR") ===
+                      new Date().toLocaleDateString("pt-BR")
+                  )
+                  .map((notification: any, index: any) => (
+                    <NotificationsRows
+                      style={{
+                        borderBottom: `1px solid ${Theme.color.gray_100}`,
+                        marginTop: "1rem",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          maxWidth: "40%",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <div className="flex flex-row">
+                          <img
+                            src={
+                              notification.type === "INSTAGRAM"
+                                ? "/InstagramLogo.svg"
+                                : notification.type === "FACEBOOK"
+                                  ? "/FacebookLogo.svg"
+                                  : notification.type === "TIKTOK"
+                                    ? "/TiktokLogo.svg"
+                                    : "/YoutubeLogo.svg"
+                            }
+                            alt=""
+                            style={{
+                              width: 25,
+                              height: 25,
+                              marginRight: 10,
+                            }}
+                          />
+                          {notification.type}
+                        </div>
+                        <div style={{ marginLeft: 35 }}>
+                          <strong>{notification.description}</strong>
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          maxWidth: "20%",
+                          alignSelf: "center",
+                        }}
+                      >
+                        {new Date(notification.date).toLocaleDateString(
+                          "pt-BR"
+                        )}
+                      </div>
+                      <div
+                        style={{
+                          width: "20%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-evenly",
+                        }}
+                      >
+                        {notification.action === "Read" ? (
+                          <GlobalButton
+                            background="#fff"
+                            color={Theme.color.darkBlueAxion}
+                            fontSize={10}
+                            width="auto"
+                            height="auto"
+                            className="rounded p-2 flex flex-row"
+                            style={{
+                              border: `2px solid ${Theme.color.darkBlueAxion}`,
+                            }}
+                            content="Marcar como Não Lida"
+                          ></GlobalButton>
+                        ) : (
+                          <>
+                            <GlobalButton
+                              background="#fff"
+                              color={Theme.color.darkBlueAxion}
+                              fontSize={10}
+                              width="auto"
+                              height="auto"
+                              className="rounded p-2 flex flex-row"
+                              style={{
+                                border: `2px solid ${Theme.color.darkBlueAxion}`,
+                              }}
+                              content="Acessar"
+                            />
+                            <GlobalButton
+                              background={Theme.color.darkBlueAxion}
+                              color={Theme.color.gray_10}
+                              fontSize={10}
+                              width="auto"
+                              height="auto"
+                              className="rounded p-2 flex flex-row"
+                              content="Visto"
+                            />
+                          </>
+                        )}
+                      </div>
+                    </NotificationsRows>
+                  ))}
+              </>
+            ) : (
+              <></>
+            )}
+
+            {notifications.filter(
+              (item: any) =>
+                new Date(item.date).toLocaleDateString("pt-BR") <
+                  new Date().toLocaleDateString("pt-BR") &&
+                new Date(item.date).toLocaleDateString("pt-BR") >=
+                  new Date(
+                    new Date().setDate(new Date().getDate() - 7)
+                  ).toLocaleDateString("pt-BR")
+            ).length !== 0 ? (
+              <>
+                <header
                   style={{
                     display: "flex",
-                    flexDirection: "row",
-                    gap: "1rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src={"/NotificationsIcon1.svg"}
-                    width={50}
-                    height={50}
-                    alt=""
-                  />
-                  <h2>Últimos 7 Dias</h2>
-                </div>
-              </div>
-            </header>
-            <NotificationsRows>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "1rem" }}
-              >
-                <img src="/NotificationsIcon4.svg" alt="" />
-                {""} Notificações
-              </div>
-              <div style={{ display: "flex", alignSelf: "center" }}>Data</div>
-              <div></div>
-            </NotificationsRows>
-            {notifications
-              .filter(
-                (notification: any) =>
-                  new Date(notification.date).toLocaleDateString() >=
-                    new Date()
-                      .setDate(new Date().getDate() - 7)
-                      .toLocaleString() &&
-                  new Date(notification.date).toLocaleDateString() <
-                    new Date().toLocaleDateString()
-              )
-              .map((notification: any, index: any) => (
-                <NotificationsRows
-                  style={{
-                    borderBottom: `1px solid ${Theme.color.gray_100}`,
-                    marginTop: "1rem",
+                    width: "100%",
+                    marginTop: "5rem",
                   }}
                 >
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      maxWidth: "40%",
-                      alignItems: "flex-start",
+                      flexDirection: "row",
+                      width: "100%",
+                      alignItems: "center",
+                      justifyContent: "space-between",
                     }}
                   >
-                    <div className="flex flex-row">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "1rem",
+                        alignItems: "center",
+                      }}
+                    >
                       <img
-                        src={
-                          notification.type === "Instagram"
-                            ? "/InstagramLogo.svg"
-                            : notification.type === "Facebook"
-                              ? "/FacebookLogo.svg"
-                              : notification.type === "Tiktok"
-                                ? "/TiktokLogo.svg"
-                                : "/YoutubeLogo.svg"
-                        }
+                        src={"/NotificationsIcon1.svg"}
+                        width={50}
+                        height={50}
                         alt=""
-                        style={{ width: 25, height: 25, marginRight: 10 }}
                       />
-                      {notification.type}
-                    </div>
-                    <div style={{ marginLeft: 35 }}>
-                      <strong>{notification.description}</strong>
+                      <h2>Últimos 7 Dias</h2>
                     </div>
                   </div>
+                </header>
+                <NotificationsRows>
                   <div
                     style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      maxWidth: "20%",
-                      alignSelf: "center",
-                    }}
-                  >
-                    {notification.date}
-                  </div>
-                  <div
-                    style={{
-                      width: "20%",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "space-evenly",
+                      gap: "1rem",
                     }}
                   >
-                    {notification.action === "Read" ? (
-                      <GlobalButton
-                        background="#fff"
-                        color={Theme.color.darkBlueAxion}
-                        fontSize={10}
-                        width="auto"
-                        height="auto"
-                        className="rounded p-2 flex flex-row"
-                        style={{
-                          border: `2px solid ${Theme.color.darkBlueAxion}`,
-                        }}
-                        content="Marcar como Não Lida"
-                      ></GlobalButton>
-                    ) : (
-                      <>
-                        <GlobalButton
-                          background="#fff"
-                          color={Theme.color.darkBlueAxion}
-                          fontSize={10}
-                          width="auto"
-                          height="auto"
-                          className="rounded p-2 flex flex-row"
-                          style={{
-                            border: `2px solid ${Theme.color.darkBlueAxion}`,
-                          }}
-                          content="Acessar"
-                        />
-                        <GlobalButton
-                          background={Theme.color.darkBlueAxion}
-                          color={Theme.color.gray_10}
-                          fontSize={10}
-                          width="auto"
-                          height="auto"
-                          className="rounded p-2 flex flex-row"
-                          content="Visto"
-                        />
-                      </>
-                    )}
+                    <img src="/NotificationsIcon4.svg" alt="" />
+                    {""} Notificações
                   </div>
+                  <div style={{ display: "flex", alignSelf: "center" }}>
+                    Data
+                  </div>
+                  <div></div>
                 </NotificationsRows>
-              ))}
-            <header
-              style={{ display: "flex", width: "100%", marginTop: "5rem" }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div
+                {notifications
+                  .filter(
+                    (item: any) =>
+                      new Date(item.date).toLocaleDateString("pt-BR") <
+                        new Date().toLocaleDateString("pt-BR") &&
+                      new Date(item.date).toLocaleDateString("pt-BR") >=
+                        new Date(
+                          new Date().setDate(new Date().getDate() - 7)
+                        ).toLocaleDateString("pt-BR")
+                  )
+                  .map((notification: any, index: any) => (
+                    <NotificationsRows
+                      style={{
+                        borderBottom: `1px solid ${Theme.color.gray_100}`,
+                        marginTop: "1rem",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          maxWidth: "40%",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <div className="flex flex-row">
+                          <img
+                            src={
+                              notification.type === "INSTAGRAM"
+                                ? "/InstagramLogo.svg"
+                                : notification.type === "FACEBOOK"
+                                  ? "/FacebookLogo.svg"
+                                  : notification.type === "TIKTOK"
+                                    ? "/TiktokLogo.svg"
+                                    : "/YoutubeLogo.svg"
+                            }
+                            alt=""
+                            style={{
+                              width: 25,
+                              height: 25,
+                              marginRight: 10,
+                            }}
+                          />
+                          {notification.type}
+                        </div>
+                        <div style={{ marginLeft: 35 }}>
+                          <strong>{notification.description}</strong>
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          maxWidth: "20%",
+                          alignSelf: "center",
+                        }}
+                      >
+                        {new Date(notification.date).toLocaleDateString(
+                          "pt-BR"
+                        )}
+                      </div>
+                      <div
+                        style={{
+                          width: "20%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-evenly",
+                        }}
+                      >
+                        {notification.action === "Read" ? (
+                          <GlobalButton
+                            background="#fff"
+                            color={Theme.color.darkBlueAxion}
+                            fontSize={10}
+                            width="auto"
+                            height="auto"
+                            className="rounded p-2 flex flex-row"
+                            style={{
+                              border: `2px solid ${Theme.color.darkBlueAxion}`,
+                            }}
+                            content="Marcar como Não Lida"
+                          ></GlobalButton>
+                        ) : (
+                          <>
+                            <GlobalButton
+                              background="#fff"
+                              color={Theme.color.darkBlueAxion}
+                              fontSize={10}
+                              width="auto"
+                              height="auto"
+                              className="rounded p-2 flex flex-row"
+                              style={{
+                                border: `2px solid ${Theme.color.darkBlueAxion}`,
+                              }}
+                              content="Acessar"
+                            />
+                            <GlobalButton
+                              background={Theme.color.darkBlueAxion}
+                              color={Theme.color.gray_10}
+                              fontSize={10}
+                              width="auto"
+                              height="auto"
+                              className="rounded p-2 flex flex-row"
+                              content="Visto"
+                            />
+                          </>
+                        )}
+                      </div>
+                    </NotificationsRows>
+                  ))}
+              </>
+            ) : (
+              <></>
+            )}
+
+            {notifications.filter(
+              (item: any) =>
+                new Date(item.date).toLocaleDateString("pt-BR") <
+                new Date(
+                  new Date().setDate(new Date().getDate() - 7)
+                ).toLocaleDateString("pt-BR")
+            ).length !== 0 ? (
+              <>
+                <header
                   style={{
                     display: "flex",
-                    flexDirection: "row",
-                    gap: "1rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src={"/NotificationsIcon1.svg"}
-                    width={50}
-                    height={50}
-                    alt=""
-                  />
-                  <h2>Anterior</h2>
-                </div>
-              </div>
-            </header>
-            <NotificationsRows>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "1rem" }}
-              >
-                <img src="/NotificationsIcon4.svg" alt="" />
-                {""} Notificações
-              </div>
-              <div style={{ display: "flex", alignSelf: "center" }}>Data</div>
-              <div></div>
-            </NotificationsRows>
-            {notifications
-              .filter(
-                (notification: any) =>
-                  new Date(notification.date).toLocaleDateString() <=
-                  new Date().setDate(new Date().getDate() - 8).toLocaleString()
-              )
-              .map((notification: any, index: any) => (
-                <NotificationsRows
-                  style={{
-                    borderBottom: `1px solid ${Theme.color.gray_100}`,
-                    marginTop: "1rem",
+                    width: "100%",
+                    marginTop: "5rem",
                   }}
                 >
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      maxWidth: "40%",
-                      alignItems: "flex-start",
+                      flexDirection: "row",
+                      width: "100%",
+                      alignItems: "center",
+                      justifyContent: "space-between",
                     }}
                   >
-                    <div className="flex flex-row">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "1rem",
+                        alignItems: "center",
+                      }}
+                    >
                       <img
-                        src={
-                          notification.type === "Instagram"
-                            ? "/InstagramLogo.svg"
-                            : notification.type === "Facebook"
-                              ? "/FacebookLogo.svg"
-                              : notification.type === "Tiktok"
-                                ? "/TiktokLogo.svg"
-                                : "/YoutubeLogo.svg"
-                        }
+                        src={"/NotificationsIcon1.svg"}
+                        width={50}
+                        height={50}
                         alt=""
-                        style={{ width: 25, height: 25, marginRight: 10 }}
                       />
-                      {notification.type}
-                    </div>
-                    <div style={{ marginLeft: 35 }}>
-                      <strong>{notification.description}</strong>
+                      <h2>Anterior</h2>
                     </div>
                   </div>
+                </header>
+                <NotificationsRows>
                   <div
                     style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      maxWidth: "20%",
-                      alignSelf: "center",
-                    }}
-                  >
-                    {new Date(notification.date).toLocaleDateString()}
-                  </div>
-                  <div
-                    style={{
-                      width: "20%",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "space-evenly",
+                      gap: "1rem",
                     }}
                   >
-                    {notification.action === "Read" ? (
-                      <GlobalButton
-                        background="#fff"
-                        color={Theme.color.darkBlueAxion}
-                        fontSize={10}
-                        width="auto"
-                        height="auto"
-                        className="rounded p-2 flex flex-row"
-                        style={{
-                          border: `2px solid ${Theme.color.darkBlueAxion}`,
-                        }}
-                        content="Marcar como Não Lida"
-                      ></GlobalButton>
-                    ) : (
-                      <>
-                        <GlobalButton
-                          background="#fff"
-                          color={Theme.color.darkBlueAxion}
-                          fontSize={10}
-                          width="auto"
-                          height="auto"
-                          className="rounded p-2 flex flex-row"
-                          style={{
-                            border: `2px solid ${Theme.color.darkBlueAxion}`,
-                          }}
-                          content="Acessar"
-                        />
-                        <GlobalButton
-                          background={Theme.color.darkBlueAxion}
-                          color={Theme.color.gray_10}
-                          fontSize={10}
-                          width="auto"
-                          height="auto"
-                          className="rounded p-2 flex flex-row"
-                          content="Visto"
-                        />
-                      </>
-                    )}
+                    <img src="/NotificationsIcon4.svg" alt="" />
+                    {""} Notificações
                   </div>
+                  <div style={{ display: "flex", alignSelf: "center" }}>
+                    Data
+                  </div>
+                  <div></div>
                 </NotificationsRows>
-              ))}
+                {notifications
+                  .filter(
+                    (item: any) =>
+                      new Date(item.date).toLocaleDateString("pt-BR") <
+                      new Date(
+                        new Date().setDate(new Date().getDate() - 7)
+                      ).toLocaleDateString("pt-BR")
+                  )
+                  .map((notification: any, index: any) => (
+                    <NotificationsRows
+                      style={{
+                        borderBottom: `1px solid ${Theme.color.gray_100}`,
+                        marginTop: "1rem",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          maxWidth: "40%",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <div className="flex flex-row">
+                          <img
+                            src={
+                              notification.type === "INSTAGRAM"
+                                ? "/InstagramLogo.svg"
+                                : notification.type === "FACEBOOK"
+                                  ? "/FacebookLogo.svg"
+                                  : notification.type === "TIKTOK"
+                                    ? "/TiktokLogo.svg"
+                                    : "/YoutubeLogo.svg"
+                            }
+                            alt=""
+                            style={{
+                              width: 25,
+                              height: 25,
+                              marginRight: 10,
+                            }}
+                          />
+                          {notification.type}
+                        </div>
+                        <div style={{ marginLeft: 35 }}>
+                          <strong>{notification.description}</strong>
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          maxWidth: "20%",
+                          alignSelf: "center",
+                        }}
+                      >
+                        {new Date(notification.date).toLocaleDateString(
+                          "pt-BR"
+                        )}
+                      </div>
+                      <div
+                        style={{
+                          width: "20%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-evenly",
+                        }}
+                      >
+                        {notification.action === "Read" ? (
+                          <GlobalButton
+                            background="#fff"
+                            color={Theme.color.darkBlueAxion}
+                            fontSize={10}
+                            width="auto"
+                            height="auto"
+                            className="rounded p-2 flex flex-row"
+                            style={{
+                              border: `2px solid ${Theme.color.darkBlueAxion}`,
+                            }}
+                            content="Marcar como Não Lida"
+                          ></GlobalButton>
+                        ) : (
+                          <>
+                            <GlobalButton
+                              background="#fff"
+                              color={Theme.color.darkBlueAxion}
+                              fontSize={10}
+                              width="auto"
+                              height="auto"
+                              className="rounded p-2 flex flex-row"
+                              style={{
+                                border: `2px solid ${Theme.color.darkBlueAxion}`,
+                              }}
+                              content="Acessar"
+                            />
+                            <GlobalButton
+                              background={Theme.color.darkBlueAxion}
+                              color={Theme.color.gray_10}
+                              fontSize={10}
+                              width="auto"
+                              height="auto"
+                              className="rounded p-2 flex flex-row"
+                              content="Visto"
+                            />
+                          </>
+                        )}
+                      </div>
+                    </NotificationsRows>
+                  ))}
+              </>
+            ) : (
+              <></>
+            )}
           </Main>
         </Content>
       </RootLayout>
