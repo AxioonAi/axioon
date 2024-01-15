@@ -44,6 +44,7 @@ export function MentionsModal({
 }: Props) {
   const [selectedValue, setSelectedValue] = useState("Relevância");
   const values = ["Relevância", "Mais recente"];
+  const [showMore, setShowMore] = useState(false);
 
   return (
     <ModalContainer show={show} onHide={onHide} size="lg">
@@ -148,11 +149,18 @@ export function MentionsModal({
                 </div>
               </CommentsHeader>
 
-              <Comments>
-                {comments.slice(0, 5).map((comment: any) => (
-                  <CommentComponent type={"instagram"} comment={comment} />
-                ))}
+              <Comments className="flex h-80 max-h-80 overflow-y-scroll">
+                {comments
+                  .slice(0, showMore ? comments.length : 3)
+                  .map((comment: any) => (
+                    <CommentComponent type={"instagram"} comment={comment} />
+                  ))}
               </Comments>
+              <div className="flex w-full mt-3 items-center justify-center">
+                <button onClick={() => setShowMore(!showMore)}>
+                  {showMore ? "Ver menos" : "Ver mais"}
+                </button>
+              </div>
             </>
           )}
         </Main>
