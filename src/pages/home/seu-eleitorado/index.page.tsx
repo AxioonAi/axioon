@@ -89,6 +89,8 @@ export default function SeuEleitorado() {
     },
   ];
 
+  console.log("cityData: ", cityData);
+
   const [selectedVoterOption, setSelectedVoterOption] = useState("education");
   const [selectedVoterLabels, setSelectedVoterLabels] = useState([""]);
 

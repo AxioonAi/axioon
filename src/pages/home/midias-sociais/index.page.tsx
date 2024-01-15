@@ -35,7 +35,7 @@ export default function MidiasSociais() {
     return () => ctx.revert();
   };
 
-  const [selectedPage, setSelectedPage] = useState("initial");
+  const [selectedPage, setSelectedPage] = useState("facebook");
   const [selectedProfile, setSelectedProfile] = useState({
     name: "",
     politicalGroup: "",
@@ -66,27 +66,34 @@ export default function MidiasSociais() {
       authGetAPI(`/profile/tiktok/${selectedProfile.id}?period=${30}`),
       authGetAPI(`/profile/youtube/${selectedProfile.id}?period=${30}`),
     ]);
-    // if (facebook.status !== 200) {
-    //   return alert(facebook.body);
-    // }
-    // if (metaads.status !== 200) {
-    //   return alert(metaads.body);
-    // }
-    // if (instagram.status !== 200) {
-    //   return alert(instagram.body);
-    // }
-    // if (tiktok.status !== 200) {
-    //   return alert(tiktok.body);
-    // }
-    // if (youtube.status !== 200) {
-    //   return alert(youtube.body);
-    // }
+    if (facebook.status !== 200) {
+      return alert("facebook");
+    }
+    if (metaads.status !== 200) {
+      return alert("metaads");
+    }
+    if (instagram.status !== 200) {
+      return alert("instagram");
+    }
+    if (tiktok.status !== 200) {
+      return alert("tiktok");
+    }
+    if (youtube.status !== 200) {
+      return alert("youtube");
+    }
     setFacebookData(facebook.body);
     setMetaadsData(metaads.body);
     setInstagramData(instagram.body);
     setTiktokData(tiktok.body);
     setYoutubeData(youtube.body);
   }
+
+  // console.log("socialMidiaData: ", socialMidiaData);
+  // console.log("facebookData: ", facebookData);
+  // console.log("metaadsData: ", metaadsData);
+  // console.log("instagramData: ", instagramData);
+  // console.log("tiktokData: ", tiktokData);
+  // console.log("youtubeData: ", youtubeData);
 
   useEffect(() => {
     if (selectedProfile.id) {

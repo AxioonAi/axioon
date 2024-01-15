@@ -73,7 +73,7 @@ export function SentimentChart({
                 borderRadius: "50%",
               }}
             />
-            <strong>{formatNumberWithDot(positive)}</strong>
+            <strong>{positive.toFixed(0)}</strong>
           </div>
           <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>
             {legend1 === undefined ? "Positivos" : legend1}
@@ -91,7 +91,7 @@ export function SentimentChart({
                 borderRadius: "50%",
               }}
             />
-            <strong>{formatNumberWithDot(negative)}</strong>
+            <strong>{negative.toFixed(0)}</strong>
           </div>
           <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>
             {legend2 === undefined ? "Negativos" : legend2}
@@ -109,7 +109,7 @@ export function SentimentChart({
                 borderRadius: "50%",
               }}
             />
-            <strong>{formatNumberWithDot(neutral)}</strong>
+            <strong>{neutral.toFixed(0)}</strong>
           </div>
           <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>
             {legend3 === undefined ? "Neutros" : legend3}

@@ -44,8 +44,6 @@ export default function Notifications() {
     setNotifications(connect.body.notification);
   }
 
-  console.log("notifications: ", notifications);
-
   useEffect(() => {
     getNotifications();
   }, []);

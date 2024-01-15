@@ -15,11 +15,11 @@ export const ChartsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  /* display: grid;
-  grid-template-columns: 33rem 33rem;
+  display: grid;
+  grid-template-columns: 32rem 32rem;
   justify-items: center;
-  align-items: center; */
-  /* gap: 1rem; */
+  align-items: center;
+  gap: 1rem;
   width: 100%;
 
   @media (max-width: 1420px) {
@@ -49,7 +49,7 @@ export const ChartContainer = styled.div`
 `;
 
 export const PostEngagmentContainer = styled(ChartContainer)`
-  width: 33rem;
+  width: 32rem;
   height: 25rem;
 
   @media (max-width: 768px) {
@@ -74,7 +74,7 @@ export const ScoreChartContainer = styled(PostEngagmentContainer)`
 `;
 
 export const KeyIndicatorsContainer = styled(ChartContainer)`
-  width: 33rem;
+  width: 32rem;
   height: 30rem;
 
   @media (max-width: 768px) {
@@ -88,7 +88,7 @@ export const KeyIndicatorsContainer = styled(ChartContainer)`
 `;
 
 export const VotersActiveContainer = styled(ChartContainer)`
-  width: 33rem;
+  width: 32rem;
   height: 30rem;
 
   .chart {
