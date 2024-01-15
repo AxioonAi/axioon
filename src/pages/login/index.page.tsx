@@ -51,16 +51,16 @@ export default function Login() {
   }
 
   return (
-    <Container>
-      <Main>
-        <LoginForm>
-          <AxionLogo>
-            <img src="/axionLogo.png" alt="" />
-          </AxionLogo>
-          <LoginFormHeader>
-            <strong>Faça seu login para utilizar a plataforma.</strong>
-            <span>Acesse aqui todas as suas contas pelo painel principal.</span>
-          </LoginFormHeader>
+    <div className="Container min-h-screen relative pb-16">
+      <div className="Main w-full flex flex-col justify-around items-center mb-24 md:mb-0 lg:flex-row">
+        <div className="LoginForm py-0 px-16 lg: w-1/2">
+          <div className="AxionLogo flex justify-center p-5">
+            <img className=" w-48 lg: w-auto" src="/axionLogo.png" alt="" />
+          </div>
+          <div className="LoginFormHeader flex flex-col ">
+            <strong className="text-2xl">Faça seu login para utilizar a plataforma.</strong>
+            <span className="text-sm">Acesse aqui todas as suas contas pelo painel principal.</span>
+          </div>
           <div className="LoginTypeSelector flex w-full h-20 justify-between">
             <label
               htmlFor="loginType1"
@@ -92,43 +92,30 @@ export default function Login() {
               <span>Login</span>
             </label>
           </div>
-          <div
-            style={{
-              position: "relative",
-              margin: "5vh 0",
-            }}
-          >
-            <div style={{ border: "1px solid lightgray" }} />
-            <p
-              style={{
-                color: "lightgray",
-                textAlign: "center",
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                padding: "0 2rem",
-                backgroundColor: "white",
-              }}
-            >
+          <div className="relative my-[5vh]">
+            <div className="border border-gray-300" />
+
+            <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 bg-white text-gray-400">
               ou
             </p>
           </div>
 
-          <FormGroup>
-            <label htmlFor="email">Email</label>
+          <div className="relative flex flex-col mb-3">
+            <label className="text-sm" htmlFor="email">Email</label>
             <input
+              className="p-2 border border-gray-300 rounded-lg transition duration-200 "
               type="email"
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
             />
-          </FormGroup>
+          </div>
 
-          <FormGroup style={{ position: "relative" }}>
-            <label htmlFor="password">Senha</label>
+          <div className="relative flex flex-col mb-3">
+            <label className="text-sm" htmlFor="password">Senha</label>
             <input
+            className="p-2 border border-gray-300 rounded-lg transition duration-200 " 
               type={showPassword}
               value={formData.password}
               onChange={(e) =>
@@ -136,16 +123,16 @@ export default function Login() {
               }
             />
             {showPassword === "password" ? (
-              <img src="/eye.svg" alt="" onClick={toggleShowPassword} />
+              <img className="absolute right-4 bottom-2.5 cursor-pointer" src="/eye.svg" alt="" onClick={toggleShowPassword} />
             ) : (
-              <img src="/eye-slash.svg" alt="" onClick={toggleShowPassword} />
+              <img  className="absolute right-4 bottom-2.5 cursor-pointer" src="/eye-slash.svg" alt="" onClick={toggleShowPassword} />
             )}
-          </FormGroup>
-          <PasswordRecovery>
-            <button onClick={() => router.push("/recover-password")}>
+          </div>
+          <div className="flex justify-end">
+            <button className=" border-0 text-brand_blue bg-transparent " onClick={() => router.push("/recover-password")}>
               Esqueceu sua senha?
             </button>
-          </PasswordRecovery>
+          </div>
           <GlobalButton
             background={Theme.color.darkBlueAxion}
             color="white"
@@ -157,21 +144,20 @@ export default function Login() {
             onClick={handleLogin}
             loading={buttonLoading}
           />
-          <p style={{ fontSize: "0.9rem", fontWeight: "bold" }}>
+          <p className="text-sm font-bold">
             Não tem uma conta?{" "}
-            <span
-              style={{ color: Theme.color.brand_blue, cursor: "pointer" }}
+            <span className=" text-brand_blue cursor-pointer"  
               onClick={() => router.push("/register-account")}
             >
               Cadastre-se
             </span>
           </p>
-        </LoginForm>
-        <ArtSection>
+        </div>
+        <div className="ArtSection relative self-start min-h-screen h-full w-full bg-cover bg-no-repeat bg-top-center lg:w-1/2" style={{ backgroundImage: 'url("/foto.png")' }} >
           <Messages />
-        </ArtSection>
-      </Main>
+        </div >
+      </div>
       <Footer />
-    </Container>
+    </div>
   );
 }
