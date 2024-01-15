@@ -119,7 +119,6 @@ export function HeaderComponent({
       return router.push("/login");
     }
     return await getPoliticians();
-  }
   }  
 
   useEffect(() => {
