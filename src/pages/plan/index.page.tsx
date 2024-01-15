@@ -68,27 +68,27 @@ export default function Plan() {
                 </button>
               ))}
           </div>
-          <div className="mt-2 lg:hidden">
-            {selected === plans[0].title ? (
-              <span className="text-white text-sm">{plans[0].description}</span>
-            ) : selected === plans[1].title ? (
-              <span className="text-white text-sm">{plans[1].description}</span>
-            ) : (
-              <span className="text-white text-sm">{plans[2].description}</span>
-            )}
-          </div>
-          <div className="PlanDescription flex flex-col lg:hidden w-full md:w-4/5 h-3/5 mt-5 justify-between">
-            {selected === plans[0].title
-              ? plans[0].benefits.map((item: any) => (
-                  <div className="flex w-full justify-between border-b">
-                    <span className="text-white">{item.name}</span>
-                    <span className="font-bold text-white">
-                      {item.description}
-                    </span>
-                  </div>
-                ))
-              : selected === plans[1].title
-                ? plans[1].benefits.map((item: any) => (
+          {plans && plans.length > 0 && (
+            <div className="mt-2 lg:hidden">
+              {selected === plans[0].title ? (
+                <span className="text-white text-sm">
+                  {plans && plans[0].description}
+                </span>
+              ) : selected === plans[1].title ? (
+                <span className="text-white text-sm">
+                  {plans && plans[1].description}
+                </span>
+              ) : (
+                <span className="text-white text-sm">
+                  {plans && plans[2].description}
+                </span>
+              )}
+            </div>
+          )}
+          {plans && plans.length > 0 && (
+            <div className="PlanDescription flex flex-col lg:hidden w-full md:w-4/5 h-3/5 mt-5 justify-between">
+              {selected === plans[0].title
+                ? plans[0].benefits.map((item: any) => (
                     <div className="flex w-full justify-between border-b">
                       <span className="text-white">{item.name}</span>
                       <span className="font-bold text-white">
@@ -96,15 +96,25 @@ export default function Plan() {
                       </span>
                     </div>
                   ))
-                : plans[2].benefits.map((item: any) => (
-                    <div className="flex w-full justify-between border-b">
-                      <span className="text-white">{item.name}</span>
-                      <span className="font-bold text-white">
-                        {item.description}
-                      </span>
-                    </div>
-                  ))}
-          </div>
+                : selected === plans[1].title
+                  ? plans[1].benefits.map((item: any) => (
+                      <div className="flex w-full justify-between border-b">
+                        <span className="text-white">{item.name}</span>
+                        <span className="font-bold text-white">
+                          {item.description}
+                        </span>
+                      </div>
+                    ))
+                  : plans[2].benefits.map((item: any) => (
+                      <div className="flex w-full justify-between border-b">
+                        <span className="text-white">{item.name}</span>
+                        <span className="font-bold text-white">
+                          {item.description}
+                        </span>
+                      </div>
+                    ))}
+            </div>
+          )}
         </>
       )}
       <button
