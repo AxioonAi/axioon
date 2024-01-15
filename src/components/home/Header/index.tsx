@@ -120,6 +120,7 @@ export function HeaderComponent({
     }
     return await getPoliticians();
   }
+  }  
 
   useEffect(() => {
     handleVerify();
