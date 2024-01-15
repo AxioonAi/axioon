@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 
 export const Content = styled.div`
   background-color: ${({ theme }) => theme.color.gray_10};
@@ -6,12 +6,20 @@ export const Content = styled.div`
   border-radius: 25px 0 0 25px;
   padding: 1.2rem;
   position: relative;
-  width: calc(100% - 18rem);
-  left: calc(100% - 18rem);
+  width: calc(100% - 17rem);
+  left: calc(100% - 17rem);
 
   @media (max-width: 1024px) {
     width: 100%;
     left: 100%;
+  }
+`;
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 `;
 
@@ -39,6 +47,7 @@ export const ChatContent = styled.div`
   .welcomeMessage {
     font-family: "Bruno Ace SC", serif;
     font-size: 2rem;
+    animation: ${fadeIn} 0.3s ease-in;
     color: #0d123c;
     text-align: center;
   }
@@ -91,11 +100,57 @@ export const ChatFooter = styled.div`
   align-items: center;
   gap: 2.75rem;
 `;
+export const ChatBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  margin-top: 1rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+export const IaMessage = styled.div`
+  border-radius: 0px 15px 15px 15px;
+  color: white;
+  background: ${({ theme }) => theme.color.darkBlueAxion};
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-align: justify;
+  padding: 1rem 0.5rem;
+  margin-right: 1rem;
+
+  pre {
+    white-space: pre-wrap;
+  }
+
+  @media (min-width: 1024px) {
+    border-radius: 0px 30px 30px 30px;
+    font-size: 1rem;
+  }
+`;
+
+export const UserMessage = styled(IaMessage)`
+  border-radius: 15px 0 15px 15px;
+  margin-right: 0;
+  margin-left: 1rem;
+  color: ${({ theme }) => theme.color.darkBlueAxion};
+  background: white;
+  border: 2px solid ${({ theme }) => theme.color.darkBlueAxion};
+  @media (min-width: 1024px) {
+    border-radius: 30px 0 30px 30px;
+    font-size: 1rem;
+  }
+`;
 
 export const SuggestionsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  animation: ${fadeIn} 0.3s ease-in;
   @media (max-width: 1200px) {
     gap: 1rem;
     align-items: center;
@@ -170,3 +225,53 @@ export const TextareaAndButton = styled.div`
     }
   }
 `;
+
+
+ export const ReloadButton = styled.button`
+  width: 2rem;
+  height: 2rem;
+  align-self: flex-end;
+  
+  justify-self: flex-end;
+  background-color: transparent;
+  border: none;
+  animation: ${fadeIn} 0.3s ease-in;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+  :hover{
+    scale: 1.01;
+  }
+ `;
+ interface MessageProps {
+  show: boolean;
+}
+ export const Message = styled.div<MessageProps>`
+ position: absolute;
+
+ padding: 0.3rem;
+ right: -0.5rem;
+ top: -4.5rem;
+ border: 1px solid black;
+ border-radius: 10px;
+ text-align: justify;
+ color: #1f1f1f;
+ background-color: white;
+ z-index: ${({ show }) => (show ? 100 : -1)};
+ opacity: ${({ show }) => (show ? 1 : 0)};
+ transition: 0.3s ease-in;
+
+ .arrow {
+   position: absolute;
+   background-color: white;
+   width: 0.7rem;
+   height: 0.7rem;
+   right: 1rem;
+
+   transform: rotate(45deg);
+   border-right: 1px solid black;
+   border-bottom: 1px solid black;
+ }
+`;
+ 

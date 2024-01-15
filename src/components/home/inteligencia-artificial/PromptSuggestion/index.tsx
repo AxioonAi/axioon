@@ -6,13 +6,14 @@ interface Props {
   content: string;
   imgSrc: string;
   tipContent: string;
+  onClick: () => void;
 }
 
-export function PrompSuggestion({ content, imgSrc, tipContent }: Props) {
+export function PrompSuggestion({ content, imgSrc, tipContent,onClick }: Props) {
   const [showTip, setShowTip] = useState(false);
-
+  
   return (
-    <SuggestionContainer>
+    <SuggestionContainer onClick={onClick}>
       <Image width={30} height={30} src={imgSrc} alt="" />
       <strong>{content}</strong>
       <TipContainer>
