@@ -15,15 +15,30 @@ import { ScoreChart } from "../../ScoreChart";
 interface Props {
   show: boolean;
   onHide: () => void;
+  sentimentClassification: "positivo" | "neutro" | "negativo";
+  sentiment: number;
+  source: string;
+  url: string;
+  content: string;
+  date: string;
 }
 
-export function NewsModal({ show, onHide }: Props) {
+export function NewsModal({
+  show,
+  onHide,
+  sentimentClassification,
+  sentiment,
+  source,
+  url,
+  content,
+  date,
+}: Props) {
   return (
     <ModalContainer show={show} onHide={onHide} size="lg">
       <Content>
         <Header>
           <div>
-            <TitleWithBar content="Só Notícias" barColor="#22C24F" />
+            <TitleWithBar content={source} barColor="#22C24F" />
             <span
               style={{
                 marginLeft: "1rem",
@@ -32,19 +47,29 @@ export function NewsModal({ show, onHide }: Props) {
                 fontWeight: 600,
               }}
             >
-              02/10/2023
+              {date}
             </span>
           </div>
           <div
             style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}
           >
             <strong style={{ fontSize: "1.25rem", color: "#22C24F" }}>
-              Positiva{" "}
+              {sentimentClassification === "positivo"
+                ? "Positiva"
+                : sentimentClassification === "neutro"
+                  ? "Neutra"
+                  : "Precisa de atenção"}{" "}
             </strong>
             <Image
               width={36}
               height={36}
-              src="/dashboard/positive.svg"
+              src={
+                sentimentClassification === "positivo"
+                  ? "/dashboard/positive.svg"
+                  : sentimentClassification === "neutro"
+                    ? "/dashboard/neutral.svg"
+                    : "/dashboard/warning.svg"
+              }
               alt=""
             />
           </div>
@@ -52,13 +77,12 @@ export function NewsModal({ show, onHide }: Props) {
         <Main>
           <NewNameAndSentiment>
             <h1 style={{ fontSize: "2.25rem", textAlign: "center" }}>
-              Redline Redline Redline Redline
+              {content}
             </h1>
             <hr />
             <ScoreChartContainer>
-              <span>Sentimento da Redline</span>
               <div style={{ maxWidth: "14rem", margin: "auto" }}>
-                <ScoreChart score={690} id="newScore" />
+                <ScoreChart score={sentiment} id="newScore" />
               </div>
             </ScoreChartContainer>
 
@@ -76,7 +100,14 @@ export function NewsModal({ show, onHide }: Props) {
         </Main>
 
         <Footer>
-          <button>Ver notícia completa</button>
+          <a
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            className="bg-[#0D123C] text-white p-3 rounded cursor-pointer hover:scale-105 transition duration-100 ease-in"
+          >
+            Ver notícia completa
+          </a>
         </Footer>
       </Content>
     </ModalContainer>

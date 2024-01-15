@@ -18,13 +18,11 @@ export const Main = styled.main`
 `;
 
 export const Sentiments = styled.div`
+  display: flex;
   width: 80%;
   margin: 3.5rem auto 0;
-
-  .scores {
-    display: flex;
-    justify-content: space-between;
-  }
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 768px) {
     span {

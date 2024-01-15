@@ -4,25 +4,34 @@ import { useRouter } from "next/router";
 import { NewsModal } from "../NewsModal";
 
 interface Props {
-  sentiment: "positive" | "neutral" | "negative";
+  sentimentClassification: "positivo" | "neutro" | "negativo";
+  sentiment: number;
   source: string;
+  url: string;
   content: string;
   date: string;
 }
 
-export function NewsCard({ sentiment, source, content, date }: Props) {
+export function NewsCard({
+  sentimentClassification,
+  sentiment,
+  source,
+  url,
+  content,
+  date,
+}: Props) {
   const [color, setColor] = useState("");
   const [showNewsModal, setShowNewsModal] = useState(false);
 
   useEffect(() => {
-    if (sentiment === "positive") {
+    if (sentimentClassification === "positivo") {
       setColor("#22C24F");
-    } else if (sentiment === "neutral") {
+    } else if (sentimentClassification === "neutro") {
       setColor("#FFB043");
     } else {
       setColor("#E70000");
     }
-  }, [sentiment]);
+  }, [sentimentClassification]);
 
   return (
     <>
@@ -70,19 +79,19 @@ export function NewsCard({ sentiment, source, content, date }: Props) {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
             <strong style={{ fontSize: "0.75rem", color: color }}>
-              {sentiment === "positive"
+              {sentimentClassification === "positivo"
                 ? "Positiva"
-                : sentiment === "neutral"
-                ? "Neutra"
-                : "Precisa de atenção"}
+                : sentimentClassification === "neutro"
+                  ? "Neutra"
+                  : "Precisa de atenção"}
             </strong>
             <img
               src={
-                sentiment === "positive"
+                sentimentClassification === "positivo"
                   ? "/dashboard/positive.svg"
-                  : sentiment === "neutral"
-                  ? "/dashboard/neutral.svg"
-                  : "/dashboard/warning.svg"
+                  : sentimentClassification === "neutro"
+                    ? "/dashboard/neutral.svg"
+                    : "/dashboard/warning.svg"
               }
             />
           </div>
@@ -123,7 +132,16 @@ export function NewsCard({ sentiment, source, content, date }: Props) {
           </p>
         </div>
       </CardContainer>
-      <NewsModal show={showNewsModal} onHide={() => setShowNewsModal(false)} />
+      <NewsModal
+        date={date}
+        source={source}
+        url={url}
+        content={content}
+        sentimentClassification={sentimentClassification}
+        sentiment={sentiment}
+        show={showNewsModal}
+        onHide={() => setShowNewsModal(false)}
+      />
     </>
   );
 }

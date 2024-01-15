@@ -49,7 +49,9 @@ export function CommentComponent({ type, comment }: Props) {
             className="rounded-5"
           />
           {windowWidth(768) && (
-            <strong style={{ fontSize: "0.925rem" }}>{comment.username}</strong>
+            <strong style={{ fontSize: "0.925rem" }}>
+              {comment.username || comment.ownerUsername}
+            </strong>
           )}
         </div>
         {windowWidth(768) && (
@@ -60,7 +62,7 @@ export function CommentComponent({ type, comment }: Props) {
       </div>
       <CommentContent>
         <NameAndContent>
-          {!windowWidth(768) && <strong>{comment.username}</strong>}
+          {!windowWidth(768) && <strong>{comment.ownerUsername}</strong>}
           <p>{comment.text}</p>
         </NameAndContent>
         <CommentFeedback type={type}>

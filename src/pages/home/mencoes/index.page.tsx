@@ -7,11 +7,13 @@ import { TotalQuotes } from "@/components/home/mencoes/TotalQuotes";
 import { useRouter } from "next/router";
 import { CardsContainer, Content, Main, TopCardsContainer } from "./styles";
 import RootLayout from "@/components/Layout";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScoreChart } from "@/components/home/ScoreChart";
 import { NewsModal } from "@/components/home/mencoes/NewsModal";
 import { MentionsCard } from "@/components/home/mencoes/MentionsCard";
+import { authGetAPI } from "@/lib/axios";
+import { Spinner } from "react-bootstrap";
 
 export default function SeuEleitorado() {
   const main = useRef(null);
@@ -44,6 +46,25 @@ export default function SeuEleitorado() {
     politicalGroup: "",
     id: "",
   });
+  const [mentionsData, setMentionsData] = useState<any>();
+
+  async function GetMentions() {
+    const connect = await authGetAPI(
+      `/profile/mentions/${selectedProfile.id}?period=30`
+    );
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setMentionsData(connect.body);
+  }
+
+  useEffect(() => {
+    if (selectedProfile.id) {
+      GetMentions();
+    }
+  }, [selectedProfile]);
+
+  console.log("mentionsData: ", mentionsData);
 
   return (
     <main ref={main}>
@@ -54,132 +75,156 @@ export default function SeuEleitorado() {
             setSelectedProfile={setSelectedProfile}
             fadeOut={() => fadeOut()}
           />
-          <Main>
-            <h2
-              style={{
-                fontSize: "1.875rem",
-                fontWeight: 500,
-                marginBottom: "1.25rem",
-              }}
-            >
-              Sites de Notícias
-            </h2>
-            <TopCardsContainer>
-              <div
+          {mentionsData ? (
+            <Main>
+              <h2
                 style={{
-                  width: "17.25rem",
-                  height: "100%",
-                  backgroundColor: "white",
-                  padding: "1rem 1.25rem",
-                  borderRadius: 10,
+                  fontSize: "1.875rem",
+                  fontWeight: 500,
+                  marginBottom: "1.25rem",
                 }}
               >
-                <TitleWithBar content="Score Total" barColor="#D38945" />
+                Sites de Notícias
+              </h2>
+              <TopCardsContainer>
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    padding: "0 8%",
+                    width: "17.25rem",
+                    height: "100%",
+                    backgroundColor: "white",
+                    padding: "1rem 1.25rem",
+                    borderRadius: 10,
                   }}
                 >
-                  <ScoreChart score={750} id="newsScore" />
+                  <TitleWithBar content="Score Total" barColor="#D38945" />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      padding: "0 8%",
+                    }}
+                  >
+                    <ScoreChart
+                      score={Number(
+                        mentionsData?.currentFormat.news.average.toFixed(2)
+                      )}
+                      id="newsScore"
+                    />
+                  </div>
                 </div>
-              </div>
-              <TotalQuotes />
-
-              <div className="sentimentChartContainer">
-                <SentimentChart
-                  positive={343349}
-                  negative={243312}
-                  neutral={103231}
+                <TotalQuotes
+                  value={mentionsData?.currentFormat.news.total}
+                  firstDate={new Date(
+                    new Date().setDate(new Date().getDate() - 30)
+                  ).toLocaleDateString("pt-BR")}
+                  lastDate={new Date().toLocaleDateString("pt-BR")}
                 />
-              </div>
-            </TopCardsContainer>
-            <h2
-              style={{
-                fontSize: "1.875rem",
-                fontWeight: 500,
-                marginBottom: "1.25rem",
-              }}
-              className="mt-3"
-            >
-              Menções
-            </h2>
-            <TopCardsContainer>
-              <div
+
+                <div className="sentimentChartContainer">
+                  <SentimentChart
+                    positive={mentionsData?.currentFormat.news.positive}
+                    negative={mentionsData?.currentFormat.news.negative}
+                    neutral={mentionsData?.currentFormat.news.neutral}
+                  />
+                </div>
+              </TopCardsContainer>
+              <h2
                 style={{
-                  width: "17.25rem",
-                  height: "100%",
-                  backgroundColor: "white",
-                  padding: "1rem 1.25rem",
-                  borderRadius: 10,
+                  fontSize: "1.875rem",
+                  fontWeight: 500,
+                  marginBottom: "1.25rem",
                 }}
+                className="mt-3"
               >
-                <TitleWithBar content="Score Total" barColor="#D38945" />
+                Menções
+              </h2>
+              <TopCardsContainer>
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    padding: "0 8%",
+                    width: "17.25rem",
+                    height: "100%",
+                    backgroundColor: "white",
+                    padding: "1rem 1.25rem",
+                    borderRadius: 10,
                   }}
                 >
-                  <ScoreChart score={750} id="mentionsScore" />
+                  <TitleWithBar content="Score Total" barColor="#D38945" />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      padding: "0 8%",
+                    }}
+                  >
+                    <ScoreChart
+                      score={Number(
+                        mentionsData?.currentFormat.mentions.average.toFixed(2)
+                      )}
+                      id="mentionsScore"
+                    />
+                  </div>
                 </div>
-              </div>
-              <TotalQuotes />
-
-              <div className="sentimentChartContainer">
-                <SentimentChart
-                  positive={343349}
-                  negative={243312}
-                  neutral={103231}
+                <TotalQuotes
+                  value={Number(mentionsData?.currentFormat.mentions.total)}
+                  firstDate={new Date(
+                    new Date().setDate(new Date().getDate() - 30)
+                  ).toLocaleDateString("pt-BR")}
+                  lastDate={new Date().toLocaleDateString("pt-BR")}
                 />
-              </div>
-            </TopCardsContainer>
-            <TitleBottomBar title="Notícias em Destaque" className="mt-4" />
-            <CardsContainer>
-              <NewsCard
-                sentiment="positive"
-                source="Só Notícias"
-                date="22/10/2023"
-                content="Candidato a Prefeitura de Sinop é acusado de corrupção"
-              />
-              <NewsCard
-                sentiment="neutral"
-                source="Só Notícias"
-                date="22/10/2023"
-                content="Candidato a Prefeitura de Sinop é acusado de corrupção"
-              />
-              <NewsCard
-                sentiment="negative"
-                source="Só Notícias"
-                date="22/10/2023"
-                content="Candidato a Prefeitura de Sinop é acusado de corrupção"
-              />
-            </CardsContainer>
 
-            <TitleBottomBar title="Menções em Destaque" />
-            <CardsContainer>
-              <MentionsCard
-                sentiment="positive"
-                source="Só Notícias"
-                date="22/10/2023"
-                content="Candidato a Prefeitura de Sinop é acusado de corrupção"
-              />
-              <MentionsCard
-                sentiment="neutral"
-                source="Só Notícias"
-                date="22/10/2023"
-                content="Candidato a Prefeitura de Sinop é acusado de corrupção"
-              />
-              <MentionsCard
-                sentiment="negative"
-                source="Só Notícias"
-                date="22/10/2023"
-                content="Candidato a Prefeitura de Sinop é acusado de corrupção"
-              />
-            </CardsContainer>
-          </Main>
+                <div className="sentimentChartContainer">
+                  <SentimentChart
+                    positive={mentionsData?.currentFormat.mentions.positive}
+                    negative={mentionsData?.currentFormat.mentions.negative}
+                    neutral={mentionsData?.currentFormat.mentions.neutral}
+                  />
+                </div>
+              </TopCardsContainer>
+              <TitleBottomBar title="Notícias em Destaque" className="mt-4" />
+              <CardsContainer>
+                {mentionsData?.currentFormat.news.news
+                  .slice(0, 3)
+                  .map((item: any) => (
+                    <NewsCard
+                      sentimentClassification={item.sentimentClassification}
+                      sentiment={item.sentiment}
+                      source="Só Notícias"
+                      url={item.url}
+                      date={item.date
+                        .split("T")[0]
+                        .split("-")
+                        .reverse()
+                        .join("/")}
+                      content={item.title}
+                    />
+                  ))}
+              </CardsContainer>
+
+              <TitleBottomBar title="Menções em Destaque" />
+              <CardsContainer>
+                {mentionsData?.currentFormat.mentions.mentions
+                  .slice(0, 3)
+                  .map((item: any) => (
+                    <MentionsCard
+                      sentimentClassification={item.sentimentClassification}
+                      sentiment={item.sentiment}
+                      source={item.profile}
+                      comments={item.comments}
+                      commentSentiment={item.commentSentiment}
+                      url={item.url}
+                      date={item.date
+                        .split("T")[0]
+                        .split("-")
+                        .reverse()
+                        .join("/")}
+                      content={item.title}
+                    />
+                  ))}
+              </CardsContainer>
+            </Main>
+          ) : (
+            <Spinner animation="border" />
+          )}
         </Content>
       </RootLayout>
     </main>

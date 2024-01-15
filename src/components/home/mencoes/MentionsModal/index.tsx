@@ -20,9 +20,28 @@ import { useState } from "react";
 interface Props {
   show: boolean;
   onHide: () => void;
+  sentimentClassification: "positivo" | "neutro" | "negativo";
+  sentiment: number;
+  comments: any;
+  commentSentiment: number;
+  source: string;
+  content: string;
+  date: string;
+  url: string;
 }
 
-export function MentionsModal({ show, onHide }: Props) {
+export function MentionsModal({
+  show,
+  onHide,
+  sentimentClassification,
+  sentiment,
+  comments,
+  commentSentiment,
+  source,
+  content,
+  date,
+  url,
+}: Props) {
   const [selectedValue, setSelectedValue] = useState("Relevância");
   const values = ["Relevância", "Mais recente"];
 
@@ -31,7 +50,7 @@ export function MentionsModal({ show, onHide }: Props) {
       <Content>
         <Header>
           <div>
-            <TitleWithBar content="Só Notícias" barColor="#22C24F" />
+            <TitleWithBar content={source} barColor="#22C24F" />
             <span
               style={{
                 marginLeft: "1rem",
@@ -40,106 +59,102 @@ export function MentionsModal({ show, onHide }: Props) {
                 fontWeight: 600,
               }}
             >
-              02/10/2023
+              {date}
             </span>
           </div>
           <div
             style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}
           >
             <strong style={{ fontSize: "1.25rem", color: "#22C24F" }}>
-              Positiva{" "}
+              {sentimentClassification === "positivo"
+                ? "Positiva"
+                : sentimentClassification === "neutro"
+                  ? "Neutra"
+                  : "Precisa de atenção"}{" "}
             </strong>
             <Image
               width={36}
               height={36}
-              src="/dashboard/positive.svg"
+              src={
+                sentimentClassification === "positivo"
+                  ? "/dashboard/positive.svg"
+                  : sentimentClassification === "neutro"
+                    ? "/dashboard/neutral.svg"
+                    : "/dashboard/warning.svg"
+              }
               alt=""
             />
           </div>
         </Header>
         <Main>
-          <NewContent>
-            my text of the printing and typesetting industry. Lorem Ipsum has
-            been the industry's standard dummy text ever since the 1500s, when
-            an my text of the printing and typesetting industry. Lorem Ipsum has
-            been the industry's standard dummy text ever since the 1500s, when
-            an my text of the printing and typesetting industry. Lorem Ipsum has
-            been the industry's standard dummy text ever since the 1500s, when
-            an...
-          </NewContent>
+          <NewContent>{content}</NewContent>
           <Sentiments>
             <hr />
-            <div className="scores">
+            <div className="flex w-full items-center justify-around">
               <ScoreChartContainer>
                 <span style={{ maxWidth: "14rem", height: "3rem" }}>
                   Sentimento da Menção
                 </span>
                 <div style={{ maxWidth: "14rem", margin: "auto" }}>
-                  <ScoreChart score={690} id="mentionSentiment" />
+                  <ScoreChart score={sentiment} id="mentionSentiment" />
                 </div>
               </ScoreChartContainer>
-              <ScoreChartContainer>
-                <span style={{ maxWidth: "14rem", height: "3rem" }}>
-                  Sentimento médio dos comentários
-                </span>
-                <div style={{ maxWidth: "14rem", margin: "auto" }}>
-                  <ScoreChart score={690} id="commentsSentiment" />
-                </div>
-              </ScoreChartContainer>
+              {comments.length !== 0 && (
+                <ScoreChartContainer>
+                  <span style={{ maxWidth: "14rem", height: "3rem" }}>
+                    Sentimento médio dos comentários
+                  </span>
+                  <div style={{ maxWidth: "14rem", margin: "auto" }}>
+                    <ScoreChart
+                      score={commentSentiment}
+                      id="commentsSentiment"
+                    />
+                  </div>
+                </ScoreChartContainer>
+              )}
             </div>
             <hr style={{ margin: "2rem 0" }} />
           </Sentiments>
 
-          <CommentsHeader>
-            <div className="title">
-              <TitleWithBar content="Comentários" barColor="#12A9E7" />
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1rem",
-                  padding: "0.5rem",
-                }}
-              >
-                <strong
-                  onClick={() =>
-                    document.getElementById("comments-order-select")?.focus()
-                  }
-                >
-                  Ordenar por:
-                </strong>
-                <OrderSelect
-                  selectedValue={selectedValue}
-                  values={values}
-                  setSelectedValue={setSelectedValue}
-                  id="comments-order-select"
-                />
-              </div>
-            </div>
-          </CommentsHeader>
+          {comments.length !== 0 && (
+            <>
+              <CommentsHeader>
+                <div className="title">
+                  <TitleWithBar content="Comentários" barColor="#12A9E7" />
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                      padding: "0.5rem",
+                    }}
+                  >
+                    <strong
+                      onClick={() =>
+                        document
+                          .getElementById("comments-order-select")
+                          ?.focus()
+                      }
+                    >
+                      Ordenar por:
+                    </strong>
+                    <OrderSelect
+                      selectedValue={selectedValue}
+                      values={values}
+                      setSelectedValue={setSelectedValue}
+                      id="comments-order-select"
+                    />
+                  </div>
+                </div>
+              </CommentsHeader>
 
-          <Comments>
-            <CommentComponent
-              type={"instagram"}
-              comment={Math.floor(Math.random() * 5000)}
-            />
-            <CommentComponent
-              type={"instagram"}
-              comment={Math.floor(Math.random() * 5000)}
-            />
-            <CommentComponent
-              type={"instagram"}
-              comment={Math.floor(Math.random() * 5000)}
-            />
-            <CommentComponent
-              type={"instagram"}
-              comment={Math.floor(Math.random() * 5000)}
-            />
-            <CommentComponent
-              type={"instagram"}
-              comment={Math.floor(Math.random() * 5000)}
-            />
-          </Comments>
+              <Comments>
+                {comments.slice(0, 5).map((comment: any) => (
+                  <CommentComponent type={"instagram"} comment={comment} />
+                ))}
+              </Comments>
+            </>
+          )}
         </Main>
       </Content>
     </ModalContainer>

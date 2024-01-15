@@ -52,11 +52,6 @@ interface Props {
 }
 
 export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
-  console.log(
-    metaads.advertising[0].deliveryRegion.map((item: any) =>
-      Number(item.percentage)
-    )
-  );
   const [selectedValue, setSelectedValue] = useState("Relevância");
   const values = ["Relevância", "Mais recente"];
 
