@@ -88,12 +88,12 @@ export default function MidiasSociais() {
     setYoutubeData(youtube.body);
   }
 
-  // console.log("socialMidiaData: ", socialMidiaData);
-  // console.log("facebookData: ", facebookData);
-  // console.log("metaadsData: ", metaadsData);
-  // console.log("instagramData: ", instagramData);
-  // console.log("tiktokData: ", tiktokData);
-  // console.log("youtubeData: ", youtubeData);
+  console.log("socialMidiaData: ", socialMidiaData);
+  console.log("facebookData: ", facebookData);
+  console.log("metaadsData: ", metaadsData);
+  console.log("instagramData: ", instagramData);
+  console.log("tiktokData: ", tiktokData);
+  console.log("youtubeData: ", youtubeData);
 
   useEffect(() => {
     if (selectedProfile.id) {
@@ -120,8 +120,8 @@ export default function MidiasSociais() {
                 <LikesAndComentsCard
                   type="facebook"
                   barColor="#5162FF"
-                  coments={1}
-                  likes={25}
+                  coments={socialMidiaData.staticData.facebook.followers}
+                  likes={socialMidiaData.staticData.facebook.like}
                   name="Facebook"
                   onClick={() => setSelectedPage("facebook")}
                   isSelected={
@@ -131,8 +131,8 @@ export default function MidiasSociais() {
                 <LikesAndComentsCard
                   type="instagram"
                   barColor="#5162FF"
-                  coments={1}
-                  likes={25}
+                  coments={socialMidiaData.staticData.instagram.followers}
+                  likes={socialMidiaData.staticData.instagram.posts}
                   name="Instagram"
                   onClick={() => setSelectedPage("instagram")}
                   isSelected={
@@ -142,8 +142,8 @@ export default function MidiasSociais() {
                 <LikesAndComentsCard
                   type="tiktok"
                   barColor="#5162FF"
-                  coments={1}
-                  likes={25}
+                  coments={socialMidiaData.staticData.tiktok.followers}
+                  likes={socialMidiaData.staticData.tiktok.likes}
                   name="TikTok"
                   onClick={() => setSelectedPage("tiktok")}
                   isSelected={
@@ -153,8 +153,8 @@ export default function MidiasSociais() {
                 <LikesAndComentsCard
                   type="youtube"
                   barColor="#5162FF"
-                  coments={1}
-                  likes={25}
+                  coments={socialMidiaData.staticData.youtube.views}
+                  likes={socialMidiaData.staticData.youtube.subs}
                   name="Youtube"
                   onClick={() => setSelectedPage("youtube")}
                   isSelected={

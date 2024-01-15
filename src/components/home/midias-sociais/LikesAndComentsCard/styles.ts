@@ -53,7 +53,7 @@ export const FeedbackGroup = styled.div`
   }
 
   strong {
-    font-size: 2rem;
+    font-size: 1.2rem;
     line-height: 0.9;
   }
 
