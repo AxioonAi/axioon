@@ -4,6 +4,7 @@ export const api_url = "https://axioon.apiexecutivos.shop";
 export const amazonik = "http://192.168.0.224:3333";
 export const token = "axioonToken";
 export const refreshToken = "axioonRefreshToken";
+export const user_type = "axioonUserType";
 
 export const api = axios.create({
   baseURL: api_url,
@@ -252,6 +253,7 @@ export const AuthPutAPI = async (url: string, data: any) => {
 
 export const loginVerifyAPI = async () => {
   const token = localStorage.getItem(refreshToken);
+  const type = localStorage.getItem(user_type);
   if (!token) {
     return 400;
   }
@@ -261,7 +263,7 @@ export const loginVerifyAPI = async () => {
   };
 
   const connect = await api
-    .patch("/user/token", {}, config)
+    .patch(`${type === "user" ? "/user" : "/sub-user"}/token`, {}, config)
     .then(({ data }) => {
       return {
         status: 200,
@@ -273,6 +275,10 @@ export const loginVerifyAPI = async () => {
       const status = err.response.status;
       return { status: status, body: message };
     });
+
+  localStorage.setItem(token, connect.body.token);
+  localStorage.setItem(refreshToken, connect.body.refreshToken);
+  localStorage.setItem(user_type, connect.body.type);
 
   return connect.status;
 };

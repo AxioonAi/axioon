@@ -50,6 +50,7 @@ interface Props {
   metaads?: any;
   id: string;
   loading: boolean;
+  locked?: boolean;
 }
 
 export function SocialMidiaPage({
@@ -58,6 +59,7 @@ export function SocialMidiaPage({
   metaads,
   id,
   loading,
+  locked,
 }: Props) {
   const [selectedValue, setSelectedValue] = useState("Relevância");
   const values = ["Relevância", "Mais recente"];
@@ -366,96 +368,100 @@ export function SocialMidiaPage({
                   )}
                 </CommentsContainer>
               </PostsAndComments>
-              {pageType !== "facebook" || metaads.advertising.length === 0 ? (
+              {pageType !== "facebook" ||
+              (metaads && metaads.advertising.length === 0) ? (
                 <></>
               ) : (
                 <>
-                  <MetaAdsContainer>
-                    <TitleWithBar
-                      content=""
-                      barColor="#12A9E7"
-                      className="mb-4 title"
-                    />
-                    <MetaAdsLogo
-                      src="/metaAdsLogo.svg"
-                      width={200}
-                      height={40}
-                      alt=""
-                    />
-                    <MetaAdsCardsContainer>
-                      {metaads.advertising.map((item: any, index: any) => (
-                        <>
-                          <MetaAdsCards>
-                            <div
-                              style={{
-                                display: "flex",
-                                width: "100%",
-                                justifyContent: "space-between",
-                              }}
-                            >
-                              <div>
-                                <a
+                  {!locked && (
+                    <MetaAdsContainer>
+                      <TitleWithBar
+                        content=""
+                        barColor="#12A9E7"
+                        className="mb-4 title"
+                      />
+                      <MetaAdsLogo
+                        src="/metaAdsLogo.svg"
+                        width={200}
+                        height={40}
+                        alt=""
+                      />
+                      <MetaAdsCardsContainer>
+                        {metaads &&
+                          metaads.advertising.map((item: any, index: any) => (
+                            <>
+                              <MetaAdsCards>
+                                <div
                                   style={{
-                                    fontWeight: "semibold",
-                                    fontSize: 16,
-                                    textDecoration: "none",
-                                    color: "black",
-                                    width: "max-content",
+                                    display: "flex",
+                                    width: "100%",
+                                    justifyContent: "space-between",
                                   }}
-                                  href={`https://www.facebook.com/ads/library/?id=${item.id}`}
-                                  target="_blank"
-                                  rel="noreferrer"
                                 >
-                                  ID do Anúncio: <strong>{item.id}</strong>
-                                </a>
-                              </div>
-                              <img
-                                src={
-                                  item.status === "ACTIVE"
-                                    ? "/ActiveAd.svg"
-                                    : "/InactiveAd.svg"
-                                }
-                                alt=""
-                              />
-                            </div>
-                            <div style={{ fontSize: 14 }}>
-                              <label>
-                                {item.end_date !== null
-                                  ? "Veiculado Entre: "
-                                  : "Início Em: "}
-                              </label>
-                              {""}{" "}
-                              {item.start_date
-                                .split("T")[0]
-                                .split("-")
-                                .reverse()
-                                .join("/")}
-                              {item.end_date && " e "}
-                              {item.end_date &&
-                                item.end_date
-                                  .split("T")[0]
-                                  .split("-")
-                                  .reverse()
-                                  .join("/")}
-                              <label style={{ marginLeft: "2%" }}></label>
-                            </div>
-                            <label
-                              onClick={() => openModal(index)}
-                              style={{
-                                alignSelf: "center",
-                                padding: "5px 10px",
-                                border: "1px solid #0037c1",
-                                borderRadius: 10,
-                                margin: "2% 0",
-                              }}
-                            >
-                              Ver mais Detalhes
-                            </label>
-                          </MetaAdsCards>
-                        </>
-                      ))}
-                    </MetaAdsCardsContainer>
-                  </MetaAdsContainer>
+                                  <div>
+                                    <a
+                                      style={{
+                                        fontWeight: "semibold",
+                                        fontSize: 16,
+                                        textDecoration: "none",
+                                        color: "black",
+                                        width: "max-content",
+                                      }}
+                                      href={`https://www.facebook.com/ads/library/?id=${item.id}`}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                    >
+                                      ID do Anúncio: <strong>{item.id}</strong>
+                                    </a>
+                                  </div>
+                                  <img
+                                    src={
+                                      item.status === "ACTIVE"
+                                        ? "/ActiveAd.svg"
+                                        : "/InactiveAd.svg"
+                                    }
+                                    alt=""
+                                  />
+                                </div>
+                                <div style={{ fontSize: 14 }}>
+                                  <label>
+                                    {item.end_date !== null
+                                      ? "Veiculado Entre: "
+                                      : "Início Em: "}
+                                  </label>
+                                  {""}{" "}
+                                  {item.start_date
+                                    .split("T")[0]
+                                    .split("-")
+                                    .reverse()
+                                    .join("/")}
+                                  {item.end_date && " e "}
+                                  {item.end_date &&
+                                    item.end_date
+                                      .split("T")[0]
+                                      .split("-")
+                                      .reverse()
+                                      .join("/")}
+                                  <label style={{ marginLeft: "2%" }}></label>
+                                </div>
+                                <label
+                                  onClick={() => openModal(index)}
+                                  style={{
+                                    alignSelf: "center",
+                                    padding: "5px 10px",
+                                    border: "1px solid #0037c1",
+                                    borderRadius: 10,
+                                    margin: "2% 0",
+                                  }}
+                                >
+                                  Ver mais Detalhes
+                                </label>
+                              </MetaAdsCards>
+                            </>
+                          ))}
+                      </MetaAdsCardsContainer>
+                    </MetaAdsContainer>
+                  )}
                 </>
               )}
             </>

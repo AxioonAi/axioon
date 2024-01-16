@@ -122,15 +122,24 @@ export function HeaderComponent({
     }
   }
 
+  async function getPlan() {
+    const connect = await authGetAPI("/user/signature/all");
+    if (connect.status !== 200) {
+      return router.push("/plan");
+    }
+  }
+
   async function handleVerify() {
     const connect = await loginVerifyAPI();
     if (connect !== 200) {
       return router.push("/login");
     }
+    await getPlan();
     return await getPoliticians();
   }
 
   useEffect(() => {
+    getPlan();
     handleVerify();
   }, []);
 

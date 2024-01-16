@@ -66,6 +66,7 @@ export default function MidiasSociais() {
   const [tiktokData, setTiktokData] = useState();
   const [youtubeData, setYoutubeData] = useState();
   const [loading, setLoading] = useState(false);
+  const [locked, setLocked] = useState(true);
 
   async function getSocialMidiaDetails() {
     const connect = await authGetAPI(
@@ -112,11 +113,15 @@ export default function MidiasSociais() {
         `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`
       ),
     ]);
+    if (metaads.status !== 200) {
+      setLocked(true);
+    }
     if (facebook.status === 200) {
       setFacebookData(facebook.body);
     }
     if (metaads.status === 200) {
       setMetaadsData(metaads.body);
+      setLocked(false);
     }
     if (instagram.status === 200) {
       setInstagramData(instagram.body);
@@ -222,6 +227,7 @@ export default function MidiasSociais() {
                   pageType="facebook"
                   pageData={facebookData}
                   metaads={metaadsData}
+                  locked={locked}
                 />
               )}
               {selectedPage === "instagram" && (

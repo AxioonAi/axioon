@@ -13,7 +13,7 @@ import Theme from "@/styles/themes";
 import { Footer } from "@/components/register-account/Footer";
 import { useRouter } from "next/router";
 import { Messages } from "@/components/Global/Messages";
-import { PostAPI, getAPI, refreshToken, token } from "@/lib/axios";
+import { PostAPI, getAPI, refreshToken, token, user_type } from "@/lib/axios";
 import { GlobalButton } from "@/components/Global/Button";
 
 export default function Login() {
@@ -36,7 +36,7 @@ export default function Login() {
 
   async function handleLogin() {
     setButtonLoading(true);
-    const connect = await PostAPI(checked ? "/login" : "/login", {
+    const connect = await PostAPI(checked ? "/sub-user/login" : "/login", {
       email: formData.email,
       password: formData.password,
     });
@@ -46,6 +46,7 @@ export default function Login() {
     }
     localStorage.setItem(token, connect.body.token);
     localStorage.setItem(refreshToken, connect.body.refreshToken);
+    localStorage.setItem(user_type, connect.body.type);
     router.push("/");
     return setButtonLoading(false);
   }
@@ -55,11 +56,15 @@ export default function Login() {
       <div className="Main w-full flex flex-col justify-around items-center mb-24 md:mb-0 lg:flex-row">
         <div className="LoginForm py-0 px-16 lg: w-1/2">
           <div className="AxionLogo flex justify-center p-5">
-            <img className=" w-48 lg: w-auto" src="/axionLogo.png" alt="" />
+            <img className=" w-48 lg:w-auto" src="/axionLogo.png" alt="" />
           </div>
           <div className="LoginFormHeader flex flex-col ">
-            <strong className="text-2xl">Faça seu login para utilizar a plataforma.</strong>
-            <span className="text-sm">Acesse aqui todas as suas contas pelo painel principal.</span>
+            <strong className="text-2xl">
+              Faça seu login para utilizar a plataforma.
+            </strong>
+            <span className="text-sm">
+              Acesse aqui todas as suas contas pelo painel principal.
+            </span>
           </div>
           <div className="LoginTypeSelector flex w-full h-20 justify-between">
             <label
@@ -75,7 +80,7 @@ export default function Login() {
                 defaultChecked
                 onChange={() => setChecked(!checked)}
               />
-              <span>Login</span>
+              <span>Administrador</span>
             </label>
             <label
               htmlFor="loginType2"
@@ -89,7 +94,7 @@ export default function Login() {
                 name="loginType"
                 onChange={() => setChecked(!checked)}
               />
-              <span>Login</span>
+              <span>Convidado</span>
             </label>
           </div>
           <div className="relative my-[5vh]">
@@ -101,7 +106,9 @@ export default function Login() {
           </div>
 
           <div className="relative flex flex-col mb-3">
-            <label className="text-sm" htmlFor="email">Email</label>
+            <label className="text-sm" htmlFor="email">
+              Email
+            </label>
             <input
               className="p-2 border border-gray-300 rounded-lg transition duration-200 "
               type="email"
@@ -113,9 +120,11 @@ export default function Login() {
           </div>
 
           <div className="relative flex flex-col mb-3">
-            <label className="text-sm" htmlFor="password">Senha</label>
+            <label className="text-sm" htmlFor="password">
+              Senha
+            </label>
             <input
-            className="p-2 border border-gray-300 rounded-lg transition duration-200 " 
+              className="p-2 border border-gray-300 rounded-lg transition duration-200 "
               type={showPassword}
               value={formData.password}
               onChange={(e) =>
@@ -123,13 +132,26 @@ export default function Login() {
               }
             />
             {showPassword === "password" ? (
-              <img className="absolute right-4 bottom-2.5 cursor-pointer" src="/eye.svg" alt="" onClick={toggleShowPassword} />
+              <img
+                className="absolute right-4 bottom-2.5 cursor-pointer"
+                src="/eye.svg"
+                alt=""
+                onClick={toggleShowPassword}
+              />
             ) : (
-              <img  className="absolute right-4 bottom-2.5 cursor-pointer" src="/eye-slash.svg" alt="" onClick={toggleShowPassword} />
+              <img
+                className="absolute right-4 bottom-2.5 cursor-pointer"
+                src="/eye-slash.svg"
+                alt=""
+                onClick={toggleShowPassword}
+              />
             )}
           </div>
           <div className="flex justify-end">
-            <button className=" border-0 text-brand_blue bg-transparent " onClick={() => router.push("/recover-password")}>
+            <button
+              className=" border-0 text-brand_blue bg-transparent "
+              onClick={() => router.push("/recover-password")}
+            >
               Esqueceu sua senha?
             </button>
           </div>
@@ -146,16 +168,20 @@ export default function Login() {
           />
           <p className="text-sm font-bold">
             Não tem uma conta?{" "}
-            <span className=" text-brand_blue cursor-pointer"  
+            <span
+              className=" text-brand_blue cursor-pointer"
               onClick={() => router.push("/register-account")}
             >
               Cadastre-se
             </span>
           </p>
         </div>
-        <div className="ArtSection relative self-start min-h-screen h-full w-full bg-cover bg-no-repeat bg-top-center lg:w-1/2" style={{ backgroundImage: 'url("/foto.png")' }} >
+        <div
+          className="ArtSection relative self-start min-h-screen h-full w-full bg-cover bg-no-repeat bg-top-center lg:w-1/2"
+          style={{ backgroundImage: 'url("/foto.png")' }}
+        >
           <Messages />
-        </div >
+        </div>
       </div>
       <Footer />
     </div>

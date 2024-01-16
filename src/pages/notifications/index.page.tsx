@@ -7,11 +7,13 @@ import Theme from "@/styles/themes";
 import { GlobalButton } from "@/components/Global/Button";
 import { Global } from "recharts";
 import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
-import { authGetAPI } from "@/lib/axios";
+import { authGetAPI, loginVerifyAPI, user_type } from "@/lib/axios";
+import { useRouter } from "next/router";
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Notifications() {
   const main = useRef(null);
   const content = useRef(null);
+  const router = useRouter();
   const [notifications, setNotifications] = useState<any>([]);
 
   useLayoutEffect(() => {
@@ -44,8 +46,20 @@ export default function Notifications() {
     setNotifications(connect.body.notification);
   }
 
-  useEffect(() => {
+  const [type, setType] = useState("");
+
+  async function handleVerify() {
+    const connect = await loginVerifyAPI();
+    const type = localStorage.getItem(user_type);
+    if (type !== "user") {
+      alert("Somente administradores podem acessar esta página");
+      return router.push("/");
+    }
     getNotifications();
+  }
+
+  useEffect(() => {
+    handleVerify();
   }, []);
 
   return (

@@ -107,9 +107,9 @@ export default function Comparison() {
 
   return (
     <main ref={main}>
-      {/* <RootLayout fadeOut={() => fadeOut()}>
+      <RootLayout fadeOut={() => fadeOut()}>
         <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
-          <DateSelectorDropdown />
+          {/* <DateSelectorDropdown />
           <Main>
             <header>
               <h1>Gráfico de Comparativo</h1>
@@ -282,9 +282,9 @@ export default function Comparison() {
                 )}
               </IndividualContainer>
             </Grid>
-          </Main>
+          </Main>*/}
         </Content>
-      </RootLayout> */}
+      </RootLayout>
     </main>
   );
 }

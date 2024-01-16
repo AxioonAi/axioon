@@ -22,6 +22,7 @@ import Image from "next/image";
 import { SuggestionContainer } from "@/components/home/inteligencia-artificial/PromptSuggestion/styles";
 import { PrompSuggestion } from "@/components/home/inteligencia-artificial/PromptSuggestion";
 import { useChatFunctions } from "./ia";
+import { authGetAPI } from "@/lib/axios";
 
 export default function InteligenciaArtificial() {
   const main = useRef(null);
@@ -61,7 +62,18 @@ export default function InteligenciaArtificial() {
     return () => ctx.revert();
   };
 
+  const [locked, setLocked] = useState(true);
+
+  async function getPlan() {
+    const connect = await authGetAPI("/user/signature/ai");
+    if (connect.status !== 200) {
+      return setLocked(true);
+    }
+    setLocked(false);
+  }
+
   useEffect(() => {
+    getPlan();
     setTimeout(() => {
       const chatInput = document.getElementById("chatInput");
       if (chatInput) {
@@ -143,7 +155,11 @@ lg:left-[calc(100%-17.5rem)]"
             setSelectedProfile={setSelectedProfile}
             fadeOut={() => fadeOut()}
           />
-          <div className="h-[95vh] bg-white rounded-[50px] p-[2rem_0_1rem] transition-all duration-300 ease-in lg:rounded-[15px]  ">
+          <div
+            className={`${
+              locked ? "hidden" : "flex"
+            } h-[95vh] bg-white rounded-[50px] p-[2rem_0_1rem] transition-all duration-300 ease-in lg:rounded-[15px]`}
+          >
             <div className="h-full max-w-[57rem] flex flex-col items-center justify-between mx-auto">
               <div className="ChatHeader flex items-start gap-4 sm: scale-90">
                 <Image

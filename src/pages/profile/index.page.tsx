@@ -22,7 +22,7 @@ import gsap from "gsap";
 import RootLayout from "@/components/Layout";
 import { UsersTable } from "@/components/users/Table";
 import { NewUserModal } from "@/components/profile/NewUserModal";
-import { AuthPutAPI, authGetAPI } from "@/lib/axios";
+import { AuthPutAPI, authGetAPI, loginVerifyAPI, user_type } from "@/lib/axios";
 import { maskCpfCnpj, maskDate, maskPhone } from "@/utils/masks";
 import { useRouter } from "next/router";
 
@@ -135,8 +135,20 @@ export default function Profile() {
     return setLoading1(false);
   }
 
-  useEffect(() => {
+  const [type, setType] = useState("");
+
+  async function handleVerify() {
+    const connect = await loginVerifyAPI();
+    const type = localStorage.getItem(user_type);
+    if (type !== "user") {
+      alert("Somente administradores podem acessar esta página");
+      return router.push("/");
+    }
     GetProfile();
+  }
+
+  useEffect(() => {
+    handleVerify();
   }, []);
 
   return (
@@ -560,7 +572,7 @@ export default function Profile() {
           formData={formData}
           setFormData={setFormData}
           changePassword={changePassword}
-          loading={loading1}
+          loadingButton={loading1}
         />
 
         <BlockAccountModal

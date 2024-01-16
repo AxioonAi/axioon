@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeaderContainer, StyledOffcanvas } from "./styles";
 import { Button, Offcanvas } from "react-bootstrap";
 import Image from "next/image";
@@ -7,6 +7,7 @@ import { Dashboard } from "../../../../public/sidebar/dashboard";
 import { FinancialSVG } from "../../../../public/sidebar/financial";
 import { NotificationSVG } from "../../../../public/sidebar/notification";
 import { ProfileSVG } from "../../../../public/sidebar/profile";
+import { loginVerifyAPI, user_type } from "@/lib/axios";
 
 interface SidebarProps {
   fadeOut: any;
@@ -17,6 +18,19 @@ export function HeaderComponent({ fadeOut }: SidebarProps) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [type, setType] = useState("");
+
+  async function handleVerify() {
+    const connect = await loginVerifyAPI();
+    if (connect === 200) {
+      setType(String(localStorage.getItem(user_type)));
+    }
+  }
+
+  useEffect(() => {
+    handleVerify();
+  }, []);
 
   return (
     <>
@@ -72,18 +86,22 @@ export function HeaderComponent({ fadeOut }: SidebarProps) {
               imgSrc={<FinancialSVG />}
               href="/comparison"
             />
-            <LinkComponent
-              fadeOut={() => fadeOut()}
-              name="Notificações"
-              imgSrc={<NotificationSVG />}
-              href="/notifications"
-            />
-            <LinkComponent
-              fadeOut={() => fadeOut()}
-              name="Meu Perfil"
-              imgSrc={<ProfileSVG />}
-              href="/profile"
-            />
+            {type === "user" && (
+              <>
+                <LinkComponent
+                  fadeOut={() => fadeOut()}
+                  name="Notificações"
+                  imgSrc={<NotificationSVG />}
+                  href="/notifications"
+                />
+                <LinkComponent
+                  fadeOut={() => fadeOut()}
+                  name="Meu Perfil"
+                  imgSrc={<ProfileSVG />}
+                  href="/profile"
+                />
+              </>
+            )}
             <LinkComponent
               fadeOut={() => fadeOut()}
               name="Ajuda"
