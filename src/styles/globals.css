@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes fadeInWelcomeMessage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }

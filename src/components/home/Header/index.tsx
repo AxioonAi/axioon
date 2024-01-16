@@ -139,7 +139,7 @@ export function HeaderComponent({
             <img src="/dashboard/click.svg" alt="" />
             Clique nos <em>Cards</em> para ver os dados do seu Candidato
           </Instruction>
-          <Dropdown style={{ alignSelf: "center", marginLeft: "auto" }}>
+          <Dropdown style={{ alignSelf: "center", marginBottom: "1rem", marginLeft: "auto",alignItems:"flex-end" }}>
             <Dropdown.Toggle
               style={{
                 backgroundColor: "#232323",
@@ -148,9 +148,9 @@ export function HeaderComponent({
               }}
             >
               <strong>Robert Martins</strong> <br />
-              <span>contato@robertmartins.com.br</span>
+              <span >contato@robertmartins.com.br</span>
             </Dropdown.Toggle>
-            <Dropdown.Menu style={{ backgroundColor: "#232323" }}>
+            <Dropdown.Menu style={{ backgroundColor: "#232323", width: "100%", right:"1rem"}}>
               <Dropdown.Item
                 className="text-white hover:bg-black"
                 onClick={() => setShowNewPasswordModal(true)}
