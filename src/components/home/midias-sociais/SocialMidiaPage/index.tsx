@@ -333,27 +333,51 @@ export function SocialMidiaPage({
                     </LabelAndSelect>
                   </CommentsHeader>
                   <Comments>
-                    {selectedPostId === "" ? (
-                      <label className="text-black text-center justify-center">
-                        Selecione uma publicação
-                      </label>
-                    ) : (
-                      pageData?.posts.map(
-                        (post: any, index: any) =>
-                          post.id === selectedPostId &&
-                          post.comments
-                            .slice(
-                              0,
-                              showMoreComments ? post.comments.length : 5
-                            )
-                            .map((comment: any, index: any) => (
-                              <CommentComponent
-                                type={pageType}
-                                comment={comment}
-                              />
-                            ))
+                    {
+                      selectedPostId === "" ? (
+                        <label className="text-black text-center justify-center">
+                          Selecione uma publicação
+                        </label>
+                      ) : pageData.posts.filter(
+                          (post: any) => post?.id === selectedPostId
+                        )[0].comments.length === 0 ? (
+                        <label className="text-black text-center justify-center">
+                          Sem comentários
+                        </label>
+                      ) : (
+                        pageData.posts
+                          .filter((post: any) => post?.id === selectedPostId)[0]
+                          .comments.slice(
+                            0,
+                            showMoreComments
+                              ? pageData.posts.filter(
+                                  (post: any) => post?.id === selectedPostId
+                                )[0].comments.length
+                              : 5
+                          )
+                          .map((comment: any, index: any) => (
+                            <CommentComponent
+                              type={pageType}
+                              comment={comment}
+                            />
+                          ))
                       )
-                    )}
+                      // pageData?.posts.map(
+                      //   (post: any, index: any) =>
+                      //     post.id === selectedPostId &&
+                      //     post.comments
+                      //       .slice(
+                      //         0,
+                      //         showMoreComments ? post.comments.length : 5
+                      //       )
+                      //       .map((comment: any, index: any) => (
+                      //         <CommentComponent
+                      //           type={pageType}
+                      //           comment={comment}
+                      //         />
+                      //       ))
+                      // )
+                    }
                   </Comments>
                   {selectedPostId === "" ? (
                     <></>

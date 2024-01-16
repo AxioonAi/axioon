@@ -21,8 +21,10 @@ export function KeyIndicators({ pageData }: Props) {
                   {item.name}
                 </strong>
                 <KeyIndicator
-                  previousValue={Number(item.previous.toFixed(0))}
-                  currentValue={Number(item.current.toFixed(0))}
+                  previousValue={
+                    item.previous && Number(item.previous.toFixed(0))
+                  }
+                  currentValue={item.current && Number(item.current.toFixed(0))}
                 />
               </KeyIndicatorContent>
             </div>

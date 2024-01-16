@@ -3,7 +3,7 @@ import { RegisterHeader } from "./styles";
 
 interface Props {
   type?: "light" | "dark";
-  logged: boolean;
+  logged?: boolean;
 }
 
 export function RegisterAccountHeader({ type = "light", logged }: Props) {

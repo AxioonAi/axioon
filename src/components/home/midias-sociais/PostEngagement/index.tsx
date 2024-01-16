@@ -26,7 +26,7 @@ export function PostEngagement({ pageData }: pageData) {
         data={pageData?.posts.slice(0, 10).map((post: any) => ({
           Curtidas: post.like,
           Comentários: post.commentCount,
-          Sentimento: Number(post.sentiment.toFixed(2)),
+          Sentimento: post.sentiment && Number(post.sentiment.toFixed(2)),
           Compartilhamentos: post.shares,
         }))}
         margin={{
