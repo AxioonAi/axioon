@@ -62,10 +62,10 @@ import px2vw from "@/utils/size";
 interface ProfileProps {
   timeValues: any;
   selectedTimeValues: any;
-  setSelectedTimeValues: (value: any) => void;
+  setSelectedTimeValues?: any;
   getIndividualDetails: any;
-  loading: boolean;
-  setLoading: (value: boolean) => void;
+  loading?: boolean;
+  setLoading?: any;
 }
 
 export function HeaderTimeSelect({

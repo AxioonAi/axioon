@@ -125,11 +125,11 @@ export default function SeuEleitorado() {
             setLoading={setLoading}
           />
           {mentionsData ? (
-            <div className=" rounded-lg max-w-[1080px] my-[2%] mx-auto">
+            <div className="rounded-lg max-w-[1080px] my-[2%] mx-auto">
               <h2 className="text-[1.875rem] font-medium mb-[1.25rem]">
                 Sites de Notícias
               </h2>
-              <div className="flex gap-4 flex-wrap justify-around lg:max-w-[800px] lg:mx-auto lg:justify-between md:justify-center">
+              <div className="flex gap-4 flex-wrap justify-around lg:mx-auto md:justify-center">
                 <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
                   <TitleWithBar content="Score Total" barColor="#D38945" />
                   <div className="flex justify-center p-[0_8%]">
@@ -148,7 +148,7 @@ export default function SeuEleitorado() {
                   ).toLocaleDateString("pt-BR")}
                   lastDate={new Date().toLocaleDateString("pt-BR")}
                 />
-                <div className="sentimentChartContainer w-[30rem] lg:w-full md:w-full">
+                <div className="sentimentChartContainer w-full lg:w-[30rem]">
                   <SentimentChart
                     positive={mentionsData?.currentFormat.news.positive}
                     negative={mentionsData?.currentFormat.news.negative}
@@ -156,14 +156,39 @@ export default function SeuEleitorado() {
                   />
                 </div>
               </div>
-              <h2 className="text-[1.875rem] font-medium mb-[1.25rem] mt-3">
+              <h2 className="text-[1.875rem] font-medium mb-[1.25rem]">
                 Menções
               </h2>
-              <div className="flex gap-4 flex-wrap justify-around lg:max-w-[800px] lg:mx-auto lg:justify-between md:justify-center">
-                {/* Conteúdo similar para os cards de menções */}
+              <div className="flex gap-4 flex-wrap justify-around lg:mx-auto md:justify-center">
+                <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
+                  <TitleWithBar content="Score Total" barColor="#D38945" />
+                  <div className="flex justify-center p-[0_8%]">
+                    <ScoreChart
+                      score={Number(
+                        mentionsData?.currentFormat.mentions.average.toFixed(2)
+                      )}
+                      id="mentionsScore"
+                    />
+                  </div>
+                </div>
+                <TotalQuotes
+                  value={Number(mentionsData?.currentFormat.mentions.total)}
+                  firstDate={new Date(
+                    new Date().setDate(new Date().getDate() - 30)
+                  ).toLocaleDateString("pt-BR")}
+                  lastDate={new Date().toLocaleDateString("pt-BR")}
+                />
+                <div className="sentimentChartContainer w-full lg:w-[30rem]">
+                  <SentimentChart
+                    positive={mentionsData?.currentFormat.mentions.positive}
+                    negative={mentionsData?.currentFormat.mentions.negative}
+                    neutral={mentionsData?.currentFormat.mentions.neutral}
+                  />
+                </div>
               </div>
+
               <TitleBottomBar title="Notícias em Destaque" className="mt-4" />
-              <div className="w-full flex justify-between flex-wrap gap-4 my-7 lg:justify-around">
+              <div className="w-full flex justify-center flex-wrap gap-4 my-7 lg:justify-around">
                 {mentionsData?.currentFormat.news.news
                   .slice(0, 3)
                   .map((item: any, index: any) => (
@@ -183,7 +208,7 @@ export default function SeuEleitorado() {
                   ))}
               </div>
               <TitleBottomBar title="Menções em Destaque" />
-              <div className="w-full flex justify-between flex-wrap gap-4 my-7 lg:justify-around">
+              <div className="w-full flex justify-center flex-wrap gap-4 my-7 lg:justify-around">
                 {mentionsData?.currentFormat.mentions.mentions
                   .slice(0, 3)
                   .map((item: any, index: any) => (
