@@ -9,6 +9,9 @@ export const HeaderTop = styled.div`
   flex-direction: row;
   align-items: center;
   width: 100%;
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 export const Instruction = styled.div`

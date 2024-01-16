@@ -8,10 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        fadeInWelcomeMessage: "fadeInWelcomeMessage 0.3s ease-in",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      width: {
+        'custom': 'calc(100% - 4rem)',
+      },
+      left: {
+        'custom': 'calc(100% - 4rem)',
       },
       colors: {
         primary: {

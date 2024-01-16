@@ -5,7 +5,6 @@ import { SentimentChart } from "@/components/home/mencoes/SentimentChart";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { TotalQuotes } from "@/components/home/mencoes/TotalQuotes";
 import { useRouter } from "next/router";
-import { CardsContainer, Content, Main, TopCardsContainer } from "./styles";
 import RootLayout from "@/components/Layout";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -67,165 +66,87 @@ export default function SeuEleitorado() {
   console.log("mentionsData: ", mentionsData);
 
   return (
-    <main ref={main}>
-      <RootLayout fadeOut={() => fadeOut()}>
-        <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
+    <main ref={main} className="relative">
+      <RootLayout fadeOut={fadeOut}>
+      <div className="relative bg-gray-10 m-1 sm:left-2 rounded-[25px_0_0_25px] p-3    animate-fadeIn" ref={content}>
           <HeaderComponent
             selectedProfile={selectedProfile}
             setSelectedProfile={setSelectedProfile}
-            fadeOut={() => fadeOut()}
+            fadeOut={fadeOut}
           />
           {mentionsData ? (
-            <Main>
-              <h2
-                style={{
-                  fontSize: "1.875rem",
-                  fontWeight: 500,
-                  marginBottom: "1.25rem",
-                }}
-              >
+            <div className=" rounded-lg max-w-[1080px] my-[2%] mx-auto">
+              <h2 className="text-[1.875rem] font-medium mb-[1.25rem]">
                 Sites de Notícias
               </h2>
-              <TopCardsContainer>
-                <div
-                  style={{
-                    width: "17.25rem",
-                    height: "100%",
-                    backgroundColor: "white",
-                    padding: "1rem 1.25rem",
-                    borderRadius: 10,
-                  }}
-                >
+              <div className="flex gap-4 flex-wrap justify-around lg:max-w-[800px] lg:mx-auto lg:justify-between md:justify-center">
+                <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
                   <TitleWithBar content="Score Total" barColor="#D38945" />
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      padding: "0 8%",
-                    }}
-                  >
+                  <div className="flex justify-center p-[0_8%]">
                     <ScoreChart
-                      score={Number(
-                        mentionsData?.currentFormat.news.average.toFixed(2)
-                      )}
+                      score={Number(mentionsData?.currentFormat.news.average.toFixed(2))}
                       id="newsScore"
                     />
                   </div>
                 </div>
                 <TotalQuotes
                   value={mentionsData?.currentFormat.news.total}
-                  firstDate={new Date(
-                    new Date().setDate(new Date().getDate() - 30)
-                  ).toLocaleDateString("pt-BR")}
+                  firstDate={new Date(new Date().setDate(new Date().getDate() - 30)).toLocaleDateString("pt-BR")}
                   lastDate={new Date().toLocaleDateString("pt-BR")}
                 />
-
-                <div className="sentimentChartContainer">
+                <div className="sentimentChartContainer w-[30rem] lg:w-full md:w-full">
                   <SentimentChart
                     positive={mentionsData?.currentFormat.news.positive}
                     negative={mentionsData?.currentFormat.news.negative}
                     neutral={mentionsData?.currentFormat.news.neutral}
                   />
                 </div>
-              </TopCardsContainer>
-              <h2
-                style={{
-                  fontSize: "1.875rem",
-                  fontWeight: 500,
-                  marginBottom: "1.25rem",
-                }}
-                className="mt-3"
-              >
+              </div>
+              <h2 className="text-[1.875rem] font-medium mb-[1.25rem] mt-3">
                 Menções
               </h2>
-              <TopCardsContainer>
-                <div
-                  style={{
-                    width: "17.25rem",
-                    height: "100%",
-                    backgroundColor: "white",
-                    padding: "1rem 1.25rem",
-                    borderRadius: 10,
-                  }}
-                >
-                  <TitleWithBar content="Score Total" barColor="#D38945" />
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      padding: "0 8%",
-                    }}
-                  >
-                    <ScoreChart
-                      score={Number(
-                        mentionsData?.currentFormat.mentions.average.toFixed(2)
-                      )}
-                      id="mentionsScore"
-                    />
-                  </div>
-                </div>
-                <TotalQuotes
-                  value={Number(mentionsData?.currentFormat.mentions.total)}
-                  firstDate={new Date(
-                    new Date().setDate(new Date().getDate() - 30)
-                  ).toLocaleDateString("pt-BR")}
-                  lastDate={new Date().toLocaleDateString("pt-BR")}
-                />
-
-                <div className="sentimentChartContainer">
-                  <SentimentChart
-                    positive={mentionsData?.currentFormat.mentions.positive}
-                    negative={mentionsData?.currentFormat.mentions.negative}
-                    neutral={mentionsData?.currentFormat.mentions.neutral}
-                  />
-                </div>
-              </TopCardsContainer>
+              <div className="flex gap-4 flex-wrap justify-around lg:max-w-[800px] lg:mx-auto lg:justify-between md:justify-center">
+                {/* Conteúdo similar para os cards de menções */}
+              </div>
               <TitleBottomBar title="Notícias em Destaque" className="mt-4" />
-              <CardsContainer>
+              <div className="w-full flex justify-between flex-wrap gap-4 my-7 lg:justify-around">
                 {mentionsData?.currentFormat.news.news
                   .slice(0, 3)
-                  .map((item: any) => (
+                  .map((item:any, index:any) => (
                     <NewsCard
+                      key={index}
                       sentimentClassification={item.sentimentClassification}
                       sentiment={item.sentiment}
                       source="Só Notícias"
                       url={item.url}
-                      date={item.date
-                        .split("T")[0]
-                        .split("-")
-                        .reverse()
-                        .join("/")}
+                      date={item.date.split("T")[0].split("-").reverse().join("/")}
                       content={item.title}
                     />
                   ))}
-              </CardsContainer>
-
+              </div>
               <TitleBottomBar title="Menções em Destaque" />
-              <CardsContainer>
+              <div className="w-full flex justify-between flex-wrap gap-4 my-7 lg:justify-around">
                 {mentionsData?.currentFormat.mentions.mentions
                   .slice(0, 3)
-                  .map((item: any) => (
+                  .map((item:any, index:any) => (
                     <MentionsCard
+                      key={index}
                       sentimentClassification={item.sentimentClassification}
                       sentiment={item.sentiment}
                       source={item.profile}
                       comments={item.comments}
                       commentSentiment={item.commentSentiment}
                       url={item.url}
-                      date={item.date
-                        .split("T")[0]
-                        .split("-")
-                        .reverse()
-                        .join("/")}
+                      date={item.date.split("T")[0].split("-").reverse().join("/")}
                       content={item.title}
                     />
                   ))}
-              </CardsContainer>
-            </Main>
+              </div>
+            </div>
           ) : (
             <Spinner animation="border" />
           )}
-        </Content>
+        </div>
       </RootLayout>
     </main>
   );
