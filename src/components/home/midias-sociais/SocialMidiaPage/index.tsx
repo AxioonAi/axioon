@@ -690,27 +690,38 @@ export function SocialMidiaPage({
               <TotalQuotes
                 title="Média de Impressões"
                 type="metaAds"
-                value={metaads?.advertising[selectedIndex].impressions}
-                firstDate={metaads?.advertising[selectedIndex].start_date
-                  .split("T")[0]
-                  .split("-")
-                  .reverse()
-                  .join("/")}
-                lastDate={metaads?.advertising[selectedIndex].end_date
-                  .split("T")[0]
-                  .split("-")
-                  .reverse()
-                  .join("/")}
+                value={
+                  metaads && metaads?.advertising[selectedIndex].impressions
+                }
+                firstDate={
+                  metaads &&
+                  metaads?.advertising[selectedIndex].start_date
+                    .split("T")[0]
+                    .split("-")
+                    .reverse()
+                    .join("/")
+                }
+                lastDate={
+                  metaads.advertising[selectedIndex].end_date !== null &&
+                  metaads.advertising[selectedIndex].end_date
+                    .split("T")[0]
+                    .split("-")
+                    .reverse()
+                    .join("/")
+                }
               />
 
               <SentimentChart
                 positive={
+                  metaads &&
                   metaads?.advertising[selectedIndex].totalByGender[0].value
                 }
                 negative={
+                  metaads &&
                   metaads?.advertising[selectedIndex].totalByGender[1].value
                 }
                 neutral={
+                  metaads &&
                   metaads?.advertising[selectedIndex].totalByGender[2].value
                 }
                 title={"Gênero dos espectadores"}
@@ -778,7 +789,10 @@ export function SocialMidiaPage({
                 </VotersInfoTitle>
                 <div className="chart">
                   <AgeGroupByGender
-                    data={metaads?.advertising[selectedIndex].totalByAgeRange}
+                    data={
+                      metaads &&
+                      metaads?.advertising[selectedIndex].totalByAgeRange
+                    }
                     conf={groupGenderConf}
                   />
                 </div>
@@ -792,14 +806,18 @@ export function SocialMidiaPage({
                 </div>
                 <div className="chart">
                   <VotersInfo
-                    chartData={metaads?.advertising[
-                      selectedIndex
-                    ].deliveryRegion.map((item: any) =>
-                      Number(item.percentage)
-                    )}
-                    labels={metaads?.advertising[0].deliveryRegion.map(
-                      (item: any) => item.region
-                    )}
+                    chartData={
+                      metaads &&
+                      metaads?.advertising[selectedIndex].deliveryRegion.map(
+                        (item: any) => Number(item.percentage)
+                      )
+                    }
+                    labels={
+                      metaads &&
+                      metaads?.advertising[0].deliveryRegion.map(
+                        (item: any) => item.region
+                      )
+                    }
                   />
                 </div>
               </VotersInfoContainer>

@@ -39,10 +39,7 @@ export function TotalQuotes({
           {firstDate === undefined || firstDate === null
             ? "30/09/2022"
             : firstDate}
-          -{" "}
-          {lastDate === undefined || lastDate === null
-            ? "30/09/2022"
-            : lastDate}
+          - {!lastDate ? "Indefinido" : lastDate}
         </span>
         {type === "metaAds" ? (
           <></>

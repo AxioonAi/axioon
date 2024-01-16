@@ -138,7 +138,10 @@ export default function SeuEleitorado() {
           />
           <Main>
             {locked ? (
-              <></>
+              <span className="text-xl self-center text-center">
+                O plano ativo na sua conta não permite acesso a estas
+                informações.
+              </span>
             ) : cityData ? (
               <>
                 <SeuEleitoradoCards cityData={cityData} />
