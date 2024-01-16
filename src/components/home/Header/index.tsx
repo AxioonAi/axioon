@@ -29,6 +29,12 @@ interface headerProps {
   setSelectedProfile: any;
   selectedPage?: string;
   setSelectedPage?: any;
+  timeValues: any;
+  selectedTimeValues: any;
+  setSelectedTimeValues: (value: any) => void;
+  getIndividualDetails: any;
+  loading: boolean;
+  setLoading: (value: boolean) => void;
 }
 
 export function HeaderComponent({
@@ -37,14 +43,17 @@ export function HeaderComponent({
   setSelectedProfile,
   selectedPage,
   setSelectedPage,
+  timeValues,
+  selectedTimeValues,
+  setSelectedTimeValues,
+  getIndividualDetails,
+  loading,
+  setLoading,
 }: headerProps) {
   const router = useRouter();
-
-  const [selectedTimeValue, setSelectedTimeValue] = useState("Últimos 15 Dias");
   const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
-  const timeValues = ["Últimos 7 Dias", "Últimos 15 Dias", "Últimos 30 Dias"];
   const [monitoredProfiles, setMonitoredProfiles] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -52,7 +61,7 @@ export function HeaderComponent({
   });
 
   async function changePassword() {
-    setLoading(true);
+    setLoadingButton(true);
     if (
       formData.currentPassword === "" ||
       formData.newPassword === "" ||
@@ -69,7 +78,7 @@ export function HeaderComponent({
     });
     if (connect.status !== 200) {
       alert(connect.body);
-      return setLoading(false);
+      return setLoadingButton(false);
     }
     setShowNewPasswordModal(false);
     alert(connect.body);
@@ -78,7 +87,7 @@ export function HeaderComponent({
       newPassword: "",
       confirmPassword: "",
     });
-    return setLoading(false);
+    return setLoadingButton(false);
   }
 
   async function getPoliticians() {
@@ -119,7 +128,7 @@ export function HeaderComponent({
       return router.push("/login");
     }
     return await getPoliticians();
-  }  
+  }
 
   useEffect(() => {
     handleVerify();
@@ -228,9 +237,12 @@ export function HeaderComponent({
             {selectedPage !== "seu-eleitorado" &&
               router.asPath.split("/")[2] !== "inteligencia-artificial" && (
                 <HeaderTimeSelect
-                  values={timeValues}
-                  selectedValue={selectedTimeValue}
-                  setSelectedValue={setSelectedTimeValue}
+                  timeValues={timeValues}
+                  selectedTimeValues={selectedTimeValues}
+                  setSelectedTimeValues={setSelectedTimeValues}
+                  getIndividualDetails={getIndividualDetails}
+                  loading={loading}
+                  setLoading={setLoading}
                 />
               )}
           </ButtonAndSelect>
@@ -242,7 +254,7 @@ export function HeaderComponent({
         formData={formData}
         setFormData={setFormData}
         changePassword={changePassword}
-        loading={loading}
+        loadingButton={loadingButton}
       />
     </>
   );

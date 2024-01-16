@@ -2,7 +2,7 @@ import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import px2vw from "@/utils/size";
 import Image from "next/image";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import { ScoreChart } from "../../ScoreChart";
 import { SentimentChart } from "../../mencoes/SentimentChart";
 import { TotalQuotes } from "../../mencoes/TotalQuotes";
@@ -49,9 +49,17 @@ interface Props {
   pageData: any;
   metaads?: any;
   id: string;
+  loading: boolean;
 }
 
-export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
+export function SocialMidiaPage({
+  pageType,
+  pageData,
+  metaads,
+  id,
+  loading,
+}: Props) {
+  console.log("pageData: ", pageData);
   const [selectedValue, setSelectedValue] = useState("Relevância");
   const values = ["Relevância", "Mais recente"];
 
@@ -109,13 +117,21 @@ export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
       dataKey: "Homens",
       color: "#0D123C",
       total:
-        metaads?.advertising[selectedIndex].totalByGender[0].value.toFixed(0),
+        metaads && metaads.advertising.length !== 0
+          ? metaads?.advertising[selectedIndex].totalByGender[0].value.toFixed(
+              0
+            )
+          : 0,
     },
     {
       dataKey: "Mulheres",
       color: "#E7298A",
       total:
-        metaads?.advertising[selectedIndex].totalByGender[1].value.toFixed(0),
+        metaads && metaads.advertising.length !== 0
+          ? metaads?.advertising[selectedIndex].totalByGender[1].value.toFixed(
+              0
+            )
+          : 0,
     },
   ];
 
@@ -139,7 +155,11 @@ export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
     <PageContainer>
       {!pageData ? (
         <label className="mt-5 text-3xl">
-          Não encontramos nenhum dado do {pageType}.
+          {loading ? (
+            <Spinner animation="border" />
+          ) : (
+            `Não encontramos nenhum dado do ${pageType}.`
+          )}
         </label>
       ) : (
         <>
@@ -347,7 +367,7 @@ export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
                   )}
                 </CommentsContainer>
               </PostsAndComments>
-              {pageType !== "facebook" ? (
+              {pageType !== "facebook" || metaads.advertising.length === 0 ? (
                 <></>
               ) : (
                 <>
@@ -443,191 +463,107 @@ export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
           )}
         </>
       )}
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
-        <Modal.Body
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-            alignSelf: "center",
-            gap: "1.4rem",
-          }}
-        >
-          <div
+      {metaads && metaads.advertising.length !== 0 ? (
+        <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+          <Modal.Body
             style={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: "column",
               width: "100%",
-            }}
-          >
-            <Image
-              src="/BackButton.svg"
-              width={50}
-              height={50}
-              alt=""
-              style={{ cursor: "pointer" }}
-              onClick={() => setShowModal(false)}
-            />
-            <TitleWithBar
-              content=""
-              barColor="#12A9E7"
-              className="mb-4 title"
-              style={{ marginLeft: 20 }}
-            />
-            <MetaAdsLogo
-              src="/metaAdsLogo.svg"
-              width={200}
-              height={40}
-              alt=""
-              style={{ marginLeft: 70 }}
-            />
-            <div
-              style={{
-                width: "20%",
-                height: 50,
-                backgroundColor: "#c3c3c3",
-                right: 20,
-                position: "absolute",
-              }}
-            />
-          </div>
-          <div
-            style={{
-              marginTop: "5%",
-              backgroundColor: "white",
-              width: "40%",
-              padding: 10,
-              borderRadius: 10,
-              border: "1px solid #0037c1",
-            }}
-          >
-            ID do Anúncio: {""}
-            <a
-              style={{
-                fontWeight: "semibold",
-                fontSize: 16,
-                color: "black",
-                width: "max-content",
-              }}
-              href="https://www.facebook.com/ads/library/?id=366905246002600"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <strong>{metaads?.advertising[selectedIndex].id}</strong>
-            </a>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "90%",
               alignSelf: "center",
-              marginTop: "2%",
-              justifyContent: "space-between",
+              gap: "1.4rem",
             }}
           >
             <div
               style={{
-                width: px2vw(150),
-                height: px2vw(150),
-                backgroundColor: "#c3c3c3",
-                borderRadius: 10,
-              }}
-            />
-            <div
-              style={{
-                width: "40%",
                 display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                padding: "10px 0",
+                flexDirection: "row",
+                width: "100%",
               }}
             >
+              <Image
+                src="/BackButton.svg"
+                width={50}
+                height={50}
+                alt=""
+                style={{ cursor: "pointer" }}
+                onClick={() => setShowModal(false)}
+              />
+              <TitleWithBar
+                content=""
+                barColor="#12A9E7"
+                className="mb-4 title"
+                style={{ marginLeft: 20 }}
+              />
+              <MetaAdsLogo
+                src="/metaAdsLogo.svg"
+                width={200}
+                height={40}
+                alt=""
+                style={{ marginLeft: 70 }}
+              />
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  backgroundColor: "white",
-                  width: "100%",
-                  padding: "2px 10px",
-                  borderRadius: 10,
-                  border: "1px solid #0037c1",
+                  width: "20%",
+                  height: 50,
+                  backgroundColor: "#c3c3c3",
+                  right: 20,
+                  position: "absolute",
                 }}
-              >
-                <label style={{ lineHeight: 1, fontSize: 12 }}>Pago por</label>
-                <label style={{ fontSize: 18 }}>
-                  {metaads?.advertising[selectedIndex].bylines}
-                </label>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  backgroundColor: "white",
-                  width: "100%",
-                  padding: "2px 10px",
-                  borderRadius: 10,
-                  border: "1px solid #0037c1",
-                }}
-              >
-                <label style={{ lineHeight: 1, fontSize: 12 }}>
-                  Valor gasto (aproximado)
-                </label>
-                <label style={{ fontSize: 18 }}>
-                  {metaads?.advertising[selectedIndex].spend
-                    .toFixed(2)
-                    .replace(".", ",")}
-                </label>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  backgroundColor: "white",
-                  width: "100%",
-                  padding: "2px 10px",
-                  borderRadius: 10,
-                  border: "1px solid #0037c1",
-                }}
-              >
-                <label style={{ lineHeight: 1, fontSize: 12 }}>Moeda</label>
-                <label style={{ fontSize: 18 }}>
-                  {metaads?.advertising[selectedIndex].currency}
-                </label>
-              </div>
+              />
             </div>
             <div
               style={{
-                width: "20%",
+                marginTop: "5%",
+                backgroundColor: "white",
+                width: "40%",
+                padding: 10,
+                borderRadius: 10,
+                border: "1px solid #0037c1",
+              }}
+            >
+              ID do Anúncio: {""}
+              <a
+                style={{
+                  fontWeight: "semibold",
+                  fontSize: 16,
+                  color: "black",
+                  width: "max-content",
+                }}
+                href="https://www.facebook.com/ads/library/?id=366905246002600"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <strong>{metaads?.advertising[selectedIndex].id}</strong>
+              </a>
+            </div>
+            <div
+              style={{
                 display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-evenly",
-                padding: "10px 0",
+                flexDirection: "row",
+                width: "90%",
+                alignSelf: "center",
+                marginTop: "2%",
+                justifyContent: "space-between",
               }}
             >
               <div
                 style={{
+                  width: px2vw(150),
+                  height: px2vw(150),
+                  backgroundColor: "#c3c3c3",
+                  borderRadius: 10,
+                }}
+              />
+              <div
+                style={{
+                  width: "40%",
                   display: "flex",
                   flexDirection: "column",
-                  backgroundColor: "white",
-                  width: "100%",
-                  padding: "2px 10px",
-                  borderRadius: 10,
-                  border: "1px solid #0037c1",
+                  justifyContent: "space-between",
+                  padding: "10px 0",
                 }}
               >
-                <label style={{ lineHeight: 1, fontSize: 12 }}>
-                  Data de Início
-                </label>
-                <label style={{ fontSize: 18 }}>
-                  {metaads?.advertising[selectedIndex].start_date
-                    .split("T")[0]
-                    .split("-")
-                    .reverse()
-                    .join("/")}
-                </label>
-              </div>
-              {metaads?.advertising[selectedIndex].end_date && (
                 <div
                   style={{
                     display: "flex",
@@ -640,142 +576,234 @@ export function SocialMidiaPage({ pageType, pageData, metaads, id }: Props) {
                   }}
                 >
                   <label style={{ lineHeight: 1, fontSize: 12 }}>
-                    Data de Fim
+                    Pago por
                   </label>
                   <label style={{ fontSize: 18 }}>
-                    {metaads?.advertising[selectedIndex].end_date
+                    {metaads?.advertising[selectedIndex].bylines}
+                  </label>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    backgroundColor: "white",
+                    width: "100%",
+                    padding: "2px 10px",
+                    borderRadius: 10,
+                    border: "1px solid #0037c1",
+                  }}
+                >
+                  <label style={{ lineHeight: 1, fontSize: 12 }}>
+                    Valor gasto (aproximado)
+                  </label>
+                  <label style={{ fontSize: 18 }}>
+                    {metaads?.advertising[selectedIndex].spend
+                      .toFixed(2)
+                      .replace(".", ",")}
+                  </label>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    backgroundColor: "white",
+                    width: "100%",
+                    padding: "2px 10px",
+                    borderRadius: 10,
+                    border: "1px solid #0037c1",
+                  }}
+                >
+                  <label style={{ lineHeight: 1, fontSize: 12 }}>Moeda</label>
+                  <label style={{ fontSize: 18 }}>
+                    {metaads?.advertising[selectedIndex].currency}
+                  </label>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "20%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-evenly",
+                  padding: "10px 0",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    backgroundColor: "white",
+                    width: "100%",
+                    padding: "2px 10px",
+                    borderRadius: 10,
+                    border: "1px solid #0037c1",
+                  }}
+                >
+                  <label style={{ lineHeight: 1, fontSize: 12 }}>
+                    Data de Início
+                  </label>
+                  <label style={{ fontSize: 18 }}>
+                    {metaads?.advertising[selectedIndex].start_date
                       .split("T")[0]
                       .split("-")
                       .reverse()
                       .join("/")}
                   </label>
                 </div>
-              )}
+                {metaads?.advertising[selectedIndex].end_date && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      backgroundColor: "white",
+                      width: "100%",
+                      padding: "2px 10px",
+                      borderRadius: 10,
+                      border: "1px solid #0037c1",
+                    }}
+                  >
+                    <label style={{ lineHeight: 1, fontSize: 12 }}>
+                      Data de Fim
+                    </label>
+                    <label style={{ fontSize: 18 }}>
+                      {metaads?.advertising[selectedIndex].end_date
+                        .split("T")[0]
+                        .split("-")
+                        .reverse()
+                        .join("/")}
+                    </label>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <TotalQuotes
-              title="Média de Impressões"
-              type="metaAds"
-              value={metaads?.advertising[selectedIndex].impressions}
-              firstDate={metaads?.advertising[selectedIndex].start_date
-                .split("T")[0]
-                .split("-")
-                .reverse()
-                .join("/")}
-              lastDate={metaads?.advertising[selectedIndex].end_date
-                .split("T")[0]
-                .split("-")
-                .reverse()
-                .join("/")}
-            />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              <TotalQuotes
+                title="Média de Impressões"
+                type="metaAds"
+                value={metaads?.advertising[selectedIndex].impressions}
+                firstDate={metaads?.advertising[selectedIndex].start_date
+                  .split("T")[0]
+                  .split("-")
+                  .reverse()
+                  .join("/")}
+                lastDate={metaads?.advertising[selectedIndex].end_date
+                  .split("T")[0]
+                  .split("-")
+                  .reverse()
+                  .join("/")}
+              />
 
-            <SentimentChart
-              positive={
-                metaads?.advertising[selectedIndex].totalByGender[0].value
-              }
-              negative={
-                metaads?.advertising[selectedIndex].totalByGender[1].value
-              }
-              neutral={
-                metaads?.advertising[selectedIndex].totalByGender[2].value
-              }
-              title={"Gênero dos espectadores"}
-              legend1={"Masculino"}
-              legend2={"Feminino"}
-              legend3={"Outro"}
-            />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <AgeGroupContainer>
-              <VotersInfoTitle>
-                <TitleWithBar
-                  content="Faixa etária da População por gênero"
-                  barColor="#2F5CFC"
-                  width={"16rem"}
-                  className="title"
-                />
-                <AgeGroupLegend>
-                  {groupGenderConf.map((item) => {
-                    return (
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                      >
+              <SentimentChart
+                positive={
+                  metaads?.advertising[selectedIndex].totalByGender[0].value
+                }
+                negative={
+                  metaads?.advertising[selectedIndex].totalByGender[1].value
+                }
+                neutral={
+                  metaads?.advertising[selectedIndex].totalByGender[2].value
+                }
+                title={"Gênero dos espectadores"}
+                legend1={"Masculino"}
+                legend2={"Feminino"}
+                legend3={"Outro"}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <AgeGroupContainer>
+                <VotersInfoTitle>
+                  <TitleWithBar
+                    content="Faixa etária da População por gênero"
+                    barColor="#2F5CFC"
+                    width={"16rem"}
+                    className="title"
+                  />
+                  <AgeGroupLegend>
+                    {groupGenderConf.map((item) => {
+                      return (
                         <div
-                          key={item.dataKey}
                           style={{
                             display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
+                            flexDirection: "column",
                           }}
                         >
                           <div
+                            key={item.dataKey}
                             style={{
-                              width: "0.625rem",
-                              height: "0.625rem",
-                              borderRadius: "50%",
-                              backgroundColor: item.color,
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.5rem",
                             }}
-                          />
-                          <strong style={{ lineHeight: 1 }}>
-                            {item.total}
-                          </strong>
+                          >
+                            <div
+                              style={{
+                                width: "0.625rem",
+                                height: "0.625rem",
+                                borderRadius: "50%",
+                                backgroundColor: item.color,
+                              }}
+                            />
+                            <strong style={{ lineHeight: 1 }}>
+                              {item.total}
+                            </strong>
+                          </div>
+                          <span
+                            style={{
+                              fontSize: "0.625rem",
+                              color: "#8790AB",
+                            }}
+                          >
+                            {item.dataKey}
+                          </span>
                         </div>
-                        <span
-                          style={{
-                            fontSize: "0.625rem",
-                            color: "#8790AB",
-                          }}
-                        >
-                          {item.dataKey}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </AgeGroupLegend>
-              </VotersInfoTitle>
-              <div className="chart">
-                <AgeGroupByGender
-                  data={metaads?.advertising[selectedIndex].totalByAgeRange}
-                  conf={groupGenderConf}
-                />
-              </div>
-            </AgeGroupContainer>
-            <VotersInfoContainer>
-              <div className="title">
-                <TitleWithBar
-                  barColor="#2F5CFC"
-                  content={"Estados que foram Veiculados"}
-                />
-              </div>
-              <div className="chart">
-                <VotersInfo
-                  chartData={metaads?.advertising[
-                    selectedIndex
-                  ].deliveryRegion.map((item: any) => Number(item.percentage))}
-                  labels={metaads?.advertising[0].deliveryRegion.map(
-                    (item: any) => item.region
-                  )}
-                />
-              </div>
-            </VotersInfoContainer>
-          </div>
-        </Modal.Body>
-      </Modal>
+                      );
+                    })}
+                  </AgeGroupLegend>
+                </VotersInfoTitle>
+                <div className="chart">
+                  <AgeGroupByGender
+                    data={metaads?.advertising[selectedIndex].totalByAgeRange}
+                    conf={groupGenderConf}
+                  />
+                </div>
+              </AgeGroupContainer>
+              <VotersInfoContainer>
+                <div className="title">
+                  <TitleWithBar
+                    barColor="#2F5CFC"
+                    content={"Estados que foram Veiculados"}
+                  />
+                </div>
+                <div className="chart">
+                  <VotersInfo
+                    chartData={metaads?.advertising[
+                      selectedIndex
+                    ].deliveryRegion.map((item: any) =>
+                      Number(item.percentage)
+                    )}
+                    labels={metaads?.advertising[0].deliveryRegion.map(
+                      (item: any) => item.region
+                    )}
+                  />
+                </div>
+              </VotersInfoContainer>
+            </div>
+          </Modal.Body>
+        </Modal>
+      ) : (
+        <></>
+      )}
     </PageContainer>
   );
 }

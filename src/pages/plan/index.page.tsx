@@ -16,8 +16,6 @@ export default function Plan() {
     setSelected(connect.body.plans[0].title);
   }
 
-  console.log("plans: ", plans);
-
   useEffect(() => {
     getPlans();
   }, []);

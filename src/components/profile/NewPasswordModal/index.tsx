@@ -15,7 +15,7 @@ interface ModalProps {
   };
   setFormData: React.Dispatch<React.SetStateAction<ModalProps["formData"]>>;
   changePassword: () => void;
-  loading: boolean;
+  loadingButton: boolean;
 }
 
 export function NewPasswordModal({
@@ -24,7 +24,7 @@ export function NewPasswordModal({
   formData,
   setFormData,
   changePassword,
-  loading,
+  loadingButton,
 }: ModalProps) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -126,7 +126,7 @@ export function NewPasswordModal({
             content="Finalizar"
             className="button"
             onClick={handleClose}
-            loading={loading}
+            loading={loadingButton}
             background={Theme.color.darkBlueAxion}
             color={Theme.color.gray_10}
             width="auto"

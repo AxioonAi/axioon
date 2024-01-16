@@ -69,7 +69,7 @@ export default function SeuEleitorado() {
   const [cityData, setCityData] = useState<any>();
 
   async function getCityDetails() {
-    const connect = await authGetAPI(`/city/statistics/${selectedProfile.id}`);
+    const connect = await authGetAPI(`/profile/city/${selectedProfile.id}`);
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -88,8 +88,6 @@ export default function SeuEleitorado() {
       total: cityData?.population.female,
     },
   ];
-
-  console.log("cityData: ", cityData);
 
   const [selectedVoterOption, setSelectedVoterOption] = useState("education");
   const [selectedVoterLabels, setSelectedVoterLabels] = useState([""]);

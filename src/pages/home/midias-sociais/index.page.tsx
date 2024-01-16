@@ -35,11 +35,29 @@ export default function MidiasSociais() {
     return () => ctx.revert();
   };
 
-  const [selectedPage, setSelectedPage] = useState("initial");
+  const [selectedPage, setSelectedPage] = useState("facebook");
   const [selectedProfile, setSelectedProfile] = useState({
     name: "",
     politicalGroup: "",
     id: "",
+  });
+  const timeValues = [
+    {
+      value: 7,
+      name: "Últimos 7 Dias",
+    },
+    {
+      value: 15,
+      name: "Últimos 15 Dias",
+    },
+    {
+      value: 30,
+      name: "Últimos 30 Dias",
+    },
+  ];
+  const [selectedTimeValues, setSelectedTimeValues] = useState({
+    value: 7,
+    name: "Últimos 7 Dias",
   });
   const [socialMidiaData, setSocialMidiaData] = useState<any>();
   const [facebookData, setFacebookData] = useState();
@@ -47,10 +65,11 @@ export default function MidiasSociais() {
   const [instagramData, setInstagramData] = useState();
   const [tiktokData, setTiktokData] = useState();
   const [youtubeData, setYoutubeData] = useState();
+  const [loading, setLoading] = useState(false);
 
   async function getSocialMidiaDetails() {
     const connect = await authGetAPI(
-      `/profile/social/home/${selectedProfile.id}?period=15`
+      `/profile/social/home/${selectedProfile.id}?period=${selectedTimeValues.value}`
     );
     if (connect.status !== 200) {
       return alert(connect.body);
@@ -59,41 +78,69 @@ export default function MidiasSociais() {
   }
 
   async function getIndividualDetails() {
+    setLoading(true);
+    setFacebookData(undefined);
+    setMetaadsData(undefined);
+    setInstagramData(undefined);
+    setTiktokData(undefined);
+    setYoutubeData(undefined);
+    if (localStorage.getItem("selectedTime") === null) {
+      return setSelectedTimeValues({
+        value: 7,
+        name: "Últimos 7 Dias",
+      });
+    } else {
+      setSelectedTimeValues({
+        value: Number(localStorage.getItem("selectedTime")),
+        name: String(localStorage.getItem("selectedTimeName")),
+      });
+    }
+    console.log("selectedTimeValues: ", selectedTimeValues);
     const [facebook, metaads, instagram, tiktok, youtube] = await Promise.all([
-      authGetAPI(`/profile/facebook/${selectedProfile.id}?period=${30}`),
-      authGetAPI(`/profile/advertising/${selectedProfile.id}?period=${30}`),
-      authGetAPI(`/profile/instagram/${selectedProfile.id}?period=${30}`),
-      authGetAPI(`/profile/tiktok/${selectedProfile.id}?period=${30}`),
-      authGetAPI(`/profile/youtube/${selectedProfile.id}?period=${30}`),
+      authGetAPI(
+        `/profile/facebook/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/advertising/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/instagram/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/tiktok/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
     ]);
+    console.log("facebook: ", facebook);
     if (facebook.status !== 200) {
-      return alert("facebook");
+      // alert("facebook");
+      return setLoading(false);
     }
     if (metaads.status !== 200) {
-      return alert("metaads");
+      // alert("metaads");
+      return setLoading(false);
     }
     if (instagram.status !== 200) {
-      return alert("instagram");
+      // alert("instagram");
+      return setLoading(false);
     }
     if (tiktok.status !== 200) {
-      return alert("tiktok");
+      // alert("tiktok");
+      return setLoading(false);
     }
     if (youtube.status !== 200) {
-      return alert("youtube");
+      // alert("youtube");
+      return setLoading(false);
     }
     setFacebookData(facebook.body);
     setMetaadsData(metaads.body);
     setInstagramData(instagram.body);
     setTiktokData(tiktok.body);
     setYoutubeData(youtube.body);
+    return setLoading(false);
   }
-
-  console.log("socialMidiaData: ", socialMidiaData);
-  console.log("facebookData: ", facebookData);
-  console.log("metaadsData: ", metaadsData);
-  console.log("instagramData: ", instagramData);
-  console.log("tiktokData: ", tiktokData);
-  console.log("youtubeData: ", youtubeData);
 
   useEffect(() => {
     if (selectedProfile.id) {
@@ -112,6 +159,12 @@ export default function MidiasSociais() {
             fadeOut={() => fadeOut()}
             selectedPage={selectedPage}
             setSelectedPage={setSelectedPage}
+            timeValues={timeValues}
+            selectedTimeValues={selectedTimeValues}
+            setSelectedTimeValues={setSelectedTimeValues}
+            getIndividualDetails={getIndividualDetails}
+            loading={loading}
+            setLoading={setLoading}
           />
           {socialMidiaData ? (
             <Main>
@@ -167,6 +220,7 @@ export default function MidiasSociais() {
               )}
               {selectedPage === "facebook" && (
                 <SocialMidiaPage
+                  loading={loading}
                   id={"score"}
                   pageType="facebook"
                   pageData={facebookData}
@@ -175,6 +229,7 @@ export default function MidiasSociais() {
               )}
               {selectedPage === "instagram" && (
                 <SocialMidiaPage
+                  loading={loading}
                   id={"score"}
                   pageType="instagram"
                   pageData={instagramData}
@@ -182,6 +237,7 @@ export default function MidiasSociais() {
               )}
               {selectedPage === "tiktok" && (
                 <SocialMidiaPage
+                  loading={loading}
                   id={"score"}
                   pageType="tiktok"
                   pageData={tiktokData}
@@ -189,6 +245,7 @@ export default function MidiasSociais() {
               )}
               {selectedPage === "youtube" && (
                 <SocialMidiaPage
+                  loading={loading}
                   id={"score"}
                   pageType="youtube"
                   pageData={youtubeData}
