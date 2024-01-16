@@ -134,96 +134,107 @@ export default function InteligenciaArtificial() {
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
-        <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
+        <div className="relative bg-gray-10 m-1 sm:left-2 rounded-[25px_0_0_25px] p-3    animate-fadeIn" ref={content}>
         <HeaderComponent
             selectedProfile={selectedProfile}
             setSelectedProfile={setSelectedProfile}
             fadeOut={() => fadeOut()}
           />
-          <ChatConteiner>
-            <ChatContent>
-              <ChatHeader>
-                <Image width={343} height={67} src={"/axionLogo.png"} alt="" />
-                <IaImgContainer>
+          <div className="h-[95vh] bg-white rounded-[50px] p-[2rem_0_1rem] transition-all duration-300 ease-in lg:rounded-[15px]  ">
+            <div className="h-full max-w-[57rem] flex flex-col items-center justify-between mx-auto">
+              <div className="ChatHeader flex items-start gap-4 sm: scale-90">
+                <Image width={343} height={67} src={"/axionLogo.png"} alt="" className="sm:w-[12rem] h-auto"/>
+                <div className="bg-gradient-to-r from-[#d8d8d8] to-[#0d123c] rounded-lg w-12 h-7 flex justify-center items-center lg:w-8 lg:h-auto lg:p-1">
                   <Image width={32} height={20} src={"/ia.png"} alt="" />
-                </IaImgContainer>
+                </div >
                 
-              </ChatHeader>
+              </div >
               {!firstMessage ?(
               <div style={{alignSelf: "flex-end", position: 'relative',marginRight: "1rem"}}>
               <Message show={showTip}>
                 Reiniciar Conversa
                 <div className="arrow" />
               </Message>
-              <ReloadButton
+              <button
                 onMouseEnter={() => setShowTip(true)}
                 onMouseLeave={() => setShowTip(false)}
                 onClick={() => Reload()}
+                className="w-8 h-8 animate-fadeInWelcomeMessage self-end bg-transparent border-none hover:scale-105"
               >
-                <img src="/refreshIco.svg"/>
-              </ReloadButton>
+                <img src="/refreshIco.svg" className="w-full h-full"/>
+              </button>
               </div>
               ) : <></>}
               {firstMessage ?(
                 <>
-              <div className="welcomeMessage">Como posso te Ajudar Hoje?</div>
+              <div className="flex  animate-fadeInWelcomeMessage flex-col items-center justify-between mx-auto text-2xl text-[#0d123c] text-center md:text-xl">Como posso te Ajudar Hoje?</div>
               </>
               ) : (
-          <ChatBody>
+          <div className="flex flex-col p-2 gap-4 w-full h-full mt-4 overflow-hidden overflow-y-auto pb-2 mb-2">
             {messages
               .filter((item: any, index: any) => index >= firstMessageCount) // Filtrar mensagens com role diferente de "system"
               .map((item: any, index: any) => (
                 <>
                   {item.role === "assistant" ? (
                     <>
-                      <IaMessage>{item.content}</IaMessage>
+                      <div className=" rounded-[0_15px_15px_15px] text-white bg-darkBlueAxion text-sm font-bold  text-justify p-[1rem_0.5rem] mr-4 lg:rounded-[0_30px_30px_30px] lg:text-base">{item.content}</div>
                     </>
                   ) : (
                     <>
-                      <UserMessage>
-                        <pre>{item.content}</pre>
-                      </UserMessage>
+                      <div className=" min-h-10 p-[1rem_0.5rem] rounded-[15px_0_15px_15px] text-darkBlueAxion bg-white border-2 border-darkBlueAxion lg:rounded-[30px_0_30px_30px] lg:text-base">
+                        <pre className="whitespace-pre-wrap">{item.content}</pre>
+                      </div>
                     </>
                   )}
                 </>
               ))}
-          </ChatBody>
+          </div>
               )
               }
 
-              <ChatFooter>
+              <div className="w-full flex flex-col items-center gap-[2.75rem]">
                 {firstMessage ? (
-                <SuggestionsContainer>
+                <div className="flex flex-col w-full animate-fadeInWelcomeMessage lg:gap-2 lg:items-center sm:flex-row">
+                  <div className="w-full mt-2 gap-1 ml-3 md:w-1/3 flex justify-center items-center">
                   <PrompSuggestion
                     content="Insights de Marketing"
                     imgSrc="/dashboard/inteligencia-artificial/marketingInsights.svg"
                     tipContent="Insights de marketing"
                     onClick={() => handleSuggestionClick("Insights de Marketing")}
                   />
+                  </div>
+                  <div className="flex justify-between gap-4 mt-2">
+
                   <PrompSuggestion
                     content="Idéias de Campanhas"
                     imgSrc="/dashboard/inteligencia-artificial/campaignIdeas.svg"
                     tipContent="Insights de marketing"
                     onClick={() => handleSuggestionClick("Idéias de Campanhas")}
                   />
+
                   <PrompSuggestion
                     content="IA Financeira"
                     imgSrc="/dashboard/inteligencia-artificial/financialIa.svg"
                     tipContent="Insights de marketing"
                     onClick={() => handleSuggestionClick("IA Financeira")}
                   />
-                </SuggestionsContainer>
+                  </div>
+                </div>
                 ) : <></>}
-                <TextareaAndButton>
+                <div className="w-full flex items-end justify-center gap-4 px-4">
                   <textarea
-                    name=""
                     id="chatInput"
                     placeholder="Fale com nossa IA..."
                     value={userMessage}
-                    onChange={(e: any) => setUserMessage(e.target.value)}
+                    onChange={(e) => setUserMessage(e.target.value)}
                     onKeyDown={KeyDown}
+                    className="resize-none w-full max-w-[57rem] overflow-hidden p-3 h-14 text-lg border-2 border-[#0d123c] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0d123c] md:text-base"
                   />
-                  <button disabled={!userMessage} onClick={SendMessage}>
+                  <button
+                    disabled={!userMessage}
+                    onClick={SendMessage}
+                    className="border-none bg-transparent mb-2 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
                     <Image
                       width={30}
                       height={30}
@@ -233,11 +244,11 @@ export default function InteligenciaArtificial() {
                       alt={""}
                     />
                   </button>
-                </TextareaAndButton>
-              </ChatFooter>
-            </ChatContent>
-          </ChatConteiner>
-        </Content>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </RootLayout>
     </main>
   );
