@@ -67,20 +67,43 @@ export default function SeuEleitorado() {
   const [loading, setLoading] = useState(false);
 
   async function GetMentions() {
+    setLoading(true);
+    setMentionsData(undefined);
+    if (localStorage.getItem("selectedTime") === null) {
+      setSelectedTimeValues({
+        value: 7,
+        name: "Últimos 7 Dias",
+      });
+    } else {
+      setSelectedTimeValues({
+        value: Number(localStorage.getItem("selectedTime")),
+        name: String(localStorage.getItem("selectedTimeName")),
+      });
+    }
     const connect = await authGetAPI(
-      `/profile/mentions/${selectedProfile.id}?period=30`
+      `/profile/mentions/${selectedProfile.id}?period=${selectedTimeValues.value}`
     );
     if (connect.status !== 200) {
       return alert(connect.body);
     }
     setMentionsData(connect.body);
+    return setLoading(false);
   }
 
   useEffect(() => {
     if (selectedProfile.id) {
+      if (typeof window !== "undefined") {
+        setSelectedTimeValues({
+          value: Number(localStorage.getItem("selectedTime")),
+          name: String(localStorage.getItem("selectedTimeName")),
+        });
+      }
       GetMentions();
     }
-  }, [selectedProfile]);
+  }, [
+    selectedProfile,
+    typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
+  ]);
 
   return (
     <main ref={main} className="relative">

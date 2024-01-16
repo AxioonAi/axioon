@@ -85,7 +85,7 @@ export default function MidiasSociais() {
     setTiktokData(undefined);
     setYoutubeData(undefined);
     if (localStorage.getItem("selectedTime") === null) {
-      return setSelectedTimeValues({
+      setSelectedTimeValues({
         value: 7,
         name: "Últimos 7 Dias",
       });
@@ -95,7 +95,6 @@ export default function MidiasSociais() {
         name: String(localStorage.getItem("selectedTimeName")),
       });
     }
-    console.log("selectedTimeValues: ", selectedTimeValues);
     const [facebook, metaads, instagram, tiktok, youtube] = await Promise.all([
       authGetAPI(
         `/profile/facebook/${selectedProfile.id}?period=${selectedTimeValues.value}`
@@ -113,41 +112,39 @@ export default function MidiasSociais() {
         `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`
       ),
     ]);
-    console.log("facebook: ", facebook);
-    if (facebook.status !== 200) {
-      // alert("facebook");
-      return setLoading(false);
+    if (facebook.status === 200) {
+      setFacebookData(facebook.body);
     }
-    if (metaads.status !== 200) {
-      // alert("metaads");
-      return setLoading(false);
+    if (metaads.status === 200) {
+      setMetaadsData(metaads.body);
     }
-    if (instagram.status !== 200) {
-      // alert("instagram");
-      return setLoading(false);
+    if (instagram.status === 200) {
+      setInstagramData(instagram.body);
     }
-    if (tiktok.status !== 200) {
-      // alert("tiktok");
-      return setLoading(false);
+    if (tiktok.status === 200) {
+      setTiktokData(tiktok.body);
     }
-    if (youtube.status !== 200) {
-      // alert("youtube");
-      return setLoading(false);
+    if (youtube.status === 200) {
+      setYoutubeData(youtube.body);
     }
-    setFacebookData(facebook.body);
-    setMetaadsData(metaads.body);
-    setInstagramData(instagram.body);
-    setTiktokData(tiktok.body);
-    setYoutubeData(youtube.body);
     return setLoading(false);
   }
 
   useEffect(() => {
     if (selectedProfile.id) {
       getSocialMidiaDetails();
+      if (typeof window !== "undefined") {
+        setSelectedTimeValues({
+          value: Number(localStorage.getItem("selectedTime")),
+          name: String(localStorage.getItem("selectedTimeName")),
+        });
+      }
       getIndividualDetails();
     }
-  }, [selectedProfile]);
+  }, [
+    selectedProfile,
+    typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
+  ]);
 
   return (
     <main ref={main}>

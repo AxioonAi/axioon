@@ -59,7 +59,6 @@ export function SocialMidiaPage({
   id,
   loading,
 }: Props) {
-  console.log("pageData: ", pageData);
   const [selectedValue, setSelectedValue] = useState("Relevância");
   const values = ["Relevância", "Mais recente"];
 
