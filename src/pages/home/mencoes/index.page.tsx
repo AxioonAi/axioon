@@ -46,6 +46,25 @@ export default function SeuEleitorado() {
     id: "",
   });
   const [mentionsData, setMentionsData] = useState<any>();
+  const timeValues = [
+    {
+      value: 7,
+      name: "Últimos 7 Dias",
+    },
+    {
+      value: 15,
+      name: "Últimos 15 Dias",
+    },
+    {
+      value: 30,
+      name: "Últimos 30 Dias",
+    },
+  ];
+  const [selectedTimeValues, setSelectedTimeValues] = useState({
+    value: 7,
+    name: "Últimos 7 Dias",
+  });
+  const [loading, setLoading] = useState(false);
 
   async function GetMentions() {
     const connect = await authGetAPI(
@@ -63,16 +82,22 @@ export default function SeuEleitorado() {
     }
   }, [selectedProfile]);
 
-  console.log("mentionsData: ", mentionsData);
-
   return (
     <main ref={main} className="relative">
       <RootLayout fadeOut={fadeOut}>
-      <div className="relative bg-gray-10 m-1 sm:left-2 rounded-[25px_0_0_25px] p-3    animate-fadeIn" ref={content}>
+        <div
+          className="relative bg-gray-10 m-1 sm:left-2 rounded-[25px_0_0_25px] p-3    animate-fadeIn"
+          ref={content}
+        >
           <HeaderComponent
             selectedProfile={selectedProfile}
             setSelectedProfile={setSelectedProfile}
             fadeOut={fadeOut}
+            timeValues={timeValues}
+            selectedTimeValues={selectedTimeValues}
+            setSelectedTimeValues={setSelectedTimeValues}
+            loading={loading}
+            setLoading={setLoading}
           />
           {mentionsData ? (
             <div className=" rounded-lg max-w-[1080px] my-[2%] mx-auto">
@@ -84,14 +109,18 @@ export default function SeuEleitorado() {
                   <TitleWithBar content="Score Total" barColor="#D38945" />
                   <div className="flex justify-center p-[0_8%]">
                     <ScoreChart
-                      score={Number(mentionsData?.currentFormat.news.average.toFixed(2))}
+                      score={Number(
+                        mentionsData?.currentFormat.news.average.toFixed(2)
+                      )}
                       id="newsScore"
                     />
                   </div>
                 </div>
                 <TotalQuotes
                   value={mentionsData?.currentFormat.news.total}
-                  firstDate={new Date(new Date().setDate(new Date().getDate() - 30)).toLocaleDateString("pt-BR")}
+                  firstDate={new Date(
+                    new Date().setDate(new Date().getDate() - 30)
+                  ).toLocaleDateString("pt-BR")}
                   lastDate={new Date().toLocaleDateString("pt-BR")}
                 />
                 <div className="sentimentChartContainer w-[30rem] lg:w-full md:w-full">
@@ -112,14 +141,18 @@ export default function SeuEleitorado() {
               <div className="w-full flex justify-between flex-wrap gap-4 my-7 lg:justify-around">
                 {mentionsData?.currentFormat.news.news
                   .slice(0, 3)
-                  .map((item:any, index:any) => (
+                  .map((item: any, index: any) => (
                     <NewsCard
                       key={index}
                       sentimentClassification={item.sentimentClassification}
                       sentiment={item.sentiment}
                       source="Só Notícias"
                       url={item.url}
-                      date={item.date.split("T")[0].split("-").reverse().join("/")}
+                      date={item.date
+                        .split("T")[0]
+                        .split("-")
+                        .reverse()
+                        .join("/")}
                       content={item.title}
                     />
                   ))}
@@ -128,7 +161,7 @@ export default function SeuEleitorado() {
               <div className="w-full flex justify-between flex-wrap gap-4 my-7 lg:justify-around">
                 {mentionsData?.currentFormat.mentions.mentions
                   .slice(0, 3)
-                  .map((item:any, index:any) => (
+                  .map((item: any, index: any) => (
                     <MentionsCard
                       key={index}
                       sentimentClassification={item.sentimentClassification}
@@ -137,7 +170,11 @@ export default function SeuEleitorado() {
                       comments={item.comments}
                       commentSentiment={item.commentSentiment}
                       url={item.url}
-                      date={item.date.split("T")[0].split("-").reverse().join("/")}
+                      date={item.date
+                        .split("T")[0]
+                        .split("-")
+                        .reverse()
+                        .join("/")}
                       content={item.title}
                     />
                   ))}
