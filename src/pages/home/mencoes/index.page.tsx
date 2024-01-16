@@ -106,10 +106,12 @@ export default function SeuEleitorado() {
   ]);
 
   return (
-    <main ref={main} className="relative">
+    <main ref={main}>
       <RootLayout fadeOut={fadeOut}>
         <div
-          className="relative bg-gray-10 m-1 sm:left-2 rounded-[25px_0_0_25px] p-3    animate-fadeIn"
+          className="mainContent bg-gray-10 rounded-tl-2xl rounded-bl-2xl
+          p-4 my-2 w-full lg:w-[calc(100%-18rem)] relative left-full
+          lg:left-[calc(100%-17.5rem)]"
           ref={content}
         >
           <HeaderComponent
