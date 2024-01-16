@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 export default function Plan() {
   const router = useRouter();
   const [selected, setSelected] = useState("");
+  const [query, setQuery] = useState({
+    id: "",
+    value: 0,
+  });
   const [plans, setPlans] = useState<any>();
   async function getPlans() {
     const connect = await getAPI("/plans");
@@ -14,7 +18,19 @@ export default function Plan() {
     }
     setPlans(connect.body.plans);
     setSelected(connect.body.plans[0].title);
+    setQuery({
+      id: connect.body.plans[0].id,
+      value: connect.body.plans[0].value,
+    });
   }
+
+  const handleSelect = (item: any) => {
+    setSelected(item.title);
+    setQuery({
+      id: item.id,
+      value: item.value,
+    });
+  };
 
   useEffect(() => {
     getPlans();
@@ -31,7 +47,7 @@ export default function Plan() {
             {plans &&
               plans.map((item: any) => (
                 <button
-                  onClick={() => setSelected(item.title)}
+                  onClick={() => handleSelect(item)}
                   className={`PlanCard flex flex-col lg:w-3/12 h-24 lg:h-auto justify-between bg-white lg:p-2 rounded-xl border ${
                     selected === item.plan ? "drop-shadow-xl" : ""
                   }`}
@@ -117,7 +133,9 @@ export default function Plan() {
       )}
       <button
         className="Select self-center md:w-2/5 w-4/5 h-12 md:h-20 bg-white rounded-xl mt-10 font-bold text-lg md:text-2xl"
-        onClick={() => router.push("/finish-payment")}
+        onClick={() =>
+          router.push(`/payment?id=${query.id}&value=${query.value}`)
+        }
       >
         Selecionar Plano
       </button>

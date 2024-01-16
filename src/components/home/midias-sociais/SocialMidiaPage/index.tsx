@@ -173,7 +173,6 @@ export function SocialMidiaPage({
               />
               <PostEngagement pageData={pageData} />
             </PostEngagmentContainer>
-
             <ScoreChartContainer>
               <TitleWithBar
                 content="Sentimento Médio dos Comentários:"
@@ -181,36 +180,45 @@ export function SocialMidiaPage({
                 subTitle
                 className="title"
               />
-              <div
-                className="mb-5"
-                style={{
-                  marginTop: "3rem",
-                  height: "100px",
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <ScoreChart
-                  id={id}
-                  score={Number(
-                    pageData?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
-                      2
-                    )
-                  )}
-                />
-              </div>
-              <div
-                style={{
-                  width: "90%",
-                  borderTop: "1px solid #000000",
-                  margin: "0 auto",
-                }}
-              />
-              <div className="p-5">
-                <SmallBarChart pageData={pageData} />
-              </div>
+              {pageData?.commentsStatistics.sentimentStatistics
+                .sentimentAverage !== null ? (
+                <>
+                  <div
+                    className="mb-5"
+                    style={{
+                      marginTop: "3rem",
+                      height: "100px",
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <ScoreChart
+                      id={id}
+                      score={Number(
+                        pageData?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
+                          2
+                        )
+                      )}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      width: "90%",
+                      borderTop: "1px solid #000000",
+                      margin: "0 auto",
+                    }}
+                  />
+                  <div className="p-5">
+                    <SmallBarChart pageData={pageData} />
+                  </div>
+                </>
+              ) : (
+                <span className="self-center text-2xl mt-5">
+                  Nenhum comentário encontrado
+                </span>
+              )}
             </ScoreChartContainer>
 
             <KeyIndicatorsContainer>

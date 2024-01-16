@@ -7,7 +7,7 @@ export const FormContainer = styled.div`
   gap: 1rem;
   width: 35rem;
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `;
@@ -16,19 +16,19 @@ export const FormDiv = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     flex-direction: column;
     gap: 1rem;
   }
 `;
 
 export const RadioDiv = styled(FormDiv)`
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     justify-content: center;
     flex-direction: row;
   }
 
-  @media(max-width: 450px) {
+  @media (max-width: 450px) {
     flex-direction: column;
   }
 `;
@@ -43,7 +43,7 @@ export const FormGroup = styled.div`
     font-size: 0.875rem;
   }
 
-  input[type="text"] {
+  input {
     padding: 0.75rem;
     width: 15rem;
     border-radius: 5px;
@@ -56,7 +56,7 @@ export const FormGroup = styled.div`
     }
   }
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     input[type="text"] {
       width: 100%;
     }
@@ -74,7 +74,7 @@ export const RadioGroup = styled.div`
     display: none;
   }
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     width: auto;
   }
 `;
@@ -122,7 +122,7 @@ export const FinishPayment = styled.div`
     font-weight: bold;
   }
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     button {
       width: 16rem;
     }

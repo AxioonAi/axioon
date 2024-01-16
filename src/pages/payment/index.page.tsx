@@ -16,13 +16,62 @@ import { CreditCardForm } from "@/components/payment/CreditCardForm";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { windowWidth } from "@/utils/windowWidth";
 import { PixPayment } from "@/components/payment/PixPayment";
+import { AuthPostAPI } from "@/lib/axios";
+import { useRouter } from "next/router";
 
 export default function Payment() {
   const [selectedMethod, setSelectedMethod] = useState("creditCard");
+  const [step, setStep] = useState(3);
+  const [pix, setPix] = useState({
+    encodedImage: "",
+    expirationDate: "",
+    payload: "",
+    payment_id: "",
+    value: 0,
+  });
+  const [cardFormData, setCardFormData] = useState({
+    creditCard: {
+      holderName: "",
+      number: "",
+      expiryDate: "",
+      ccv: "",
+    },
+    creditCardHolderInfo: {
+      name: "",
+      email: "",
+      cpfCnpj: "",
+      postalCode: "",
+      addressNumber: "",
+      phone: "",
+    },
+    installmentCount: 1,
+    saveCreditCard: false,
+  });
+  const router = useRouter();
+  const query: any = router.query;
 
   const handleRadioChange = (event: { target: { value: string } }) => {
     setSelectedMethod(event.target.value);
   };
+
+  async function handlePix() {
+    const connect = await AuthPostAPI(`/pix/${query.id}`, {});
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setPix(connect.body.payment.payment);
+  }
+
+  async function handleCard() {
+    const connect = await AuthPostAPI(`/new-credit-card/${query.id}`, {
+      ...cardFormData,
+      creditCard: {
+        ...cardFormData.creditCard,
+        expiryMonth: cardFormData.creditCard.expiryDate.split("/")[0],
+        expiryYear: cardFormData.creditCard.expiryDate.split("/")[1],
+      },
+    });
+  }
   return (
     <Container>
       <RegisterAccountHeader />
@@ -92,9 +141,16 @@ export default function Payment() {
           </PaymentSelector>
 
           {selectedMethod === "creditCard" ? (
-            <CreditCardForm />
+            <CreditCardForm
+              cardFormData={cardFormData}
+              setCardFormData={setCardFormData}
+              step={step}
+              setStep={setStep}
+              handleCard={handleCard}
+              value={query.value}
+            />
           ) : selectedMethod === "pix" ? (
-            <PixPayment />
+            <PixPayment handlePix={handlePix} pix={pix} />
           ) : (
             <div style={{ paddingBottom: "14rem" }} />
           )}

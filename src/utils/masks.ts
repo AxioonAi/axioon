@@ -81,3 +81,37 @@ export function maskDate(value: string) {
 
   return data;
 }
+
+export function maskCard(value: string) {
+  if (!value) {
+    return "";
+  }
+  if (value.length <= 17) {
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d{4})(\d)/, "$1 $2");
+    value = value.replace(/(\d{6})(\d)/, "$1 $2");
+    return value;
+  }
+  value = value.replace(/\D/g, "");
+  value = value.replace(/(\d{4})(\d)/, "$1 $2");
+  value = value.replace(/(\d{4})(\d)/, "$1 $2");
+  value = value.replace(/(\d{4})(\d)/, "$1 $2");
+  return value;
+}
+
+export function maskExpiryDate(value: string) {
+  if (!value) {
+    return "";
+  }
+  value = value.replace(/\D/g, "");
+  value = value.replace(/(\d{2})(\d)/, "$1/$2");
+  return value;
+}
+
+export function maskCVC(value: string) {
+  if (!value) {
+    return "";
+  }
+  value = value.replace(/\D/g, "");
+  return value;
+}
