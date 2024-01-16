@@ -29,12 +29,12 @@ interface headerProps {
   setSelectedProfile: any;
   selectedPage?: string;
   setSelectedPage?: any;
-  timeValues: any;
-  selectedTimeValues: any;
-  setSelectedTimeValues: (value: any) => void;
+  timeValues?: any;
+  selectedTimeValues?: any;
+  setSelectedTimeValues?: (value: any) => void;
   getIndividualDetails?: any;
-  loading: boolean;
-  setLoading: (value: boolean) => void;
+  loading?: boolean;
+  setLoading?: (value: boolean) => void;
 }
 
 export function HeaderComponent({
