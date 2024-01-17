@@ -224,7 +224,7 @@ export const Comments = styled.div`
   flex-direction: column;
   gap: 1rem;
   height: 70vh;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 export const MetaAdsContainer = styled.div`

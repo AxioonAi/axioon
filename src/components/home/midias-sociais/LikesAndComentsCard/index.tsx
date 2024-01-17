@@ -48,7 +48,9 @@ export function LikesAndComentsCard({
     <div
       className={`Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 ${
         isSelected ? "opacity-100" : "opacity-50"
-      } hover:cursor-pointer`}
+      } hover:cursor-pointer
+        hover:scale-105
+      `}
       {...rest}
     >
       <div

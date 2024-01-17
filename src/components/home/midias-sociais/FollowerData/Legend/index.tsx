@@ -24,7 +24,7 @@ export function FollowerDataLegend({ name, count }: Props) {
           />
           <span>{name}</span>
         </div>
-        <strong className="text-xl text-left">{count}</strong>
+        <strong className="text-xl text-left">{count.toFixed(0)}</strong>
       </div>
     </div>
   );

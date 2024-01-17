@@ -298,7 +298,7 @@ export function SocialMidiaPage({
                       gap: "1rem",
                       padding: "0 0.875rem",
                       height: "70vh",
-                      overflow: "scroll",
+                      overflowY: "scroll",
                     }}
                   >
                     {pageData?.posts

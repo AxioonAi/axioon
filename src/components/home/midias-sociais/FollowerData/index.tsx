@@ -11,7 +11,8 @@ interface Props {
 }
 
 export function FollowerData({ data }: Props) {
-  let sortedData = data.sort((a, b) => b.count - a.count);
+  let sortedData: any;
+  sortedData = data.sort((a, b) => b.count - a.count);
 
   const [myChart, setMyChart] = useState<any>(null);
 
@@ -34,6 +35,7 @@ export function FollowerData({ data }: Props) {
       return ((currentValue * 100) / total).toFixed(1) + "%";
     };
 
+    // hover
     const labels = data.map((d) => d.name);
 
     const sliceThickness = {
@@ -62,7 +64,7 @@ export function FollowerData({ data }: Props) {
         datasets: [
           {
             label: "Quantidade",
-            data: data.map((d) => d.count),
+            data: data.map((d) => Number(d.count.toFixed(0))),
             backgroundColor: ["#2F5CFC", "#0A2BA0", "#000411", "#E5E8F0"],
           },
         ],

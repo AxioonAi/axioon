@@ -151,8 +151,6 @@ export default function MidiasSociais() {
     typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
   ]);
 
-  console.log("socialMediaData: ", socialMidiaData);
-
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
