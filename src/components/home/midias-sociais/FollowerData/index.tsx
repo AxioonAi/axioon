@@ -1,6 +1,7 @@
 import Chart from "chart.js/auto";
 import { useState, useEffect } from "react";
 import { Container } from "./styles";
+import px2vw from "@/utils/size";
 
 interface Props {
   data: {
@@ -68,7 +69,7 @@ export function FollowerData({ data }: Props) {
       },
       options: {
         responsive: true,
-        cutout: "36%",
+        cutout: "35%",
         maintainAspectRatio: false,
         offset: 10,
         plugins: {
@@ -90,6 +91,9 @@ export function FollowerData({ data }: Props) {
               return percentage;
             },
             color: ["#fff", "#fff", "#fff", "#000"],
+            font: {
+              size: 10,
+            },
           },
           tooltip: {
             callbacks: {
@@ -112,8 +116,8 @@ export function FollowerData({ data }: Props) {
   }, []);
 
   return (
-    <Container>
-      <canvas id="myChart" style={{ width: "100%", height: "100%" }} />
+    <Container className="sm:h-96 md:h-44 xl:h-60 2xl:h-96">
+      <canvas id="myChart" />
     </Container>
   );
 }

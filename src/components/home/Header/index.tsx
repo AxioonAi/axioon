@@ -59,6 +59,15 @@ export function HeaderComponent({
     newPassword: "",
     confirmPassword: "",
   });
+  const [profileData, setProfileData] = useState({
+    name: "",
+    social_name: "",
+    email: "",
+    mobilePhone: "",
+    cpfCnpj: "",
+    birth_date: "",
+    sex: "",
+  });
 
   async function changePassword() {
     setLoadingButton(true);
@@ -122,6 +131,14 @@ export function HeaderComponent({
     }
   }
 
+  async function GetProfile() {
+    const connect = await authGetAPI("/user/profile");
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setProfileData(connect.body.user);
+  }
+
   async function getPlan() {
     const connect = await authGetAPI("/user/signature/all");
     if (connect.status !== 200) {
@@ -141,6 +158,7 @@ export function HeaderComponent({
   useEffect(() => {
     getPlan();
     handleVerify();
+    GetProfile();
   }, []);
 
   async function logOut() {
@@ -151,20 +169,15 @@ export function HeaderComponent({
 
   return (
     <>
-      <HeaderContainer>
-        <HeaderTop>
-          <Instruction>
+      <header className="headerContainer relative">
+        <div className="headerTop flex pb-4 flex-col-reverse md:flex-row items-center w-full">
+          <div className="Instruction flex bg-gray-10 md:ml-auto py-4 px-3 border border-[#c3c3c3] font-bold text-md rounded-[48px] gap-1 self-center">
             <img src="/dashboard/click.svg" alt="" />
-            Clique nos <em>Cards</em> para ver os dados do seu Candidato
-          </Instruction>
-          <Dropdown
-            style={{
-              alignSelf: "center",
-              marginBottom: "1rem",
-              marginLeft: "auto",
-              alignItems: "flex-end",
-            }}
-          >
+            <span>
+              Clique nos <em> Cards</em> para ver os dados do seu Candidato
+            </span>
+          </div>
+          <Dropdown className="self-center mb-4 ml-auto items-end">
             <Dropdown.Toggle
               style={{
                 backgroundColor: "#232323",
@@ -172,16 +185,10 @@ export function HeaderComponent({
                 fontSize: 15,
               }}
             >
-              <strong>Robert Martins</strong> <br />
-              <span>contato@robertmartins.com.br</span>
+              <strong>{profileData.name}</strong> <br />
+              <span>{profileData.email}</span>
             </Dropdown.Toggle>
-            <Dropdown.Menu
-              style={{
-                backgroundColor: "#232323",
-                width: "100%",
-                right: "1rem",
-              }}
-            >
+            <Dropdown.Menu className="w-full right-4 bg-[#232323]">
               <Dropdown.Item
                 className="text-white hover:bg-black"
                 onClick={() => setShowNewPasswordModal(true)}
@@ -197,17 +204,15 @@ export function HeaderComponent({
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </HeaderTop>
-        <HeaderMenu>
+        </div>
+        <nav className="headerMenu flex flex-wrap justify-around xl:justify-between xl:mt-10 gap-4">
           <MenuItemComponent
             fadeOut={() => fadeOut()}
-            imgSrc="/dashboard/seu-eleitorado-menu.png"
             href="/seu-eleitorado"
             name="SEU ELEITORADO"
           />
           <MenuItemComponent
             fadeOut={() => fadeOut()}
-            imgSrc="/dashboard/midias-sociais-menu.png"
             href="/midias-sociais"
             name="MÍDIAS SOCIAIS"
             selectedPage={selectedPage}
@@ -215,46 +220,48 @@ export function HeaderComponent({
           />
           <MenuItemComponent
             fadeOut={() => fadeOut()}
-            imgSrc="/dashboard/suas-noticias-menu.png"
             href="/mencoes"
             name="MENÇÕES"
           />
           <MenuItemComponent
             fadeOut={() => fadeOut()}
-            imgSrc="/dashboard/inteligencia-artificial-menu.png"
             href="/inteligencia-artificial"
             name="INTELIGENCIA ARTIFICIAL"
           />
-        </HeaderMenu>
-        <Candidate>
-          <CandidateInfo>
+        </nav>
+        <div className="Candidate flex flex-col h-auto items-center md:flex-row md:h-28 mt-12 justify-between">
+          <div className="candidateInfo flex items-center gap-3">
             <Image
               src={"/dashboard/candidate.png"}
               width={200}
               height={200}
               alt=""
+              className="w-16 h-16 rounded-full object-cover"
             />
-            <div className="info">
+            <div className="info flex flex-col">
               <HeaderCandidateSelect
                 profiles={monitoredProfiles}
                 selectedProfile={selectedProfile}
                 setSelectedProfile={setSelectedProfile}
               />
-              <span className="candidateNumber">
+              <span className="candidateNumber text-[#8990ab] text-sm">
                 Número do Candidato: xxxxxxxxxx
               </span>
-              <span className="status">
-                <div className="statusCircle" />
+              <span className="status flex items-center gap-1 text-[#22c24f] text-xs">
+                <div className="statusCircle w-1.5 h-1.5 bg-[#22c24f] rounded-full" />
                 Participando da Eleição
               </span>
             </div>
-          </CandidateInfo>
+          </div>
 
-          <ButtonAndSelect>
+          <div className="buttonAndSelect flex items-center flex-col mt-4 md:mt-0 gap-4 md:items-end">
             {router.asPath.split("/")[2] === "seu-eleitorado" && (
-              <Register onClick={() => router.push("/register-candidate")}>
+              <button
+                className="Register w-40 h-9 rounded bg-[#282c49] text-white text-2xl border-0 transition duration-200 ease-in hover:bg-[#474b7a]"
+                onClick={() => router.push("/register-candidate")}
+              >
                 Cadastro
-              </Register>
+              </button>
             )}
             {selectedPage !== "seu-eleitorado" &&
               router.asPath.split("/")[2] !== "inteligencia-artificial" && (
@@ -267,9 +274,9 @@ export function HeaderComponent({
                   setLoading={setLoading}
                 />
               )}
-          </ButtonAndSelect>
-        </Candidate>
-      </HeaderContainer>
+          </div>
+        </div>
+      </header>
       <NewPasswordModal
         show={showNewPasswordModal}
         onHide={() => setShowNewPasswordModal(false)}

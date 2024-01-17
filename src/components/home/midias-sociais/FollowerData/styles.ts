@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  position: relative;
+  /* position: relative;
   height: 50vh;
 
   @media (min-width: 768px) {
@@ -17,7 +17,7 @@ export const Container = styled.div`
   @media (min-width: 1440px) {
     height: 26rem;
     width: 26rem;
-  }
+  } */
 `;
 
 export const ChartCenterInfo = styled.div`

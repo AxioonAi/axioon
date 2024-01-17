@@ -2,7 +2,7 @@ import Theme from "@/styles/themes";
 import { Button, Container, Item, ItemText, Menu, Toggle } from "./styles";
 import { useState, useEffect } from "react";
 import { getAPI } from "@/lib/axios";
-import { Spinner } from "react-bootstrap";
+import { Dropdown, Spinner } from "react-bootstrap";
 interface ProfileProps {
   selectedProfile: {
     name: string;
@@ -25,14 +25,11 @@ export function ProfileSelector({
   };
   return (
     <>
-      <Container {...rest}>
-        <Button>
-          <Toggle
-            style={{
-              color: `${Theme.color.gray_10}`,
-              backgroundColor: "#0d123c",
-              border: 0,
-            }}
+      <div className="Container flex" {...rest}>
+        <Dropdown className="flex items-center justify-center">
+          <Dropdown.Toggle
+            className="flex items-center justify-center text-sm text-white border-0"
+            style={{ backgroundColor: "#0d123c" }}
           >
             {selectedProfile ? (
               `${selectedProfile.name} - ${selectedProfile.politicalGroup}`
@@ -41,16 +38,16 @@ export function ProfileSelector({
                 <Spinner animation="border" />
               </>
             )}
-          </Toggle>
-          <Menu>
+          </Dropdown.Toggle>
+          <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 opacity-95 px-1">
             {profiles.map((item: any) => (
               <Item onClick={() => Remember(item)} key={item}>
                 {item.name} - {item.politicalGroup}
               </Item>
             ))}
-          </Menu>
-        </Button>
-      </Container>
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
     </>
   );
 }

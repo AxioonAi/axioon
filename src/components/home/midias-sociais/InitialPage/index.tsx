@@ -60,35 +60,32 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
   ];
 
   return (
-    <ChartsContainer>
+    <div className="ChartsContainer grid grid-cols-[100%] md:grid-cols-[20rem_20rem] lg:grid-cols-[20rem_20rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[40rem_40rem] justify-center items-center gap-12 mt-5">
       {/* Score */}
 
-      <ChartContainer>
-        <TitleWithBar content="Dados de Seguidores" barColor="#080E45" />
-        <div className="chartContent">
-          <ChartCenterInfo>
-            <strong className="percentage">34%</strong>
-            <strong className="gain">
+      <div className="followerChartContainer flex flex-col bg-white relative p-5 rounded-lg border border-[#c3c3c3]">
+        <TitleWithBar content="Dados de Seguidores" />
+        <div className="flex flex-col lg:flex-row">
+          <div className="chartCenterInfo flex absolute top-1/3 md:top-[30%] lg:top-1/3 left-[50%] translate-x-[-50%]">
+            <strong className="gain flex text-sm">
               <img src="/dashboard/arrow-up.svg" alt="" /> +6.5%
             </strong>
-            <span className="description">de ganho em processos</span>
-          </ChartCenterInfo>
+          </div>
           <FollowerData data={followerData} />
 
-          <FollowerDataLegendContainer>
+          <div className="Legends flex flex-col gap-2">
             {sortedFollowerData.map((item, index) => (
               <FollowerDataLegend
                 key={index}
                 name={item.name}
                 count={item.count}
-                circleColor={colors[index]}
               />
             ))}
-          </FollowerDataLegendContainer>
+          </div>
         </div>
-      </ChartContainer>
+      </div>
 
-      <EngagmentDataContainer>
+      {/* <EngagmentDataContainer>
         <TitleWithBar
           content="Dados de Engajamento"
           barColor="#12A9E7"
@@ -124,7 +121,7 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
         </div>
         <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
         <SimpleWordcloud socialMediaData={SocialMidiaData.wordCloud} />
-      </WordCloudContainer>
+      </WordCloudContainer> */}
 
       {/* <KeyIndicatorsContainer>
         <TitleWithBar
@@ -135,6 +132,6 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
         <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
         <KeyIndicators pageData={SocialMidiaData} />
       </KeyIndicatorsContainer> */}
-    </ChartsContainer>
+    </div>
   );
 }

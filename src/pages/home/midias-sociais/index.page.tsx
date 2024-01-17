@@ -151,10 +151,16 @@ export default function MidiasSociais() {
     typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
   ]);
 
+  console.log("socialMediaData: ", socialMidiaData);
+
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
-        <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
+        <div
+          className="mainContent bg-gray-10 relative m-1 rounded-tl-2xl rounded-bl-2xl p-2 lg:p-4 w-full left-full lg:w-[calc(100%-18rem)] lg:left-[calc(100%-18rem)]"
+          ref={content}
+          style={{ opacity: 1 }}
+        >
           <HeaderComponent
             selectedProfile={selectedProfile}
             setSelectedProfile={setSelectedProfile}
@@ -169,12 +175,11 @@ export default function MidiasSociais() {
             setLoading={setLoading}
           />
           {socialMidiaData ? (
-            <Main>
+            <main className="Main m-0 rounded-lg md:m-2">
               <h1>Redes Sociais</h1>
-              <LikesAndComentsContainer>
+              <div className="LikesAndCommentsContainer flex justify-around gap-1 flex-wrap">
                 <LikesAndComentsCard
                   type="facebook"
-                  barColor="#5162FF"
                   coments={socialMidiaData.staticData.facebook.followers}
                   likes={socialMidiaData.staticData.facebook.like}
                   name="Facebook"
@@ -185,7 +190,6 @@ export default function MidiasSociais() {
                 />
                 <LikesAndComentsCard
                   type="instagram"
-                  barColor="#5162FF"
                   coments={socialMidiaData.staticData.instagram.followers}
                   likes={socialMidiaData.staticData.instagram.posts}
                   name="Instagram"
@@ -196,7 +200,6 @@ export default function MidiasSociais() {
                 />
                 <LikesAndComentsCard
                   type="tiktok"
-                  barColor="#5162FF"
                   coments={socialMidiaData.staticData.tiktok.followers}
                   likes={socialMidiaData.staticData.tiktok.likes}
                   name="TikTok"
@@ -207,7 +210,6 @@ export default function MidiasSociais() {
                 />
                 <LikesAndComentsCard
                   type="youtube"
-                  barColor="#5162FF"
                   coments={socialMidiaData.staticData.youtube.views}
                   likes={socialMidiaData.staticData.youtube.subs}
                   name="Youtube"
@@ -216,7 +218,7 @@ export default function MidiasSociais() {
                     selectedPage === "youtube" || selectedPage === "initial"
                   }
                 />
-              </LikesAndComentsContainer>
+              </div>
               {selectedPage === "initial" && (
                 <InitialPage SocialMidiaData={socialMidiaData} />
               )}
@@ -254,11 +256,11 @@ export default function MidiasSociais() {
                   pageData={youtubeData}
                 />
               )}
-            </Main>
+            </main>
           ) : (
             <Spinner animation="border" />
           )}
-        </Content>
+        </div>
       </RootLayout>
     </main>
   );

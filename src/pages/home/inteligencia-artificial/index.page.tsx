@@ -89,7 +89,7 @@ export default function InteligenciaArtificial() {
 
   useEffect(() => {
     const textarea = document.getElementById(
-      "chatInput"
+      "chatInput",
     ) as HTMLTextAreaElement;
 
     textarea.addEventListener("input", () => {
@@ -171,26 +171,39 @@ lg:left-[calc(100%-17.5rem)]"
                 />
                 <div className="bg-gradient-to-r from-[#d8d8d8] to-[#0d123c] rounded-lg w-12 h-7 flex justify-center items-center lg:w-8 lg:h-auto lg:p-1">
                   <Image width={32} height={20} src={"/ia.png"} alt="" />
-                </div >
-                
-              </div >
-              {!firstMessage ?(
-              <div style={{alignSelf: "flex-end", position: 'relative',marginRight: "1rem"}}>
-              <div className={`absolute p-[0.3rem] right-[-0.5rem] top-[-4.5rem] border border-black rounded-[10px] text-justify text-[#1f1f1f] bg-white ${showTip ? 'z-[100]' : 'z-[-1]'} ${showTip ? 'opacity-100' : 'opacity-0'} transition duration-300 ease-in`}>
-                Reiniciar Conversa
-                <div className="absolute bg-white w-[0.7rem] h-[0.7rem] right-[1rem] rotate-45 border-r border-b border-black" />
+                </div>
               </div>
-              <button
-                onMouseEnter={() => setShowTip(true)}
-                onMouseLeave={() => setShowTip(false)}
-                onClick={() => Reload()}
-                className="w-8 h-8 animate-fadeInWelcomeMessage self-end bg-transparent border-none hover:scale-105"
-              >
-                <img src="/refreshIco.svg" className="w-full h-full"/>
-              </button>
-              </div>
-              ) : <></>}
-              {firstMessage ?(
+              {!firstMessage ? (
+                <div
+                  style={{
+                    alignSelf: "flex-end",
+                    position: "relative",
+                    marginRight: "1rem",
+                  }}
+                >
+                  <div
+                    className={`absolute p-[0.3rem] right-[-0.5rem] top-[-4.5rem] border border-black rounded-[10px] text-justify text-[#1f1f1f] bg-white ${
+                      showTip ? "z-[100]" : "z-[-1]"
+                    } ${
+                      showTip ? "opacity-100" : "opacity-0"
+                    } transition duration-300 ease-in`}
+                  >
+                    Reiniciar Conversa
+                    <div className="absolute bg-white w-[0.7rem] h-[0.7rem] right-[1rem] rotate-45 border-r border-b border-black" />
+                  </div>
+                  <button
+                    onMouseEnter={() => setShowTip(true)}
+                    onMouseLeave={() => setShowTip(false)}
+                    onClick={() => Reload()}
+                    className="w-8 h-8 animate-fadeInWelcomeMessage self-end bg-transparent border-none hover:scale-105"
+                  >
+                    <img src="/refreshIco.svg" className="w-full h-full" />
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
+              {firstMessage ? (
                 <>
                   <div className="flex  animate-fadeInWelcomeMessage flex-col items-center justify-between mx-auto text-2xl text-[#0d123c] text-center md:text-xl">
                     Como posso te Ajudar Hoje?
@@ -200,7 +213,7 @@ lg:left-[calc(100%-17.5rem)]"
                 <div className="flex flex-col p-2 gap-4 w-full h-full mt-4 overflow-hidden overflow-y-auto pb-2 mb-2">
                   {messages
                     .filter(
-                      (item: any, index: any) => index >= firstMessageCount
+                      (item: any, index: any) => index >= firstMessageCount,
                     ) // Filtrar mensagens com role diferente de "system"
                     .map((item: any, index: any) => (
                       <>
@@ -226,23 +239,26 @@ lg:left-[calc(100%-17.5rem)]"
 
               <div className="w-full flex flex-col items-center gap-[2.75rem]">
                 {firstMessage ? (
-                <div className="flex flex-col w-full animate-fadeInWelcomeMessage lg:gap-2 lg:items-center sm:flex-row">
-                  <div className="w-full mt-2 gap-1 ml-3 md:w-1/3 flex justify-center items-center">
-                  <PrompSuggestion
-                    content="Insights de Marketing"
-                    imgSrc="/dashboard/inteligencia-artificial/marketingInsights.svg"
-                    tipContent="Insights de marketing"
-                    onClick={() => handleSuggestionClick("Insights de Marketing")}
-                  />
-                  </div>
-                  <div className="flex justify-between gap-1 mt-2">
-
-                  <PrompSuggestion
-                    content="Idéias de Campanhas"
-                    imgSrc="/dashboard/inteligencia-artificial/campaignIdeas.svg"
-                    tipContent="Insights de marketing"
-                    onClick={() => handleSuggestionClick("Idéias de Campanhas")}
-                  />
+                  <div className="flex flex-col w-full animate-fadeInWelcomeMessage lg:gap-2 lg:items-center sm:flex-row">
+                    <div className="w-full mt-2 gap-1 ml-3 md:w-1/3 flex justify-center items-center">
+                      <PrompSuggestion
+                        content="Insights de Marketing"
+                        imgSrc="/dashboard/inteligencia-artificial/marketingInsights.svg"
+                        tipContent="Insights de marketing"
+                        onClick={() =>
+                          handleSuggestionClick("Insights de Marketing")
+                        }
+                      />
+                    </div>
+                    <div className="flex justify-between gap-1 mt-2">
+                      <PrompSuggestion
+                        content="Idéias de Campanhas"
+                        imgSrc="/dashboard/inteligencia-artificial/campaignIdeas.svg"
+                        tipContent="Insights de marketing"
+                        onClick={() =>
+                          handleSuggestionClick("Idéias de Campanhas")
+                        }
+                      />
 
                       <PrompSuggestion
                         content="IA Financeira"

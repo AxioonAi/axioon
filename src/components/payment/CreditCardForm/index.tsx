@@ -111,9 +111,6 @@ export function CreditCardForm({
 
   const router = useRouter();
 
-  console.log("installment: ", installment);
-  console.log("cardFormData: ", cardFormData);
-
   const handleClick = () => {
     if (
       (step === 1 && cardFormData.creditCard.holderName === "") ||

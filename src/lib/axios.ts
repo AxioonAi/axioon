@@ -7,7 +7,7 @@ export const refreshToken = "axioonRefreshToken";
 export const user_type = "axioonUserType";
 
 export const api = axios.create({
-  baseURL: api_url,
+  baseURL: amazonik,
 });
 
 export const IBGE = axios.create({

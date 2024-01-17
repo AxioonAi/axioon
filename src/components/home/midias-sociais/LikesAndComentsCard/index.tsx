@@ -6,7 +6,6 @@ interface LikesCardProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   likes: number;
   coments: number;
-  barColor: string;
   isSelected: boolean;
 }
 
@@ -14,14 +13,13 @@ export function LikesAndComentsCard({
   name,
   likes,
   coments,
-  barColor,
   isSelected,
   type,
   ...rest
 }: LikesCardProps) {
   const typeData = {
     facebook: {
-      leftLabel: "Likes na Página",
+      leftLabel: "Likes",
       leftImg: "/dashboard/like.svg",
       rightLabel: "Seguidores",
       rightImg: "/dashboard/heart.svg",
@@ -47,26 +45,54 @@ export function LikesAndComentsCard({
   };
 
   return (
-    <Container barColor={barColor} isSelected={isSelected} {...rest}>
-      <div className="verticalBar" />
-      <header>{name}</header>
-      <Feedback>
-        <FeedbackGroup>
-          <div className="group">
-            <img src={typeData[type].leftImg} alt="" />
-            <strong>{likes}</strong>
+    <div
+      className={`Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 ${
+        isSelected ? "opacity-100" : "opacity-50"
+      } hover:cursor-pointer`}
+      {...rest}
+    >
+      <div
+        className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
+      />
+      <header className="Header text-lg text-gray-100">{name}</header>
+      <div className="Feedback flex justify-between gap-5">
+        <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+          <div className="Group flex gap-0.5 items-center">
+            <img src={typeData[type].leftImg} alt="" className="w-6 h-auto" />
+            <strong className="text-lg leading-[0.9]">
+              {likes.toString().length > 6 && likes.toString().length <= 3
+                ? `${likes.toString().slice(0, 3)}M`
+                : likes.toString().length > 3
+                  ? `${likes.toString().slice(0, 3)}K`
+                  : likes.toString()}
+            </strong>
           </div>
-          <span>{typeData[type].leftLabel}</span>
-        </FeedbackGroup>
-
-        <FeedbackGroup>
-          <div className="group">
-            <img src={typeData[type].rightImg} alt="" />
-            <strong>{coments}</strong>
+          <span className="text-sm text-gray-90">
+            {typeData[type].leftLabel}
+          </span>
+        </div>
+        <div className="Feedback flex justify-between gap-5">
+          <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+            <div className="Group flex gap-0.5 items-center">
+              <img
+                src={typeData[type].rightImg}
+                alt=""
+                className="w-6 h-auto"
+              />
+              <strong className="text-lg leading-[0.9]">
+                {coments.toString().length > 6 && coments.toString().length <= 3
+                  ? `${coments.toString().slice(0, 3)}M`
+                  : coments.toString().length > 3
+                    ? `${coments.toString().slice(0, 3)}K`
+                    : coments.toString()}
+              </strong>
+            </div>
+            <span className="text-sm text-gray-90">
+              {typeData[type].rightLabel}
+            </span>
           </div>
-          <span>{typeData[type].rightLabel}</span>
-        </FeedbackGroup>
-      </Feedback>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 }

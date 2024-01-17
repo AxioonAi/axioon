@@ -46,19 +46,26 @@ export function NewPasswordModal({
     <>
       <Modal show={show} onHide={onHide} size="lg">
         {show && (
-          <Content isVisible={isVisible}>
+          <main className="m-auto">
             <CloseButton onHide={onHide} />
-            <FormHeader>
-              <div>
+            <div className="formHeader mb-8">
+              <div className="flex justify-center mt-14 mb-6">
                 <img src="/profile/security-safe.svg" alt="" />
               </div>
-              <h1>Atualizar Senha</h1>
-              <span>Preencha os campos abaixo para atualizar sua senha.</span>
-            </FormHeader>
-            <Form>
-              <FormGroup>
-                <label htmlFor="current-password">Senha Atual</label>
+              <h1 className="text-2xl text-bold text-center">
+                Atualizar Senha
+              </h1>
+              <span className="text-sm text-center text-gray-80">
+                Preencha os campos abaixo para atualizar sua senha.
+              </span>
+            </div>
+            <div className="Form flex flex-col gap-6">
+              <div className="formGroup flex flex-col gap-2">
+                <label htmlFor="current-password" className="font-semibold">
+                  Senha Atual
+                </label>
                 <input
+                  className="py-4 px-2 rounded border border-gray-20 outline-none text-gray-100"
                   type="password"
                   placeholder="Digite sua senha atual"
                   value={formData.currentPassword}
@@ -69,16 +76,19 @@ export function NewPasswordModal({
                     })
                   }
                 />
-              </FormGroup>
+              </div>
               <div
                 style={{
                   borderTop: "1px solid" + Theme.color.gray_20,
                   marginTop: "1rem",
                 }}
               />
-              <FormGroup>
-                <label htmlFor="new-password">Nova Senha</label>
+              <div className="formGroup flex flex-col gap-2">
+                <label className="font-semibold" htmlFor="new-password">
+                  Nova Senha
+                </label>
                 <input
+                  className="py-4 px-2 rounded border border-gray-20 outline-none text-gray-100"
                   type="password"
                   placeholder="Digite sua nova senha"
                   value={formData.newPassword}
@@ -86,10 +96,13 @@ export function NewPasswordModal({
                     setFormData({ ...formData, newPassword: e.target.value })
                   }
                 />
-              </FormGroup>
-              <FormGroup>
-                <label htmlFor="confirm-password">Repetir Senha</label>
+              </div>
+              <div className="formGroup flex flex-col gap-2">
+                <label className="font-semibold" htmlFor="confirm-password">
+                  Repetir Senha
+                </label>
                 <input
+                  className="py-4 px-2 rounded border border-gray-20 outline-none text-gray-100"
                   type="password"
                   placeholder="Confirme sua nova senha"
                   value={formData.confirmPassword}
@@ -100,7 +113,7 @@ export function NewPasswordModal({
                     })
                   }
                 />
-              </FormGroup>
+              </div>
               <GlobalButton
                 content="Atualizar Senha"
                 background={Theme.color.darkBlueAxion}
@@ -110,9 +123,10 @@ export function NewPasswordModal({
                 fontSize={12}
                 className="mb-5 p-2 rounded"
                 onClick={handleUpdatePassword}
+                loading={loadingButton}
               />
-            </Form>
-          </Content>
+            </div>
+          </main>
         )}
       </Modal>
 
@@ -126,7 +140,6 @@ export function NewPasswordModal({
             content="Finalizar"
             className="button"
             onClick={handleClose}
-            loading={loadingButton}
             background={Theme.color.darkBlueAxion}
             color={Theme.color.gray_10}
             width="auto"
