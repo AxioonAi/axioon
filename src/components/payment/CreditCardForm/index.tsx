@@ -343,32 +343,9 @@ export function CreditCardForm({
           </FormGroup>
         </FormDiv>
       ) : (
-        // <Select
-        //   name="state"
-        //   options={installments}
-        //   placeholder={`${installments[0].label}`}
-        //   className="self-center"
-        //   menuPlacement="auto"
-        //   styles={{
-        //     control: (base) => ({
-        //       ...base,
-        //       height: 53,
-        //       width: 220,
-        //     }),
-        //     indicatorSeparator: (base) => ({
-        //       ...base,
-        //       display: "none",
-        //     }),
-        //     input: (base) => ({
-        //       ...base,
-        //       height: 53,
-        //       width: 220,
-        //     }),
-        //   }}
-        // />
         <>
           <button onClick={handleOpen}>{`${installment.value} x R$ ${Number(
-            Number(value.toLocaleString("pt-BR")) / installment.value
+            Number(value) / installment.value
           ).toFixed(2)}`}</button>
           <ActionSheet
             ref={ref}
@@ -393,7 +370,7 @@ export function CreditCardForm({
                 className="border-b border-b-white w-full text-2xl mt-2 text-center transition duration-100 ease-in-out hover:bg-gray-10 hover:text-darkBlueAxion"
               >
                 {`${item.value} x R$ ${Number(
-                  Number(value.toLocaleString("pt-BR")) / item.value
+                  Number(value) / item.value
                 ).toFixed(2)}`}
               </div>
             ))}

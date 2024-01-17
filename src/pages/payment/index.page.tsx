@@ -10,7 +10,7 @@ import {
   SelectedPlan,
 } from "./styles";
 import { Footer } from "@/components/register-account/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { CreditCardForm } from "@/components/payment/CreditCardForm";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
@@ -72,6 +72,7 @@ export default function Payment() {
       },
     });
   }
+
   return (
     <Container>
       <RegisterAccountHeader />
