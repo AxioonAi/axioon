@@ -48,7 +48,7 @@ export function SimpleWordcloud({ socialMediaData }: Props) {
   };
 
   return (
-    <div className="sm:h-96 md:h-[40vh] xl:h-52 2xl:h-68 w-full">
+    <div className="sm:h-96 md:h-[40vh] xl:h-full 2xl:h-68 w-full">
       <ReactWordcloud words={words} options={options} />
     </div>
   );

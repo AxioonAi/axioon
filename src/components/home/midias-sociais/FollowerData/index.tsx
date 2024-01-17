@@ -118,7 +118,7 @@ export function FollowerData({ data }: Props) {
   }, []);
 
   return (
-    <div className="sm:h-96 md:h-52 xl:h-60 2xl:h-68">
+    <div className="sm:h-96 md:h-52 xl:h-60 2xl:h-60">
       <canvas id="myChart" />
     </div>
   );

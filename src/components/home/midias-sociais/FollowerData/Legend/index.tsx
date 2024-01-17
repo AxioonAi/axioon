@@ -7,7 +7,7 @@ interface Props {
 
 export function FollowerDataLegend({ name, count }: Props) {
   return (
-    <div className="Container flex items-center text-left">
+    <div className="Container flex items-center text-left sm:m-2">
       <div className="verticalBar h-9 w-px bg-[#8790ab]" />
       <div className="content flex flex-col items-start ml-4">
         <div className="name flex items-center gap-1 text-xs text-[#8790ab]">

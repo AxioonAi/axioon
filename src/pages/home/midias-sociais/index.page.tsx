@@ -155,7 +155,7 @@ export default function MidiasSociais() {
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
         <div
-          className="mainContent bg-gray-10 relative m-1 rounded-tl-2xl rounded-bl-2xl p-2 lg:p-4 w-full left-full lg:w-[calc(100%-18rem)] lg:left-[calc(100%-18rem)]"
+          className="mainContent bg-gray-10 relative m-1 rounded-tl-2xl rounded-bl-2xl pb-12 px-2 pt-2 w-full left-full lg:w-[calc(100%-18rem)] lg:left-[calc(100%-18rem)]"
           ref={content}
           style={{ opacity: 1 }}
         >

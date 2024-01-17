@@ -63,17 +63,17 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
     <div className="ChartsContainer grid grid-cols-[100%] md:grid-cols-[20rem_20rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
       {/* Score */}
 
-      <div className="followerChartContainer flex flex-col bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] md:h-[55vh] lg:h-[55vh] xl:h-[35vh]">
+      <div className="followerChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
         <TitleWithBar content="Dados de Seguidores" />
         <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center">
           <div className="chartCenterInfo flex absolute top-1/3 md:top-[30%] lg:top-1/3 xl:top-1/2 3xl:top-1/3 left-[50%] lg:left-1/2 xl:left-[35%] 2xl:left-[30%] translate-x-[-50%]">
-            <strong className="gain flex text-sm">
+            {/* <strong className="gain flex text-sm">
               <img src="/dashboard/arrow-up.svg" alt="" /> +6.5%
-            </strong>
+            </strong> */}
           </div>
           <FollowerData data={followerData} />
 
-          <div className="Legends flex flex-col gap-2">
+          <div className="Legends flex flex-wrap xl:flex-nowrap xl:flex-col gap-2 justify-center">
             {sortedFollowerData.map((item, index) => (
               <FollowerDataLegend
                 key={index}
@@ -85,7 +85,7 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
         </div>
       </div>
 
-      <div className="engagementChartContainer flex flex-col bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] md:h-[55vh] lg:h-[55vh] xl:h-[35vh]">
+      <div className="engagementChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
         <div>
           <TitleWithBar
             content="Dados de Engajamento"
@@ -123,13 +123,12 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
         </div>
       </div>
 
-      <div className="wordCloudContainer flex flex-col bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] md:h-[55vh] lg:h-[55vh] xl:h-[35vh]">
+      <div className="wordCloudContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
         <div>
           <TitleWithBar
             barColor="#080E45"
             content="Nuvem de palavras Geral"
             subTitle
-            className="mb-3"
           />
           <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
         </div>
