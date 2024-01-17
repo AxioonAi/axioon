@@ -60,13 +60,13 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
   ];
 
   return (
-    <div className="ChartsContainer grid grid-cols-[100%] md:grid-cols-[20rem_20rem] lg:grid-cols-[20rem_20rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[40rem_40rem] justify-center items-center gap-12 mt-5">
+    <div className="ChartsContainer grid grid-cols-[100%] md:grid-cols-[20rem_20rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
       {/* Score */}
 
-      <div className="followerChartContainer flex flex-col bg-white relative p-5 rounded-lg border border-[#c3c3c3]">
+      <div className="followerChartContainer flex flex-col bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] md:h-[55vh] lg:h-[55vh] xl:h-[35vh]">
         <TitleWithBar content="Dados de Seguidores" />
-        <div className="flex flex-col lg:flex-row">
-          <div className="chartCenterInfo flex absolute top-1/3 md:top-[30%] lg:top-1/3 left-[50%] translate-x-[-50%]">
+        <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center">
+          <div className="chartCenterInfo flex absolute top-1/3 md:top-[30%] lg:top-1/3 xl:top-1/2 3xl:top-1/3 left-[50%] lg:left-1/2 xl:left-[35%] 2xl:left-[30%] translate-x-[-50%]">
             <strong className="gain flex text-sm">
               <img src="/dashboard/arrow-up.svg" alt="" /> +6.5%
             </strong>
@@ -85,43 +85,58 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
         </div>
       </div>
 
-      {/* <EngagmentDataContainer>
-        <TitleWithBar
-          content="Dados de Engajamento"
-          barColor="#12A9E7"
-          subTitle
-        />
-        <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
-        <div className="chartContent">
-          <div className="chart">
-            <EngagmentChart chartData={engagmentData} />
-          </div>
-          <div className="legends">
+      <div className="engagementChartContainer flex flex-col bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] md:h-[55vh] lg:h-[55vh] xl:h-[35vh]">
+        <div>
+          <TitleWithBar
+            content="Dados de Engajamento"
+            barColor="#12A9E7"
+            subTitle
+          />
+          <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
+        </div>
+        <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center">
+          <EngagmentChart chartData={engagmentData} />
+          <div className="Legends flex flex-col gap-2">
             {engagmentData.map((item) => {
               return (
-                <EngagmentLegendContainer circleColor={item.color}>
-                  <div className="circle" />
-                  <strong style={{}}>{item.name}</strong>
+                <div className="EngagmentLegend flex justify-between items-center gap-2">
+                  <div
+                    className={`w-2 h-2 rounded-full ${
+                      item.name === "Instagram"
+                        ? "bg-[#E7298A]"
+                        : item.name === "Facebook"
+                          ? "bg-[#2F5CFC]"
+                          : item.name === "Youtube"
+                            ? "bg-[#E73F3F]"
+                            : "bg-[#29282C]"
+                    }
+                    `}
+                  />
+                  <strong className="w-auto md:w-16 text-xs font-semibold">
+                    {item.name}
+                  </strong>
                   <Image src={item.imgSrc} width={32} height={32} alt="" />
-                </EngagmentLegendContainer>
+                </div>
               );
             })}
           </div>
         </div>
-      </EngagmentDataContainer>
+      </div>
 
-      <WordCloudContainer>
-        <div className="title">
+      <div className="wordCloudContainer flex flex-col bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] md:h-[55vh] lg:h-[55vh] xl:h-[35vh]">
+        <div>
           <TitleWithBar
             barColor="#080E45"
             content="Nuvem de palavras Geral"
             subTitle
             className="mb-3"
           />
+          <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
         </div>
-        <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
-        <SimpleWordcloud socialMediaData={SocialMidiaData.wordCloud} />
-      </WordCloudContainer> */}
+        <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center">
+          <SimpleWordcloud socialMediaData={SocialMidiaData.wordCloud} />
+        </div>
+      </div>
 
       {/* <KeyIndicatorsContainer>
         <TitleWithBar

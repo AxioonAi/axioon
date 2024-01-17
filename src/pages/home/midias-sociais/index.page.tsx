@@ -176,7 +176,7 @@ export default function MidiasSociais() {
           />
           {socialMidiaData ? (
             <main className="Main m-0 rounded-lg md:m-2">
-              <h1>Redes Sociais</h1>
+              <h1 className="text-2xl py-8 font-extrabold">Redes Sociais</h1>
               <div className="LikesAndCommentsContainer flex justify-around gap-1 flex-wrap">
                 <LikesAndComentsCard
                   type="facebook"

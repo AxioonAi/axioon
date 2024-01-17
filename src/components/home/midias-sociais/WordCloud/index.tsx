@@ -17,7 +17,7 @@ export function SimpleWordcloud({ socialMediaData }: Props) {
   useEffect(() => {
     if (socialMediaData) {
       const filteredData = socialMediaData.filter(
-        (obj: { quantity: number }) => obj.quantity > 100
+        (obj: { quantity: number }) => obj.quantity > 20
       );
       setWords(
         filteredData.map((obj: { word: string; quantity: number }) => {
@@ -39,7 +39,7 @@ export function SimpleWordcloud({ socialMediaData }: Props) {
   };
 
   return (
-    <div style={{ height: "100%" }}>
+    <div className="sm:h-96 md:h-[40vh] xl:h-52 2xl:h-68 w-full">
       <ReactWordcloud words={words} options={options} />
     </div>
   );

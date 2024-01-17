@@ -74,11 +74,13 @@ export function EngagmentChart({ chartData }: Props) {
     ],
   };
   return (
-    <Pie
-      data={data}
-      options={options}
-      style={{ width: "100%" }}
-      height={"100%"}
-    />
+    <div className="sm:h-96 md:h-52 xl:h-60 2xl:h-68 self-center">
+      <Pie
+        data={data}
+        options={options}
+        style={{ width: "100%" }}
+        height={"100%"}
+      />
+    </div>
   );
 }
