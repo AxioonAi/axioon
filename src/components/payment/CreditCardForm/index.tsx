@@ -154,10 +154,10 @@ export function CreditCardForm({
   };
 
   return (
-    <FormContainer>
+    <div className="formContainer flex flex-col w-full md:w-[35rem] gap-2 mt-8">
       {step === 1 ? (
-        <FormDiv className="flex flex-wrap">
-          <FormGroup className="mt-3">
+        <div className="formDiv flex flex-col gap-2 md:flex-row md:gap-0 justify-between flex-wrap">
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="holderName">Nome</label>
             <input
               type="text"
@@ -175,8 +175,8 @@ export function CreditCardForm({
               }
               autoFocus
             />
-          </FormGroup>
-          <FormGroup className="mt-3">
+          </div>
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="number">Número do Cartão</label>
             <input
               id="number"
@@ -193,8 +193,8 @@ export function CreditCardForm({
               }
               maxLength={19}
             />
-          </FormGroup>
-          <FormGroup className="mt-3">
+          </div>
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="expiryDate">Validade</label>
             <input
               id="expiryDate"
@@ -211,8 +211,8 @@ export function CreditCardForm({
               }
               maxLength={5}
             />
-          </FormGroup>
-          <FormGroup className="mt-3">
+          </div>
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="CCV">CVC do Cartão</label>
             <input
               id="CCV"
@@ -229,11 +229,11 @@ export function CreditCardForm({
               }
               maxLength={3}
             />
-          </FormGroup>
-        </FormDiv>
+          </div>
+        </div>
       ) : step === 2 ? (
         <FormDiv className="flex flex-wrap">
-          <FormGroup className="mt-3">
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="name">Nome</label>
             <input
               type="text"
@@ -251,8 +251,8 @@ export function CreditCardForm({
               }
               autoFocus
             />
-          </FormGroup>
-          <FormGroup className="mt-3">
+          </div>
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="email">Email</label>
             <input
               type="text"
@@ -269,8 +269,8 @@ export function CreditCardForm({
                 })
               }
             />
-          </FormGroup>
-          <FormGroup className="mt-3">
+          </div>
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="cpfCnpj">CPF/CNPJ</label>
             <input
               id="cpfCnpj"
@@ -287,8 +287,8 @@ export function CreditCardForm({
               }
               maxLength={18}
             />
-          </FormGroup>
-          <FormGroup className="mt-3">
+          </div>
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="postalCode">CEP</label>
             <input
               id="postalCode"
@@ -305,8 +305,8 @@ export function CreditCardForm({
               }
               maxLength={9}
             />
-          </FormGroup>
-          <FormGroup className="mt-3">
+          </div>
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="addressNumber">Número</label>
             <input
               id="addressNumber"
@@ -322,8 +322,8 @@ export function CreditCardForm({
                 })
               }
             />
-          </FormGroup>
-          <FormGroup className="mt-3">
+          </div>
+          <div className="formGroup flex flex-col focus:outline-none mt-3">
             <label htmlFor="phone">Telefone</label>
             <input
               id="phone"
@@ -340,11 +340,14 @@ export function CreditCardForm({
               }
               maxLength={15}
             />
-          </FormGroup>
+          </div>
         </FormDiv>
       ) : (
         <>
-          <button onClick={handleOpen}>{`${installment.value} x R$ ${Number(
+          <button
+            onClick={handleOpen}
+            className="bg-darkBlueAxion text-white rounded p-2"
+          >{`${installment.value} x R$ ${Number(
             Number(value) / installment.value
           ).toFixed(2)}`}</button>
           <ActionSheet
@@ -367,7 +370,7 @@ export function CreditCardForm({
             {installments.map((item: { value: any }) => (
               <div
                 onClick={() => handleClose(item)}
-                className="border-b border-b-white w-full text-2xl mt-2 text-center transition duration-100 ease-in-out hover:bg-gray-10 hover:text-darkBlueAxion"
+                className="border-b border-b-white w-full rounded text-2xl mt-2 text-center transition duration-100 ease-in-out hover:bg-gray-10 hover:text-darkBlueAxion"
               >
                 {`${item.value} x R$ ${Number(
                   Number(value) / item.value
@@ -395,6 +398,6 @@ export function CreditCardForm({
           {step !== 3 ? "Prosseguir" : "Finalizar Compra"}
         </button>
       </FinishPayment>
-    </FormContainer>
+    </div>
   );
 }

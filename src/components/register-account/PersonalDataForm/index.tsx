@@ -23,15 +23,20 @@ interface FormDataProps {
 
 export function PersonalDataForm({ formData, setFormData }: FormDataProps) {
   return (
-    <RegisterForm>
-      <RegisterFormHeader>
-        <strong>Dados Pessoais</strong>
-        <span>Preencha os campos logo abaixo</span>
-      </RegisterFormHeader>
+    <div>
+      <div className="registerFormHeader flex flex-col items-center mb-8">
+        <strong className="text-2xl">Dados Pessoais</strong>
+        <span className="text-sm text-gray-80">
+          Preencha os campos logo abaixo
+        </span>
+      </div>
 
-      <FormGroup>
-        <label htmlFor="social_name">Nome Social</label>
+      <div className="formGroup flex flex-col mb-4">
+        <label className="text-sm font-bold" htmlFor="social_name">
+          Nome Social
+        </label>
         <input
+          className="p-2 border border-gray-40 rounded transition duration-300"
           type="text"
           id="social_name"
           placeholder="Digite seu Nome Social"
@@ -40,11 +45,14 @@ export function PersonalDataForm({ formData, setFormData }: FormDataProps) {
             setFormData({ ...formData, social_name: e.target.value })
           }
         />
-      </FormGroup>
+      </div>
 
-      <FormGroup>
-        <label htmlFor="cpf">Seu CPF</label>
+      <div className="formGroup flex flex-col mb-4">
+        <label className="text-sm font-bold" htmlFor="cpf">
+          Seu CPF
+        </label>
         <input
+          className="p-2 border border-gray-40 rounded transition duration-300"
           type="text"
           id="cpf"
           placeholder="Digite seu CPF"
@@ -54,10 +62,13 @@ export function PersonalDataForm({ formData, setFormData }: FormDataProps) {
             setFormData({ ...formData, cpfCnpj: maskCpfCnpj(e.target.value) })
           }
         />
-      </FormGroup>
-      <FormGroup>
-        <label htmlFor="bithDate">Data de Nascimento</label>
+      </div>
+      <div className="formGroup flex flex-col mb-4">
+        <label className="text-sm font-bold" htmlFor="bithDate">
+          Data de Nascimento
+        </label>
         <input
+          className="p-2 border border-gray-40 rounded transition duration-300"
           type="date"
           placeholder="Sua Data de Nascimento"
           value={formData.birth_date}
@@ -65,16 +76,22 @@ export function PersonalDataForm({ formData, setFormData }: FormDataProps) {
             setFormData({ ...formData, birth_date: e.target.value })
           }
         />
-      </FormGroup>
-      <label htmlFor="sex" style={{ fontWeight: "bold", marginBottom: "1rem" }}>
+      </div>
+      <label htmlFor="sex" className="text-sm font-bold mb-4">
         Sexo
       </label>
-      <RadioContainer>
-        <RadioGroup>
-          <RadioSelector htmlFor="MALE" checked={formData.sex === "MALE"}>
-            <div />
-          </RadioSelector>
+      <div className="radioContainer flex gap-5">
+        <div className="radioGroup flex gap-2 items-center">
+          <label
+            className="radioSelector flex items-center justify-center w-6 h-6 border border-gray-60 rounded-full"
+            htmlFor="MALE"
+          >
+            <div
+              className={`transition duration-300 w-5 h-5 rounded-full ${formData.sex === "MALE" ? "bg-gray-60" : "bg-transparent"}`}
+            />
+          </label>
           <input
+            className="hidden"
             type="radio"
             name="sex"
             id="MALE"
@@ -83,13 +100,19 @@ export function PersonalDataForm({ formData, setFormData }: FormDataProps) {
             onChange={(e) => setFormData({ ...formData, sex: e.target.value })}
           />
           <label htmlFor="MALE">Masculino</label>
-        </RadioGroup>
+        </div>
 
-        <RadioGroup>
-          <RadioSelector htmlFor="FEMALE" checked={formData.sex === "FEMALE"}>
-            <div />
-          </RadioSelector>
+        <div className="radioGroup flex gap-2 items-center">
+          <label
+            className="radioSelector flex items-center justify-center w-6 h-6 border border-gray-60 rounded-full"
+            htmlFor="FEMALE"
+          >
+            <div
+              className={`transition duration-300 w-5 h-5 rounded-full ${formData.sex === "FEMALE" ? "bg-gray-60" : "bg-transparent"}`}
+            />
+          </label>
           <input
+            className="hidden"
             type="radio"
             name="sex"
             id="FEMALE"
@@ -98,8 +121,8 @@ export function PersonalDataForm({ formData, setFormData }: FormDataProps) {
             onChange={(e) => setFormData({ ...formData, sex: e.target.value })}
           />
           <label htmlFor="FEMALE">Feminino</label>
-        </RadioGroup>
-      </RadioContainer>
-    </RegisterForm>
+        </div>
+      </div>
+    </div>
   );
 }

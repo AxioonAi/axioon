@@ -107,15 +107,17 @@ export default function RegisterAccount() {
   };
 
   return (
-    <Container>
+    <div className="Container min-h-screen relative pb-16">
       {step === 3 ? (
         <AnialiasingFormData />
       ) : (
         <>
           <RegisterAccountHeader />
-          <ProgressBar step={step} />
-          <Main>
-            <FormContainer>
+          <div
+            className={`progressBar absolute top-[3.7rem] bg-darkBlueAxion h-1 transition duration-500 ease-in-out ${step === 1 ? "w-[10%]" : step === 2 ? "w-1/2" : step === 3 ? "w-[90%]" : "w-full"}`}
+          />
+          <main className="mb-0 md:mb-24 flex flex-col w-full justify-around items-center lg:flex-row">
+            <div className="formContainer w-[calc(100%-3vw)] lg:w-[50vw] px-[8%]">
               {step === 1 ? (
                 <>
                   <BasicDataForm
@@ -133,32 +135,41 @@ export default function RegisterAccount() {
               )}
 
               {step === 1 ? (
-                <NextButton onClick={handleNext}>Proximo</NextButton>
-              ) : (
-                <div
-                  style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}
+                <button
+                  className="w-full p-3 rounded my-[3vh] border-2 bg-darkBlueAxion border-darkBlueAxion text-white font-bold hover:opacity-85 transition duration-300"
+                  onClick={handleNext}
                 >
-                  <BackButton onClick={() => setStep(step - 1)}>
+                  Proximo
+                </button>
+              ) : (
+                <div className="flex gap-4 mt-4">
+                  <button
+                    className="w-full p-3 rounded my-[3vh] border-2 bg-transparent border-darkBlueAxion text-darkBlueAxion font-bold hover:opacity-85 transition duration-300"
+                    onClick={() => setStep(step - 1)}
+                  >
                     Voltar
-                  </BackButton>
-                  <NextButton onClick={handleNext}>
+                  </button>
+                  <button
+                    className="w-full p-3 rounded my-[3vh] border-2 bg-darkBlueAxion border-darkBlueAxion text-white font-bold hover:opacity-85 transition duration-300"
+                    onClick={handleNext}
+                  >
                     {loading ? (
                       <Spinner animation="border" />
                     ) : (
                       "Finalizar Cadastro"
                     )}
-                  </NextButton>
+                  </button>
                 </div>
               )}
-            </FormContainer>
+            </div>
 
-            <ArtSection>
+            <div className="relative self-start bg-[url('/foto.png')] min-h-screen h-full w-full lg:w-[50vw] bg-cover bg-no-repeat bg-top">
               <Messages />
-            </ArtSection>
-          </Main>
+            </div>
+          </main>
         </>
       )}
       <Footer />
-    </Container>
+    </div>
   );
 }

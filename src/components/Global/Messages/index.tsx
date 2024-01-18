@@ -13,13 +13,15 @@ export function Messages() {
       company: "M2S Advocacia",
     },
     {
-      message: "“Mensagem 2.”",
-      author: "Rodrigo",
+      message:
+        "“Usar a plataforma da Axion revolucionou a forma como lidamos com nossos casos e processo, é incrivel ter todos os dados de uma empresa centralizado em um único local.”",
+      author: "Carlos Alberto",
       company: "M2S Advocacia",
     },
     {
-      message: "“Mensagem 3",
-      author: "Jorge",
+      message:
+        "“Usar a plataforma da Axion revolucionou a forma como lidamos com nossos casos e processo, é incrivel ter todos os dados de uma empresa centralizado em um único local.”",
+      author: "Carlos Alberto",
       company: "M2S Advocacia",
     },
   ];
@@ -53,27 +55,37 @@ export function Messages() {
 
   return (
     <div>
-      <Container>
+      <div
+        className="Container border rounded-xl bg-gradient-to-b from-[rgba(255,255,255,0.3)] to-[rgba(255,255,255,0)] backdrop-blur-sm w-[90%] text-justify
+      p-12 text-white lg:text-lg m-auto absolute bottom-12 left-[5%]
+      "
+      >
         <motion.div initial={{ opacity: 1 }} animate={control}>
           <p>{messages[step].message}</p>
         </motion.div>
-        <AuthorAndArrows>
+        <div className="AuthorAndArrows flex flex-col md:flex-row items-center gap-4 md:justify-between">
           <motion.div initial={{ opacity: 1 }} animate={control}>
-            <Author>
-              <strong>{messages[step].author}</strong>
-              <span>{messages[step].company}</span>
-            </Author>
+            <div className="Author flex flex-col">
+              <strong className="text-2xl">{messages[step].author}</strong>
+              <span className="text-sm">{messages[step].company}</span>
+            </div>
           </motion.div>
-          <Arrows>
-            <div onClick={handlePrevious}>
+          <div className="Arrows flex text-white gap-4">
+            <div
+              className="rounded-full w-8 h-8 flex items-center justify-center border border-white transition duration-200 hover:cursor-pointer hover:bg-[rgba(0,0,0,0.3)]"
+              onClick={handlePrevious}
+            >
               <ArrowLeftSVG />
             </div>
-            <div onClick={handleNext}>
+            <div
+              className="rounded-full w-8 h-8 flex items-center justify-center border border-white transition duration-200 hover:cursor-pointer hover:bg-[rgba(0,0,0,0.3)]"
+              onClick={handleNext}
+            >
               <ArrowRightSVG />
             </div>
-          </Arrows>
-        </AuthorAndArrows>
-      </Container>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

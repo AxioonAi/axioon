@@ -26,34 +26,45 @@ export function BasicDataForm({
   setTerms,
 }: FormDataProps) {
   return (
-    <RegisterForm>
-      <RegisterFormHeader>
-        <strong>Dados Básicos</strong>
-        <span>Preencha os campos logo abaixo</span>
-      </RegisterFormHeader>
+    <div>
+      <div className="registerFormHeader flex flex-col items-center mb-8">
+        <strong className="text-2xl">Dados Básicos</strong>
+        <span className="text-sm text-gray-80">
+          Preencha os campos logo abaixo
+        </span>
+      </div>
 
-      <FormGroup>
-        <label htmlFor="name">Nome Completo</label>
+      <div className="formGroup flex flex-col mb-4">
+        <label className="text-sm font-bold" htmlFor="name">
+          Nome Completo
+        </label>
         <input
+          className="p-2 border border-gray-40 rounded transition duration-300"
           type="text"
           id="name"
           placeholder="Seu nome"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
-      </FormGroup>
-      <FormGroup>
-        <label htmlFor="email">Email</label>
+      </div>
+      <div className="formGroup flex flex-col mb-4">
+        <label className="text-sm font-bold" htmlFor="email">
+          Email
+        </label>
         <input
+          className="p-2 border border-gray-40 rounded transition duration-300"
           type="email"
           placeholder="Digite seu email"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         />
-      </FormGroup>
-      <FormGroup>
-        <label htmlFor="phoneNumber">Telefone</label>
+      </div>
+      <div className="formGroup flex flex-col mb-4">
+        <label className="text-sm font-bold" htmlFor="phoneNumber">
+          Telefone
+        </label>
         <input
+          className="p-2 border border-gray-40 rounded transition duration-300"
           type="text"
           id="phoneNumber"
           maxLength={14}
@@ -63,10 +74,13 @@ export function BasicDataForm({
             setFormData({ ...formData, mobilePhone: maskPhone(e.target.value) })
           }
         />
-      </FormGroup>
-      <FormGroup>
-        <label htmlFor="password">Crie uma senha</label>
+      </div>
+      <div className="formGroup flex flex-col mb-4">
+        <label className="text-sm font-bold" htmlFor="password">
+          Crie uma senha
+        </label>
         <input
+          className="p-2 border border-gray-40 rounded transition duration-300"
           type="password"
           placeholder="Crie uma senha segura"
           value={formData.password}
@@ -74,9 +88,9 @@ export function BasicDataForm({
             setFormData({ ...formData, password: e.target.value })
           }
         />
-      </FormGroup>
+      </div>
 
-      <TermsContainer>
+      <div className="termsContainer flex gap-1 items-center text-sm">
         <input
           type="checkbox"
           id="terms"
@@ -84,10 +98,17 @@ export function BasicDataForm({
           onChange={() => setTerms(!terms)}
         />
         <label htmlFor="terms">
-          Ao informar meus dados, tenho ciência dos <span>Termos de Uso</span> e
-          da <span>Política de Privacidade</span>.
+          Ao informar meus dados, tenho ciência dos{" "}
+          <span className="text-darkBlueAxion cursor-pointer transition duration-300 hover:text-purpleAxion">
+            Termos de Uso
+          </span>{" "}
+          e da{" "}
+          <span className="text-darkBlueAxion cursor-pointer transition duration-300 hover:text-purpleAxion">
+            Política de Privacidade
+          </span>
+          .
         </label>
-      </TermsContainer>
-    </RegisterForm>
+      </div>
+    </div>
   );
 }

@@ -17,7 +17,8 @@ export const ProgressBar = styled.div<ProgressBarProps>`
   height: 5px;
   transition: 0.5s ease-in-out;
 
-  width: ${({ step}) => step === 1 ? "10%" : step === 2 ? "50%" : step === 3 ? "90%" : "100%"};
+  width: ${({ step }) =>
+    step === 1 ? "10%" : step === 2 ? "50%" : step === 3 ? "90%" : "100%"};
 `;
 
 export const Main = styled.main`
@@ -28,7 +29,7 @@ export const Main = styled.main`
   align-items: center;
   margin-bottom: 6.1rem;
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     margin-bottom: 0;
   }
 
@@ -144,7 +145,7 @@ export const ArtSection = styled.div`
   background-repeat: no-repeat;
   background-position: top center;
 
-  @media(min-width: 1024px) {
+  @media (min-width: 1024px) {
     width: 50vw;
   }
 `;

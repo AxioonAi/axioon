@@ -21,7 +21,7 @@ import { useRouter } from "next/router";
 
 export default function Payment() {
   const [selectedMethod, setSelectedMethod] = useState("creditCard");
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [pix, setPix] = useState({
     encodedImage: "",
     expirationDate: "",
@@ -71,22 +71,30 @@ export default function Payment() {
         expiryYear: cardFormData.creditCard.expiryDate.split("/")[1],
       },
     });
+    console.log("connect: ", connect);
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    router.push("/finish-payment");
   }
 
   return (
-    <Container>
+    <div className="Container relative min-h-screen pb-16 md:pb-32">
       <RegisterAccountHeader />
-      <Main>
-        <PaymentContainer>
-          <PaymentSelector>
-            <RadioGroup>
-              <RadioSelector
+      <main className="flex lex-col-reverse lg:flex-row justify-between max-w-[1440px] m-auto">
+        <div className="paymentContainer min-h-[32rem] px-4 w-full md:px-16 m-auto lg:m-0">
+          <div className="paymentSelector flex flex-col gap-8 pt-8">
+            <div className="radioGroup flex gap-2 items-center">
+              <label
+                className="radioSelector flex items-center justify-center w-6 h-6 border border-gray-60 rounded-full"
                 htmlFor="creditCard"
-                checked={selectedMethod === "creditCard"}
               >
-                <div />
-              </RadioSelector>
+                <div
+                  className={`transition duration-300 w-5 h-5 rounded-full ${selectedMethod === "creditCard" ? "bg-gray-60" : "bg-transparent"}`}
+                />
+              </label>
               <input
+                className="hidden"
                 type="radio"
                 name="payMethod"
                 id="creditCard"
@@ -98,18 +106,21 @@ export default function Payment() {
                 {!windowWidth(768) ? (
                   <img src="/payment/cardFlags.png" />
                 ) : (
-                  <img
-                    src="/payment/cardFlagsMobile.png"
-                    className="flagsMobile"
-                  />
+                  <img src="/payment/cardFlagsMobile.png" className="w-52" />
                 )}
               </label>
-            </RadioGroup>
-            <RadioGroup>
-              <RadioSelector htmlFor="pix" checked={selectedMethod === "pix"}>
-                <div />
-              </RadioSelector>
+            </div>
+            <div className="radioGroup flex gap-2 items-center">
+              <label
+                className="radioSelector flex items-center justify-center w-6 h-6 border border-gray-60 rounded-full"
+                htmlFor="pix"
+              >
+                <div
+                  className={`transition duration-300 w-5 h-5 rounded-full ${selectedMethod === "pix" ? "bg-gray-60" : "bg-transparent"}`}
+                />
+              </label>
               <input
+                className="hidden"
                 type="radio"
                 name="payMethod"
                 id="pix"
@@ -118,28 +129,10 @@ export default function Payment() {
                 onChange={handleRadioChange}
               />
               <label htmlFor="pix">
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: "45px",
-                    height: "31px",
-                    borderRadius: 5,
-                    border: "2px solid rgba(217, 217, 217, 0.7)",
-                    marginLeft: "7px",
-                  }}
-                >
-                  <Image
-                    width={25}
-                    height={25}
-                    src={"/payment/pix.png"}
-                    alt=""
-                  />
-                </div>
+                <Image width={25} height={25} src={"/payment/pix.png"} alt="" />
               </label>
-            </RadioGroup>
-          </PaymentSelector>
+            </div>
+          </div>
 
           {selectedMethod === "creditCard" ? (
             <CreditCardForm
@@ -155,7 +148,7 @@ export default function Payment() {
           ) : (
             <div style={{ paddingBottom: "14rem" }} />
           )}
-        </PaymentContainer>
+        </div>
         <SelectedPlan>
           <TitleBottomBar title="Plano escolhido:" color="#0D123C" />
           <ArtContainer>
@@ -173,8 +166,8 @@ export default function Payment() {
             </div>
           </ArtContainer>
         </SelectedPlan>
-      </Main>
+      </main>
       <Footer />
-    </Container>
+    </div>
   );
 }

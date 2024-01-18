@@ -23,30 +23,21 @@ export function PixPayment({ handlePix, pix }: PixProps) {
   };
 
   return (
-    <PixPaymentContainer>
-      <QrCodeContainer className="flex items-center justify-center">
+    <div className="Container flex flex-col w-full h-full items-center justify-center md:w-[35rem]">
+      <div className="flex items-center justify-center min-h-64">
         {step === 1 &&
           (pix.encodedImage ? (
             <img src={`data:image/png;base64, ${pix.encodedImage}`} />
           ) : (
             <Spinner animation="border" />
           ))}
-      </QrCodeContainer>
-      <FinishPayment>
-        <button
-          onClick={handleCreatePix}
-          className={`${step === 1 && "hidden"}`}
-        >
-          Gerar Pix
-        </button>
-
-        <button
-          onClick={() => router.push("/finish-payment")}
-          className={`${step === 0 && "hidden"}`}
-        >
-          Finalizar Pagamento
-        </button>
-      </FinishPayment>
-    </PixPaymentContainer>
+      </div>
+      <button
+        onClick={handleCreatePix}
+        className="w-80 bg-green-50 h-14 rounded text-darkBlueAxion font-bold hover:bg-green-60 transition duration-300"
+      >
+        Gerar Pix
+      </button>
+    </div>
   );
 }

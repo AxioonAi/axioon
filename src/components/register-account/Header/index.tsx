@@ -13,15 +13,26 @@ export function RegisterAccountHeader({ type = "light", logged }: Props) {
   const router = useRouter();
 
   return (
-    <RegisterHeader type={type}>
+    <header className="registerHeader flex items-center justify-between h-16 border border-gray-60">
       {type === "light" ? (
-        <img src="/axionLogo.png" alt="" />
+        <img
+          className="w-28 md:w-40 h-auto ml-[2%]"
+          src="/axionLogo.png"
+          alt=""
+        />
       ) : (
-        <img src="/sidebar/axion-white.svg" alt="" />
+        <img
+          className="w-28 md:w-40 h-auto ml-[2%]"
+          src="/sidebar/axion-white.svg"
+          alt=""
+        />
       )}
-      <button onClick={handleClick}>
+      <button
+        className={`py-2 px-3 border ${type === "light" ? "border-darkBlueAxion" : "border-gray-10"} ${type === "light" ? "bg-darkBlueAxion" : "bg-gray-10"} font-bold mr-[2%] transition duration-300 text-sm bg-transparent hover:bg-darkBlueAxion text-white}`}
+        onClick={handleClick}
+      >
         {logged ? "Voltar" : "Já é cliente? Acessar"}
       </button>
-    </RegisterHeader>
+    </header>
   );
 }

@@ -5,40 +5,32 @@ import { useEffect, useState } from "react";
 import { windowWidth } from "@/utils/windowWidth";
 
 export function AnialiasingFormData() {
-  const [dotsValue, setDotsValue] = useState('.');
+  const [dotsValue, setDotsValue] = useState(".");
 
-  const [pontos, setPontos] = useState('.');
+  const [pontos, setPontos] = useState(".");
   function AlternarPontos() {
-    
     useEffect(() => {
       const interval = setInterval(() => {
-        if (pontos === '.') {
-          setPontos('..');
-        } else if (pontos === '..') {
-          setPontos('...');
+        if (pontos === ".") {
+          setPontos("..");
+        } else if (pontos === "..") {
+          setPontos("...");
         } else {
-          setPontos('.');
+          setPontos(".");
         }
       }, 500); // Altere o intervalo de tempo conforme desejado (em milissegundos)
-      
+
       return () => clearInterval(interval);
-    }, [pontos]);}
+    }, [pontos]);
+  }
 
   AlternarPontos();
 
-
   return (
     <>
-      <Container>
-        <strong>Estamos analisando!</strong>
-        <span
-          style={{
-            color: Theme.color.gray_80,
-            maxWidth: "400px",
-            textAlign: "center",
-          }}
-          className="mt-3 mb-5"
-        >
+      <div className="Container relative flex flex-col min-h-screen items-center justifyc-center pb-20">
+        <strong className="text-3xl md:text-5xl">Estamos analisando!</strong>
+        <span className="mt-3 mb-5 text-lg md:text-2xl text-gray-80 max-w-[400px] text-center">
           Isso leva menos de 1 minuto, aguarde aqui mesmo.
         </span>
         {windowWidth(768) ? (
@@ -46,10 +38,13 @@ export function AnialiasingFormData() {
         ) : (
           <div className="custom-loader-big mt-3 mb-5" />
         )}
-        <span style={{ color: Theme.color.darkBlueAxion, position: "relative" }}>
-          CARREGANDO<span style={{ position: "absolute", right: "-20px", width: '20px' }}>{pontos}</span>
+        <span className="text-lg md:text-2xl text-darkBlueAxion relative">
+          CARREGANDO
+          <span className="text-lg md:text-2xl absolute -right-5 w-5">
+            {pontos}
+          </span>
         </span>
-      </Container>
+      </div>
       ;
     </>
   );
