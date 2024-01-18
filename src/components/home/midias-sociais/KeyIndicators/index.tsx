@@ -8,7 +8,7 @@ interface Props {
 
 export function KeyIndicators({ pageData }: Props) {
   return (
-    <KeyIndicatorsContainer>
+    <div className="Container flex flex-col justify-around w-full h-full pt-12">
       {!pageData ? (
         <Spinner animation="border" />
       ) : (
@@ -16,7 +16,7 @@ export function KeyIndicators({ pageData }: Props) {
         pageData.keyIndicators.map((item: any) => (
           <>
             <div>
-              <KeyIndicatorContent>
+              <div className="flex flex-col sm:flex-row w-full items-center justify-between p-4">
                 <strong style={{ fontWeight: 400, fontSize: "1.1rem" }}>
                   {item.name}
                 </strong>
@@ -26,7 +26,7 @@ export function KeyIndicators({ pageData }: Props) {
                   }
                   currentValue={item.current && Number(item.current.toFixed(0))}
                 />
-              </KeyIndicatorContent>
+              </div>
             </div>
             <div
               style={{
@@ -38,6 +38,6 @@ export function KeyIndicators({ pageData }: Props) {
           </>
         ))
       )}
-    </KeyIndicatorsContainer>
+    </div>
   );
 }

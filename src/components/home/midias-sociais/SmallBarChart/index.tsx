@@ -5,85 +5,68 @@ interface pageData {
 }
 
 export function SmallBarChart({ pageData }: pageData) {
+  const redHeight = (
+    (pageData?.commentsStatistics.sentimentStatistics.countSentiment0To350 /
+      (pageData?.commentsStatistics.sentimentStatistics.countSentiment0To350 +
+        pageData?.commentsStatistics.sentimentStatistics
+          .countSentiment351To650 +
+        pageData?.commentsStatistics.sentimentStatistics
+          .countSentiment651To1000)) *
+    100
+  ).toFixed(0);
+
+  const yellowHeight = (
+    (pageData?.commentsStatistics.sentimentStatistics.countSentiment351To650 /
+      (pageData?.commentsStatistics.sentimentStatistics.countSentiment0To350 +
+        pageData?.commentsStatistics.sentimentStatistics
+          .countSentiment351To650 +
+        pageData?.commentsStatistics.sentimentStatistics
+          .countSentiment651To1000)) *
+    100
+  ).toFixed(0);
+
+  const greenHeight = (
+    (pageData?.commentsStatistics.sentimentStatistics.countSentiment651To1000 /
+      (pageData?.commentsStatistics.sentimentStatistics.countSentiment0To350 +
+        pageData?.commentsStatistics.sentimentStatistics
+          .countSentiment351To650 +
+        pageData?.commentsStatistics.sentimentStatistics
+          .countSentiment651To1000)) *
+    100
+  ).toFixed(0);
+
   return (
-    <Container>
-      <ChartContainer>
-        <ChartBar
-          height={`${
-            (pageData?.commentsStatistics.sentimentStatistics
-              .countSentiment0To350 /
-              (pageData?.commentsStatistics.sentimentStatistics
-                .countSentiment0To350 +
-                pageData?.commentsStatistics.sentimentStatistics
-                  .countSentiment351To650 +
-                pageData?.commentsStatistics.sentimentStatistics
-                  .countSentiment651To1000)) *
-            100
-          }%`}
-          color="#C22222"
-        />
-        <ChartBar
-          height={`${
-            (pageData?.commentsStatistics.sentimentStatistics
-              .countSentiment351To650 /
-              (pageData?.commentsStatistics.sentimentStatistics
-                .countSentiment0To350 +
-                pageData?.commentsStatistics.sentimentStatistics
-                  .countSentiment351To650 +
-                pageData?.commentsStatistics.sentimentStatistics
-                  .countSentiment651To1000)) *
-            100
-          }%`}
-          color="#FFE14D"
-        />
-        <ChartBar
-          height={`${
-            (pageData?.commentsStatistics.sentimentStatistics
-              .countSentiment651To1000 /
-              (pageData?.commentsStatistics.sentimentStatistics
-                .countSentiment0To350 +
-                pageData?.commentsStatistics.sentimentStatistics
-                  .countSentiment351To650 +
-                pageData?.commentsStatistics.sentimentStatistics
-                  .countSentiment651To1000)) *
-            100
-          }%`}
-          color="#22C24F"
+    <div className="Container flex flex-col sm:flex-row gap-4 sm:gap-12 items-center">
+      <div className="chartContainer flex relative h-20 w-24 justify-around items-end">
+        <div
+          className={`chartBar w-3 bg-[#c22222]`}
+          style={{ height: `${redHeight}%` }}
         />
         <div
-          style={{
-            width: "120%",
-            height: "1px",
-            backgroundColor: "#606060",
-            position: "absolute",
-            bottom: "0",
-            left: "0",
-          }}
+          className={`chartBar w-3 bg-[#ffe14d]`}
+          style={{ height: `${yellowHeight}%` }}
         />
         <div
-          style={{
-            width: "1px",
-            height: "120%",
-            backgroundColor: "#606060",
-            position: "absolute",
-            left: "0",
-          }}
+          className="chartBar w-3 bg-[#22c24f]"
+          style={{ height: `${greenHeight}%` }}
         />
-      </ChartContainer>
-      <div>
-        <Legend color="#c22222">
-          <div className="circle" />
-          <span>0 - 350: Ruim</span>
-        </Legend>
-        <Legend color="#FFE14D">
-          <div className="circle" />
-          <span>350 - 650: Regular</span>
-        </Legend>
-        <Legend color="#22C24F">
-          <div className="circle" />
-          <span>650 - 1000: Muito Bom</span>
-        </Legend>
+        <div className="w-[120%] h-px bg-[#606060] absolute bottom-0 left-0" />
+        <div className="w-px h-[120%] bg-[#606060] absolute bottom-0 left-0" />
       </div>
-    </Container>
+      <div>
+        <div className="flex items-center gap-4" color="#c22222">
+          <div className="circle w-3 h-3 rounded-full bg-[#c22222]" />
+          <span>0 - 350: Ruim</span>
+        </div>
+        <div className="flex items-center gap-4" color="#FFE14D">
+          <div className="circle w-3 h-3 rounded-full bg-[#ffe14d]" />
+          <span>350 - 650: Regular</span>
+        </div>
+        <div className="flex items-center gap-4" color="#22C24F">
+          <div className="circle w-3 h-3 rounded-full bg-[#22c24f]" />
+          <span>650 - 1000: Muito Bom</span>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -35,7 +35,7 @@ export default function MidiasSociais() {
     return () => ctx.revert();
   };
 
-  const [selectedPage, setSelectedPage] = useState("initial");
+  const [selectedPage, setSelectedPage] = useState("facebook");
   const [selectedProfile, setSelectedProfile] = useState({
     name: "",
     politicalGroup: "",

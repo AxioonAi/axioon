@@ -18,10 +18,20 @@ interface pageData {
 }
 
 export function PostEngagement({ pageData }: pageData) {
+  const [width, setWidth] = useState(100);
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <div className="items-center flex justify-center">
       <BarChart
-        width={500}
+        width={width < 550 ? 300 : width >= 500 && width < 768 ? 400 : 500}
         height={300}
         data={pageData?.posts.slice(0, 10).map((post: any) => ({
           Curtidas: post.like,
@@ -53,6 +63,6 @@ export function PostEngagement({ pageData }: pageData) {
           barSize={windowWidth(768) ? 15 : 25}
         />
       </BarChart>
-    </ResponsiveContainer>
+    </div>
   );
 }

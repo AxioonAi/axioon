@@ -28,151 +28,87 @@ export function PostComponent({
   selectedPostId,
   setSelectedPostId,
 }: Props) {
-  function formatNumber(number: number) {
-    if (number >= 1000) {
-      return (number / 1000).toFixed(1) + "k";
-    } else {
-      return number;
-    }
-  }
-
   const date = new Date(post.date || post.created_at);
+  console.log("post: ", post);
 
   return (
-    <PostContainer
-      type={type}
-      className="hover:cursor-pointer"
+    <div
+      className={`Container flex gap-3 max-h-40 rounded-lg border ${type === "facebook" ? "border-[#0037c1]" : type === "instagram" ? "border-[#505CCA]" : type === "tiktok" ? "border-[#E03855]" : "border-[#FF0000]"} hover:cursor-pointer hover:bg-gray-20 transition duration-300 p-2`}
       onClick={() => setSelectedPostId(post.id)}
     >
-      <Image
-        width={80}
-        height={80}
-        src={
-          type === "facebook"
-            ? "/dashboard/midias-sociais/facebookLogo.png"
-            : type === "instagram"
-            ? "/dashboard/midias-sociais/instagramLogo.png"
-            : type === "youtube"
-            ? "/dashboard/midias-sociais/youtubeLogo.png"
-            : "/dashboard/midias-sociais/tiktokLogo.png"
-        }
-        alt={""}
-        style={{ objectFit: "cover", width: 80, height: 80, margin: 0 }}
-      />
-      {windowWidth(768) && <PostDate>{date.toLocaleDateString()}</PostDate>}
-      <PostContent>
-        <p>{post.text || post.description}</p>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          {type === "facebook" && (
-            <PostFeedback>
-              <FeedbackContainer>
+      <div className="postContent flex flex-col mb-1 text-sm text-black w-full overflow-hidden">
+        <div className="flex gap-1">
+          <Image
+            width={50}
+            height={50}
+            src={
+              type === "facebook"
+                ? "/dashboard/midias-sociais/facebookLogo.png"
+                : type === "instagram"
+                  ? "/dashboard/midias-sociais/instagramLogo.png"
+                  : type === "youtube"
+                    ? "/dashboard/midias-sociais/youtubeLogo.png"
+                    : "/dashboard/midias-sociais/tiktokLogo.png"
+            }
+            alt={""}
+            className="object-cover w-16 h-16 m-0"
+          />
+          <p>
+            {/* {post.text && post.text.length > 100
+              ? `${post.text.substring(0, 100)}...`
+              : post.text || (post.description && post.description.length > 100)
+                ? `${post.description.substring(0, 100)}...`
+                : post.description} */}
+            {post.text && post.text.length > 100
+              ? `${post.text.substring(0, 100)}...`
+              : post.text || post.description}
+          </p>
+        </div>
+
+        <div className="flex justify-between items-center">
+          <div className="postFeedback= w-full justify-between flex gap-2 ml-2 mt-2">
+            <div className="flex">
+              <div className="Feedback flex items-center min-w-20 gap-1">
                 <Image
-                  width={30}
-                  height={30}
-                  src="/dashboard/midias-sociais/facebookLike.png"
+                  width={20}
+                  height={20}
+                  src="/dashboard/midias-sociais/facebookLike.svg"
                   alt=""
                 />
                 <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
                   {pageData?.posts[index].like}
                 </strong>
-              </FeedbackContainer>
-              <FeedbackContainer
-                style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}
-              >
+              </div>
+              <div className="Feedback flex items-center min-w-20 gap-1">
                 <Image
                   width={20}
                   height={20}
-                  src="/dashboard/midias-sociais/facebookComment.png"
+                  src="/dashboard/midias-sociais/facebookComment.svg"
                   alt=""
                 />
                 <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
                   {pageData?.posts[index].commentCount}
                 </strong>
-              </FeedbackContainer>
-              <FeedbackContainer
-                style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}
-              >
+              </div>
+              <div className="Feedback flex items-center min-w-20 gap-1">
                 <Image
                   width={20}
                   height={20}
-                  src="/dashboard/midias-sociais/facebookShare.png"
+                  src="/dashboard/midias-sociais/facebookShare.svg"
                   alt=""
                 />
                 <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
                   {pageData?.posts[index].shares}
                 </strong>
-              </FeedbackContainer>
-            </PostFeedback>
-          )}
-          {type !== "facebook" && (
-            <PostFeedback>
-              <FeedbackContainer
-                style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}
-              >
-                <HeartSVG
-                  color={type === "instagram" ? "#EB4956" : "#292D32"}
-                />
-                <strong
-                  style={{
-                    color: type === "instagram" ? "#EB4956" : "#292D32",
-                    fontSize: "0.85rem",
-                  }}
-                >
-                  {pageData?.posts[index].like}
-                </strong>
-              </FeedbackContainer>
+              </div>
+            </div>
 
-              <FeedbackContainer
-                style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}
-              >
-                <MessageSVG
-                  color={type === "instagram" ? "#EB4956" : "#292D32"}
-                />
-                <strong
-                  style={{
-                    color: type === "instagram" ? "#EB4956" : "#292D32",
-                    fontSize: "0.85rem",
-                  }}
-                >
-                  {pageData?.posts[index].commentCount}
-                </strong>
-              </FeedbackContainer>
-              {pageData?.posts[index].shares ? (
-                <FeedbackContainer
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.4rem",
-                  }}
-                >
-                  <ViewSVG
-                    color={type === "instagram" ? "#EB4956" : "#292D32"}
-                  />
-                  <strong
-                    style={{
-                      color: type === "instagram" ? "#EB4956" : "#292D32",
-                      fontSize: "0.85rem",
-                    }}
-                  >
-                    {pageData?.posts[index].shares}
-                  </strong>
-                </FeedbackContainer>
-              ) : (
-                <></>
-              )}
-            </PostFeedback>
-          )}
-          {!windowWidth(768) && (
-            <PostDate>{date.toLocaleDateString()}</PostDate>
-          )}
+            <div className="postDate self-end text-sm text-[#494949]">
+              {date.toLocaleDateString("pt-BR")}
+            </div>
+          </div>
         </div>
-      </PostContent>
-    </PostContainer>
+      </div>
+    </div>
   );
 }

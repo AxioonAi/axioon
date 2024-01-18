@@ -31,122 +31,66 @@ export function CommentComponent({ type, comment }: Props) {
     comment.date || comment.timestamp || comment.created_at
   );
 
+  console.log("comment: ", comment);
+
   return (
-    <CommentContainer type={type}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center" }}>
+    <div
+      className={`Container flex gap-3 max-h-40 rounded-lg border ${type === "facebook" ? "border-[#0037c1]" : type === "instagram" ? "border-[#505CCA]" : type === "tiktok" ? "border-[#E03855]" : "border-[#FF0000]"} hover:cursor-pointer hover:bg-gray-20 transition duration-300 p-2`}
+    >
+      <div className="commentContent flex flex-col mb-1 text-sm text-black w-full overflow-hidden">
+        <div className="flex gap-1">
           <Image
             width={50}
             height={50}
-            src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg"
+            src="/dashboard/midias-sociais/stockProfilePic.svg"
             alt=""
-            className="rounded-5"
+            className="rounded-5 object-cover w-16 h-16 m-0"
           />
-          {windowWidth(768) && (
-            <strong style={{ fontSize: "0.925rem" }}>
-              {comment.username || comment.ownerUsername}
-            </strong>
-          )}
-        </div>
-        {windowWidth(768) && (
-          <CommentDate>
-            <span>{commentDate.toLocaleDateString()}</span>
-          </CommentDate>
-        )}
-      </div>
-      <CommentContent>
-        <NameAndContent>
-          {!windowWidth(768) && <strong>{comment.ownerUsername}</strong>}
-          <p>{comment.text}</p>
-        </NameAndContent>
-        <CommentFeedback type={type}>
-          <div className="flex justify-evenly items-center w-full">
-            {type === "facebook" && (
-              <>
-                <CommentFeedback>
-                  <div className="flex justify-center items-center">
-                    <Image
-                      width={24}
-                      height={24}
-                      src="/dashboard/midias-sociais/facebookLike.png"
-                      alt=""
-                    />
-                    <strong style={{ color: "#0037C1", fontSize: "0.75rem" }}>
-                      {comment.likeCount}
-                    </strong>
-                  </div>
-                </CommentFeedback>
-                <CommentDate>
-                  <span>{commentDate.toLocaleDateString()}</span>
-                </CommentDate>
-              </>
-            )}
-            {type !== "facebook" && (
-              <CommentFeedback>
-                <FeedbackContainer
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.4rem",
-                  }}
-                >
-                  <HeartSVG
-                    color={type === "instagram" ? "#EB4956" : "#292D32"}
-                    size="small"
-                  />
-                  <strong
-                    style={{
-                      color: type === "instagram" ? "#EB4956" : "#292D32",
-                      fontSize: "0.85rem",
-                    }}
-                  >
-                    {comment.likeCount}
-                  </strong>
-                </FeedbackContainer>
-
-                {comment.replyCount ? (
-                  <FeedbackContainer
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.4rem",
-                    }}
-                  >
-                    <MessageSVG
-                      color={type === "instagram" ? "#EB4956" : "#292D32"}
-                      size="small"
-                    />
-                    <strong
-                      style={{
-                        color: type === "instagram" ? "#EB4956" : "#292D32",
-                        fontSize: "0.85rem",
-                      }}
-                    >
-                      {comment.replyCount}
-                    </strong>
-                  </FeedbackContainer>
-                ) : (
-                  <></>
-                )}
-              </CommentFeedback>
-            )}
-            <CommentScore>
-              <Bar className="bar" score={comment.sentimentAnalysis} />
-            </CommentScore>
+          <div className="flex flex-col">
+            <strong>{comment.ownerUsername || comment.username}</strong>
+            <p>
+              {comment.text.length > 100
+                ? `${comment.text.substring(0, 100)}...`
+                : comment.text}
+            </p>
           </div>
-          {type !== "facebook" && !windowWidth(768) && (
-            <CommentDate>
-              <span>{commentDate.toLocaleDateString()}</span>
-            </CommentDate>
-          )}
-        </CommentFeedback>
-      </CommentContent>
-    </CommentContainer>
+        </div>
+        <div className="flex justify-between items-center">
+          <div className="postFeedback= w-full justify-between flex gap-2 ml-2 mt-2">
+            <div className="flex">
+              <div className="Feedback flex items-center min-w-20 gap-1">
+                <Image
+                  width={20}
+                  height={20}
+                  src="/dashboard/midias-sociais/facebookLike.svg"
+                  alt=""
+                />
+                <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
+                  {comment?.likeCount}
+                </strong>
+              </div>
+              {/* <div className="Feedback flex items-center min-w-20 gap-1">
+                <Image
+                  width={20}
+                  height={20}
+                  src="/dashboard/midias-sociais/facebookComment.svg"
+                  alt=""
+                />
+                <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
+                  {comment?.commentCount}
+                </strong>
+              </div> */}
+              <div className="commentScore relative w-20 h-3 rounded bg-gradient-to-r from-[#8d0000] via-[#c2c600aa] to-[#008425] ">
+                <Bar className="bar" score={comment.sentimentAnalysis} />
+              </div>
+            </div>
+
+            <div className="postDate self-end text-sm text-[#494949]">
+              <span>{commentDate.toLocaleDateString("pt-BR")}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -153,7 +153,7 @@ export function SocialMidiaPage({
   };
 
   return (
-    <PageContainer>
+    <div className="pageContainer flex flex-col items-center justify-center m-auto p-2">
       {!pageData ? (
         <label className="mt-5 text-3xl">
           {loading ? (
@@ -164,36 +164,27 @@ export function SocialMidiaPage({
         </label>
       ) : (
         <>
-          <ChartsContainer>
-            <PostEngagmentContainer>
-              <TitleWithBar
-                content="Engajamento de Publicações"
-                barColor="#12A9E7"
-                className="mb-4 title"
-              />
-              <PostEngagement pageData={pageData} />
-            </PostEngagmentContainer>
-            <ScoreChartContainer>
-              <TitleWithBar
-                content="Sentimento Médio dos Comentários:"
-                barColor="#2F5CFC"
-                subTitle
-                className="title"
-              />
-              {pageData?.commentsStatistics.sentimentStatistics
-                .sentimentAverage !== null ? (
-                <>
-                  <div
-                    className="mb-5"
-                    style={{
-                      marginTop: "3rem",
-                      height: "100px",
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
+          <div className="ChartsContainer grid grid-cols-[100%] md:grid-cols-[35rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
+            <div className="engagementChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+              <div className="flex flex-col">
+                <TitleWithBar
+                  content="Engajamento de Publicações"
+                  barColor="#12A9E7"
+                />
+                <PostEngagement pageData={pageData} />
+              </div>
+            </div>
+
+            <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+              <div className="flex flex-col">
+                <TitleWithBar
+                  content="Sentimento Médio dos Comentários:"
+                  barColor="#2F5CFC"
+                  subTitle
+                />
+                {pageData?.commentsStatistics.sentimentStatistics
+                  .sentimentAverage !== null ? (
+                  <>
                     <ScoreChart
                       id={id}
                       score={Number(
@@ -202,56 +193,53 @@ export function SocialMidiaPage({
                         )
                       )}
                     />
-                  </div>
-                  <div
-                    style={{
-                      width: "90%",
-                      borderTop: "1px solid #000000",
-                      margin: "0 auto",
-                    }}
-                  />
-                  <div className="p-5">
-                    <SmallBarChart pageData={pageData} />
-                  </div>
-                </>
-              ) : (
-                <span className="self-center text-2xl mt-5">
-                  Nenhum comentário encontrado
-                </span>
-              )}
-            </ScoreChartContainer>
+                    <div className="w-[90%] self-center h-[1px] mt-4 mb-8 bg-gray-60" />
+                    <div className="flex items-center justify-center">
+                      <SmallBarChart pageData={pageData} />
+                    </div>
+                  </>
+                ) : (
+                  <span className="self-center text-2xl mt-5">
+                    Nenhum comentário encontrado
+                  </span>
+                )}
+              </div>
+            </div>
 
-            <KeyIndicatorsContainer>
-              <TitleWithBar
-                content="Indicadores Chave:"
-                barColor="#12A9E7"
-                subTitle
-              />
-              <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
-              <KeyIndicators pageData={pageData} />
-            </KeyIndicatorsContainer>
+            <div className="keyIndicatorChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+              <div className="flex flex-col">
+                <TitleWithBar
+                  content="Indicadores Chave:"
+                  barColor="#12A9E7"
+                  subTitle
+                />
+                <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
+                <KeyIndicators pageData={pageData} />
+              </div>
+            </div>
 
             {pageType === "youtube" ? (
-              <WordCloudContainer>
-                <div className="title">
+              <div className="wordCloudContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                <div className="flex flex-col">
                   <TitleWithBar
                     barColor="#080E45"
                     content="Nuvem de palavras Geral"
                     subTitle
-                    className="mb-3"
                   />
+                  <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
+                  <div className="h-[22rem]">
+                    <SimpleWordcloud socialMediaData={pageData.wordCloud} />
+                  </div>
                 </div>
-                <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
-                <SimpleWordcloud socialMediaData={pageData.wordCloud} />
-              </WordCloudContainer>
+              </div>
             ) : (
-              <VotersActiveContainer>
+              <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <TitleWithBar
                   content="Horário que os Eleitores estão mais Ativos em Sua Rede Social:"
                   barColor="#12A9E7"
                   subTitle
                 />
-                <div className="chart">
+                <div className="h-[19rem]">
                   <VotersActive pageData={pageData} />
                 </div>
 
@@ -262,45 +250,27 @@ export function SocialMidiaPage({
                     estes horários.
                   </p>
                 </Tip>
-              </VotersActiveContainer>
+              </div>
             )}
-          </ChartsContainer>
 
-          {id === "comparison" || id === "comparison2" ? (
-            <></>
-          ) : (
-            <>
-              <PostsAndComments>
-                <PostsContainer>
-                  <PostsHeader>
+            {id === "comparison" || id === "comparison2" ? (
+              <></>
+            ) : (
+              <>
+                <div className="postsContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto">
+                  <div className="postsHeader flex flex-col gap-12 md:flex-row md:gap-0 justify-between p-4">
                     <TitleWithBar content="Publicações" barColor="#12A9E7" />
-                    <LabelAndSelect>
-                      <strong
-                        onClick={() =>
-                          document.getElementById("posts-order-select")?.focus()
-                        }
-                      >
-                        Ordenar por:
-                      </strong>
+                    <div className="labelAndSelect flex items-center gap-4 p-2">
+                      <strong>Ordenar por:</strong>
                       <OrderSelect
                         selectedValue={selectedValue}
                         values={values}
                         setSelectedValue={setSelectedValue}
                         id="posts-order-select"
                       />
-                    </LabelAndSelect>
-                  </PostsHeader>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignSelf: "center",
-                      gap: "1rem",
-                      padding: "0 0.875rem",
-                      height: "70vh",
-                      overflowY: "scroll",
-                    }}
-                  >
+                    </div>
+                  </div>
+                  <div className="flex flex-col self-center gap-4 px-3 h-[50vh] overflow-y-auto">
                     {pageData?.posts
                       .slice(0, showMore ? pageData?.posts.length : 4)
                       .map((post: any, index: any) => (
@@ -314,192 +284,169 @@ export function SocialMidiaPage({
                         />
                       ))}
                   </div>
-                  <SeeMorePosts>
-                    <button onClick={() => setShowMore(!showMore)}>
+                  <div className="seeMore flex justify-center mt-4 p-2">
+                    <button
+                      className="border-0 bg-transparent text-sm font-bold text-black underline"
+                      onClick={() => setShowMore(!showMore)}
+                    >
                       {showMore ? "Ver Menos" : "Ver Mais"}
                     </button>
-                  </SeeMorePosts>
-                </PostsContainer>
+                  </div>
+                </div>
 
-                <CommentsContainer>
-                  <CommentsHeader>
+                <div className="commentsContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto">
+                  <div className="commentsHeader flex flex-col gap-12 md:flex-row md:gap-0 justify-between p-4">
                     <TitleWithBar content="Comentários" barColor="#12A9E7" />
-                    <LabelAndSelect>
-                      <strong
-                        onClick={() =>
-                          document.getElementById("posts-order-select")?.focus()
-                        }
-                      >
-                        Ordenar por:
-                      </strong>
+                    <div className="labelAndSelect flex items-center gap-4 p-2">
+                      <strong>Ordenar por:</strong>
                       <OrderSelect
                         selectedValue={selectedValue}
                         values={values}
                         setSelectedValue={setSelectedValue}
-                        id="posts-order-select"
+                        id="comments-order-select"
                       />
-                    </LabelAndSelect>
-                  </CommentsHeader>
-                  <Comments>
-                    {
-                      selectedPostId === "" ? (
-                        <label className="text-black text-center justify-center">
-                          Selecione uma publicação
-                        </label>
-                      ) : pageData.posts.filter(
-                          (post: any) => post?.id === selectedPostId
-                        )[0].comments.length === 0 ? (
-                        <label className="text-black text-center justify-center">
-                          Sem comentários
-                        </label>
-                      ) : (
-                        pageData.posts
-                          .filter((post: any) => post?.id === selectedPostId)[0]
-                          .comments.slice(
-                            0,
-                            showMoreComments
-                              ? pageData.posts.filter(
-                                  (post: any) => post?.id === selectedPostId
-                                )[0].comments.length
-                              : 5
-                          )
-                          .map((comment: any, index: any) => (
-                            <CommentComponent
-                              type={pageType}
-                              comment={comment}
-                            />
-                          ))
-                      )
-                      // pageData?.posts.map(
-                      //   (post: any, index: any) =>
-                      //     post.id === selectedPostId &&
-                      //     post.comments
-                      //       .slice(
-                      //         0,
-                      //         showMoreComments ? post.comments.length : 5
-                      //       )
-                      //       .map((comment: any, index: any) => (
-                      //         <CommentComponent
-                      //           type={pageType}
-                      //           comment={comment}
-                      //         />
-                      //       ))
-                      // )
-                    }
-                  </Comments>
-                  {selectedPostId === "" ? (
-                    <></>
-                  ) : (
-                    <SeeMorePosts>
-                      <button
-                        onClick={() => setShowMoreComments(!showMoreComments)}
-                      >
-                        {showMoreComments ? "Ver Menos" : "Ver Mais"}
-                      </button>
-                    </SeeMorePosts>
-                  )}
-                </CommentsContainer>
-              </PostsAndComments>
-              {pageType !== "facebook" ||
-              (metaads && metaads.advertising.length === 0) ? (
-                <></>
-              ) : (
-                <>
-                  {!locked && (
-                    <MetaAdsContainer>
-                      <TitleWithBar
-                        content=""
-                        barColor="#12A9E7"
-                        className="mb-4 title"
-                      />
-                      <MetaAdsLogo
-                        src="/metaAdsLogo.svg"
-                        width={200}
-                        height={40}
-                        alt=""
-                      />
-                      <MetaAdsCardsContainer>
-                        {metaads &&
-                          metaads.advertising.map((item: any, index: any) => (
-                            <>
-                              <MetaAdsCards>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    width: "100%",
-                                    justifyContent: "space-between",
-                                  }}
-                                >
-                                  <div>
-                                    <a
-                                      style={{
-                                        fontWeight: "semibold",
-                                        fontSize: 16,
-                                        textDecoration: "none",
-                                        color: "black",
-                                        width: "max-content",
-                                      }}
-                                      href={`https://www.facebook.com/ads/library/?id=${item.id}`}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                    >
-                                      ID do Anúncio: <strong>{item.id}</strong>
-                                    </a>
+                    </div>
+                  </div>
+                  <div className="flex flex-col self-center gap-4 px-3 h-[50vh] overflow-y-auto">
+                    {selectedPostId === "" ? (
+                      <label className="text-black text-center justify-center">
+                        Selecione uma publicação
+                      </label>
+                    ) : pageData.posts.filter(
+                        (post: any) => post?.id === selectedPostId
+                      )[0].comments.length === 0 ? (
+                      <label className="text-black text-center justify-center">
+                        Sem comentários
+                      </label>
+                    ) : (
+                      pageData.posts
+                        .filter((post: any) => post?.id === selectedPostId)[0]
+                        .comments.slice(
+                          0,
+                          showMoreComments
+                            ? pageData.posts.filter(
+                                (post: any) => post?.id === selectedPostId
+                              )[0].comments.length
+                            : 5
+                        )
+                        .map((comment: any, index: any) => (
+                          <CommentComponent type={pageType} comment={comment} />
+                        ))
+                    )}
+                  </div>
+                  <div className="seeMore flex justify-center mt-4 p-2">
+                    <button
+                      className="border-0 bg-transparent text-sm font-bold text-black underline"
+                      onClick={() => setShowMoreComments(!showMoreComments)}
+                    >
+                      {showMore ? "Ver Menos" : "Ver Mais"}
+                    </button>
+                  </div>
+                </div>
+
+                {pageType !== "facebook" ||
+                (metaads && metaads.advertising.length === 0) ? (
+                  <></>
+                ) : (
+                  <>
+                    {!locked && (
+                      <MetaAdsContainer>
+                        <TitleWithBar
+                          content=""
+                          barColor="#12A9E7"
+                          className="mb-4 title"
+                        />
+                        <MetaAdsLogo
+                          src="/metaAdsLogo.svg"
+                          width={200}
+                          height={40}
+                          alt=""
+                        />
+                        <MetaAdsCardsContainer>
+                          {metaads &&
+                            metaads.advertising.map((item: any, index: any) => (
+                              <>
+                                <MetaAdsCards>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      width: "100%",
+                                      justifyContent: "space-between",
+                                    }}
+                                  >
+                                    <div>
+                                      <a
+                                        style={{
+                                          fontWeight: "semibold",
+                                          fontSize: 16,
+                                          textDecoration: "none",
+                                          color: "black",
+                                          width: "max-content",
+                                        }}
+                                        href={`https://www.facebook.com/ads/library/?id=${item.id}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                      >
+                                        ID do Anúncio:{" "}
+                                        <strong>{item.id}</strong>
+                                      </a>
+                                    </div>
+                                    <img
+                                      src={
+                                        item.status === "ACTIVE"
+                                          ? "/ActiveAd.svg"
+                                          : "/InactiveAd.svg"
+                                      }
+                                      alt=""
+                                    />
                                   </div>
-                                  <img
-                                    src={
-                                      item.status === "ACTIVE"
-                                        ? "/ActiveAd.svg"
-                                        : "/InactiveAd.svg"
-                                    }
-                                    alt=""
-                                  />
-                                </div>
-                                <div style={{ fontSize: 14 }}>
-                                  <label>
-                                    {item.end_date !== null
-                                      ? "Veiculado Entre: "
-                                      : "Início Em: "}
-                                  </label>
-                                  {""}{" "}
-                                  {item.start_date
-                                    .split("T")[0]
-                                    .split("-")
-                                    .reverse()
-                                    .join("/")}
-                                  {item.end_date && " e "}
-                                  {item.end_date &&
-                                    item.end_date
+                                  <div style={{ fontSize: 14 }}>
+                                    <label>
+                                      {item.end_date !== null
+                                        ? "Veiculado Entre: "
+                                        : "Início Em: "}
+                                    </label>
+                                    {""}{" "}
+                                    {item.start_date
                                       .split("T")[0]
                                       .split("-")
                                       .reverse()
                                       .join("/")}
-                                  <label style={{ marginLeft: "2%" }}></label>
-                                </div>
-                                <label
-                                  onClick={() => openModal(index)}
-                                  style={{
-                                    alignSelf: "center",
-                                    padding: "5px 10px",
-                                    border: "1px solid #0037c1",
-                                    borderRadius: 10,
-                                    margin: "2% 0",
-                                  }}
-                                >
-                                  Ver mais Detalhes
-                                </label>
-                              </MetaAdsCards>
-                            </>
-                          ))}
-                      </MetaAdsCardsContainer>
-                    </MetaAdsContainer>
-                  )}
-                </>
-              )}
-            </>
-          )}
+                                    {item.end_date && " e "}
+                                    {item.end_date &&
+                                      item.end_date
+                                        .split("T")[0]
+                                        .split("-")
+                                        .reverse()
+                                        .join("/")}
+                                    <label style={{ marginLeft: "2%" }}></label>
+                                  </div>
+                                  <label
+                                    onClick={() => openModal(index)}
+                                    style={{
+                                      alignSelf: "center",
+                                      padding: "5px 10px",
+                                      border: "1px solid #0037c1",
+                                      borderRadius: 10,
+                                      margin: "2% 0",
+                                    }}
+                                  >
+                                    Ver mais Detalhes
+                                  </label>
+                                </MetaAdsCards>
+                              </>
+                            ))}
+                        </MetaAdsCardsContainer>
+                      </MetaAdsContainer>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+          </div>
         </>
       )}
+
       {metaads && metaads.advertising.length !== 0 ? (
         <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
           <Modal.Body
@@ -859,6 +806,6 @@ export function SocialMidiaPage({
       ) : (
         <></>
       )}
-    </PageContainer>
+    </div>
   );
 }

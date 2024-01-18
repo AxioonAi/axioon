@@ -71,7 +71,6 @@ export default function Payment() {
         expiryYear: cardFormData.creditCard.expiryDate.split("/")[1],
       },
     });
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }

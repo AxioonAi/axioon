@@ -89,19 +89,10 @@ export const KeyIndicatorsContainer = styled(ChartContainer)`
 
 export const VotersActiveContainer = styled(ChartContainer)`
   width: 32rem;
-  height: 30rem;
+  height: 28rem;
 
   .chart {
     height: 23rem;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    height: 29rem;
-
-    .chart {
-      height: 18rem;
-    }
   }
 `;
 

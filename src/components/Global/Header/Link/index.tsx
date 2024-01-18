@@ -18,9 +18,15 @@ export function LinkComponent({
   fadeOut,
 }: LinkProps) {
   const router = useRouter();
-  const pageActive = `/${router.asPath.split("/")[1]}` === href;
+  const pageActive =
+    `/${router.asPath.split("/")[1]}` === href ||
+    (`/${router.asPath.split("/")[1]}` === "/home" &&
+      href === "/home/seu-eleitorado");
 
   const handleClick = () => {
+    if (pageActive) {
+      return;
+    }
     fadeOut();
     router.push(href);
   };

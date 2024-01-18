@@ -91,7 +91,7 @@ export function ScoreChart({ score, id }: Props) {
         ],
       },
       options: {
-        aspectRatio: 1.5,
+        aspectRatio: 3,
         responsive: true,
         cutout: "80%",
         circumference: 180,
@@ -121,15 +121,8 @@ export function ScoreChart({ score, id }: Props) {
   }, [score, canvas]);
 
   return (
-    <div
-      className="chartBox"
-      style={{ display: "flex", justifyContent: "center" }}
-    >
-      <canvas
-        ref={canvasRef}
-        id={id}
-        style={{ width: "100%", height: "100%" }}
-      />
+    <div className="chartBox">
+      <canvas ref={canvasRef} id={id} />
     </div>
   );
 }
