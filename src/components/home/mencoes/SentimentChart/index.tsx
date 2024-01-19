@@ -42,80 +42,62 @@ export function SentimentChart({
   }, [total, positive, neutral, negative]);
 
   return (
-    <SentimentContainer>
+    <div className="Container flex flex-col w-full p-2 rounded-lg bg-white">
       <TitleWithBar
         content={title === undefined ? "Sentimentos" : title}
         barColor="#FC792F"
       />
 
-      <ChartContainer>
+      <div className="chartContainer flex h-6 w-full mt-2 pl-4">
         {total ? (
           <>
-            <Positive percent={positivePercent} />
-            <Negative percent={negativePercent} />
-            <Neutral percent={neutralPercent} />
+            <div
+              className="Positive bg-[#22C24F] rounded-l-md transition duration-500"
+              style={{ width: positivePercent }}
+            />
+            <div
+              className="Negative bg-[#EA2020] transition duration-500"
+              style={{ width: negativePercent }}
+            />
+            <div
+              className="Neutral bg-[#FFB043] rounded-r-md transition duration-500"
+              style={{ width: neutralPercent }}
+            />
           </>
         ) : (
           <Positive percent="100%" />
         )}
-      </ChartContainer>
+      </div>
 
-      <div className="legends">
-        <LegendContainer>
-          <div
-            style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}
-          >
-            <div
-              style={{
-                width: "0.75rem",
-                height: "0.75rem",
-                backgroundColor: "#22C24F",
-                borderRadius: "50%",
-              }}
-            />
+      <div className="legends flex gap-12 m-2 self-center">
+        <div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#22C24F]" />
             <strong>{positive.toFixed(0)}</strong>
           </div>
-          <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>
+          <span className="text-sm text-[#8790AB]">
             {legend1 === undefined ? "Positivos" : legend1}
           </span>
-        </LegendContainer>
-        <LegendContainer>
-          <div
-            style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}
-          >
-            <div
-              style={{
-                width: "0.75rem",
-                height: "0.75rem",
-                backgroundColor: "#EA2020",
-                borderRadius: "50%",
-              }}
-            />
+        </div>
+        <div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#EA2020]" />
             <strong>{negative.toFixed(0)}</strong>
           </div>
-          <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>
+          <span className="text-sm text-[#8790AB]">
             {legend2 === undefined ? "Negativos" : legend2}
           </span>
-        </LegendContainer>
-        <LegendContainer>
-          <div
-            style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}
-          >
-            <div
-              style={{
-                width: "0.75rem",
-                height: "0.75rem",
-                backgroundColor: "#FFB043",
-                borderRadius: "50%",
-              }}
-            />
+        </div>
+        <div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#FFB043]" />
             <strong>{neutral.toFixed(0)}</strong>
           </div>
-          <span style={{ fontSize: "0.8rem", color: "#8790AB" }}>
+          <span className="text-sm text-[#8790AB]">
             {legend3 === undefined ? "Neutros" : legend3}
           </span>
-        </LegendContainer>
+        </div>
       </div>
-    </SentimentContainer>
+    </div>
   );
 }

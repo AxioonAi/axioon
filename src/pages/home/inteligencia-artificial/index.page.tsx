@@ -89,7 +89,7 @@ export default function InteligenciaArtificial() {
 
   useEffect(() => {
     const textarea = document.getElementById(
-      "chatInput",
+      "chatInput"
     ) as HTMLTextAreaElement;
 
     textarea.addEventListener("input", () => {
@@ -97,7 +97,6 @@ export default function InteligenciaArtificial() {
       textarea.style.height = `${textarea.scrollHeight / 16}rem`;
       textarea.style.minHeight = "2rem";
       textarea.style.maxHeight = "12.5rem";
-      console.log(textarea.style.height);
       if (Number(textarea.style.height.split("rem")[0]) > 12.5) {
         textarea.style.overflowY = "scroll";
       } else {
@@ -213,7 +212,7 @@ lg:left-[calc(100%-17.5rem)]"
                 <div className="flex flex-col p-2 gap-4 w-full h-full mt-4 overflow-hidden overflow-y-auto pb-2 mb-2">
                   {messages
                     .filter(
-                      (item: any, index: any) => index >= firstMessageCount,
+                      (item: any, index: any) => index >= firstMessageCount
                     ) // Filtrar mensagens com role diferente de "system"
                     .map((item: any, index: any) => (
                       <>

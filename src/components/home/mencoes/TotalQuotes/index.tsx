@@ -17,25 +17,18 @@ export function TotalQuotes({
   type,
 }: Props) {
   return (
-    <Container>
+    <div className="Container flex flex-col bg-white rounded-lg p-4 text-3xl w-64">
       <TitleWithBar
         content={title === undefined ? "Citações Totais" : title}
         barColor="#8FC96A"
       />
-      <div style={{ marginLeft: "1.1rem", fontSize: "2.75rem" }}>
+      <div className="flex m-auto">
         <strong>
           {value === undefined || value === null ? "340.120" : value}
         </strong>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "0.6rem",
-          padding: "0 0.5rem",
-        }}
-      >
-        <span style={{ fontSize: "0.75rem", color: "#8790AB" }}>
+      <div className="flex flex-col gap-2 px-2">
+        <span className="text-sm text-[#8790AB]">
           {firstDate === undefined || firstDate === null
             ? "30/09/2022"
             : firstDate}
@@ -44,13 +37,13 @@ export function TotalQuotes({
         {type === "metaAds" ? (
           <></>
         ) : (
-          <span style={{ fontSize: "0.7rem", color: "#8790AB" }}>
+          <span className="flex flex-col gap-2 px-2">
             <img src="/dashboard/arrow-up.svg" alt="" />
-            <em style={{ color: "#22C24F", fontStyle: "normal" }}>+6.5%</em> de
-            aumento desde o mês passado
+            <em className="text-[#22C24F]">+6.5%</em> de aumento desde o mês
+            passado
           </span>
         )}
       </div>
-    </Container>
+    </div>
   );
 }

@@ -23,8 +23,6 @@ export function LinkComponent({
     (`/${router.asPath.split("/")[1]}` === "/home" &&
       href === "/home/seu-eleitorado");
 
-  console.log("pageActive: ", pageActive);
-
   const handleClick = () => {
     if (pageActive) {
       return;

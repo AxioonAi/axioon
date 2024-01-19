@@ -1,8 +1,11 @@
 import OpenAI from "openai";
 import React, { useState } from "react";
-import { CampaignMessages, FinanceMessages, MarketingMessages, StartMessage } from "./iaPath";
-
-
+import {
+  CampaignMessages,
+  FinanceMessages,
+  MarketingMessages,
+  StartMessage,
+} from "./iaPath";
 
 export function useChatFunctions() {
   const [messages, setMessages] = useState<any>([]);
@@ -26,27 +29,24 @@ export function useChatFunctions() {
       let finalResponse = ""; // Inicialize uma string vazia para armazenar a resposta final)
       for await (const chunk of response) {
         const chunkContent = chunk.choices[0].delta.content;
-        
-          // Verifique se o chunkContent não é undefined
-          const systemResponse = { role: "assistant", content: finalResponse };
 
-          setMessages((prevMessages: any) => {
-            const currentMessage = prevMessages[prevMessages.length - 1];
+        // Verifique se o chunkContent não é undefined
+        const systemResponse = { role: "assistant", content: finalResponse };
 
-            if (currentMessage.role === "assistant") {
-              prevMessages[prevMessages.length - 1] = systemResponse;
-              return [...prevMessages];
-            } else {
-              return [...prevMessages, systemResponse];
-            }
-          });
+        setMessages((prevMessages: any) => {
+          const currentMessage = prevMessages[prevMessages.length - 1];
 
-          // console.log(messages.length);
-          // Adicione o chunk ao finalResponse
-          finalResponse += chunkContent;
-        
+          if (currentMessage.role === "assistant") {
+            prevMessages[prevMessages.length - 1] = systemResponse;
+            return [...prevMessages];
+          } else {
+            return [...prevMessages, systemResponse];
+          }
+        });
+
+        // Adicione o chunk ao finalResponse
+        finalResponse += chunkContent;
       }
-      console.log(finalResponse)
       return finalResponse;
     } catch (err) {
       console.error("Error: " + err);
@@ -66,13 +66,12 @@ export function useChatFunctions() {
     } else if (tipContent === "IA Financeira") {
       suggestionMessages = FinanceMessages;
       setFirstMessageCount(suggestionMessages.length);
-    }
-    else {
+    } else {
       suggestionMessages = StartMessage;
       setFirstMessageCount(suggestionMessages.length);
     }
 
-    setMessages([ ...suggestionMessages]);
+    setMessages([...suggestionMessages]);
   };
   async function handleUserMessageSubmit() {
     if (userMessage.trim() !== "") {

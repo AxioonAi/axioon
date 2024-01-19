@@ -29,7 +29,6 @@ export function PostComponent({
   setSelectedPostId,
 }: Props) {
   const date = new Date(post.date || post.created_at);
-  console.log("post: ", post);
 
   return (
     <div

@@ -152,6 +152,8 @@ export function SocialMidiaPage({
     setSelectedIndex(index);
   };
 
+  console.log("metaads: ", metaads);
+
   return (
     <div className="pageContainer flex flex-col items-center justify-center m-auto p-2">
       {!pageData ? (
@@ -164,7 +166,7 @@ export function SocialMidiaPage({
         </label>
       ) : (
         <>
-          <div className="ChartsContainer grid grid-cols-[100%] md:grid-cols-[35rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
+          <div className="ChartsContainer grid grid-cols-[90%] md:grid-cols-[35rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
             <div className="engagementChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
               <div className="flex flex-col">
                 <TitleWithBar
@@ -350,39 +352,25 @@ export function SocialMidiaPage({
                 ) : (
                   <>
                     {!locked && (
-                      <MetaAdsContainer>
-                        <TitleWithBar
-                          content=""
-                          barColor="#12A9E7"
-                          className="mb-4 title"
-                        />
-                        <MetaAdsLogo
-                          src="/metaAdsLogo.svg"
-                          width={200}
-                          height={40}
-                          alt=""
-                        />
-                        <MetaAdsCardsContainer>
+                      <div className="adsContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto">
+                        <div className="adsHeader flex p-4">
+                          <TitleWithBar content="" barColor="#12A9E7" />
+                          <Image
+                            src="/metaAdsLogo.svg"
+                            width={120}
+                            height={40}
+                            alt=""
+                          />
+                        </div>
+                        <div className="Container flex flex-wrap justify-evenly items-center gap-2">
                           {metaads &&
                             metaads.advertising.map((item: any, index: any) => (
                               <>
-                                <MetaAdsCards>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      width: "100%",
-                                      justifyContent: "space-between",
-                                    }}
-                                  >
+                                <div className="Cards flex flex-col rounded border-[0.3px] border-[#0037c1] w-full lg:w-[49%] py-1 px-2">
+                                  <div className="flex w-full justify-between">
                                     <div>
                                       <a
-                                        style={{
-                                          fontWeight: "semibold",
-                                          fontSize: 16,
-                                          textDecoration: "none",
-                                          color: "black",
-                                          width: "max-content",
-                                        }}
+                                        className="font-semibold decoration-0 text-sm text-black w-max"
                                         href={`https://www.facebook.com/ads/library/?id=${item.id}`}
                                         target="_blank"
                                         rel="noreferrer"
@@ -391,16 +379,18 @@ export function SocialMidiaPage({
                                         <strong>{item.id}</strong>
                                       </a>
                                     </div>
-                                    <img
+                                    <Image
                                       src={
                                         item.status === "ACTIVE"
                                           ? "/ActiveAd.svg"
                                           : "/InactiveAd.svg"
                                       }
+                                      width={50}
+                                      height={50}
                                       alt=""
                                     />
                                   </div>
-                                  <div style={{ fontSize: 14 }}>
+                                  <div className="text-xs">
                                     <label>
                                       {item.end_date !== null
                                         ? "Veiculado Entre: "
@@ -419,25 +409,18 @@ export function SocialMidiaPage({
                                         .split("-")
                                         .reverse()
                                         .join("/")}
-                                    <label style={{ marginLeft: "2%" }}></label>
                                   </div>
                                   <label
                                     onClick={() => openModal(index)}
-                                    style={{
-                                      alignSelf: "center",
-                                      padding: "5px 10px",
-                                      border: "1px solid #0037c1",
-                                      borderRadius: 10,
-                                      margin: "2% 0",
-                                    }}
+                                    className="self-center p-2 border border-[#0037c1] text-sm rounded"
                                   >
                                     Ver mais Detalhes
                                   </label>
-                                </MetaAdsCards>
+                                </div>
                               </>
                             ))}
-                        </MetaAdsCardsContainer>
-                      </MetaAdsContainer>
+                        </div>
+                      </div>
                     )}
                   </>
                 )}
@@ -449,71 +432,26 @@ export function SocialMidiaPage({
 
       {metaads && metaads.advertising.length !== 0 ? (
         <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
-          <Modal.Body
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-              alignSelf: "center",
-              gap: "1.4rem",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-              }}
-            >
-              <Image
-                src="/BackButton.svg"
-                width={50}
-                height={50}
-                alt=""
-                style={{ cursor: "pointer" }}
-                onClick={() => setShowModal(false)}
-              />
-              <TitleWithBar
-                content=""
-                barColor="#12A9E7"
-                className="mb-4 title"
-                style={{ marginLeft: 20 }}
-              />
-              <MetaAdsLogo
-                src="/metaAdsLogo.svg"
-                width={200}
-                height={40}
-                alt=""
-                style={{ marginLeft: 70 }}
-              />
-              <div
-                style={{
-                  width: "20%",
-                  height: 50,
-                  backgroundColor: "#c3c3c3",
-                  right: 20,
-                  position: "absolute",
-                }}
-              />
+          <Modal.Body className="flex flex-col w-full self-center gap-6">
+            <div className="flex w-full justify-between">
+              <div className="flex gap-4">
+                <Image
+                  src="/BackButton.svg"
+                  width={30}
+                  height={30}
+                  alt=""
+                  className="cursor-pointer hover:scale-105 opacity-95 transition duration-100 ease-in-out"
+                  onClick={() => setShowModal(false)}
+                />
+                <TitleWithBar content="" barColor="#12A9E7" />
+                <Image src="/metaAdsLogo.svg" width={120} height={40} alt="" />
+              </div>
+              <div className="self-end w-1/5 h-12 bg-black rounded" />
             </div>
-            <div
-              style={{
-                marginTop: "5%",
-                backgroundColor: "white",
-                width: "40%",
-                padding: 10,
-                borderRadius: 10,
-                border: "1px solid #0037c1",
-              }}
-            >
+            <div className="mt-5 w-max p-2 text-xs md:text-sm rounded-lg border-[1px] border-[#0037c1]">
               ID do Anúncio: {""}
               <a
-                style={{
-                  fontWeight: "semibold",
-                  fontSize: 16,
-                  color: "black",
-                  width: "max-content",
-                }}
+                className="font-semibold decoration-0 text-sm md:text-base text-black w-max"
                 href="https://www.facebook.com/ads/library/?id=366905246002600"
                 target="_blank"
                 rel="noreferrer"
@@ -521,112 +459,42 @@ export function SocialMidiaPage({
                 <strong>{metaads?.advertising[selectedIndex].id}</strong>
               </a>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                width: "90%",
-                alignSelf: "center",
-                marginTop: "2%",
-                justifyContent: "space-between",
-              }}
-            >
-              <div
-                style={{
-                  width: px2vw(150),
-                  height: px2vw(150),
-                  backgroundColor: "#c3c3c3",
-                  borderRadius: 10,
-                }}
-              />
-              <div
-                style={{
-                  width: "40%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  padding: "10px 0",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    backgroundColor: "white",
-                    width: "100%",
-                    padding: "2px 10px",
-                    borderRadius: 10,
-                    border: "1px solid #0037c1",
-                  }}
-                >
-                  <label style={{ lineHeight: 1, fontSize: 12 }}>
+            <div className="flex flex-col lg:flex-row w-11/12 self-center items-center justify-between gap-4">
+              <div className="w-28 h-28 bg-black rounded" />
+              <div className="flex flex-col w-full lg:w-1/2 justify-between gap-2">
+                <div className="flex flex-col w-full py-1 px-2 rounded-lg border-[1px] border-[#0037c1]">
+                  <label className="text-xs lg:text-sm leading-3 text-black">
                     Pago por
                   </label>
-                  <label style={{ fontSize: 18 }}>
+                  <label className="font-semibold text-sm lg:text-base">
                     {metaads?.advertising[selectedIndex].bylines}
                   </label>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    backgroundColor: "white",
-                    width: "100%",
-                    padding: "2px 10px",
-                    borderRadius: 10,
-                    border: "1px solid #0037c1",
-                  }}
-                >
-                  <label style={{ lineHeight: 1, fontSize: 12 }}>
-                    Valor gasto (aproximado)
+                <div className="flex flex-col w-full py-1 px-2 rounded-lg border-[1px] border-[#0037c1]">
+                  <label className="text-xs lg:text-sm leading-3 text-black">
+                    Pago por Valor gasto (aproximado)
                   </label>
-                  <label style={{ fontSize: 18 }}>
+                  <label className="font-semibold text-sm lg:text-base">
                     {metaads?.advertising[selectedIndex].spend
                       .toFixed(2)
                       .replace(".", ",")}
                   </label>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    backgroundColor: "white",
-                    width: "100%",
-                    padding: "2px 10px",
-                    borderRadius: 10,
-                    border: "1px solid #0037c1",
-                  }}
-                >
-                  <label style={{ lineHeight: 1, fontSize: 12 }}>Moeda</label>
-                  <label style={{ fontSize: 18 }}>
+                <div className="flex flex-col w-full py-1 px-2 rounded-lg border-[1px] border-[#0037c1]">
+                  <label className="text-xs lg:text-sm leading-3 text-black">
+                    Moeda
+                  </label>
+                  <label className="font-semibold text-sm lg:text-base">
                     {metaads?.advertising[selectedIndex].currency}
                   </label>
                 </div>
               </div>
-              <div
-                style={{
-                  width: "20%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-evenly",
-                  padding: "10px 0",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    backgroundColor: "white",
-                    width: "100%",
-                    padding: "2px 10px",
-                    borderRadius: 10,
-                    border: "1px solid #0037c1",
-                  }}
-                >
-                  <label style={{ lineHeight: 1, fontSize: 12 }}>
+              <div className="flex flex-col w-2/3 lg:w-1/4 justify-between gap-2">
+                <div className="flex flex-col w-full py-1 px-2 rounded-lg border-[1px] border-[#0037c1]">
+                  <label className="text-xs lg:text-sm leading-3 text-black">
                     Data de Início
                   </label>
-                  <label style={{ fontSize: 18 }}>
+                  <label className="font-semibold text-sm lg:text-base">
                     {metaads?.advertising[selectedIndex].start_date
                       .split("T")[0]
                       .split("-")
@@ -635,21 +503,11 @@ export function SocialMidiaPage({
                   </label>
                 </div>
                 {metaads?.advertising[selectedIndex].end_date && (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      backgroundColor: "white",
-                      width: "100%",
-                      padding: "2px 10px",
-                      borderRadius: 10,
-                      border: "1px solid #0037c1",
-                    }}
-                  >
-                    <label style={{ lineHeight: 1, fontSize: 12 }}>
+                  <div className="flex flex-col w-full py-1 px-2 rounded-lg border-[1px] border-[#0037c1]">
+                    <label className="text-xs lg:text-sm leading-3 text-black">
                       Data de Fim
                     </label>
-                    <label style={{ fontSize: 18 }}>
+                    <label className="font-semibold text-sm lg:text-base">
                       {metaads?.advertising[selectedIndex].end_date
                         .split("T")[0]
                         .split("-")
@@ -660,12 +518,7 @@ export function SocialMidiaPage({
                 )}
               </div>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
+            <div className="flex flex-col items-center lg:flex-row w-full">
               <TotalQuotes
                 title="Média de Impressões"
                 type="metaAds"
@@ -709,64 +562,35 @@ export function SocialMidiaPage({
                 legend3={"Outro"}
               />
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <AgeGroupContainer>
-                <VotersInfoTitle>
+            <div className="ChartsContainer grid grid-cols-[100%] lg:grid-cols-[1fr_1fr] justify-center items-center gap-12 mt-5">
+              <div className="AgeChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                <div className="flex flex-col">
                   <TitleWithBar
                     content="Faixa etária da População por gênero"
                     barColor="#2F5CFC"
-                    width={"16rem"}
-                    className="title"
                   />
-                  <AgeGroupLegend>
-                    {groupGenderConf.map((item) => {
-                      return (
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                          }}
-                        >
-                          <div
-                            key={item.dataKey}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.5rem",
-                            }}
-                          >
-                            <div
-                              style={{
-                                width: "0.625rem",
-                                height: "0.625rem",
-                                borderRadius: "50%",
-                                backgroundColor: item.color,
-                              }}
-                            />
-                            <strong style={{ lineHeight: 1 }}>
-                              {item.total}
-                            </strong>
+                  <div className="flex gap-2 m-auto">
+                    {metaads &&
+                      metaads?.advertising[selectedIndex].totalByGender.map(
+                        (item: any) => (
+                          <div className="flex flex-col">
+                            <div className="flex items-center gap-1">
+                              <div
+                                className={`w-4 h-4 ${item.name === "Homens" ? "bg-darkBlueAxion" : item.name === "Mulheres" ? "bg-pinkAxion" : "bg-[#E5E8F0]"} rounded-full`}
+                              />
+                              <span className="text-darkBlueAxion font-semibold">
+                                {item.value.toFixed(0)}
+                              </span>
+                            </div>
+                            <span className="text-xs text-gray-50">
+                              {item.name}
+                            </span>
                           </div>
-                          <span
-                            style={{
-                              fontSize: "0.625rem",
-                              color: "#8790AB",
-                            }}
-                          >
-                            {item.dataKey}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </AgeGroupLegend>
-                </VotersInfoTitle>
-                <div className="chart">
+                        )
+                      )}
+                  </div>
+                </div>
+                <div className="flex chart w-80 h-60 self-center">
                   <AgeGroupByGender
                     data={
                       metaads &&
@@ -775,9 +599,10 @@ export function SocialMidiaPage({
                     conf={groupGenderConf}
                   />
                 </div>
-              </AgeGroupContainer>
-              <VotersInfoContainer>
-                <div className="title">
+              </div>
+
+              <div className="statesChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                <div className="flex flex-col">
                   <TitleWithBar
                     barColor="#2F5CFC"
                     content={"Estados que foram Veiculados"}
@@ -799,7 +624,7 @@ export function SocialMidiaPage({
                     }
                   />
                 </div>
-              </VotersInfoContainer>
+              </div>
             </div>
           </Modal.Body>
         </Modal>
