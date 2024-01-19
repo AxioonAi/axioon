@@ -13,7 +13,7 @@ interface Props {
 
 export function SeuEleitoradoCards({ cityData }: Props) {
   return (
-    <div className="cityStaticDataContainer flex justify-around gap-1 flex-wrap">
+    <div className="cityStaticDataContainer flex justify-around gap-1 mt-4 flex-wrap">
       <div className="Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 hover:cursor-pointer hover:scale-105">
         <div
           className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
