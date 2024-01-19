@@ -57,44 +57,49 @@ export function LikesAndComentsCard({
         className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
       />
       <header className="Header text-lg text-gray-100">{name}</header>
-      <div className="Feedback flex justify-between gap-5">
-        <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
-          <div className="Group flex gap-0.5 items-center">
-            <img src={typeData[type].leftImg} alt="" className="w-6 h-auto" />
-            <strong className="text-lg leading-[0.9]">
-              {likes.toString().length > 6 && likes.toString().length <= 3
-                ? `${likes.toString().slice(0, 3)}M`
-                : likes.toString().length > 3
-                  ? `${likes.toString().slice(0, 3)}K`
-                  : likes.toString()}
-            </strong>
-          </div>
-          <span className="text-sm text-gray-90">
-            {typeData[type].leftLabel}
-          </span>
-        </div>
+      {coments > 0 && likes > 0 ? (
         <div className="Feedback flex justify-between gap-5">
           <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
             <div className="Group flex gap-0.5 items-center">
-              <img
-                src={typeData[type].rightImg}
-                alt=""
-                className="w-6 h-auto"
-              />
+              <img src={typeData[type].leftImg} alt="" className="w-6 h-auto" />
               <strong className="text-lg leading-[0.9]">
-                {coments.toString().length > 6 && coments.toString().length <= 3
-                  ? `${coments.toString().slice(0, 3)}M`
-                  : coments.toString().length > 3
-                    ? `${coments.toString().slice(0, 3)}K`
-                    : coments.toString()}
+                {likes.toString().length > 6 && likes.toString().length <= 3
+                  ? `${likes.toString().slice(0, 3)}M`
+                  : likes.toString().length > 3
+                    ? `${likes.toString().slice(0, 3)}K`
+                    : likes.toString()}
               </strong>
             </div>
             <span className="text-sm text-gray-90">
-              {typeData[type].rightLabel}
+              {typeData[type].leftLabel}
             </span>
           </div>
+          <div className="Feedback flex justify-between gap-5">
+            <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+              <div className="Group flex gap-0.5 items-center">
+                <img
+                  src={typeData[type].rightImg}
+                  alt=""
+                  className="w-6 h-auto"
+                />
+                <strong className="text-lg leading-[0.9]">
+                  {coments.toString().length > 6 &&
+                  coments.toString().length <= 3
+                    ? `${coments.toString().slice(0, 3)}M`
+                    : coments.toString().length > 3
+                      ? `${coments.toString().slice(0, 3)}K`
+                      : coments.toString()}
+                </strong>
+              </div>
+              <span className="text-sm text-gray-90">
+                {typeData[type].rightLabel}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex justify-center w-full h-full">Carregando...</div>
+      )}
     </div>
   );
 }

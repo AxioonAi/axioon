@@ -172,92 +172,148 @@ export default function MidiasSociais() {
             loading={loading}
             setLoading={setLoading}
           />
-          {socialMidiaData ? (
-            <main className="Main m-0 rounded-lg md:m-2">
-              <h1 className="text-2xl py-8 font-extrabold">Redes Sociais</h1>
-              <div className="LikesAndCommentsContainer flex justify-around gap-1 flex-wrap">
-                <LikesAndComentsCard
-                  type="facebook"
-                  coments={socialMidiaData.staticData.facebook.followers}
-                  likes={socialMidiaData.staticData.facebook.like}
-                  name="Facebook"
-                  onClick={() => setSelectedPage("facebook")}
-                  isSelected={
-                    selectedPage === "facebook" || selectedPage === "initial"
-                  }
-                />
-                <LikesAndComentsCard
-                  type="instagram"
-                  coments={socialMidiaData.staticData.instagram.followers}
-                  likes={socialMidiaData.staticData.instagram.posts}
-                  name="Instagram"
-                  onClick={() => setSelectedPage("instagram")}
-                  isSelected={
-                    selectedPage === "instagram" || selectedPage === "initial"
-                  }
-                />
-                <LikesAndComentsCard
-                  type="tiktok"
-                  coments={socialMidiaData.staticData.tiktok.followers}
-                  likes={socialMidiaData.staticData.tiktok.likes}
-                  name="TikTok"
-                  onClick={() => setSelectedPage("tiktok")}
-                  isSelected={
-                    selectedPage === "tiktok" || selectedPage === "initial"
-                  }
-                />
-                <LikesAndComentsCard
-                  type="youtube"
-                  coments={socialMidiaData.staticData.youtube.views}
-                  likes={socialMidiaData.staticData.youtube.subs}
-                  name="Youtube"
-                  onClick={() => setSelectedPage("youtube")}
-                  isSelected={
-                    selectedPage === "youtube" || selectedPage === "initial"
-                  }
-                />
-              </div>
-              {selectedPage === "initial" && (
-                <InitialPage SocialMidiaData={socialMidiaData} />
-              )}
-              {selectedPage === "facebook" && (
-                <SocialMidiaPage
-                  loading={loading}
-                  id={"score"}
-                  pageType="facebook"
-                  pageData={facebookData}
-                  metaads={metaadsData}
-                  locked={locked}
-                />
-              )}
-              {selectedPage === "instagram" && (
-                <SocialMidiaPage
-                  loading={loading}
-                  id={"score"}
-                  pageType="instagram"
-                  pageData={instagramData}
-                />
-              )}
-              {selectedPage === "tiktok" && (
-                <SocialMidiaPage
-                  loading={loading}
-                  id={"score"}
-                  pageType="tiktok"
-                  pageData={tiktokData}
-                />
-              )}
-              {selectedPage === "youtube" && (
-                <SocialMidiaPage
-                  loading={loading}
-                  id={"score"}
-                  pageType="youtube"
-                  pageData={youtubeData}
-                />
-              )}
-            </main>
-          ) : (
-            <Spinner animation="border" />
-          )}
+          <main className="Main m-0 rounded-lg md:m-2">
+            <h1 className="text-2xl py-8 font-extrabold">Redes Sociais</h1>
+            {socialMidiaData ? (
+              <>
+                <div className="LikesAndCommentsContainer flex justify-around gap-1 flex-wrap">
+                  <LikesAndComentsCard
+                    type="facebook"
+                    coments={socialMidiaData.staticData.facebook.followers}
+                    likes={socialMidiaData.staticData.facebook.like}
+                    name="Facebook"
+                    onClick={() => setSelectedPage("facebook")}
+                    isSelected={
+                      selectedPage === "facebook" || selectedPage === "initial"
+                    }
+                  />
+                  <LikesAndComentsCard
+                    type="instagram"
+                    coments={socialMidiaData.staticData.instagram.followers}
+                    likes={socialMidiaData.staticData.instagram.posts}
+                    name="Instagram"
+                    onClick={() => setSelectedPage("instagram")}
+                    isSelected={
+                      selectedPage === "instagram" || selectedPage === "initial"
+                    }
+                  />
+                  <LikesAndComentsCard
+                    type="tiktok"
+                    coments={socialMidiaData.staticData.tiktok.followers}
+                    likes={socialMidiaData.staticData.tiktok.likes}
+                    name="TikTok"
+                    onClick={() => setSelectedPage("tiktok")}
+                    isSelected={
+                      selectedPage === "tiktok" || selectedPage === "initial"
+                    }
+                  />
+                  <LikesAndComentsCard
+                    type="youtube"
+                    coments={socialMidiaData.staticData.youtube.views}
+                    likes={socialMidiaData.staticData.youtube.subs}
+                    name="Youtube"
+                    onClick={() => setSelectedPage("youtube")}
+                    isSelected={
+                      selectedPage === "youtube" || selectedPage === "initial"
+                    }
+                  />
+                </div>
+                {selectedPage === "initial" && (
+                  <InitialPage SocialMidiaData={socialMidiaData} />
+                )}
+                {selectedPage === "facebook" && (
+                  <SocialMidiaPage
+                    loading={loading}
+                    id={"score"}
+                    pageType="facebook"
+                    pageData={facebookData}
+                    metaads={metaadsData}
+                    locked={locked}
+                  />
+                )}
+                {selectedPage === "instagram" && (
+                  <SocialMidiaPage
+                    loading={loading}
+                    id={"score"}
+                    pageType="instagram"
+                    pageData={instagramData}
+                  />
+                )}
+                {selectedPage === "tiktok" && (
+                  <SocialMidiaPage
+                    loading={loading}
+                    id={"score"}
+                    pageType="tiktok"
+                    pageData={tiktokData}
+                  />
+                )}
+                {selectedPage === "youtube" && (
+                  <SocialMidiaPage
+                    loading={loading}
+                    id={"score"}
+                    pageType="youtube"
+                    pageData={youtubeData}
+                  />
+                )}
+              </>
+            ) : (
+              <>
+                <div className="LikesAndCommentsContainer flex justify-around gap-1 flex-wrap">
+                  <LikesAndComentsCard
+                    type="facebook"
+                    name="Facebook"
+                    coments={0}
+                    likes={0}
+                    onClick={() => setSelectedPage("facebook")}
+                    isSelected={
+                      selectedPage === "facebook" || selectedPage === "initial"
+                    }
+                  />
+                  <LikesAndComentsCard
+                    type="instagram"
+                    name="Instagram"
+                    coments={0}
+                    likes={0}
+                    onClick={() => setSelectedPage("instagram")}
+                    isSelected={
+                      selectedPage === "instagram" || selectedPage === "initial"
+                    }
+                  />
+                  <LikesAndComentsCard
+                    type="tiktok"
+                    name="TikTok"
+                    coments={0}
+                    likes={0}
+                    onClick={() => setSelectedPage("tiktok")}
+                    isSelected={
+                      selectedPage === "tiktok" || selectedPage === "initial"
+                    }
+                  />
+                  <LikesAndComentsCard
+                    type="youtube"
+                    name="Youtube"
+                    coments={0}
+                    likes={0}
+                    onClick={() => setSelectedPage("youtube")}
+                    isSelected={
+                      selectedPage === "youtube" || selectedPage === "initial"
+                    }
+                  />
+                </div>
+                <div className="ChartsContainer grid grid-cols-[100%] md:grid-cols-[20rem_20rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
+                  <div className="flex flex-col justify-center items-center bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                    <Spinner animation="border" />
+                  </div>
+                  <div className="flex flex-col justify-center items-center bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                    <Spinner animation="border" />
+                  </div>
+                  <div className="flex flex-col justify-center items-center bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                    <Spinner animation="border" />
+                  </div>
+                </div>
+              </>
+            )}
+          </main>
         </div>
       </RootLayout>
     </main>
