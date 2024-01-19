@@ -17,7 +17,7 @@ export function TotalQuotes({
   type,
 }: Props) {
   return (
-    <div className="Container flex flex-col bg-white rounded-lg p-4 text-3xl w-64">
+    <div className="Container flex flex-col bg-white rounded-lg p-2 text-3xl w-64">
       <TitleWithBar
         content={title === undefined ? "Citações Totais" : title}
         barColor="#8FC96A"
@@ -37,10 +37,10 @@ export function TotalQuotes({
         {type === "metaAds" ? (
           <></>
         ) : (
-          <span className="flex flex-col gap-2 px-2">
-            <img src="/dashboard/arrow-up.svg" alt="" />
-            <em className="text-[#22C24F]">+6.5%</em> de aumento desde o mês
-            passado
+          <span className="flex gap-2 px-2 text-sm">
+            <img src="/dashboard/arrow-up.svg" className="w-4 h-4" alt="" />
+            <em className="text-[#22C24F]">+6.5%</em>
+            de aumento desde o mês passado
           </span>
         )}
       </div>
