@@ -107,7 +107,6 @@ export function HeaderComponent({
 
   async function getPoliticians() {
     const connect = await authGetAPI("/profile/monitoring");
-
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -168,9 +167,27 @@ export function HeaderComponent({
     GetProfile();
   }, []);
 
+  const [subUser, setSubUser] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("axioonUserType") === null) {
+      return;
+    } else if (localStorage.getItem("axioonUserType") === "subUser") {
+      setSubUser(true);
+    }
+  }, [
+    typeof window === "undefined"
+      ? null
+      : localStorage.getItem("axioonUserType"),
+  ]);
+
   async function logOut() {
     localStorage.removeItem("axioonToken");
     localStorage.removeItem("axioonRefreshToken");
+    localStorage.removeItem("axioonUserType");
+    localStorage.removeItem("selectedProfile");
+    localStorage.removeItem("selectedTime");
+    localStorage.removeItem("selectedTimeName");
     router.push("/");
   }
 
@@ -262,18 +279,16 @@ export function HeaderComponent({
           </div>
 
           <div className="buttonAndSelect flex items-center flex-col mt-4 md:mt-0 gap-4 md:items-end">
-            {typeof window !== "undefined" ? (
-              localStorage.getItem(user_type) === "user" ? (
-                <button
-                  className="Register w-40 h-9 rounded bg-[#282c49] text-white text-2xl border-0 transition duration-200 ease-in hover:bg-[#474b7a]"
-                  onClick={() => router.push("/register-candidate")}
-                >
-                  Cadastro
-                </button>
-              ) : (
-                <></>
-              )
-            ) : null}
+            {!subUser ? (
+              <button
+                className="Register w-40 h-9 rounded bg-[#282c49] text-white text-2xl border-0 transition duration-200 ease-in hover:bg-[#474b7a]"
+                onClick={() => router.push("/register-candidate")}
+              >
+                Cadastro
+              </button>
+            ) : (
+              <></>
+            )}
             {selectedPage !== "seu-eleitorado" &&
               router.asPath.split("/")[2] !== "inteligencia-artificial" && (
                 <HeaderTimeSelect

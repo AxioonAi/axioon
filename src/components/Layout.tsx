@@ -42,14 +42,3 @@ const RootLayout = ({
 };
 
 export default RootLayout;
-
-const Container = styled.div`
-  display: flex;
-  background-color: #000;
-  overflow: hidden;
-  min-height: 100vh;
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-  }
-`;

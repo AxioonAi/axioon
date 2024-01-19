@@ -23,8 +23,10 @@ export function SeuEleitoradoCards({ cityData }: Props) {
           <div className="Feedback flex justify-between gap-5">
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
-                <strong className="text-lg leading-[0.9]">
-                  {cityData?.name} - {cityData?.state}
+                <strong className="text-xl leading-[0.9]">
+                  {cityData ? cityData.name : "Carregando..."}{" "}
+                  {cityData ? " - " : ""}
+                  {cityData ? cityData.state : ""}
                 </strong>
               </div>
             </div>
@@ -41,7 +43,9 @@ export function SeuEleitoradoCards({ cityData }: Props) {
                       : cityData?.population.total}
                 </strong>
               </div>
-              <span className="text-sm text-gray-90">Habitantes</span>
+              <span className="text-sm text-gray-90">
+                {cityData && "Habitantes"}
+              </span>
             </div>
           </div>
         </div>
@@ -58,14 +62,18 @@ export function SeuEleitoradoCards({ cityData }: Props) {
           <div className="Feedback flex justify-between gap-5">
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
-                <strong className="text-2xl leading-[0.9]">196.000 Mil</strong>
+                <strong className="text-xl leading-[0.9]">
+                  {cityData ? "196.000 Mil" : "Carregando..."}
+                </strong>
               </div>
             </div>
           </div>
           <div className="Feedback flex justify-between gap-5">
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
-                <span className="text-lg leading-[0.9]">Reais</span>
+                <span className="text-lg leading-[0.9]">
+                  {cityData && "Reais"}
+                </span>
               </div>
             </div>
           </div>
@@ -83,13 +91,15 @@ export function SeuEleitoradoCards({ cityData }: Props) {
           <div className="Feedback flex justify-between gap-5">
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
-                <strong className="text-2xl leading-[0.9]">
-                  {String(cityData?.electorate.total).length > 9
-                    ? `${String(cityData?.electorate.total).slice(0, 3)} Milhões`
-                    : String(cityData?.electorate.total).length < 9 &&
-                        String(cityData?.electorate.total).length >= 6
-                      ? `${String(cityData?.electorate.total).slice(0, 3)} Mil`
-                      : cityData?.electorate.total}
+                <strong className="text-xl leading-[0.9]">
+                  {cityData
+                    ? String(cityData?.electorate.total).length > 9
+                      ? `${String(cityData?.electorate.total).slice(0, 3)} Milhões`
+                      : String(cityData?.electorate.total).length < 9 &&
+                          String(cityData?.electorate.total).length >= 6
+                        ? `${String(cityData?.electorate.total).slice(0, 3)} Mil`
+                        : cityData?.electorate.total
+                    : "Carregando..."}
                 </strong>
               </div>
             </div>
@@ -97,7 +107,9 @@ export function SeuEleitoradoCards({ cityData }: Props) {
           <div className="Feedback flex justify-between gap-5">
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
-                <span className="text-lg leading-[0.9]">Eleitores</span>
+                <span className="text-lg leading-[0.9]">
+                  {cityData && "Eleitores"}
+                </span>
               </div>
             </div>
           </div>
@@ -113,8 +125,8 @@ export function SeuEleitoradoCards({ cityData }: Props) {
           <div className="Feedback flex justify-between gap-5">
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
-                <strong className="text-2xl leading-[0.9]">
-                  {cityData?.politician}
+                <strong className="text-xl leading-[0.9]">
+                  {cityData ? cityData.politician : "Carregando..."}
                 </strong>
               </div>
             </div>
@@ -122,7 +134,9 @@ export function SeuEleitoradoCards({ cityData }: Props) {
           <div className="Feedback flex justify-between gap-5">
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
-                <span className="text-lg leading-[0.9]">Prefeitos</span>
+                <span className="text-lg leading-[0.9]">
+                  {cityData && "Prefeitos"}
+                </span>
               </div>
             </div>
           </div>

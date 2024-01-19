@@ -61,7 +61,7 @@ export default function SeuEleitorado() {
   ];
 
   const [selectedProfile, setSelectedProfile] = useState({
-    name: "",
+    name: "Carregando...",
     politicalGroup: "",
     id: "",
   });
@@ -95,7 +95,7 @@ export default function SeuEleitorado() {
 
   const [selectedVoterOption, setSelectedVoterOption] = useState("education");
   const [selectedVoterLabels, setSelectedVoterLabels] = useState([""]);
-  const [locked, setLocked] = useState(true);
+  const [locked, setLocked] = useState(false);
 
   useEffect(() => {
     if (selectedProfile.id) {
@@ -129,8 +129,6 @@ export default function SeuEleitorado() {
       router.push("/home/seu-eleitorado");
     }
   }, []);
-
-  console.log("cityData", cityData);
 
   return (
     <main ref={main}>
@@ -263,7 +261,34 @@ export default function SeuEleitorado() {
               </>
             ) : (
               <>
-                <Spinner animation="border" />
+                <SeuEleitoradoCards cityData={cityData} />
+                <div className="flex w-full h-full justify-center items-center">
+                  {locked && (
+                    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-60 px-20 py-12 rounded flex flex-col items-center justify-center text-center">
+                      <span className="text-white text-3xl font-bold">
+                        Acesso Bloqueado
+                      </span>
+                      <span className="text-white text-lg">
+                        Por favor, entre em contato com o seu administrador
+                      </span>
+                    </div>
+                  )}
+
+                  <div className=" grid grid-cols-[90%] md:grid-cols-[35rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
+                    <div className="AgeChartContainer flex flex-col justify-center items-center bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                      <Spinner animation="border" />
+                    </div>
+                    <div className="AgeChartContainer flex flex-col justify-center items-center bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                      <Spinner animation="border" />
+                    </div>
+                    <div className="AgeChartContainer flex flex-col justify-center items-center bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                      <Spinner animation="border" />
+                    </div>
+                    <div className="AgeChartContainer flex flex-col justify-center items-center bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                      <Spinner animation="border" />
+                    </div>
+                  </div>
+                </div>
               </>
             )}
           </main>
