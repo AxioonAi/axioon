@@ -147,6 +147,10 @@ export default function Profile() {
     GetProfile();
   }
 
+  // async function registerSubUser() {
+  //   const connect = await AuthPutAPI("/user/profile", {});
+  // }
+
   useEffect(() => {
     handleVerify();
   }, []);

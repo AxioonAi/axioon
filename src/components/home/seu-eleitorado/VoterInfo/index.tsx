@@ -9,6 +9,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 interface Props {
   chartData: [];
   labels?: string[];
+  position?: "left" | "right" | "top" | "bottom";
 }
 
 export const footer = (tooltipItems: any) => {
@@ -25,14 +26,14 @@ export const footer = (tooltipItems: any) => {
   return ((currentValue * 100) / total).toFixed(1) + "%";
 };
 
-export function VotersInfo({ chartData, labels }: Props) {
+export function VotersInfo({ chartData, labels, position }: Props) {
   const options = {
     responsive: true,
     plugins: {
       ChartDataLabels,
       legend: {
-        display: true,
-        position: "right" as const,
+        display: false,
+        position: position || "right",
         labels: {
           usePointStyle: true,
         },
@@ -67,7 +68,7 @@ export function VotersInfo({ chartData, labels }: Props) {
     labels: labels,
     datasets: [
       {
-        label: "Número de eleitores",
+        label: "",
         data: chartData,
         backgroundColor: [
           "#E7298A",
@@ -78,11 +79,20 @@ export function VotersInfo({ chartData, labels }: Props) {
           "#66A61E",
           "#666666",
         ],
-        borderWidth: 5,
+        borderWidth: 2,
         borderColor: "#fff",
       },
     ],
   };
 
-  return <Pie data={data} options={options} />;
+  return (
+    <div className="flex items-center justify-center w-full h-72 sm:h-96 md:h-80 xl:h-60 2xl:h-68 self-center">
+      <Pie
+        data={data}
+        options={options}
+        style={{ height: "100%" }}
+        height={"100%"}
+      />
+    </div>
+  );
 }

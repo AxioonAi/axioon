@@ -11,10 +11,10 @@ interface PopulationProps {
 
 export function VotersGender({ population }: PopulationProps) {
   return (
-    <Container>
-      <CellContent>
+    <div className="Container flex flex-col">
+      <div className="CellContent flex items-start justify-between p-4 md:p-8">
         <strong>Homens</strong>
-        <CellInfo>
+        <div className="CellInfo flex flex-col items-center gap-2 p-2 text-sm">
           <Slider
             fill={`${population?.male}%`}
             empty={`${population?.female}%`}
@@ -22,45 +22,29 @@ export function VotersGender({ population }: PopulationProps) {
             emptyColor="#CFD0D8"
           />
           <strong>{population?.male}</strong>
-        </CellInfo>
-      </CellContent>
+        </div>
+      </div>
 
-      <div
-        style={{
-          width: "100%",
-          height: "1px",
-          backgroundColor: "#C8C8C8",
-          position: "absolute",
-          left: 0,
-        }}
-      />
+      <div className="border-t border-b border-solid border-[#C8C8C8] w-full" />
 
-      <CellContent>
+      <div className="CellContent flex items-start justify-between p-4 md:p-8">
         <strong>Mulheres</strong>
-        <CellInfo>
+        <div className="CellInfo flex flex-col items-center gap-2 p-2 text-sm">
           <Slider
             fill={`${population?.female}%`}
             empty={`${population?.male}%`}
-            fillColor="linear-gradient(270deg, #E7298A 0%, rgba(231, 41, 138, 0.40) 106.97%);"
+            fillColor="linear-gradient(270deg, #E7298A 0%, rgba(231, 41, 138, 0.40) 106.97%)"
             emptyColor="#FAD4E8"
           />
           <strong>{population?.female}</strong>
-        </CellInfo>
-      </CellContent>
+        </div>
+      </div>
 
-      <div
-        style={{
-          width: "100%",
-          height: "1px",
-          backgroundColor: "#C8C8C8",
-          position: "absolute",
-          left: 0,
-        }}
-      />
+      <div className="border-t border-b border-solid border-[#C8C8C8] w-full" />
 
-      <CellContent style={{ paddingBottom: 0 }}>
+      <div className="CellContent flex items-start justify-between p-4 md:p-8">
         <strong>Total</strong>
-        <CellInfo>
+        <div className="CellInfo flex flex-col items-center gap-2 p-2 text-sm">
           <Slider
             fill="100%"
             empty="0%"
@@ -68,8 +52,8 @@ export function VotersGender({ population }: PopulationProps) {
             emptyColor="#9BE0AF"
           />
           <strong>{population?.total}</strong>
-        </CellInfo>
-      </CellContent>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 }

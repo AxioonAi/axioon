@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-export const RegisterForm = styled.div`
-`;
+export const RegisterForm = styled.div``;
 
 export const RegisterFormHeader = styled.div`
   display: flex;
@@ -15,7 +14,7 @@ export const RegisterFormHeader = styled.div`
 
   span {
     font-size: 0.9rem;
-    color: ${({theme}) => theme.color.gray_80};
+    color: ${({ theme }) => theme.color.gray_80};
   }
 `;
 
@@ -44,7 +43,6 @@ export const TermsContainer = styled.div`
   font-size: 0.9rem;
 
   input {
-    
   }
 
   span {
@@ -56,4 +54,4 @@ export const TermsContainer = styled.div`
       color: ${({ theme }) => theme.color.purpleAxion};
     }
   }
-`
+`;

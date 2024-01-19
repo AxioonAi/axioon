@@ -1,8 +1,12 @@
 interface Props {
   color?: string;
+  isFocused?: boolean;
 }
 
-export function DropDownIconSVG({ color = "#0D123C" }: Props) {
+export function DropDownIconSVG({
+  color = "#0D123C",
+  isFocused = false,
+}: Props) {
   return (
     <svg
       width="19"
@@ -10,6 +14,7 @@ export function DropDownIconSVG({ color = "#0D123C" }: Props) {
       viewBox="0 0 19 21"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={`transition duration-200 ${isFocused ? "rotate-180" : "rotate-0"}`}
     >
       <g id="vuesax/linear/arrow-down">
         <g id="arrow-down">

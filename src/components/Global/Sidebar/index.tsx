@@ -15,6 +15,7 @@ interface SidebarProps {
 
 export function Sidebar({ fadeOut }: SidebarProps) {
   const [type, setType] = useState("");
+
   async function handleVerify() {
     const connect = await loginVerifyAPI();
     if (connect === 200) {

@@ -15,7 +15,13 @@ import {
   Register,
   UserMenu,
 } from "./styles";
-import { AuthPutAPI, authGetAPI, getAPI, loginVerifyAPI } from "@/lib/axios";
+import {
+  AuthPutAPI,
+  authGetAPI,
+  getAPI,
+  loginVerifyAPI,
+  user_type,
+} from "@/lib/axios";
 import { Dropdown } from "react-bootstrap";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
 
@@ -101,6 +107,7 @@ export function HeaderComponent({
 
   async function getPoliticians() {
     const connect = await authGetAPI("/profile/monitoring");
+
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -255,14 +262,18 @@ export function HeaderComponent({
           </div>
 
           <div className="buttonAndSelect flex items-center flex-col mt-4 md:mt-0 gap-4 md:items-end">
-            {router.asPath.split("/")[2] === "seu-eleitorado" && (
-              <button
-                className="Register w-40 h-9 rounded bg-[#282c49] text-white text-2xl border-0 transition duration-200 ease-in hover:bg-[#474b7a]"
-                onClick={() => router.push("/register-candidate")}
-              >
-                Cadastro
-              </button>
-            )}
+            {typeof window !== "undefined" ? (
+              localStorage.getItem(user_type) === "user" ? (
+                <button
+                  className="Register w-40 h-9 rounded bg-[#282c49] text-white text-2xl border-0 transition duration-200 ease-in hover:bg-[#474b7a]"
+                  onClick={() => router.push("/register-candidate")}
+                >
+                  Cadastro
+                </button>
+              ) : (
+                <></>
+              )
+            ) : null}
             {selectedPage !== "seu-eleitorado" &&
               router.asPath.split("/")[2] !== "inteligencia-artificial" && (
                 <HeaderTimeSelect

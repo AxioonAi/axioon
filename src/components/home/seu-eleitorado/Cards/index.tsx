@@ -13,78 +13,121 @@ interface Props {
 
 export function SeuEleitoradoCards({ cityData }: Props) {
   return (
-    <Container>
-      <CardContainer>
-        <VerticalBar barColor="#4A4A4A" />
-        <Content>
-          <p>Cidade:</p>
-          <CardBottomInfo>
-            <strong style={{ fontSize: "1.375rem" }}>
-              {cityData?.name} - {cityData?.state}
-            </strong>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                lineHeight: "1.2",
-              }}
-            >
-              <strong
-                style={{
-                  fontSize: "1.125rem",
-                }}
-              >
-                {cityData?.population.total.toLocaleString("pt-BR")}
-              </strong>
-              <span style={{ fontSize: "0.75rem" }}>Habitantes</span>
+    <div className="cityStaticDataContainer flex justify-around gap-1 flex-wrap">
+      <div className="Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 hover:cursor-pointer hover:scale-105">
+        <div
+          className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
+        />
+        <header className="Header text-lg text-gray-100">Cidade:</header>
+        <div className="flex w-full justify-between">
+          <div className="Feedback flex justify-between gap-5">
+            <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+              <div className="Group flex gap-0.5 items-center">
+                <strong className="text-lg leading-[0.9]">
+                  {cityData?.name} - {cityData?.state}
+                </strong>
+              </div>
             </div>
-          </CardBottomInfo>
-        </Content>
-      </CardContainer>
+          </div>
+          <div className="Feedback flex justify-between gap-5">
+            <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+              <div className="Group flex gap-0.5 items-center">
+                <strong className="text-lg leading-[0.9]">
+                  {String(cityData?.population.total).length > 9
+                    ? `${String(cityData?.population.total).slice(0, 3)} Milhões`
+                    : String(cityData?.population.total).length < 9 &&
+                        String(cityData?.population.total).length >= 6
+                      ? `${String(cityData?.population.total).slice(0, 3)} Mil`
+                      : cityData?.population.total}
+                </strong>
+              </div>
+              <span className="text-sm text-gray-90">Habitantes</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <CardContainer>
-        <VerticalBar barColor="#7A2EB7" />
-        <Content>
-          <p>Verba Disponível:</p>
-          <CardBottomInfo>
-            <strong style={{ fontSize: "1.625rem" }}>196.000 Mil</strong>
-          </CardBottomInfo>
-        </Content>
-      </CardContainer>
-      <CardContainer>
-        <VerticalBar barColor="#4553D3" />
-        <Content>
-          <p>Eleitores no Município:</p>
-          <CardBottomInfo>
-            <strong style={{ fontSize: "1.625rem" }}>
-              {cityData?.electorate.total.toLocaleString("pt-BR")}
-            </strong>
-          </CardBottomInfo>
-        </Content>
-      </CardContainer>
-      <CardContainer>
-        <VerticalBar barColor="#D38945" />
-        <Content>
-          <p>Concorrentes:</p>
-          <CardBottomInfo>
-            <div
-              style={{
-                display: "flex",
-                gap: "0.5rem",
-                alignItems: "flex-end",
-                marginTop: "0.3rem",
-              }}
-            >
-              <strong style={{ fontSize: "2rem", lineHeight: "1.2" }}>
-                {cityData?.politician}
-              </strong>
-              <span style={{ fontSize: "1.125rem", fontWeight: "600" }}>
-                Prefeitos
-              </span>
+      <div className="Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 hover:cursor-pointer hover:scale-105">
+        <div
+          className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
+        />
+        <header className="Header text-lg text-gray-100">
+          Verba Disponível:
+        </header>
+        <div className="flex w-full justify-evenly items-center">
+          <div className="Feedback flex justify-between gap-5">
+            <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+              <div className="Group flex gap-0.5 items-center">
+                <strong className="text-2xl leading-[0.9]">196.000 Mil</strong>
+              </div>
             </div>
-          </CardBottomInfo>
-        </Content>
-      </CardContainer>
-    </Container>
+          </div>
+          <div className="Feedback flex justify-between gap-5">
+            <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+              <div className="Group flex gap-0.5 items-center">
+                <span className="text-lg leading-[0.9]">Reais</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 hover:cursor-pointer hover:scale-105">
+        <div
+          className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
+        />
+        <header className="Header text-lg text-gray-100">
+          Eleitores no Município:
+        </header>
+        <div className="flex w-full justify-evenly items-center">
+          <div className="Feedback flex justify-between gap-5">
+            <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+              <div className="Group flex gap-0.5 items-center">
+                <strong className="text-2xl leading-[0.9]">
+                  {String(cityData?.electorate.total).length > 9
+                    ? `${String(cityData?.electorate.total).slice(0, 3)} Milhões`
+                    : String(cityData?.electorate.total).length < 9 &&
+                        String(cityData?.electorate.total).length >= 6
+                      ? `${String(cityData?.electorate.total).slice(0, 3)} Mil`
+                      : cityData?.electorate.total}
+                </strong>
+              </div>
+            </div>
+          </div>
+          <div className="Feedback flex justify-between gap-5">
+            <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+              <div className="Group flex gap-0.5 items-center">
+                <span className="text-lg leading-[0.9]">Eleitores</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 hover:cursor-pointer hover:scale-105">
+        <div
+          className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
+        />
+        <header className="Header text-lg text-gray-100">Concorrentes:</header>
+        <div className="flex w-full justify-evenly items-center">
+          <div className="Feedback flex justify-between gap-5">
+            <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+              <div className="Group flex gap-0.5 items-center">
+                <strong className="text-2xl leading-[0.9]">
+                  {cityData?.politician}
+                </strong>
+              </div>
+            </div>
+          </div>
+          <div className="Feedback flex justify-between gap-5">
+            <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
+              <div className="Group flex gap-0.5 items-center">
+                <span className="text-lg leading-[0.9]">Prefeitos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

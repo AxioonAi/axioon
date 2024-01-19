@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { SelectContainer } from "./styles";
 import { DropDownIconSVG } from "../../../../../public/dashboard/DropdownIconSVG";
+import Select from "react-select";
 
 interface Props {
-  values: string[];
+  values: { value: string; label: string }[];
   selectedValue: string;
   setSelectedValue: (value: string) => void;
 }
@@ -26,36 +27,12 @@ export function VotersInfoSelect({
   }
 
   return (
-    <SelectContainer
-      tabIndex={0}
-      onClick={() => setIsFocused(!isFocused)}
-      onBlur={handleBlur}
-      isOpen={isFocused}
-    >
-      <strong>
-        {selectedValue === "education"
-          ? "Escolaridade"
-          : selectedValue === "age"
-          ? "Idade"
-          : "Sexo"}
-      </strong>
-      <div className="icon">
-        <DropDownIconSVG />
-      </div>
-      <div className="options-container">
-        {values.map((value) => (
-          <div
-            className="option"
-            onClick={() => handleSelect(value.toString())}
-          >
-            {value === "education"
-              ? "Escolaridade"
-              : value === "age"
-              ? "Idade"
-              : "Sexo"}
-          </div>
-        ))}
-      </div>
-    </SelectContainer>
+    <div className="m-auto">
+      <Select
+        options={values}
+        value={values.find((value) => value.value === selectedValue)}
+        onChange={(e: any) => setSelectedValue(e.value)}
+      />
+    </div>
   );
 }

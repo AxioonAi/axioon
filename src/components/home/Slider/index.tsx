@@ -9,21 +9,17 @@ interface Props {
 
 export function Slider({ fill, fillColor, empty, emptyColor }: Props) {
   return (
-    <Container>
-      <SliderFilled fill={fill} fillColor={fillColor}>
-        <div
-          style={{
-            position: "absolute",
-            right: 0,
-            top: "-3px",
-            width: "3px",
-            height: "16px",
-            backgroundColor: "#3C3C3C",
-            borderRadius: "2px",
-          }}
-        />
-      </SliderFilled>
-      <SliderEmpty empty={empty} emptyColor={emptyColor} />
-    </Container>
+    <div className="Container flex w-28 md:w-40 h-2 roudned">
+      <div
+        className="Slider relative h-full rounded"
+        style={{ width: `${fill}`, background: fillColor }}
+      >
+        <div className="absolute right-0 -top-1 w-1 h-4 bg-[#3c3c3c] rounded" />
+      </div>
+      <div
+        className="SliderEmpty relative h-full rounded"
+        style={{ width: `${empty}`, background: emptyColor }}
+      />
+    </div>
   );
 }

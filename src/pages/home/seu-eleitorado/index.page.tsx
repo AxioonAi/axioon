@@ -84,12 +84,12 @@ export default function SeuEleitorado() {
     {
       dataKey: "Homens",
       color: "#0D123C",
-      total: cityData?.population.male,
+      total: cityData && cityData.population.male,
     },
     {
       dataKey: "Mulheres",
       color: "#E7298A",
-      total: cityData?.population.female,
+      total: cityData && cityData.population.female,
     },
   ];
 
@@ -118,7 +118,11 @@ export default function SeuEleitorado() {
     }
   }, [selectedProfile, selectedVoterOption]);
 
-  const selectVotersValue = ["education", "gender", "age"];
+  const selectVotersValue = [
+    { value: "age", label: "Idade" },
+    { value: "gender", label: "Sexo" },
+    { value: "education", label: "Escolaridade" },
+  ];
 
   useEffect(() => {
     if (router.pathname === "/") {
@@ -126,86 +130,72 @@ export default function SeuEleitorado() {
     }
   }, []);
 
+  console.log("cityData", cityData);
+
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
-        <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
+        <div
+          className="mainContent bg-gray-10 relative m-1 rounded-tl-2xl rounded-bl-2xl pb-12 px-2 pt-2 w-full left-full lg:w-[calc(100%-18rem)] lg:left-[calc(100%-18rem)]"
+          ref={content}
+          style={{ opacity: 1 }}
+        >
           <HeaderComponent
             fadeOut={() => fadeOut()}
             selectedProfile={selectedProfile}
             setSelectedProfile={setSelectedProfile}
             selectedPage={"seu-eleitorado"}
           />
-          <Main>
-            {locked ? (
-              <span className="text-xl self-center text-center">
-                O plano ativo na sua conta não permite acesso a estas
-                informações.
-              </span>
-            ) : cityData ? (
+          <main className="Main m-0 rounded-lg md:m-2">
+            {cityData ? (
               <>
                 <SeuEleitoradoCards cityData={cityData} />
-                <ChartsContainer>
-                  <AgeGroupContainer>
-                    <VotersInfoTitle>
+                <div className="ChartsContainer grid grid-cols-[90%] md:grid-cols-[35rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
+                  <div className="AgeChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                    <div className="flex flex-col">
                       <TitleWithBar
                         content="Faixa etária da População por gênero"
                         barColor="#2F5CFC"
-                        width={"16rem"}
-                        className="title"
                       />
-                      <AgeGroupLegend>
-                        {groupGenderConf.map((item) => {
-                          return (
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <div
-                                key={item.dataKey}
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: "0.5rem",
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    width: "0.625rem",
-                                    height: "0.625rem",
-                                    borderRadius: "50%",
-                                    backgroundColor: item.color,
-                                  }}
-                                />
-                                <strong style={{ lineHeight: 1 }}>
-                                  {item.total}
-                                </strong>
+                      <div className="flex gap-2 m-auto">
+                        {cityData && (
+                          <>
+                            <div className="flex flex-col">
+                              <div className="flex items-center gap-1">
+                                <div className="w-4 h-4 bg-darkBlueAxion rounded-full" />
+                                <span className="text-darkBlueAxion font-semibold">
+                                  {cityData.population.male.toFixed(0)}
+                                </span>
                               </div>
-                              <span
-                                style={{
-                                  fontSize: "0.625rem",
-                                  color: "#8790AB",
-                                }}
-                              >
-                                {item.dataKey}
+                              <span className="text-xs text-gray-50">
+                                Homens
                               </span>
                             </div>
-                          );
-                        })}
-                      </AgeGroupLegend>
-                    </VotersInfoTitle>
-                    <div className="chart">
+                            <div className="flex flex-col">
+                              <div className="flex items-center gap-1">
+                                <div className="w-4 h-4 bg-purpleAxion rounded-full" />
+                                <span className="text-darkBlueAxion font-semibold">
+                                  {cityData.population.female.toFixed(0)}
+                                </span>
+                              </div>
+                              <span className="text-xs text-gray-50">
+                                Mulheres
+                              </span>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex chart w-80 h-60 self-center">
                       <AgeGroupByGender
                         data={cityData.population.ageRange}
                         conf={groupGenderConf}
                       />
                     </div>
-                  </AgeGroupContainer>
+                  </div>
 
-                  <VotersInfoContainer>
-                    <div className="title">
+                  <div className="pieChartContainer flex flex-col gap-2 justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                    <div className="flex flex-col lg:flex-row w-full justify-between">
                       <TitleWithBar
                         barColor="#2F5CFC"
                         content={
@@ -216,15 +206,13 @@ export default function SeuEleitorado() {
                               : "Gênero dos Eleitores"
                         }
                       />
-                      <div className="select">
-                        <VotersInfoSelect
-                          selectedValue={selectedVoterOption}
-                          setSelectedValue={setSelectedVoterOption}
-                          values={selectVotersValue}
-                        />
-                      </div>
+                      <VotersInfoSelect
+                        selectedValue={selectedVoterOption}
+                        setSelectedValue={setSelectedVoterOption}
+                        values={selectVotersValue}
+                      />
                     </div>
-                    <div className="chart">
+                    <div className="flex chart w-full h-full justify-center self-center">
                       <VotersInfo
                         chartData={
                           selectedVoterOption === "age"
@@ -254,30 +242,32 @@ export default function SeuEleitorado() {
                         }
                       />
                     </div>
-                  </VotersInfoContainer>
-                  <MapContainer>
+                  </div>
+
+                  <div className="mapContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] w-full md:w-[35rem] h-[24rem] xl:w-[30rem] 2xl:w-[35rem] min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <GoogleMapsWrapper>
                       <GoogleMaps mapId="map_id" locations={locations} />
                     </GoogleMapsWrapper>
-                  </MapContainer>
-                  <VotersGenderContainer>
-                    <div className="title">
+                  </div>
+
+                  <div className="genderChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                    <div className="flex flex-col">
                       <TitleWithBar
                         content="Gêneros dos Eleitores"
                         barColor="#2F5CFC"
                       />
                     </div>
                     <VotersGender population={cityData.population} />
-                  </VotersGenderContainer>
-                </ChartsContainer>
+                  </div>
+                </div>
               </>
             ) : (
               <>
                 <Spinner animation="border" />
               </>
             )}
-          </Main>
-        </Content>
+          </main>
+        </div>
       </RootLayout>
     </main>
   );

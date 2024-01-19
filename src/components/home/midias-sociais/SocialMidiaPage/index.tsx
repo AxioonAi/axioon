@@ -152,8 +152,6 @@ export function SocialMidiaPage({
     setSelectedIndex(index);
   };
 
-  console.log("metaads: ", metaads);
-
   return (
     <div className="pageContainer flex flex-col items-center justify-center m-auto p-2">
       {!pageData ? (
@@ -576,7 +574,7 @@ export function SocialMidiaPage({
                           <div className="flex flex-col">
                             <div className="flex items-center gap-1">
                               <div
-                                className={`w-4 h-4 ${item.name === "Homens" ? "bg-darkBlueAxion" : item.name === "Mulheres" ? "bg-pinkAxion" : "bg-[#E5E8F0]"} rounded-full`}
+                                className={`w-4 h-4 ${item.name === "Homens" ? "bg-darkBlueAxion" : item.name === "Mulheres" ? "bg-purpleAxion" : "bg-[#E5E8F0]"} rounded-full`}
                               />
                               <span className="text-darkBlueAxion font-semibold">
                                 {item.value.toFixed(0)}
