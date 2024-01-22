@@ -152,6 +152,8 @@ export function SocialMidiaPage({
     setSelectedIndex(index);
   };
 
+  console.log("pageData: ", pageData);
+
   return (
     <div className="pageContainer flex flex-col items-center justify-center m-auto p-2">
       {!pageData ? (

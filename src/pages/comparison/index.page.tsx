@@ -4,7 +4,7 @@ import { LikesAndComentsCard } from "@/components/home/midias-sociais/LikesAndCo
 import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
 import Theme from "@/styles/themes";
 import gsap from "gsap";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { LikesAndComentsContainer } from "../home/midias-sociais/styles";
 import {
@@ -18,6 +18,9 @@ import {
   Main,
 } from "./styles";
 import { ComparisonHeaderComponent } from "@/components/Comparison";
+import { authGetAPI } from "@/lib/axios";
+import { TitleWithBar } from "@/components/Global/TitleWithBar";
+import { PostEngagement } from "@/components/home/midias-sociais/PostEngagement";
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Comparison() {
   const main = useRef(null);
@@ -56,6 +59,7 @@ export default function Comparison() {
     name: "Últimos 7 Dias",
   });
 
+  console.log("selectedProfile: ", selectedProfile);
   const timeValues = [
     {
       value: 7,
@@ -70,6 +74,19 @@ export default function Comparison() {
       name: "Últimos 30 Dias",
     },
   ];
+
+  async function getComparison() {
+    const connect = await authGetAPI(
+      `/profile/comparison/${selectedProfile.id}?period=${15}`
+    );
+    console.log("connect: ", connect);
+  }
+
+  useEffect(() => {
+    if (selectedProfile.id !== "") {
+      getComparison();
+    }
+  }, [selectedProfile.id]);
 
   return (
     <main ref={main}>
@@ -131,7 +148,17 @@ export default function Comparison() {
               }
             />
           </div>
-          <div className="Main flex flex-col items-center justify-center bg-white mx-4 rounded-lg p-4"></div>
+          <div className="Main flex flex-col items-center justify-center bg-white mx-4 rounded-lg p-4 mt-4">
+            <div className="engagementChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+              <div className="flex flex-col">
+                <TitleWithBar
+                  content="Engajamento de Publicações"
+                  barColor="#12A9E7"
+                />
+                <PostEngagement pageData={undefined} />
+              </div>
+            </div>
+          </div>
         </div>
       </RootLayout>
     </main>
