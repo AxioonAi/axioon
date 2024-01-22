@@ -63,10 +63,10 @@ export function LikesAndComentsCard({
             <div className="Group flex gap-0.5 items-center">
               <img src={typeData[type].leftImg} alt="" className="w-6 h-auto" />
               <strong className="text-lg leading-[0.9]">
-                {likes.toString().length > 6 && likes.toString().length <= 3
-                  ? `${likes.toString().slice(0, 3)}M`
-                  : likes.toString().length > 3
-                    ? `${likes.toString().slice(0, 3)}K`
+                {likes.toString().length > 6
+                  ? `${likes.toString().slice(0, -3)}M`
+                  : likes.toString().length <= 6 && likes.toString().length > 3
+                    ? `${likes.toString().slice(0, -3)}K`
                     : likes.toString()}
               </strong>
             </div>
@@ -83,11 +83,11 @@ export function LikesAndComentsCard({
                   className="w-6 h-auto"
                 />
                 <strong className="text-lg leading-[0.9]">
-                  {coments.toString().length > 6 &&
-                  coments.toString().length <= 3
-                    ? `${coments.toString().slice(0, 3)}M`
-                    : coments.toString().length > 3
-                      ? `${coments.toString().slice(0, 3)}K`
+                  {coments.toString().length > 6
+                    ? `${coments.toString().slice(0, -3)}M`
+                    : coments.toString().length <= 6 &&
+                        coments.toString().length > 3
+                      ? `${coments.toString().slice(0, -3)}K`
                       : coments.toString()}
                 </strong>
               </div>

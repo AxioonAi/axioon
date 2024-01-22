@@ -35,10 +35,10 @@ export function SeuEleitoradoCards({ cityData }: Props) {
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
                 <strong className="text-lg leading-[0.9]">
-                  {String(cityData?.population.total).length > 9
+                  {String(cityData?.population.total).length > 6
                     ? `${String(cityData?.population.total).slice(0, 3)} Milhões`
-                    : String(cityData?.population.total).length < 9 &&
-                        String(cityData?.population.total).length >= 6
+                    : String(cityData?.population.total).length <= 6 &&
+                        String(cityData?.population.total).length > 3
                       ? `${String(cityData?.population.total).slice(0, 3)} Mil`
                       : cityData?.population.total}
                 </strong>
@@ -93,10 +93,10 @@ export function SeuEleitoradoCards({ cityData }: Props) {
               <div className="Group flex gap-0.5 items-center">
                 <strong className="text-xl leading-[0.9]">
                   {cityData
-                    ? String(cityData?.electorate.total).length > 9
+                    ? String(cityData?.electorate.total).length > 6
                       ? `${String(cityData?.electorate.total).slice(0, 3)} Milhões`
-                      : String(cityData?.electorate.total).length < 9 &&
-                          String(cityData?.electorate.total).length >= 6
+                      : String(cityData?.electorate.total).length <= 6 &&
+                          String(cityData?.electorate.total).length > 3
                         ? `${String(cityData?.electorate.total).slice(0, 3)} Mil`
                         : cityData?.electorate.total
                     : "Carregando..."}
