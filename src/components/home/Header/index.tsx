@@ -229,7 +229,7 @@ export function HeaderComponent({
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <nav className="headerMenu flex flex-wrap justify-around xl:justify-between xl:mt-10 gap-4">
+        <nav className="headerMenu flex flex-wrap justify-around xl:mt-10 gap-2">
           <MenuItemComponent
             fadeOut={() => fadeOut()}
             href="/seu-eleitorado"
@@ -241,6 +241,11 @@ export function HeaderComponent({
             name="MÍDIAS SOCIAIS"
             selectedPage={selectedPage}
             setSelectedPage={setSelectedPage}
+          />
+          <MenuItemComponent
+            fadeOut={() => fadeOut()}
+            href="/legal"
+            name="JURÍDICO"
           />
           <MenuItemComponent
             fadeOut={() => fadeOut()}

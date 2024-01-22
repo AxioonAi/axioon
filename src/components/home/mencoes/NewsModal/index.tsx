@@ -38,7 +38,16 @@ export function NewsModal({
       <Content>
         <Header>
           <div>
-            <TitleWithBar content={source} barColor="#22C24F" />
+            <TitleWithBar
+              content={source}
+              barColor={
+                sentimentClassification === "positivo"
+                  ? "#22C24F"
+                  : sentimentClassification === "neutro"
+                    ? "#FFB043"
+                    : "#E70000"
+              }
+            />
             <span
               style={{
                 marginLeft: "1rem",
@@ -53,12 +62,22 @@ export function NewsModal({
           <div
             style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}
           >
-            <strong style={{ fontSize: "1.25rem", color: "#22C24F" }}>
+            <strong
+              style={{
+                fontSize: "1.25rem",
+                color:
+                  sentimentClassification === "positivo"
+                    ? "#22C24F"
+                    : sentimentClassification === "neutro"
+                      ? "#FFB043"
+                      : "#E70000",
+              }}
+            >
               {sentimentClassification === "positivo"
                 ? "Positiva"
                 : sentimentClassification === "neutro"
                   ? "Neutra"
-                  : "Precisa de atenção"}{" "}
+                  : "Precisa de atenção"}
             </strong>
             <Image
               width={36}
@@ -81,14 +100,16 @@ export function NewsModal({
             </h1>
             <hr />
             <ScoreChartContainer>
-              <div style={{ maxWidth: "14rem", margin: "auto" }}>
+              <div
+                style={{ maxWidth: "14rem", margin: "auto", marginTop: "5%" }}
+              >
                 <ScoreChart score={sentiment} id="newScore" />
               </div>
             </ScoreChartContainer>
 
-            <hr style={{ margin: "2rem 0" }} />
+            {/* <hr style={{ margin: "2rem 0" }} /> */}
           </NewNameAndSentiment>
-          <NewContent>
+          {/* <NewContent>
             my text of the printing and typesetting industry. Lorem Ipsum has
             been the industry's standard dummy text ever since the 1500s, when
             an my text of the printing and typesetting industry. Lorem Ipsum has
@@ -96,7 +117,7 @@ export function NewsModal({
             an my text of the printing and typesetting industry. Lorem Ipsum has
             been the industry's standard dummy text ever since the 1500s, when
             an...
-          </NewContent>
+          </NewContent> */}
         </Main>
 
         <Footer>

@@ -128,7 +128,7 @@ export function NewsCard({
               fontWeight: 500,
             }}
           >
-            Clique para ser redirecionado para a notícia
+            Clique para ver mais detalhes
           </p>
         </div>
       </CardContainer>

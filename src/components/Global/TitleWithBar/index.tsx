@@ -5,6 +5,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   barColor?: string;
   width?: string;
   subTitle?: boolean;
+  juridia?: boolean;
 }
 
 export function TitleWithBar({
@@ -12,6 +13,7 @@ export function TitleWithBar({
   barColor,
   width = "auto",
   subTitle = false,
+  juridia,
   ...rest
 }: Props) {
   return (
@@ -28,10 +30,16 @@ export function TitleWithBar({
           <div className="subtitleContainer flex flex-col md:flex-row items-start md:items-center gap-2 text-xs">
             <span>Feito pela Inteligência Artificial</span>
             <div className="logoContainer flex gap-1">
-              <img src="/axionLogo.png" alt="" className="logoAxion w-20" />
-              <div className="iaContainer self-start p-1 rounded-sm bg-gradient-to-br from-[#d8d8d8] to-darkBlueAxion">
-                <img src="/ia.png" alt="" className="w-3" />
-              </div>
+              <img
+                src={juridia ? "/juridiaLogo.svg" : "/axionLogo.png"}
+                alt=""
+                className="logoAxion w-20"
+              />
+              {!juridia && (
+                <div className="iaContainer self-start p-1 rounded-sm bg-gradient-to-br from-[#d8d8d8] to-darkBlueAxion">
+                  <img src="/ia.png" alt="" className="w-3" />
+                </div>
+              )}
             </div>
           </div>
         )}

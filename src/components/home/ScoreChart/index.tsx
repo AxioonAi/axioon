@@ -64,7 +64,7 @@ export function ScoreChart({ score, id }: Props) {
           textBaseLine: any,
           textAlign: any
         ) {
-          ctx.font = `${fontSize}px sans-serif`;
+          ctx.font = `${fontSize / 1.5}px sans-serif`;
           ctx.fillStyle = "#292D32";
           ctx.textBaseLine = textBaseLine;
           ctx.textAlign = textAlign;

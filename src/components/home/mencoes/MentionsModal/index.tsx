@@ -51,7 +51,16 @@ export function MentionsModal({
       <Content>
         <Header>
           <div>
-            <TitleWithBar content={source} barColor="#22C24F" />
+            <TitleWithBar
+              content={source}
+              barColor={
+                sentimentClassification === "positivo"
+                  ? "#22C24F"
+                  : sentimentClassification === "neutro"
+                    ? "#FFB043"
+                    : "#E70000"
+              }
+            />
             <span
               style={{
                 marginLeft: "1rem",
@@ -66,7 +75,17 @@ export function MentionsModal({
           <div
             style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}
           >
-            <strong style={{ fontSize: "1.25rem", color: "#22C24F" }}>
+            <strong
+              style={{
+                fontSize: "1.25rem",
+                color:
+                  sentimentClassification === "positivo"
+                    ? "#22C24F"
+                    : sentimentClassification === "neutro"
+                      ? "#FFB043"
+                      : "#E70000",
+              }}
+            >
               {sentimentClassification === "positivo"
                 ? "Positiva"
                 : sentimentClassification === "neutro"
@@ -96,7 +115,9 @@ export function MentionsModal({
                 <span style={{ maxWidth: "14rem", height: "3rem" }}>
                   Sentimento da Menção
                 </span>
-                <div style={{ maxWidth: "14rem", margin: "auto" }}>
+                <div
+                  style={{ maxWidth: "14rem", margin: "auto", marginTop: "5%" }}
+                >
                   <ScoreChart score={sentiment} id="mentionSentiment" />
                 </div>
               </ScoreChartContainer>
@@ -105,7 +126,13 @@ export function MentionsModal({
                   <span style={{ maxWidth: "14rem", height: "3rem" }}>
                     Sentimento médio dos comentários
                   </span>
-                  <div style={{ maxWidth: "14rem", margin: "auto" }}>
+                  <div
+                    style={{
+                      maxWidth: "14rem",
+                      margin: "auto",
+                      marginTop: "5%",
+                    }}
+                  >
                     <ScoreChart
                       score={commentSentiment}
                       id="commentsSentiment"

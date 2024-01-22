@@ -31,7 +31,7 @@ export function MenuItemComponent({
 
   return (
     <div
-      className={`MenuItem relative flex justify-center items-center cursor-pointer w-64 h-32 rounded-xl shadow-lg transition duration-200 ${
+      className={`MenuItem relative flex justify-center items-center cursor-pointer w-52 h-24 rounded-xl shadow-lg transition duration-200 ${
         isActive ? "opacity-100" : "opacity-40"
       }
       bg-no-repeat bg-center ${
@@ -44,12 +44,11 @@ export function MenuItemComponent({
               : "bg-[url(/dashboard/inteligencia-artificial-menu.png)]"
       }
       bg-cover
-      third:bg-[url(/dashboard/axion-menu.png)]
        hover:opacity-90 hover:scale-110`}
       onClick={navigate}
     >
       <div className="title flex justify-center py2 border border-gray-10 rounded text-bold text-white bg-[rgba(0,0,0,0.5)] w-[92%]">
-        <strong className="text-base">{name}</strong>
+        <strong className="text-sm">{name}</strong>
       </div>
 
       <img
