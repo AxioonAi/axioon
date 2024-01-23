@@ -21,6 +21,7 @@ import { ComparisonHeaderComponent } from "@/components/Comparison";
 import { authGetAPI } from "@/lib/axios";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import { PostEngagement } from "@/components/home/midias-sociais/PostEngagement";
+import { ComparisonType } from "@/components/home/Comparison";
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Comparison() {
   const main = useRef(null);
@@ -49,6 +50,14 @@ export default function Comparison() {
   };
 
   const [selectedPage, setSelectedPage] = useState("facebook");
+  const [socialMidiaData, setSocialMidiaData] = useState<any>();
+  const [facebookData, setFacebookData] = useState();
+  const [metaadsData, setMetaadsData] = useState();
+  const [instagramData, setInstagramData] = useState();
+  const [tiktokData, setTiktokData] = useState();
+  const [youtubeData, setYoutubeData] = useState();
+  const [loading, setLoading] = useState(false);
+  const [locked, setLocked] = useState(true);
   const [selectedProfile, setSelectedProfile] = useState({
     name: "",
     politicalGroup: "",
@@ -59,7 +68,6 @@ export default function Comparison() {
     name: "Últimos 7 Dias",
   });
 
-  console.log("selectedProfile: ", selectedProfile);
   const timeValues = [
     {
       value: 7,
@@ -75,11 +83,95 @@ export default function Comparison() {
     },
   ];
 
+  async function getSocialMidiaDetails() {
+    const connect = await authGetAPI(
+      `/profile/social/home/${selectedProfile.id}?period=${selectedTimeValues.value}`
+    );
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setSocialMidiaData(connect.body);
+  }
+
+  async function getIndividualDetails() {
+    setLoading(true);
+    setFacebookData(undefined);
+    setMetaadsData(undefined);
+    setInstagramData(undefined);
+    setTiktokData(undefined);
+    setYoutubeData(undefined);
+    if (localStorage.getItem("selectedTime") === null) {
+      setSelectedTimeValues({
+        value: 7,
+        name: "Últimos 7 Dias",
+      });
+    } else {
+      setSelectedTimeValues({
+        value: Number(localStorage.getItem("selectedTime")),
+        name: String(localStorage.getItem("selectedTimeName")),
+      });
+    }
+    const [facebook, metaads, instagram, tiktok, youtube] = await Promise.all([
+      authGetAPI(
+        `/profile/facebook/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/advertising/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/instagram/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/tiktok/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      ),
+    ]);
+    if (metaads.status !== 200) {
+      setLocked(true);
+    }
+    if (facebook.status === 200) {
+      setFacebookData(facebook.body);
+    }
+    if (metaads.status === 200) {
+      setMetaadsData(metaads.body);
+      setLocked(false);
+    }
+    if (instagram.status === 200) {
+      setInstagramData(instagram.body);
+    }
+    if (tiktok.status === 200) {
+      setTiktokData(tiktok.body);
+    }
+    if (youtube.status === 200) {
+      setYoutubeData(youtube.body);
+    }
+    return setLoading(false);
+  }
+
+  useEffect(() => {
+    if (selectedProfile.id) {
+      getSocialMidiaDetails();
+      if (typeof window !== "undefined") {
+        setSelectedTimeValues({
+          value: Number(localStorage.getItem("selectedTime")),
+          name: String(localStorage.getItem("selectedTimeName")),
+        });
+      }
+      getIndividualDetails();
+    }
+  }, [
+    selectedProfile,
+    typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
+  ]);
+
+  console.log("selectedTimeValues", selectedTimeValues);
+
   async function getComparison() {
     const connect = await authGetAPI(
       `/profile/comparison/${selectedProfile.id}?period=${15}`
     );
-    console.log("connect: ", connect);
   }
 
   useEffect(() => {
@@ -105,6 +197,8 @@ export default function Comparison() {
             timeValues={timeValues}
             selectedTimeValues={selectedTimeValues}
             setSelectedTimeValues={setSelectedTimeValues}
+            loading={loading}
+            setLoading={setLoading}
           />
           <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
             <LikesAndComentsCard
@@ -148,17 +242,39 @@ export default function Comparison() {
               }
             />
           </div>
-          <div className="Main flex flex-col items-center justify-center bg-white mx-4 rounded-lg p-4 mt-4">
-            <div className="engagementChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
-              <div className="flex flex-col">
-                <TitleWithBar
-                  content="Engajamento de Publicações"
-                  barColor="#12A9E7"
-                />
-                <PostEngagement pageData={undefined} />
-              </div>
-            </div>
-          </div>
+          {selectedPage === "facebook" && (
+            <ComparisonType
+              loading={loading}
+              id={"scoreComparison"}
+              pageType="facebook"
+              pageData={facebookData}
+              locked={locked}
+            />
+          )}
+          {selectedPage === "instagram" && (
+            <ComparisonType
+              loading={loading}
+              id={"scoreComparison"}
+              pageType="instagram"
+              pageData={instagramData}
+            />
+          )}
+          {selectedPage === "tiktok" && (
+            <ComparisonType
+              loading={loading}
+              id={"scoreComparison"}
+              pageType="tiktok"
+              pageData={tiktokData}
+            />
+          )}
+          {selectedPage === "youtube" && (
+            <ComparisonType
+              loading={loading}
+              id={"scoreComparison"}
+              pageType="youtube"
+              pageData={youtubeData}
+            />
+          )}
         </div>
       </RootLayout>
     </main>

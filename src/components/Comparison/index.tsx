@@ -208,7 +208,7 @@ export function ComparisonHeaderComponent({
             name="MENÇÕES"
           />
         </nav>
-        <div className="Candidate flex flex-col h-auto items-center md:flex-row md:h-28 mt-12 px-8 justify-between">
+        <div className="Candidate flex flex-col h-auto items-center xl:flex-row md:h-28 mt-12 px-8 justify-between">
           <div className="candidateInfo flex items-center gap-3">
             <Image
               src={"/dashboard/candidate.png"}
@@ -233,15 +233,7 @@ export function ComparisonHeaderComponent({
             </div>
           </div>
 
-          <div className="buttonAndSelect flex items-center flex-col md:mt-0 gap-4 md:items-end">
-            {router.asPath.split("/")[2] === "seu-eleitorado" && (
-              <button
-                className="Register w-40 h-9 rounded bg-[#282c49] text-white text-2xl border-0 transition duration-200 ease-in hover:bg-[#474b7a]"
-                onClick={() => router.push("/register-candidate")}
-              >
-                Cadastro
-              </button>
-            )}
+          <div className="buttonAndSelect flex items-center my-8 flex-col md:mt-0 gap-4 md:items-end">
             {selectedPage !== "seu-eleitorado" &&
               router.asPath.split("/")[2] !== "inteligencia-artificial" && (
                 <HeaderTimeSelect

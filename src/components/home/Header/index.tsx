@@ -188,7 +188,7 @@ export function HeaderComponent({
     localStorage.removeItem("selectedProfile");
     localStorage.removeItem("selectedTime");
     localStorage.removeItem("selectedTimeName");
-    router.push("/");
+    return router.push("/login");
   }
 
   return (
