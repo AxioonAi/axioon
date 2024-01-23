@@ -33,7 +33,7 @@ export function CommentComponent({ type, comment }: Props) {
 
   return (
     <div
-      className={`Container flex gap-3 max-h-40 rounded-lg border ${type === "facebook" ? "border-[#0037c1]" : type === "instagram" ? "border-[#505CCA]" : type === "tiktok" ? "border-[#E03855]" : "border-[#FF0000]"} hover:cursor-pointer hover:bg-gray-20 transition duration-300 p-2`}
+      className={`Container flex w-full gap-3 max-h-40 rounded-lg border ${type === "facebook" ? "border-[#0037c1]" : type === "instagram" ? "border-[#505CCA]" : type === "tiktok" ? "border-[#E03855]" : "border-[#FF0000]"} hover:cursor-pointer hover:bg-gray-20 transition duration-300 p-2`}
     >
       <div className="commentContent flex flex-col mb-1 text-sm text-black w-full overflow-hidden">
         <div className="flex gap-1">

@@ -63,6 +63,9 @@ export function SocialMidiaPage({
 }: Props) {
   const [selectedValue, setSelectedValue] = useState("Relevância");
   const values = ["Relevância", "Mais recente"];
+  const [selectedValueComments, setSelectedValueComments] =
+    useState("Relevância");
+  const valuesComments = ["Relevância", "Mais recente"];
 
   const groupGenderData = [
     {
@@ -151,6 +154,15 @@ export function SocialMidiaPage({
     setShowModal(true);
     setSelectedIndex(index);
   };
+
+  console.log(
+    "pageData: ",
+    pageData?.posts
+      .slice(0, showMore ? pageData?.posts.length : 4)
+      .sort(
+        (a: any, b: any) => Number(new Date(b.date)) - Number(new Date(a.date))
+      )
+  );
 
   return (
     <div className="pageContainer flex flex-col items-center justify-center m-auto p-2">
@@ -271,22 +283,40 @@ export function SocialMidiaPage({
                     </div>
                   </div>
                   <div className="flex flex-col self-center gap-4 px-3 h-[50vh] overflow-y-auto">
-                    {pageData?.posts
-                      .slice(0, showMore ? pageData?.posts.length : 4)
-                      .map((post: any, index: any) => (
-                        <PostComponent
-                          index={index}
-                          post={post}
-                          type={pageType}
-                          pageData={pageData}
-                          selectedPostId={selectedPostId}
-                          setSelectedPostId={setSelectedPostId}
-                        />
-                      ))}
+                    {selectedValue === "Mais recente"
+                      ? pageData?.posts
+                          .slice(0, showMore ? pageData?.posts.length : 4)
+                          .sort(
+                            (a: any, b: any) =>
+                              Number(new Date(b.date)) -
+                              Number(new Date(a.date))
+                          )
+                          .map((post: any, index: any) => (
+                            <PostComponent
+                              index={index}
+                              post={post}
+                              type={pageType}
+                              pageData={pageData}
+                              selectedPostId={selectedPostId}
+                              setSelectedPostId={setSelectedPostId}
+                            />
+                          ))
+                      : pageData?.posts
+                          .slice(0, showMore ? pageData?.posts.length : 4)
+                          .map((post: any, index: any) => (
+                            <PostComponent
+                              index={index}
+                              post={post}
+                              type={pageType}
+                              pageData={pageData}
+                              selectedPostId={selectedPostId}
+                              setSelectedPostId={setSelectedPostId}
+                            />
+                          ))}
                   </div>
                   <div className="seeMore flex justify-center mt-4 p-2">
                     <button
-                      className="border-0 bg-transparent text-sm font-bold text-black underline"
+                      className={` ${pageData.posts.length <= 4 ? "invisible" : "flex"} border-0 bg-transparent text-sm font-bold text-black underline`}
                       onClick={() => setShowMore(!showMore)}
                     >
                       {showMore ? "Ver Menos" : "Ver Mais"}
@@ -300,14 +330,14 @@ export function SocialMidiaPage({
                     <div className="labelAndSelect flex items-center gap-4 p-2">
                       <strong>Ordenar por:</strong>
                       <OrderSelect
-                        selectedValue={selectedValue}
-                        values={values}
-                        setSelectedValue={setSelectedValue}
+                        selectedValue={selectedValueComments}
+                        values={valuesComments}
+                        setSelectedValue={setSelectedValueComments}
                         id="comments-order-select"
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col self-center gap-4 px-3 h-[50vh] overflow-y-auto">
+                  <div className="flex flex-col self-center w-full gap-4 px-3 h-[50vh] overflow-y-auto">
                     {selectedPostId === "" ? (
                       <label className="text-black text-center justify-center">
                         Selecione uma publicação
@@ -318,6 +348,24 @@ export function SocialMidiaPage({
                       <label className="text-black text-center justify-center">
                         Sem comentários
                       </label>
+                    ) : selectedValueComments === "Mais recente" ? (
+                      pageData.posts
+                        .filter((post: any) => post?.id === selectedPostId)[0]
+                        .comments.slice(
+                          0,
+                          showMoreComments
+                            ? pageData.posts.filter(
+                                (post: any) => post?.id === selectedPostId
+                              )[0].comments.length
+                            : 5
+                        )
+                        .sort(
+                          (a: any, b: any) =>
+                            Number(new Date(b.date)) - Number(new Date(a.date))
+                        )
+                        .map((comment: any, index: any) => (
+                          <CommentComponent type={pageType} comment={comment} />
+                        ))
                     ) : (
                       pageData.posts
                         .filter((post: any) => post?.id === selectedPostId)[0]
@@ -336,7 +384,21 @@ export function SocialMidiaPage({
                   </div>
                   <div className="seeMore flex justify-center mt-4 p-2">
                     <button
-                      className="border-0 bg-transparent text-sm font-bold text-black underline"
+                      className={`${
+                        selectedPostId === ""
+                          ? "invisible"
+                          : selectedPostId !== "" &&
+                              pageData.posts.filter(
+                                (post: any) => post?.id === selectedPostId
+                              )[0].comments.length === 0
+                            ? "invisible"
+                            : selectedPostId !== "" &&
+                                pageData.posts.filter(
+                                  (post: any) => post?.id === selectedPostId
+                                )[0].comments.length <= 5
+                              ? "invisible"
+                              : "flex"
+                      } border-0 bg-transparent text-sm font-bold text-black underline`}
                       onClick={() => setShowMoreComments(!showMoreComments)}
                     >
                       {showMore ? "Ver Menos" : "Ver Mais"}

@@ -20,7 +20,7 @@ export const Content = styled.div`
   left: calc(100% - 18rem);
   align-items: center;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1023px) {
     width: 100%;
     left: 100%;
   }

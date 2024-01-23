@@ -58,8 +58,8 @@ export default function Legal() {
     },
   ];
 
-  const [legalData, setLegalData] = useState(false);
-  const [locked, setLocked] = useState(true);
+  const [legalData, setLegalData] = useState(true);
+  const [locked, setLocked] = useState(false);
 
   const array = [1, 2, 3, 4, 5];
 

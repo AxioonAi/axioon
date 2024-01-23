@@ -75,12 +75,14 @@ export default function InteligenciaArtificial() {
   useEffect(() => {
     getPlan();
     setTimeout(() => {
+      console.log("chegou");
       const chatInput = document.getElementById("chatInput");
       if (chatInput) {
         chatInput.scrollIntoView({ behavior: "smooth" });
       }
-    }, 500);
+    }, 1500);
   }, []);
+
   const [firstMessage, setFirstMessage] = useState(true);
   function handleSuggestionClick(tipContent: string) {
     setFirstMessage(false);
@@ -157,9 +159,9 @@ lg:left-[calc(100%-17.5rem)]"
           <div
             className={`${
               locked ? "hidden" : "flex"
-            } h-[95vh] bg-white rounded-[50px] p-[2rem_0_1rem] transition-all duration-300 ease-in lg:rounded-[15px]`}
+            } h-[95vh] bg-white mt-8 rounded-[50px] p-[2rem_0_1rem] transition-all duration-300 ease-in lg:rounded-[15px]`}
           >
-            <div className="h-full max-w-[57rem] flex flex-col items-center justify-between mx-auto">
+            <div className="h-full w-full flex flex-col items-center justify-between mx-auto">
               <div className="ChatHeader flex items-start gap-4 sm: scale-90">
                 <Image
                   width={343}
@@ -204,7 +206,7 @@ lg:left-[calc(100%-17.5rem)]"
               )}
               {firstMessage ? (
                 <>
-                  <div className="flex  animate-fadeInWelcomeMessage flex-col items-center justify-between mx-auto text-2xl text-[#0d123c] text-center md:text-xl">
+                  <div className="flex animate-fadeInWelcomeMessage flex-col items-center justify-between mx-auto text-2xl text-[#0d123c] text-center md:text-xl">
                     Como posso te Ajudar Hoje?
                   </div>
                 </>
@@ -238,8 +240,8 @@ lg:left-[calc(100%-17.5rem)]"
 
               <div className="w-full flex flex-col items-center gap-[2.75rem]">
                 {firstMessage ? (
-                  <div className="flex flex-col w-full animate-fadeInWelcomeMessage lg:gap-2 lg:items-center sm:flex-row">
-                    <div className="w-full mt-2 gap-1 ml-3 md:w-1/3 flex justify-center items-center">
+                  <div className="flex flex-col w-full animate-fadeInWelcomeMessage flex-wrap items-center justify-center">
+                    <div className="w-full mt-2 gap-1 md:w-2/3 xl:w-2/5 flex justify-center items-center">
                       <PrompSuggestion
                         content="Insights de Marketing"
                         imgSrc="/dashboard/inteligencia-artificial/marketingInsights.svg"

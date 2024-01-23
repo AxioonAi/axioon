@@ -231,7 +231,9 @@ export default function SeuEleitorado() {
               </div>
             </div>
           ) : (
-            <Spinner animation="border" />
+            <div className="flex items-center justify-center rounded-lg max-w-[1080px] h-1/2 my-[2%] mx-auto">
+              <Spinner animation="border" />
+            </div>
           )}
         </div>
       </RootLayout>
