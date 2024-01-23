@@ -171,7 +171,7 @@ export default function SeuEleitorado() {
                             </div>
                             <div className="flex flex-col">
                               <div className="flex items-center gap-1">
-                                <div className="w-4 h-4 bg-purpleAxion rounded-full" />
+                                <div className="w-4 h-4 bg-[#E7298A] rounded-full" />
                                 <span className="text-darkBlueAxion font-semibold">
                                   {cityData.population.female.toFixed(0)}
                                 </span>
@@ -262,7 +262,7 @@ export default function SeuEleitorado() {
             ) : (
               <>
                 <SeuEleitoradoCards cityData={cityData} />
-                <div className="flex w-full h-full justify-center items-center">
+                <div className="flex w-full h-full justify-center items-center shadow-2xl">
                   {locked && (
                     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-60 px-20 py-12 rounded flex flex-col items-center justify-center text-center">
                       <span className="text-white text-3xl font-bold">

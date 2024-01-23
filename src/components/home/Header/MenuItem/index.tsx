@@ -6,6 +6,7 @@ interface ItemProps {
   fadeOut: any;
   selectedPage?: string;
   setSelectedPage?: any;
+  click?: boolean;
 }
 
 export function MenuItemComponent({
@@ -14,19 +15,24 @@ export function MenuItemComponent({
   fadeOut,
   selectedPage,
   setSelectedPage,
+  click,
 }: ItemProps) {
   const router = useRouter();
 
   const isActive = `/${router.asPath.split("/")[2]}` === href;
 
   const navigate = () => {
-    if (isActive && selectedPage !== "initial") {
-      return setSelectedPage("initial");
+    if (selectedPage) {
+      if (isActive && selectedPage !== "initial") {
+        return setSelectedPage("initial");
+      }
+      if (!isActive && selectedPage !== href) {
+        fadeOut();
+      }
+      return router.push(`/home/${href}`);
+    } else {
+      return router.push(`/home/${href}`);
     }
-    if (!isActive && selectedPage !== href) {
-      fadeOut();
-    }
-    router.push(`/home/${href}`);
   };
 
   return (
@@ -39,12 +45,16 @@ export function MenuItemComponent({
           ? "bg-[url(/dashboard/seu-eleitorado-menu.png)]"
           : name === "MÍDIAS SOCIAIS"
             ? "bg-[url(/dashboard/midias-sociais-menu.png)]"
-            : name === "MENÇÕES"
-              ? "bg-[url(/dashboard/suas-noticias-menu.png)]"
-              : "bg-[url(/dashboard/inteligencia-artificial-menu.png)]"
+            : name === "JURÍDICO"
+              ? "bg-[url(/dashboard/juridico-menu.png)]"
+              : name === "MENÇÕES"
+                ? "bg-[url(/dashboard/suas-noticias-menu.png)]"
+                : "bg-[url(/dashboard/inteligencia-artificial-menu.png)]"
       }
       bg-cover
-       hover:opacity-90 hover:scale-110`}
+       hover:opacity-90 hover:scale-110
+       ${click ? "scale-105" : "scale-100"} ${click ? "border-[1px]" : "border-0"} ${click ? "border-darkBlueAxion" : "border-gray-10"}
+       `}
       onClick={navigate}
     >
       <div className="title flex justify-center py2 border border-gray-10 rounded text-bold text-white bg-[rgba(0,0,0,0.5)] w-[92%]">

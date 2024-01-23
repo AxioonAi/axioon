@@ -9,7 +9,7 @@ interface Props {
 
 export function Slider({ fill, fillColor, empty, emptyColor }: Props) {
   return (
-    <div className="Container flex w-28 md:w-40 h-2 roudned">
+    <div className="Container flex w-28 md:w-40 h-2 rounded transition duration-300 ease-in hover:scale-105">
       <div
         className="Slider relative h-full rounded"
         style={{ width: `${fill}`, background: fillColor }}

@@ -24,7 +24,7 @@ export function SeuEleitoradoCards({ cityData }: Props) {
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
                 <strong className="text-xl leading-[0.9]">
-                  {cityData ? cityData.name : "Carregando..."}{" "}
+                  {cityData ? cityData.name : "Carregando..."}
                   {cityData ? " - " : ""}
                   {cityData ? cityData.state : ""}
                 </strong>
@@ -35,12 +35,14 @@ export function SeuEleitoradoCards({ cityData }: Props) {
             <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
               <div className="Group flex gap-0.5 items-center">
                 <strong className="text-lg leading-[0.9]">
-                  {String(cityData?.population.total).length > 6
-                    ? `${String(cityData?.population.total).slice(0, 3)} Milhões`
-                    : String(cityData?.population.total).length <= 6 &&
-                        String(cityData?.population.total).length > 3
-                      ? `${String(cityData?.population.total).slice(0, 3)} Mil`
-                      : cityData?.population.total}
+                  {cityData
+                    ? String(cityData?.population.total).length > 6
+                      ? `${String(cityData?.population.total).slice(0, 3)} Milhões`
+                      : String(cityData?.population.total).length <= 6 &&
+                          String(cityData?.population.total).length > 3
+                        ? `${String(cityData?.population.total).slice(0, 3)} Mil`
+                        : cityData?.population.total
+                    : ""}
                 </strong>
               </div>
               <span className="text-sm text-gray-90">

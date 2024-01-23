@@ -60,6 +60,7 @@ export function HeaderComponent({
   const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
   const [monitoredProfiles, setMonitoredProfiles] = useState([]);
   const [loadingButton, setLoadingButton] = useState(false);
+  const [click, setClick] = useState(false);
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -191,11 +192,21 @@ export function HeaderComponent({
     return router.push("/login");
   }
 
+  const handleInstruction = () => {
+    setClick(true);
+    setTimeout(() => {
+      setClick(false);
+    }, 300);
+  };
+
   return (
     <>
       <header className="headerContainer relative">
         <div className="headerTop flex pb-4 flex-col-reverse md:flex-row items-center w-full">
-          <div className="Instruction flex bg-gray-10 md:ml-auto py-4 px-3 border border-[#c3c3c3] font-bold text-md rounded-[48px] gap-1 self-center">
+          <div
+            onClick={handleInstruction}
+            className="Instruction flex bg-gray-10 md:ml-auto py-4 px-3 border-[1px] border-[#c3c3c3] font-bold rounded-[48px] gap-1 self-center cursor-pointer transition duration-300 ease-in-out hover:scale-[1.01] hover:border-darkBlueAxion hover:text-[1.1rem]"
+          >
             <img src="/dashboard/click.svg" alt="" />
             <span>
               Clique nos <em> Cards</em> para ver os dados do seu Candidato
@@ -231,11 +242,13 @@ export function HeaderComponent({
         </div>
         <nav className="headerMenu flex flex-wrap justify-around xl:mt-10 gap-2">
           <MenuItemComponent
+            click={click}
             fadeOut={() => fadeOut()}
             href="/seu-eleitorado"
             name="SEU ELEITORADO"
           />
           <MenuItemComponent
+            click={click}
             fadeOut={() => fadeOut()}
             href="/midias-sociais"
             name="MÍDIAS SOCIAIS"
@@ -243,16 +256,19 @@ export function HeaderComponent({
             setSelectedPage={setSelectedPage}
           />
           <MenuItemComponent
+            click={click}
             fadeOut={() => fadeOut()}
             href="/legal"
             name="JURÍDICO"
           />
           <MenuItemComponent
+            click={click}
             fadeOut={() => fadeOut()}
             href="/mencoes"
             name="MENÇÕES"
           />
           <MenuItemComponent
+            click={click}
             fadeOut={() => fadeOut()}
             href="/inteligencia-artificial"
             name="INTELIGENCIA ARTIFICIAL"
