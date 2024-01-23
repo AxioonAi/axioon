@@ -17,11 +17,11 @@ import {
   IndividualContainer,
   Main,
 } from "./styles";
-import { ComparisonHeaderComponent } from "@/components/Comparison";
+import { ComparisonHeaderComponent } from "@/components/Comparison/Header";
 import { authGetAPI } from "@/lib/axios";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import { PostEngagement } from "@/components/home/midias-sociais/PostEngagement";
-import { ComparisonType } from "@/components/home/Comparison";
+import { ComparisonType } from "@/components/Comparison/ComparisonCharts";
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Comparison() {
   const main = useRef(null);
@@ -49,16 +49,27 @@ export default function Comparison() {
     return () => ctx.revert();
   };
 
+  const [selectedComparison, setSelectedComparison] =
+    useState("MÍDIAS SOCIAIS");
   const [selectedPage, setSelectedPage] = useState("facebook");
-  const [socialMidiaData, setSocialMidiaData] = useState<any>();
-  const [facebookData, setFacebookData] = useState();
-  const [metaadsData, setMetaadsData] = useState();
-  const [instagramData, setInstagramData] = useState();
-  const [tiktokData, setTiktokData] = useState();
-  const [youtubeData, setYoutubeData] = useState();
-  const [loading, setLoading] = useState(false);
-  const [locked, setLocked] = useState(true);
-  const [selectedProfile, setSelectedProfile] = useState({
+  const [facebookDataMain, setFacebookDataMain] = useState();
+  const [instagramDataMain, setInstagramDataMain] = useState();
+  const [tiktokDataMain, setTiktokDataMain] = useState();
+  const [youtubeDataMain, setYoutubeDataMain] = useState();
+  const [loadingMain, setLoadingMain] = useState(false);
+  const [mentionsDataMain, setMentionsDataMain] = useState<any>();
+  const [facebookDataSecondary, setFacebookDataSecondary] = useState();
+  const [instagramDataSecondary, setInstagramDataSecondary] = useState();
+  const [tiktokDataSecondary, setTiktokDataSecondary] = useState();
+  const [youtubeDataSecondary, setYoutubeDataSecondary] = useState();
+  const [loadingSecondary, setLoadingSecondary] = useState(false);
+  const [mentionsDataSecondary, setMentionsDataSecondary] = useState<any>();
+  const [selectedProfileMain, setSelectedProfileMain] = useState({
+    name: "",
+    politicalGroup: "",
+    id: "",
+  });
+  const [selectedProfileSecondary, setSelectedProfileSecondary] = useState({
     name: "",
     politicalGroup: "",
     id: "",
@@ -83,23 +94,12 @@ export default function Comparison() {
     },
   ];
 
-  async function getSocialMidiaDetails() {
-    const connect = await authGetAPI(
-      `/profile/social/home/${selectedProfile.id}?period=${selectedTimeValues.value}`
-    );
-    if (connect.status !== 200) {
-      return alert(connect.body);
-    }
-    setSocialMidiaData(connect.body);
-  }
-
-  async function getIndividualDetails() {
-    setLoading(true);
-    setFacebookData(undefined);
-    setMetaadsData(undefined);
-    setInstagramData(undefined);
-    setTiktokData(undefined);
-    setYoutubeData(undefined);
+  async function getIndividualDetailsMain() {
+    setLoadingMain(true);
+    setFacebookDataMain(undefined);
+    setInstagramDataMain(undefined);
+    setTiktokDataMain(undefined);
+    setYoutubeDataMain(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
         value: 7,
@@ -111,74 +111,202 @@ export default function Comparison() {
         name: String(localStorage.getItem("selectedTimeName")),
       });
     }
-    const [facebook, metaads, instagram, tiktok, youtube] = await Promise.all([
+    const [facebook, instagram, tiktok, youtube] = await Promise.all([
       authGetAPI(
-        `/profile/facebook/${selectedProfile.id}?period=${selectedTimeValues.value}`
+        `/profile/facebook/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
       ),
       authGetAPI(
-        `/profile/advertising/${selectedProfile.id}?period=${selectedTimeValues.value}`
+        `/profile/instagram/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
       ),
       authGetAPI(
-        `/profile/instagram/${selectedProfile.id}?period=${selectedTimeValues.value}`
+        `/profile/tiktok/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
       ),
       authGetAPI(
-        `/profile/tiktok/${selectedProfile.id}?period=${selectedTimeValues.value}`
-      ),
-      authGetAPI(
-        `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`
+        `/profile/youtube/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
       ),
     ]);
-    if (metaads.status !== 200) {
-      setLocked(true);
-    }
     if (facebook.status === 200) {
-      setFacebookData(facebook.body);
-    }
-    if (metaads.status === 200) {
-      setMetaadsData(metaads.body);
-      setLocked(false);
+      setFacebookDataMain(facebook.body);
     }
     if (instagram.status === 200) {
-      setInstagramData(instagram.body);
+      setInstagramDataMain(instagram.body);
     }
     if (tiktok.status === 200) {
-      setTiktokData(tiktok.body);
+      setTiktokDataMain(tiktok.body);
     }
     if (youtube.status === 200) {
-      setYoutubeData(youtube.body);
+      setYoutubeDataMain(youtube.body);
     }
-    return setLoading(false);
+    return setLoadingMain(false);
   }
 
   useEffect(() => {
-    if (selectedProfile.id) {
-      getSocialMidiaDetails();
+    if (selectedProfileMain.id) {
       if (typeof window !== "undefined") {
         setSelectedTimeValues({
           value: Number(localStorage.getItem("selectedTime")),
           name: String(localStorage.getItem("selectedTimeName")),
         });
       }
-      getIndividualDetails();
+      getIndividualDetailsMain();
     }
   }, [
-    selectedProfile,
+    selectedProfileMain,
     typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
   ]);
 
-  console.log("selectedTimeValues", selectedTimeValues);
-
-  async function getComparison() {
+  async function GetMentionsMain() {
+    setLoadingMain(true);
+    setMentionsDataMain(undefined);
+    if (localStorage.getItem("selectedTime") === null) {
+      setSelectedTimeValues({
+        value: 7,
+        name: "Últimos 7 Dias",
+      });
+    } else {
+      setSelectedTimeValues({
+        value: Number(localStorage.getItem("selectedTime")),
+        name: String(localStorage.getItem("selectedTimeName")),
+      });
+    }
     const connect = await authGetAPI(
-      `/profile/comparison/${selectedProfile.id}?period=${15}`
+      `/profile/mentions/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
     );
+    console.log("connect: ", connect);
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setMentionsDataMain(connect.body);
+    return setLoadingMain(false);
   }
 
   useEffect(() => {
-    if (selectedProfile.id !== "") {
-      getComparison();
+    if (selectedProfileMain.id) {
+      if (typeof window !== "undefined") {
+        setSelectedTimeValues({
+          value: Number(localStorage.getItem("selectedTime")),
+          name: String(localStorage.getItem("selectedTimeName")),
+        });
+      }
+      GetMentionsMain();
     }
-  }, [selectedProfile.id]);
+  }, [
+    selectedProfileMain,
+    typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
+  ]);
+
+  async function getIndividualDetailsSecondary() {
+    setLoadingSecondary(true);
+    setFacebookDataSecondary(undefined);
+    setInstagramDataSecondary(undefined);
+    setTiktokDataSecondary(undefined);
+    setYoutubeDataSecondary(undefined);
+    if (localStorage.getItem("selectedTime") === null) {
+      setSelectedTimeValues({
+        value: 7,
+        name: "Últimos 7 Dias",
+      });
+    } else {
+      setSelectedTimeValues({
+        value: Number(localStorage.getItem("selectedTime")),
+        name: String(localStorage.getItem("selectedTimeName")),
+      });
+    }
+    const [facebook, instagram, tiktok, youtube] = await Promise.all([
+      authGetAPI(
+        `/profile/facebook/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/instagram/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/tiktok/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/youtube/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+      ),
+    ]);
+    if (facebook.status === 200) {
+      setFacebookDataSecondary(facebook.body);
+    }
+    if (instagram.status === 200) {
+      setInstagramDataSecondary(instagram.body);
+    }
+    if (tiktok.status === 200) {
+      setTiktokDataSecondary(tiktok.body);
+    }
+    if (youtube.status === 200) {
+      setYoutubeDataSecondary(youtube.body);
+    }
+    return setLoadingSecondary(false);
+  }
+
+  useEffect(() => {
+    if (selectedProfileSecondary.id) {
+      if (typeof window !== "undefined") {
+        setSelectedTimeValues({
+          value: Number(localStorage.getItem("selectedTime")),
+          name: String(localStorage.getItem("selectedTimeName")),
+        });
+      }
+      getIndividualDetailsSecondary();
+    }
+  }, [
+    selectedProfileSecondary,
+    typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
+  ]);
+
+  async function GetMentionsSecondary() {
+    setLoadingSecondary(true);
+    setMentionsDataSecondary(undefined);
+    if (localStorage.getItem("selectedTime") === null) {
+      setSelectedTimeValues({
+        value: 7,
+        name: "Últimos 7 Dias",
+      });
+    } else {
+      setSelectedTimeValues({
+        value: Number(localStorage.getItem("selectedTime")),
+        name: String(localStorage.getItem("selectedTimeName")),
+      });
+    }
+    const connect = await authGetAPI(
+      `/profile/mentions/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+    );
+    console.log("connect: ", connect);
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setMentionsDataSecondary(connect.body);
+    return setLoadingSecondary(false);
+  }
+
+  useEffect(() => {
+    if (selectedProfileSecondary.id) {
+      if (typeof window !== "undefined") {
+        setSelectedTimeValues({
+          value: Number(localStorage.getItem("selectedTime")),
+          name: String(localStorage.getItem("selectedTimeName")),
+        });
+      }
+      GetMentionsSecondary();
+    }
+  }, [
+    selectedProfileSecondary,
+    typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
+  ]);
+
+  // async function getComparison() {
+  //   const connect = await authGetAPI(
+  //     `/profile/comparison/${selectedProfileMain.id}?period=${15}`
+  //   );
+  // }
+
+  // useEffect(() => {
+  //   if (selectedProfileMain.id !== "") {
+  //     getComparison();
+  //   }
+  // }, [selectedProfileMain.id]);
 
   return (
     <main ref={main}>
@@ -189,90 +317,116 @@ export default function Comparison() {
           style={{ opacity: 1 }}
         >
           <ComparisonHeaderComponent
-            selectedPage={selectedPage}
-            setSelectedPage={setSelectedPage}
-            selectedProfile={selectedProfile}
-            setSelectedProfile={setSelectedProfile}
+            selectedComparison={selectedComparison}
+            setSelectedComparison={setSelectedComparison}
+            selectedProfileMain={selectedProfileMain}
+            setSelectedProfileMain={setSelectedProfileMain}
+            selectedProfileSecondary={selectedProfileSecondary}
+            setSelectedProfileSecondary={setSelectedProfileSecondary}
             fadeOut={fadeOut}
             timeValues={timeValues}
             selectedTimeValues={selectedTimeValues}
             setSelectedTimeValues={setSelectedTimeValues}
-            loading={loading}
-            setLoading={setLoading}
+            setLoading={setLoadingMain}
           />
-          <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
-            <LikesAndComentsCard
-              type="facebook"
-              coments={1}
-              likes={25}
-              name="Facebook"
-              onClick={() => setSelectedPage("facebook")}
-              isSelected={
-                selectedPage === "facebook" || selectedPage === "initial"
-              }
-            />
-            <LikesAndComentsCard
-              type="instagram"
-              coments={1}
-              likes={25}
-              name="Instagram"
-              onClick={() => setSelectedPage("instagram")}
-              isSelected={
-                selectedPage === "instagram" || selectedPage === "initial"
-              }
-            />
-            <LikesAndComentsCard
-              type="tiktok"
-              coments={1}
-              likes={25}
-              name="TikTok"
-              onClick={() => setSelectedPage("tiktok")}
-              isSelected={
-                selectedPage === "tiktok" || selectedPage === "initial"
-              }
-            />
-            <LikesAndComentsCard
-              type="youtube"
-              coments={1}
-              likes={25}
-              name="Youtube"
-              onClick={() => setSelectedPage("youtube")}
-              isSelected={
-                selectedPage === "youtube" || selectedPage === "initial"
-              }
-            />
-          </div>
-          {selectedPage === "facebook" && (
+          {selectedComparison === "MÍDIAS SOCIAIS" ? (
+            <>
+              <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
+                <LikesAndComentsCard
+                  type="facebook"
+                  coments={1}
+                  likes={25}
+                  name="Facebook"
+                  onClick={() => setSelectedPage("facebook")}
+                  isSelected={
+                    selectedPage === "facebook" || selectedPage === "initial"
+                  }
+                />
+                <LikesAndComentsCard
+                  type="instagram"
+                  coments={1}
+                  likes={25}
+                  name="Instagram"
+                  onClick={() => setSelectedPage("instagram")}
+                  isSelected={
+                    selectedPage === "instagram" || selectedPage === "initial"
+                  }
+                />
+                <LikesAndComentsCard
+                  type="tiktok"
+                  coments={1}
+                  likes={25}
+                  name="TikTok"
+                  onClick={() => setSelectedPage("tiktok")}
+                  isSelected={
+                    selectedPage === "tiktok" || selectedPage === "initial"
+                  }
+                />
+                <LikesAndComentsCard
+                  type="youtube"
+                  coments={1}
+                  likes={25}
+                  name="Youtube"
+                  onClick={() => setSelectedPage("youtube")}
+                  isSelected={
+                    selectedPage === "youtube" || selectedPage === "initial"
+                  }
+                />
+              </div>
+              {selectedPage === "facebook" && (
+                <ComparisonType
+                  selectedComparison={selectedComparison}
+                  id={"scoreComparison"}
+                  pageType="facebook"
+                  pageDataMain={facebookDataMain}
+                  pageDataSecondary={facebookDataSecondary}
+                  loadingMain={loadingMain}
+                  loadingSecondary={loadingSecondary}
+                />
+              )}
+              {selectedPage === "instagram" && (
+                <ComparisonType
+                  selectedComparison={selectedComparison}
+                  id={"scoreComparison"}
+                  pageType="instagram"
+                  pageDataMain={instagramDataMain}
+                  pageDataSecondary={instagramDataSecondary}
+                  loadingMain={loadingMain}
+                  loadingSecondary={loadingSecondary}
+                />
+              )}
+              {selectedPage === "tiktok" && (
+                <ComparisonType
+                  selectedComparison={selectedComparison}
+                  id={"scoreComparison"}
+                  pageType="tiktok"
+                  pageDataMain={tiktokDataMain}
+                  pageDataSecondary={tiktokDataSecondary}
+                  loadingMain={loadingMain}
+                  loadingSecondary={loadingSecondary}
+                />
+              )}
+              {selectedPage === "youtube" && (
+                <ComparisonType
+                  selectedComparison={selectedComparison}
+                  id={"scoreComparison"}
+                  pageType="youtube"
+                  pageDataMain={youtubeDataMain}
+                  pageDataSecondary={youtubeDataSecondary}
+                  loadingMain={loadingMain}
+                  loadingSecondary={loadingSecondary}
+                />
+              )}
+            </>
+          ) : (
             <ComparisonType
-              loading={loading}
-              id={"scoreComparison"}
-              pageType="facebook"
-              pageData={facebookData}
-              locked={locked}
-            />
-          )}
-          {selectedPage === "instagram" && (
-            <ComparisonType
-              loading={loading}
-              id={"scoreComparison"}
-              pageType="instagram"
-              pageData={instagramData}
-            />
-          )}
-          {selectedPage === "tiktok" && (
-            <ComparisonType
-              loading={loading}
-              id={"scoreComparison"}
-              pageType="tiktok"
-              pageData={tiktokData}
-            />
-          )}
-          {selectedPage === "youtube" && (
-            <ComparisonType
-              loading={loading}
-              id={"scoreComparison"}
-              pageType="youtube"
-              pageData={youtubeData}
+              selectedComparison={selectedComparison}
+              id={"mentionsComparison"}
+              pageType=""
+              pageDataMain={mentionsDataMain}
+              pageDataSecondary={mentionsDataSecondary}
+              loadingMain={loadingMain}
+              loadingSecondary={loadingSecondary}
             />
           )}
         </div>

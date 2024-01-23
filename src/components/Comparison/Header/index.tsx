@@ -2,41 +2,49 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AuthPutAPI, authGetAPI, getAPI, loginVerifyAPI } from "@/lib/axios";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Spinner } from "react-bootstrap";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
-import { MenuItemComponent } from "../home/Header/MenuItem";
-import { HeaderCandidateSelect } from "../home/Header/CandidateSelect";
-import { HeaderTimeSelect } from "../home/Header/TimeSelect";
+import { MenuItemComponent } from "../../home/Header/MenuItem";
+import { HeaderCandidateSelect } from "../../home/Header/CandidateSelect";
+import { HeaderTimeSelect } from "../../home/Header/TimeSelect";
+import { Item } from "@/components/Global/CitySelector/styles";
+import { ComparisonItemComponent } from "../ComparisonItemComponent";
 
 interface headerProps {
   fadeOut: any;
-  selectedProfile: {
+  selectedProfileMain: {
     name: string;
     politicalGroup: string;
     id: string;
   };
-  setSelectedProfile: any;
-  selectedPage?: string;
-  setSelectedPage?: any;
+  setSelectedProfileMain: any;
+  selectedProfileSecondary: {
+    name: string;
+    politicalGroup: string;
+    id: string;
+  };
+  setSelectedProfileSecondary: any;
+  selectedComparison: string;
+  setSelectedComparison: any;
   timeValues?: any;
   selectedTimeValues?: any;
   setSelectedTimeValues?: (value: any) => void;
   getIndividualDetails?: any;
-  loading?: boolean;
   setLoading?: (value: boolean) => void;
 }
 
 export function ComparisonHeaderComponent({
   fadeOut,
-  selectedProfile,
-  setSelectedProfile,
-  selectedPage,
-  setSelectedPage,
+  selectedProfileMain,
+  setSelectedProfileMain,
+  selectedProfileSecondary,
+  setSelectedProfileSecondary,
+  selectedComparison,
+  setSelectedComparison,
   timeValues,
   selectedTimeValues,
   setSelectedTimeValues,
   getIndividualDetails,
-  loading,
   setLoading,
 }: headerProps) {
   const router = useRouter();
@@ -95,28 +103,16 @@ export function ComparisonHeaderComponent({
     }
     if (connect.body.profile.length !== 0) {
       setMonitoredProfiles(connect.body.profile);
-      if (localStorage.getItem("selectedProfile") === null) {
-        setSelectedProfile({
-          name: connect.body.profile[0].name,
-          politicalGroup: connect.body.profile[0].politicalGroup,
-          id: connect.body.profile[0].id,
-        });
-      } else {
-        setSelectedProfile({
-          name: connect.body.profile.filter(
-            (profile: any) =>
-              profile.id === localStorage.getItem("selectedProfile")
-          )[0].name,
-          politicalGroup: connect.body.profile.filter(
-            (profile: any) =>
-              profile.id === localStorage.getItem("selectedProfile")
-          )[0].politicalGroup,
-          id: connect.body.profile.filter(
-            (profile: any) =>
-              profile.id === localStorage.getItem("selectedProfile")
-          )[0].id,
-        });
-      }
+      setSelectedProfileMain({
+        name: connect.body.profile[0].name,
+        politicalGroup: connect.body.profile[0].politicalGroup,
+        id: connect.body.profile[0].id,
+      });
+      setSelectedProfileSecondary({
+        name: connect.body.profile[1].name,
+        politicalGroup: connect.body.profile[1].politicalGroup,
+        id: connect.body.profile[1].id,
+      });
     }
   }
 
@@ -153,7 +149,11 @@ export function ComparisonHeaderComponent({
   async function logOut() {
     localStorage.removeItem("axioonToken");
     localStorage.removeItem("axioonRefreshToken");
-    router.push("/");
+    localStorage.removeItem("axioonUserType");
+    localStorage.removeItem("selectedProfile");
+    localStorage.removeItem("selectedTime");
+    localStorage.removeItem("selectedTimeName");
+    return router.push("/login");
   }
 
   return (
@@ -195,17 +195,17 @@ export function ComparisonHeaderComponent({
           </Dropdown>
         </div>
         <nav className="headerMenu flex flex-wrap justify-around xl:justify-evenly xl:mt-10 gap-4">
-          <MenuItemComponent
+          <ComparisonItemComponent
             fadeOut={() => fadeOut()}
-            href="/midias-sociais"
             name="MÍDIAS SOCIAIS"
-            selectedPage={selectedPage}
-            setSelectedPage={setSelectedPage}
+            selectedComparison={selectedComparison}
+            setSelectedComparison={setSelectedComparison}
           />
-          <MenuItemComponent
+          <ComparisonItemComponent
             fadeOut={() => fadeOut()}
-            href="/mencoes"
             name="MENÇÕES"
+            selectedComparison={selectedComparison}
+            setSelectedComparison={setSelectedComparison}
           />
         </nav>
         <div className="Candidate flex flex-col h-auto items-center xl:flex-row md:h-28 mt-12 px-8 justify-between">
@@ -218,11 +218,32 @@ export function ComparisonHeaderComponent({
               className="w-16 h-16 rounded-full object-cover"
             />
             <div className="info flex flex-col">
-              <HeaderCandidateSelect
-                profiles={monitoredProfiles}
-                selectedProfile={selectedProfile}
-                setSelectedProfile={setSelectedProfile}
-              />
+              <div className="Container flex">
+                <Dropdown className="flex items-center justify-center">
+                  <Dropdown.Toggle
+                    className="flex items-center justify-center text-sm text-white border-0"
+                    style={{ backgroundColor: "#0d123c" }}
+                  >
+                    {selectedProfileMain ? (
+                      `${selectedProfileMain.name} - ${selectedProfileMain.politicalGroup}`
+                    ) : (
+                      <>
+                        <Spinner animation="border" />
+                      </>
+                    )}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 opacity-95 px-1">
+                    {monitoredProfiles.map((item: any) => (
+                      <Item
+                        onClick={() => setSelectedProfileMain(item)}
+                        key={item}
+                      >
+                        {item.name} - {item.politicalGroup}
+                      </Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
               <span className="candidateNumber text-[#8990ab] text-sm">
                 Número do Candidato: xxxxxxxxxx
               </span>
@@ -234,17 +255,13 @@ export function ComparisonHeaderComponent({
           </div>
 
           <div className="buttonAndSelect flex items-center my-8 flex-col md:mt-0 gap-4 md:items-end">
-            {selectedPage !== "seu-eleitorado" &&
-              router.asPath.split("/")[2] !== "inteligencia-artificial" && (
-                <HeaderTimeSelect
-                  timeValues={timeValues}
-                  selectedTimeValues={selectedTimeValues}
-                  setSelectedTimeValues={setSelectedTimeValues}
-                  getIndividualDetails={getIndividualDetails}
-                  loading={loading}
-                  setLoading={setLoading}
-                />
-              )}
+            <HeaderTimeSelect
+              timeValues={timeValues}
+              selectedTimeValues={selectedTimeValues}
+              setSelectedTimeValues={setSelectedTimeValues}
+              getIndividualDetails={getIndividualDetails}
+              setLoading={setLoading}
+            />
           </div>
 
           <div className="candidateInfo flex items-center gap-3">
@@ -256,11 +273,32 @@ export function ComparisonHeaderComponent({
               className="w-16 h-16 rounded-full object-cover"
             />
             <div className="info flex flex-col">
-              <HeaderCandidateSelect
-                profiles={monitoredProfiles}
-                selectedProfile={selectedProfile}
-                setSelectedProfile={setSelectedProfile}
-              />
+              <div className="Container flex">
+                <Dropdown className="flex items-center justify-center">
+                  <Dropdown.Toggle
+                    className="flex items-center justify-center text-sm text-white border-0"
+                    style={{ backgroundColor: "#0d123c" }}
+                  >
+                    {selectedProfileSecondary ? (
+                      `${selectedProfileSecondary.name} - ${selectedProfileSecondary.politicalGroup}`
+                    ) : (
+                      <>
+                        <Spinner animation="border" />
+                      </>
+                    )}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 opacity-95 px-1">
+                    {monitoredProfiles.map((item: any) => (
+                      <Item
+                        onClick={() => setSelectedProfileSecondary(item)}
+                        key={item}
+                      >
+                        {item.name} - {item.politicalGroup}
+                      </Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
               <span className="candidateNumber text-[#8990ab] text-sm">
                 Número do Candidato: xxxxxxxxxx
               </span>

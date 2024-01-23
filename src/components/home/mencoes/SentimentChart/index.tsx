@@ -73,7 +73,7 @@ export function SentimentChart({
         <div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#22C24F]" />
-            <strong>{positive.toFixed(0)}</strong>
+            <strong>{positive && positive.toFixed(0)}</strong>
           </div>
           <span className="text-sm text-[#8790AB]">
             {legend1 === undefined ? "Positivos" : legend1}
@@ -82,7 +82,7 @@ export function SentimentChart({
         <div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#EA2020]" />
-            <strong>{negative.toFixed(0)}</strong>
+            <strong>{negative && negative.toFixed(0)}</strong>
           </div>
           <span className="text-sm text-[#8790AB]">
             {legend2 === undefined ? "Negativos" : legend2}
@@ -91,7 +91,7 @@ export function SentimentChart({
         <div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#FFB043]" />
-            <strong>{neutral.toFixed(0)}</strong>
+            <strong>{neutral && neutral.toFixed(0)}</strong>
           </div>
           <span className="text-sm text-[#8790AB]">
             {legend3 === undefined ? "Neutros" : legend3}
