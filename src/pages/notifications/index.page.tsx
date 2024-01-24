@@ -65,9 +65,12 @@ export default function Notifications() {
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
-        <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
-          <DateSelectorDropdown />
-          <Main>
+        <div
+          className="mainContent bg-gray-10 relative m-1 rounded-tl-2xl rounded-bl-2xl pb-12 px-2 pt-2 w-full left-full lg:w-[calc(100%-18rem)] lg:left-[calc(100%-18rem)]"
+          ref={content}
+          style={{ opacity: 1 }}
+        >
+          <main className="Main flex flex-col p-4 m-0 rounded-lg md:m-2">
             {notifications.length === 0 && (
               <div className="noNotifications text-2xl font-semibold">
                 Nenhuma notificação ativa
@@ -79,30 +82,9 @@ export default function Notifications() {
                 new Date().toLocaleDateString("pt-BR")
             ).length !== 0 ? (
               <>
-                <header
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    marginTop: "5rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "1rem",
-                        alignItems: "center",
-                      }}
-                    >
+                <header className="flex w-full mt-4">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex gap-4 items-center">
                       <img
                         src={"/NotificationsIcon1.svg"}
                         width={50}
@@ -113,22 +95,14 @@ export default function Notifications() {
                     </div>
                   </div>
                 </header>
-                <NotificationsRows>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "1rem",
-                    }}
-                  >
+                <div className="NotificationRows flex w-full items-center justify-between m-12 pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                  <div className="flex items-center gap-4">
                     <img src="/NotificationsIcon4.svg" alt="" />
                     {""} Notificações
                   </div>
-                  <div style={{ display: "flex", alignSelf: "center" }}>
-                    Data
-                  </div>
+                  <div className="flex self-center">Data</div>
                   <div></div>
-                </NotificationsRows>
+                </div>
                 {notifications
                   .filter(
                     (item: any) =>
@@ -136,20 +110,8 @@ export default function Notifications() {
                       new Date().toLocaleDateString("pt-BR")
                   )
                   .map((notification: any, index: any) => (
-                    <NotificationsRows
-                      style={{
-                        borderBottom: `1px solid ${Theme.color.gray_100}`,
-                        marginTop: "1rem",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          maxWidth: "40%",
-                          alignItems: "flex-start",
-                        }}
-                      >
+                    <div className="NotificationRows flex w-full items-center justify-between pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                      <div className="flex flex-col w-2/5 items-start">
                         <div className="flex flex-row">
                           <img
                             src={
@@ -162,38 +124,20 @@ export default function Notifications() {
                                     : "/YoutubeLogo.svg"
                             }
                             alt=""
-                            style={{
-                              width: 25,
-                              height: 25,
-                              marginRight: 10,
-                            }}
+                            className="w-5 h-5 mr-2"
                           />
                           {notification.type}
                         </div>
-                        <div style={{ marginLeft: 35 }}>
+                        <div className="ml-2">
                           <strong>{notification.description}</strong>
                         </div>
                       </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          maxWidth: "20%",
-                          alignSelf: "center",
-                        }}
-                      >
+                      <div className="flex flex-col items-center w-1/5 self-center">
                         {new Date(notification.date).toLocaleDateString(
                           "pt-BR"
                         )}
                       </div>
-                      <div
-                        style={{
-                          width: "20%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-evenly",
-                        }}
-                      >
+                      <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
                         {notification.action === "Read" ? (
                           <GlobalButton
                             background="#fff"
@@ -201,10 +145,7 @@ export default function Notifications() {
                             fontSize={10}
                             width="auto"
                             height="auto"
-                            className="rounded p-2 flex flex-row"
-                            style={{
-                              border: `2px solid ${Theme.color.darkBlueAxion}`,
-                            }}
+                            className="rounded p-2 flex flex-row border-b-2 border-darkBlueAxion"
                             content="Marcar como Não Lida"
                           ></GlobalButton>
                         ) : (
@@ -215,10 +156,8 @@ export default function Notifications() {
                               fontSize={10}
                               width="auto"
                               height="auto"
-                              className="rounded p-2 flex flex-row"
-                              style={{
-                                border: `2px solid ${Theme.color.darkBlueAxion}`,
-                              }}
+                              className="p-2 rounded"
+                              style={{ border: "2px solid rgb(13, 18, 60)" }}
                               content="Acessar"
                             />
                             <GlobalButton
@@ -233,7 +172,7 @@ export default function Notifications() {
                           </>
                         )}
                       </div>
-                    </NotificationsRows>
+                    </div>
                   ))}
               </>
             ) : (
@@ -250,30 +189,9 @@ export default function Notifications() {
                   ).toLocaleDateString("pt-BR")
             ).length !== 0 ? (
               <>
-                <header
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    marginTop: "5rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "1rem",
-                        alignItems: "center",
-                      }}
-                    >
+                <header className="flex w-full mt-4">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex gap-4 items-center">
                       <img
                         src={"/NotificationsIcon1.svg"}
                         width={50}
@@ -284,22 +202,14 @@ export default function Notifications() {
                     </div>
                   </div>
                 </header>
-                <NotificationsRows>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "1rem",
-                    }}
-                  >
+                <div className="NotificationRows flex w-full items-center justify-between m-12 pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                  <div className="flex items-center gap-4">
                     <img src="/NotificationsIcon4.svg" alt="" />
                     {""} Notificações
                   </div>
-                  <div style={{ display: "flex", alignSelf: "center" }}>
-                    Data
-                  </div>
+                  <div className="flex self-center">Data</div>
                   <div></div>
-                </NotificationsRows>
+                </div>
                 {notifications
                   .filter(
                     (item: any) =>
@@ -311,20 +221,8 @@ export default function Notifications() {
                         ).toLocaleDateString("pt-BR")
                   )
                   .map((notification: any, index: any) => (
-                    <NotificationsRows
-                      style={{
-                        borderBottom: `1px solid ${Theme.color.gray_100}`,
-                        marginTop: "1rem",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          maxWidth: "40%",
-                          alignItems: "flex-start",
-                        }}
-                      >
+                    <div className="NotificationRows flex w-full items-center justify-between pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                      <div className="flex flex-col w-2/5 items-start">
                         <div className="flex flex-row">
                           <img
                             src={
@@ -337,38 +235,20 @@ export default function Notifications() {
                                     : "/YoutubeLogo.svg"
                             }
                             alt=""
-                            style={{
-                              width: 25,
-                              height: 25,
-                              marginRight: 10,
-                            }}
+                            className="w-5 h-5 mr-2"
                           />
                           {notification.type}
                         </div>
-                        <div style={{ marginLeft: 35 }}>
+                        <div className="ml-2">
                           <strong>{notification.description}</strong>
                         </div>
                       </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          maxWidth: "20%",
-                          alignSelf: "center",
-                        }}
-                      >
+                      <div className="flex flex-col items-center w-1/5 self-center">
                         {new Date(notification.date).toLocaleDateString(
                           "pt-BR"
                         )}
                       </div>
-                      <div
-                        style={{
-                          width: "20%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-evenly",
-                        }}
-                      >
+                      <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
                         {notification.action === "Read" ? (
                           <GlobalButton
                             background="#fff"
@@ -376,10 +256,7 @@ export default function Notifications() {
                             fontSize={10}
                             width="auto"
                             height="auto"
-                            className="rounded p-2 flex flex-row"
-                            style={{
-                              border: `2px solid ${Theme.color.darkBlueAxion}`,
-                            }}
+                            className="rounded p-2 flex flex-row border-b-2 border-darkBlueAxion"
                             content="Marcar como Não Lida"
                           ></GlobalButton>
                         ) : (
@@ -390,10 +267,8 @@ export default function Notifications() {
                               fontSize={10}
                               width="auto"
                               height="auto"
-                              className="rounded p-2 flex flex-row"
-                              style={{
-                                border: `2px solid ${Theme.color.darkBlueAxion}`,
-                              }}
+                              className="p-2 rounded"
+                              style={{ border: "2px solid rgb(13, 18, 60)" }}
                               content="Acessar"
                             />
                             <GlobalButton
@@ -408,7 +283,7 @@ export default function Notifications() {
                           </>
                         )}
                       </div>
-                    </NotificationsRows>
+                    </div>
                   ))}
               </>
             ) : (
@@ -423,30 +298,9 @@ export default function Notifications() {
                 ).toLocaleDateString("pt-BR")
             ).length !== 0 ? (
               <>
-                <header
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    marginTop: "5rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "1rem",
-                        alignItems: "center",
-                      }}
-                    >
+                <header className="flex w-full mt-4">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex gap-4 items-center">
                       <img
                         src={"/NotificationsIcon1.svg"}
                         width={50}
@@ -457,22 +311,14 @@ export default function Notifications() {
                     </div>
                   </div>
                 </header>
-                <NotificationsRows>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "1rem",
-                    }}
-                  >
+                <div className="NotificationRows flex w-full items-center justify-between m-12 pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                  <div className="flex items-center gap-4">
                     <img src="/NotificationsIcon4.svg" alt="" />
                     {""} Notificações
                   </div>
-                  <div style={{ display: "flex", alignSelf: "center" }}>
-                    Data
-                  </div>
+                  <div className="flex self-center">Data</div>
                   <div></div>
-                </NotificationsRows>
+                </div>
                 {notifications
                   .filter(
                     (item: any) =>
@@ -482,20 +328,8 @@ export default function Notifications() {
                       ).toLocaleDateString("pt-BR")
                   )
                   .map((notification: any, index: any) => (
-                    <NotificationsRows
-                      style={{
-                        borderBottom: `1px solid ${Theme.color.gray_100}`,
-                        marginTop: "1rem",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          maxWidth: "40%",
-                          alignItems: "flex-start",
-                        }}
-                      >
+                    <div className="NotificationRows flex w-full items-center justify-between pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                      <div className="flex flex-col w-2/5 items-start">
                         <div className="flex flex-row">
                           <img
                             src={
@@ -508,38 +342,20 @@ export default function Notifications() {
                                     : "/YoutubeLogo.svg"
                             }
                             alt=""
-                            style={{
-                              width: 25,
-                              height: 25,
-                              marginRight: 10,
-                            }}
+                            className="w-5 h-5 mr-2"
                           />
                           {notification.type}
                         </div>
-                        <div style={{ marginLeft: 35 }}>
+                        <div className="ml-2">
                           <strong>{notification.description}</strong>
                         </div>
                       </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          maxWidth: "20%",
-                          alignSelf: "center",
-                        }}
-                      >
+                      <div className="flex flex-col items-center w-1/5 self-center">
                         {new Date(notification.date).toLocaleDateString(
                           "pt-BR"
                         )}
                       </div>
-                      <div
-                        style={{
-                          width: "20%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-evenly",
-                        }}
-                      >
+                      <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
                         {notification.action === "Read" ? (
                           <GlobalButton
                             background="#fff"
@@ -547,10 +363,7 @@ export default function Notifications() {
                             fontSize={10}
                             width="auto"
                             height="auto"
-                            className="rounded p-2 flex flex-row"
-                            style={{
-                              border: `2px solid ${Theme.color.darkBlueAxion}`,
-                            }}
+                            className="rounded p-2 flex flex-row border-b-2 border-darkBlueAxion"
                             content="Marcar como Não Lida"
                           ></GlobalButton>
                         ) : (
@@ -561,10 +374,8 @@ export default function Notifications() {
                               fontSize={10}
                               width="auto"
                               height="auto"
-                              className="rounded p-2 flex flex-row"
-                              style={{
-                                border: `2px solid ${Theme.color.darkBlueAxion}`,
-                              }}
+                              className="p-2 rounded"
+                              style={{ border: "2px solid rgb(13, 18, 60)" }}
                               content="Acessar"
                             />
                             <GlobalButton
@@ -579,14 +390,14 @@ export default function Notifications() {
                           </>
                         )}
                       </div>
-                    </NotificationsRows>
+                    </div>
                   ))}
               </>
             ) : (
               <></>
             )}
-          </Main>
-        </Content>
+          </main>
+        </div>
       </RootLayout>
     </main>
   );
