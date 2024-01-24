@@ -1,11 +1,13 @@
 import RootLayout from "@/components/Layout";
 import { useRouter } from "next/router";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { HeaderComponent } from "@/components/home/Header";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import Image from "next/image";
 import { Spinner } from "react-bootstrap";
+import { authGetAPI } from "@/lib/axios";
+import { maskCnpj } from "@/utils/masks";
 
 export default function Legal() {
   const main = useRef(null);
@@ -58,10 +60,28 @@ export default function Legal() {
     },
   ];
 
-  const [legalData, setLegalData] = useState(true);
+  const [legalData, setLegalData] = useState<any>();
   const [locked, setLocked] = useState(false);
 
   const array = [1, 2, 3, 4, 5];
+
+  async function getLegal() {
+    const connect = await authGetAPI(`/profile/legal/${selectedProfile.id}`);
+    if (connect.status === 401) {
+      return setLocked(true);
+    }
+    setLocked(false);
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setLegalData(connect.body.politicianProfile);
+  }
+
+  useEffect(() => {
+    if (selectedProfile.id) {
+      getLegal();
+    }
+  }, [selectedProfile]);
 
   return (
     <main ref={main}>
@@ -91,56 +111,71 @@ export default function Legal() {
                     subTitle
                   />
                   <div className="my-4 h-[35vh] overflow-y-scroll">
-                    {array.slice(0, showMore ? array.length : 3).map((item) => (
-                      <div className="flex flex-col p-2 w-full gap-2 justify-between h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
-                        <div className="flex flex-col lg:flex-row w-full gap-2">
-                          <div className="flex flex-row lg:flex-col">
-                            <Image
-                              src="/dashboard/Legal/Papers.svg"
-                              width={25}
-                              height={25}
-                              alt=""
-                            />
-                            <div className="flex flex-col self-center">
-                              <span className="text-darkBlueAxion font-semibold">
-                                Prestação de Contas
+                    {legalData &&
+                      legalData.legalData
+                        .slice(0, showMore ? legalData.legalData.length : 3)
+                        .map((item: any) => (
+                          <div className="flex flex-col p-2 w-full gap-2 justify-between h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
+                            <div className="flex flex-col lg:flex-row w-full gap-2">
+                              <div className="flex flex-row max-w-[60%] lg:flex-col">
+                                <Image
+                                  src="/dashboard/Legal/Papers.svg"
+                                  width={25}
+                                  height={25}
+                                  alt=""
+                                />
+                                <div className="flex flex-col self-center">
+                                  <span className="text-darkBlueAxion font-semibold text-xs">
+                                    {item.subject.length > 50
+                                      ? `${item.subject.slice(0, 50)}...`
+                                      : item.subject}
+                                  </span>
+                                  <span className="text-[10px] text-gray-60 font-light leading-3">
+                                    {item.judgingBy}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="flex items-center lg:ml-auto h-6 border-[1px] border-darkBlueAxion rounded bg-green-60">
+                                <Image
+                                  src="/dashboard/Legal/Checked.svg"
+                                  width={20}
+                                  height={20}
+                                  alt=""
+                                />
+                                <span className="text-white font-semibold text-xs">
+                                  Processo Trânsito Ativo
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex w-full gap-2 justify-between">
+                              <span className="text-[10px]">
+                                Data de Início:{" "}
+                                <strong>
+                                  {new Date(item.startDate).toLocaleDateString(
+                                    "pt-BR"
+                                  )}
+                                </strong>
                               </span>
-                              <span className="text-xs text-gray-60 font-light leading-3">
-                                055ª ZONA ELEITORAL DE CUIABÁ MT
+                              <button className="flex items-center justify-center bg-darkBlueAxion text-white text-[10px] rounded w-1/2 md:w-auto p-2 gap-1">
+                                <Image
+                                  src="/dashboard/Legal/Details.svg"
+                                  width={12}
+                                  height={12}
+                                  alt=""
+                                />
+                                Ver Detalhes
+                              </button>
+                              <span className="text-[10px]">
+                                Última atualização:{" "}
+                                <strong>
+                                  {new Date(item.lastUpdate).toLocaleDateString(
+                                    "pt-BR"
+                                  )}
+                                </strong>
                               </span>
                             </div>
                           </div>
-                          <div className="flex items-center lg:ml-auto w-40 h-6 border-[1px] border-darkBlueAxion rounded bg-green-60">
-                            <Image
-                              src="/dashboard/Legal/Checked.svg"
-                              width={20}
-                              height={20}
-                              alt=""
-                            />
-                            <span className="text-white font-semibold text-xs">
-                              Processo Trânsito Ativo
-                            </span>
-                          </div>
-                        </div>
-                        <div className="flex w-full gap-2 justify-between">
-                          <span className="text-[10px]">
-                            Data de Início: <strong>10/01/2024</strong>
-                          </span>
-                          <button className="flex items-center justify-center bg-darkBlueAxion text-white text-[10px] rounded w-1/2 md:w-auto p-2 gap-1">
-                            <Image
-                              src="/dashboard/Legal/Details.svg"
-                              width={12}
-                              height={12}
-                              alt=""
-                            />
-                            Ver Detalhes
-                          </button>
-                          <span className="text-[10px]">
-                            Última atualização: <strong>10/01/2024</strong>
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                        ))}
                   </div>
 
                   <span
@@ -164,31 +199,44 @@ export default function Legal() {
                     />
                     <div className="flex flex-col ml-auto text-darkBlueAxion text-[10px] md:text-xs">
                       <strong className="text-xs md:text-sm">
-                        Luis Inácio Lula da Silva
+                        {legalData && legalData.full_name}
                       </strong>
                       <span>
                         Status: <strong>Regular</strong>
                       </span>
                       <span>
                         Estimativa de Receita Mensal:{" "}
-                        <strong>Acima de 20MM</strong>
+                        <strong>
+                          {legalData &&
+                            legalData.personalData[0].estimated_recipe}
+                        </strong>
                       </span>
                       <span>
                         Estimativa de Patrimônio Líquido:
-                        <strong>1 a 5MM</strong>
+                        <strong>
+                          {legalData &&
+                            legalData.personalData[0].estimated_patrimony}
+                        </strong>
                       </span>
                     </div>
                   </div>
                   <div className="flex flex-wrap justify-around my-4 h-[35vh] overflow-y-scroll">
-                    {array.slice(0, showMore ? array.length : 4).map((item) => (
-                      <div className="flex flex-col items-center p-2 w-[45%] gap-2 justify-between h-auto min-h-16 first:m-0 mb-4 rounded bg-gradient-to-b from-[rgba(3,30,83,0.3)] from-10% via-[rgba(3,30,83,0.5)] via-20% to-darkBlueAxion shadow-sm text-sm">
-                        <span className="text-darkBlueAxion">2018</span>
-                        <span className="text-white text-center">
-                          Saldo inexistente de imposto a pagar ou restituir
-                        </span>
-                        <span className="text-gray-70">Banco do Brasil</span>
-                      </div>
-                    ))}
+                    {legalData &&
+                      legalData.incomeTax
+                        .slice(0, showMore ? legalData.incomeTax.length : 4)
+                        .map((item: any) => (
+                          <div className="flex flex-col items-center p-2 w-[45%] gap-2 justify-between h-auto min-h-16 first:m-0 mb-4 rounded bg-gradient-to-b from-[rgba(3,30,83,0.3)] from-10% via-[rgba(3,30,83,0.5)] via-20% to-darkBlueAxion shadow-sm text-sm">
+                            <span className="text-darkBlueAxion">
+                              {item.year}
+                            </span>
+                            <span className="text-white text-center">
+                              {item.situation}
+                            </span>
+                            <span className="text-gray-70">
+                              {item.bankAgency}
+                            </span>
+                          </div>
+                        ))}
                   </div>
                 </div>
 
@@ -209,25 +257,31 @@ export default function Legal() {
                     subTitle
                   />
                   <div className="flex flex-wrap justify-around my-4 h-[35vh] overflow-y-scroll">
-                    {array.slice(0, showMore ? array.length : 4).map((item) => (
-                      <div className="flex flex-col p-2 w-[45%] gap-2 justify-between h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
-                        <div className="flex flex-col items-center">
-                          <span className="text-darkBlueAxion text-xs lg:text-sm text-center font-semibold">
-                            L.I.L.S.PALESTRAS, EVENTOS E PUBLICACOES LTDA.
-                          </span>
-                          <span className="text-gray-60 text-[10px] lg:text-xs">
-                            13.427.330/0001-00
-                          </span>
-                        </div>
-                        <Image
-                          src="/dashboard/Legal/dealIcon.svg"
-                          width={25}
-                          height={25}
-                          alt=""
-                          className="self-end"
-                        />
-                      </div>
-                    ))}
+                    {legalData &&
+                      legalData.economicRelationship
+                        .slice(
+                          0,
+                          showMore ? legalData.economicRelationship.length : 4
+                        )
+                        .map((item: any) => (
+                          <div className="flex flex-col p-2 w-[45%] gap-2 justify-between h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
+                            <div className="flex flex-col items-center">
+                              <span className="text-darkBlueAxion text-xs lg:text-sm text-center font-semibold">
+                                {item.name}
+                              </span>
+                              <span className="text-gray-60 text-[10px] lg:text-xs">
+                                {maskCnpj(item.cnpj)}
+                              </span>
+                            </div>
+                            <Image
+                              src="/dashboard/Legal/dealIcon.svg"
+                              width={25}
+                              height={25}
+                              alt=""
+                              className="self-end"
+                            />
+                          </div>
+                        ))}
                   </div>
 
                   <span
@@ -248,25 +302,27 @@ export default function Legal() {
                     subTitle
                   />
                   <div className="my-4 h-[35vh] overflow-y-scroll">
-                    {array.slice(0, showMore ? array.length : 3).map((item) => (
-                      <div className="flex p-4 w-full gap-2 h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
-                        <Image
-                          src="/dashboard/Legal/briefcaseIcon.svg"
-                          width={50}
-                          height={50}
-                          alt=""
-                        />
-                        <div className="flex flex-col gap-2">
-                          <span className="text-sm lg:text-lg font-semibold text-darkBlueAxion">
-                            Rua Tadeo Gaddi - Jardim Imbe
-                          </span>
-                          <span className="text-darkBlueAxion text-xs lg:text-base">
-                            <strong>05863-770 - </strong>
-                            São Paulo - SP
-                          </span>
+                    {legalData.address
+                      .slice(0, showMore ? legalData.address.length : 3)
+                      .map((item: any) => (
+                        <div className="flex p-4 w-full gap-2 h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
+                          <Image
+                            src="/dashboard/Legal/briefcaseIcon.svg"
+                            width={50}
+                            height={50}
+                            alt=""
+                          />
+                          <div className="flex flex-col gap-2">
+                            <span className="text-sm lg:text-lg font-semibold text-darkBlueAxion">
+                              {item.address}
+                            </span>
+                            <span className="text-darkBlueAxion text-xs lg:text-base">
+                              <strong>{item.zipcode} - </strong>
+                              {item.city} - {item.state}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
 
                   <span

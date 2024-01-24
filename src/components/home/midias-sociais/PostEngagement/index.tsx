@@ -84,9 +84,8 @@ export function PostEngagement({ pageData, pageType }: pageData) {
         width={width < 550 ? 300 : width >= 500 && width < 768 ? 400 : 500}
         height={300}
         data={pageData?.posts.slice(0, 10).map((post: any) => ({
-          // name:
-          //   post.text.length > 20 ? post.text.slice(0, 20) + "..." : post.text,
-          name: "A",
+          name:
+            post.text.length > 20 ? post.text.slice(0, 20) + "..." : post.text,
           Curtidas: post.like,
           Comentários: post.commentCount,
           Sentimento: post.sentiment && Number(post.sentiment.toFixed(2)),
