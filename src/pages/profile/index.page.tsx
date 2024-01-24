@@ -25,6 +25,7 @@ import { NewUserModal } from "@/components/profile/NewUserModal";
 import { AuthPutAPI, authGetAPI, loginVerifyAPI, user_type } from "@/lib/axios";
 import { maskCpfCnpj, maskDate, maskPhone } from "@/utils/masks";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function Profile() {
   const router = useRouter();
@@ -158,10 +159,15 @@ export default function Profile() {
   return (
     <main ref={main}>
       <RootLayout fadeOut={() => fadeOut()}>
-        <Content className="mainContent" ref={content} style={{ opacity: 1 }}>
-          <Main>
-            <header>
-              <h2>Meu Perfil</h2>
+        <div
+          className="mainContent bg-gray-10 relative m-1 rounded-tl-2xl rounded-bl-2xl pb-12 px-2 pt-2 w-full left-full lg:w-[calc(100%-18rem)] lg:left-[calc(100%-18rem)]"
+          ref={content}
+          style={{ opacity: 1 }}
+        >
+          {" "}
+          <main className="Main flex flex-col p-4 m-0 rounded-lg md:m-2">
+            <header className="flex flex-col md:flex-row justify-between">
+              <h1 className="text-2xl font-bold">Meu Perfil</h1>
               <div className="flex flex-row gap-10">
                 <GlobalButton
                   onClick={() => setShowNewUserModal(true)}
@@ -190,9 +196,13 @@ export default function Profile() {
                 </GlobalButton>
               </div>
             </header>
-            <PersonalInfo>
-              <AvatarContainer>
-                <img src="/sidebar/user.png" alt="" />
+            <div className="flex flex-col md:flex-row items-center justify-around">
+              <div className="flex flex-col items-center w-full md:w-1/5">
+                <img
+                  src="/sidebar/user.png"
+                  alt=""
+                  className="w-16 h-16 rounded-full"
+                />
                 <GlobalButton
                   content=""
                   background="transparent"
@@ -205,12 +215,13 @@ export default function Profile() {
                   <UserEditSVG />
                   Substituir
                 </GlobalButton>
-              </AvatarContainer>
+              </div>
 
-              <FormSection>
-                <FormGroup>
+              <div className="flex flex-col w-full md:w-1/3 gap-8">
+                <div className="flex flex-col gap-2">
                   <label htmlFor="name">Nome Completo</label>
                   <input
+                    className="p-3 rounded border-[1px] w-full md:w-5/6 border-gray-20 outline-none text-black text-sm"
                     type="text"
                     id="name"
                     value={profileData?.name}
@@ -221,10 +232,11 @@ export default function Profile() {
                       })
                     }
                   />
-                </FormGroup>
-                <FormGroup>
+                </div>
+                <div className="flex flex-col gap-2">
                   <label htmlFor="name">Nome Social</label>
                   <input
+                    className="p-3 rounded border-[1px] w-full md:w-5/6 border-gray-20 outline-none text-black text-sm"
                     type="text"
                     id="social_name"
                     value={profileData?.social_name}
@@ -235,10 +247,11 @@ export default function Profile() {
                       })
                     }
                   />
-                </FormGroup>
-                <FormGroup>
+                </div>
+                <div className="flex flex-col gap-2">
                   <label htmlFor="email">Email</label>
                   <input
+                    className="p-3 rounded border-[1px] w-full md:w-5/6 border-gray-20 outline-none text-black text-sm"
                     type="email"
                     id="email"
                     value={profileData?.email}
@@ -249,10 +262,11 @@ export default function Profile() {
                       })
                     }
                   />
-                </FormGroup>
-                <FormGroup>
+                </div>
+                <div className="flex flex-col gap-2">
                   <label htmlFor="phone">Telefone</label>
                   <input
+                    className="p-3 rounded border-[1px] w-full md:w-5/6 border-gray-20 outline-none text-black text-sm"
                     type="tel"
                     id="phone"
                     value={profileData?.mobilePhone}
@@ -264,13 +278,14 @@ export default function Profile() {
                     }
                     maxLength={14}
                   />
-                </FormGroup>
-              </FormSection>
+                </div>
+              </div>
 
-              <FormSection>
-                <FormGroup>
+              <div className="flex flex-col w-full md:w-1/3 gap-8">
+                <div className="flex flex-col gap-2">
                   <label htmlFor="CPF">Seu CPF</label>
                   <input
+                    className="p-3 rounded border-[1px] border-gray-20 outline-none text-black text-sm"
                     type="text"
                     id="CPF"
                     value={profileData?.cpfCnpj}
@@ -281,10 +296,11 @@ export default function Profile() {
                       })
                     }
                   />
-                </FormGroup>
-                <FormGroup>
+                </div>
+                <div className="flex flex-col gap-2">
                   <label htmlFor="birthDate">Data de Nascimento</label>
                   <input
+                    className="p-3 rounded border-[1px] border-gray-20 outline-none text-black text-sm"
                     type="text"
                     id="birthDate"
                     value={profileData?.birth_date
@@ -299,7 +315,7 @@ export default function Profile() {
                       })
                     }
                   />
-                </FormGroup>
+                </div>
 
                 <div>
                   <label htmlFor="gender" style={{ marginBottom: "0.75rem" }}>
@@ -362,119 +378,52 @@ export default function Profile() {
                     loading={loading}
                   />
                 </div>
-              </FormSection>
-            </PersonalInfo>
+              </div>
+            </div>
 
-            <div
-              style={{
-                borderTop: "1px solid" + Theme.color.gray_20,
-                margin: "4rem 0 2rem 10rem",
-              }}
-            />
+            <div className="w-full border my-8" />
 
             <div />
             <div className="flex flex-row items-center gap-2">
-              <h2>Minha Assinatura</h2>
-              <img
+              <h1 className="text-2xl font-bold">Minha Assinatura</h1>
+              <Image
+                className="w-32 h-8"
+                width={1000}
+                height={300}
                 src="/axionLogo.png"
                 alt=""
-                style={{ height: "1.5rem", marginLeft: "0.5rem" }}
               />
             </div>
-            <div
-              style={{ display: "flex", flexDirection: "row" }}
-              className="mt-5"
-            >
-              <div
-                style={{
-                  width: "50%",
-                  height: "12rem",
-                  backgroundColor: "#d9d9d9",
-                  borderRadius: 15,
-                }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: "2rem",
-                  justifyContent: "space-between",
-                  width: "100%",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <label style={{ lineHeight: "3rem" }}>
-                      Plano Contratado:
-                    </label>
+            <div className="flex flex-col md:flex-row mt-2">
+              <div className="w-full xl:w-1/2 2xl:w-1/3 h-48 bg-[#d9d9d9] rounded-xl" />
+              <div className="flex flex-col flex-wrap gap-4 p-2 w-full text-xs md:text-sm">
+                <div className="flex justify-between">
+                  <div className="flex flex-col">
+                    <label className="font-semibold">Plano Contratado:</label>
                     Plano ABC
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <label style={{ lineHeight: "3rem" }}>INFO 1</label>
+                  <div className="flex flex-col">
+                    <label className="font-semibold">INFO 1</label>
                     INFO 1
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <label style={{ lineHeight: "3rem" }}>
+                  <div className="flex flex-col">
+                    <label className="font-semibold">
                       Agentes Monitorados:
                     </label>
                     Até 3 Agentes
                   </div>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <label style={{ lineHeight: "3rem" }}>
-                      Plano Contratado:
-                    </label>
+                <div className="flex justify-between">
+                  <div className="flex flex-col">
+                    <label className="font-semibold">Plano Contratado:</label>
                     Plano ABC
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <label style={{ lineHeight: "3rem" }}>INFO 1</label>
+                  <div className="flex flex-col">
+                    <label className="font-semibold">INFO 1</label>
                     INFO 1
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <label style={{ lineHeight: "3rem" }}>
+                  <div className="flex flex-col">
+                    <label className="font-semibold">
                       Agentes Monitorados:
                     </label>
                     Até 3 Agentes
@@ -482,73 +431,31 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginTop: "5rem",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <label style={{ lineHeight: "3rem" }}>Data</label>
+            <div className="flex flex-wrap gap-x-16 gap-y-4 justify-around text-xs md:text-sm mt-4">
+              <div className="flex flex-col">
+                <label className="font-semibold">Data</label>
                 01/01/2024
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <label style={{ lineHeight: "3rem" }}>Descrição</label>
+              <div className="flex flex-col">
+                <label className="font-semibold">Descrição</label>
                 Plano ABC
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <label style={{ lineHeight: "3rem" }}>Valor</label>
+              <div className="flex flex-col">
+                <label className="font-semibold">Valor</label>
                 R$5000,00
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <label style={{ lineHeight: "3rem" }}>Status</label>
-                <button
-                  style={{
-                    backgroundColor: Theme.color.green_70,
-                    color: "white",
-                    borderRadius: 5,
-                    border: 0,
-                    padding: "0 1rem",
-                  }}
-                >
+              <div className="flex flex-col">
+                <label className="font-semibold">Status</label>
+                <button className="px-4 bg-green-70 text-white rounded">
                   PAGO
                 </button>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <label style={{ lineHeight: "3rem" }}>Recibo</label>
-                <a style={{ textDecoration: "underline" }}>
-                  Retirar Nota Fiscal
-                </a>
+              <div className="flex flex-col">
+                <label className="font-semibold">Recibo</label>
+                <a className="decoration-none">Retirar Nota Fiscal</a>
               </div>
             </div>
-          </Main>
+          </main>
           <Main>
             <header>
               <h2>Usuários</h2>
@@ -568,7 +475,7 @@ export default function Profile() {
             </header>
             <UsersTable />
           </Main>
-        </Content>
+        </div>
 
         <NewPasswordModal
           show={showNewPasswordModal}
