@@ -172,7 +172,6 @@ export default function Comparison() {
     const connect = await authGetAPI(
       `/profile/mentions/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
     );
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -273,7 +272,6 @@ export default function Comparison() {
     const connect = await authGetAPI(
       `/profile/mentions/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
     );
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }

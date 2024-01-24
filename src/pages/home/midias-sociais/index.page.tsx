@@ -137,6 +137,7 @@ export default function MidiasSociais() {
 
   useEffect(() => {
     if (selectedProfile.id) {
+      setSocialMidiaData(undefined);
       getSocialMidiaDetails();
       if (typeof window !== "undefined") {
         setSelectedTimeValues({

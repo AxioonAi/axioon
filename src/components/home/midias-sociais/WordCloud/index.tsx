@@ -17,17 +17,21 @@ export function SimpleWordcloud({ socialMediaData }: Props) {
   useEffect(() => {
     if (socialMediaData) {
       const filteredData =
-        socialMediaData.length < 500
+        socialMediaData.length < 100
           ? socialMediaData.filter(
-              (obj: { quantity: number }) => obj.quantity > 20
+              (obj: { quantity: number }) => obj.quantity > 5
             )
-          : socialMediaData.length < 2500
+          : socialMediaData.length < 500
             ? socialMediaData.filter(
-                (obj: { quantity: number }) => obj.quantity > 50
+                (obj: { quantity: number }) => obj.quantity > 20
               )
-            : socialMediaData.filter(
-                (obj: { quantity: number }) => obj.quantity > 100
-              );
+            : socialMediaData.length < 2500
+              ? socialMediaData.filter(
+                  (obj: { quantity: number }) => obj.quantity > 50
+                )
+              : socialMediaData.filter(
+                  (obj: { quantity: number }) => obj.quantity > 100
+                );
       setWords(
         filteredData.map((obj: { word: string; quantity: number }) => {
           return {

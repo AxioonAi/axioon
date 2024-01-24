@@ -31,7 +31,6 @@ export function ComparisonType({
   id,
   locked,
 }: ComparisonProps) {
-  console.log("pageDataMain: ", pageDataMain);
   return (
     <>
       {selectedComparison === "MÍDIAS SOCIAIS" ? (

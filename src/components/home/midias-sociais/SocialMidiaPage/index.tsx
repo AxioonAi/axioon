@@ -155,15 +155,6 @@ export function SocialMidiaPage({
     setSelectedIndex(index);
   };
 
-  console.log(
-    "pageData: ",
-    pageData?.posts
-      .slice(0, showMore ? pageData?.posts.length : 4)
-      .sort(
-        (a: any, b: any) => Number(new Date(b.date)) - Number(new Date(a.date))
-      )
-  );
-
   return (
     <div className="pageContainer flex flex-col items-center justify-center m-auto p-2">
       {!pageData ? (
@@ -183,7 +174,7 @@ export function SocialMidiaPage({
                   content="Engajamento de Publicações"
                   barColor="#12A9E7"
                 />
-                <PostEngagement pageData={pageData} />
+                <PostEngagement pageData={pageData} pageType={pageType} />
               </div>
             </div>
 
@@ -220,12 +211,8 @@ export function SocialMidiaPage({
 
             <div className="keyIndicatorChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
               <div className="flex flex-col">
-                <TitleWithBar
-                  content="Indicadores Chave:"
-                  barColor="#12A9E7"
-                  subTitle
-                />
-                <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
+                <TitleWithBar content="Indicadores Chave:" barColor="#12A9E7" />
+                <ChartTip content="Os valores do lado esquerdo do gráfico representam dados do período anterior, e os valores do lado direito do gráfico representam dados do período atual." />
                 <KeyIndicators pageData={pageData} />
               </div>
             </div>
@@ -238,7 +225,6 @@ export function SocialMidiaPage({
                     content="Nuvem de palavras Geral"
                     subTitle
                   />
-                  <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
                   <div className="h-[22rem]">
                     <SimpleWordcloud socialMediaData={pageData.wordCloud} />
                   </div>
@@ -426,7 +412,7 @@ export function SocialMidiaPage({
                           {metaads &&
                             metaads.advertising.map((item: any, index: any) => (
                               <>
-                                <div className="Cards flex flex-col rounded border-[0.3px] border-[#0037c1] w-full lg:w-[49%] py-1 px-2">
+                                <div className="Cards flex flex-col rounded border-[0.3px] border-[#0037c1] w-full lg:w-[49%] py-1 px-2 shadow">
                                   <div className="flex w-full justify-between">
                                     <div>
                                       <a
@@ -472,7 +458,7 @@ export function SocialMidiaPage({
                                   </div>
                                   <label
                                     onClick={() => openModal(index)}
-                                    className="self-center p-2 border border-[#0037c1] text-sm rounded"
+                                    className="self-center p-2 border border-[#0037c1] text-sm rounded cursor-pointer hover:scale-[1.01] transition duration-200 ease-in"
                                   >
                                     Ver mais Detalhes
                                   </label>
@@ -636,7 +622,7 @@ export function SocialMidiaPage({
                           <div className="flex flex-col">
                             <div className="flex items-center gap-1">
                               <div
-                                className={`w-4 h-4 ${item.name === "Homens" ? "bg-darkBlueAxion" : item.name === "Mulheres" ? "bg-purpleAxion" : "bg-[#E5E8F0]"} rounded-full`}
+                                className={`w-4 h-4 ${item.name === "Homens" ? "bg-darkBlueAxion" : item.name === "Mulheres" ? "bg-[#E7298A]" : "bg-[#E5E8F0]"} rounded-full`}
                               />
                               <span className="text-darkBlueAxion font-semibold">
                                 {item.value.toFixed(0)}

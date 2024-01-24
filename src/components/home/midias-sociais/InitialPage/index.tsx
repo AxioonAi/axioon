@@ -83,7 +83,7 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
             barColor="#12A9E7"
             subTitle
           />
-          <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
+          <ChartTip content="Dados de engajamento calculados pela nossa Inteligência Artificial, determina qual Rede Social a sua presença esta mais engajada." />
         </div>
         <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center">
           <EngagmentChart chartData={engagmentData} />
@@ -120,7 +120,7 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
             content="Nuvem de palavras Geral"
             subTitle
           />
-          <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
+          <ChartTip content="Nuvem de palavras mais relevantes Filtradas pela nossa Inteligência Artificial, com base em dados gerais." />
         </div>
         <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center">
           <SimpleWordcloud socialMediaData={SocialMidiaData.wordCloud} />

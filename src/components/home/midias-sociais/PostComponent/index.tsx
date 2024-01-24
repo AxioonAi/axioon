@@ -60,7 +60,7 @@ export function PostComponent({
                 : post.description} */}
             {post.text && post.text.length > 100
               ? `${post.text.substring(0, 100)}...`
-              : post.text || post.description}
+              : post.text || `${post.description.substring(0, 100)}...`}
           </p>
         </div>
 
@@ -71,10 +71,22 @@ export function PostComponent({
                 <Image
                   width={20}
                   height={20}
-                  src="/dashboard/midias-sociais/facebookLike.svg"
+                  src={`/dashboard/midias-sociais/${type}Like.svg`}
                   alt=""
                 />
-                <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
+                <strong
+                  style={{
+                    color:
+                      type === "facebook"
+                        ? "#0037C1"
+                        : type === "instagram"
+                          ? "#EB4956"
+                          : type === "tiktok"
+                            ? "#0037C1"
+                            : "#0037C1",
+                    fontSize: "0.85rem",
+                  }}
+                >
                   {pageData?.posts[index].like}
                 </strong>
               </div>
@@ -82,24 +94,50 @@ export function PostComponent({
                 <Image
                   width={20}
                   height={20}
-                  src="/dashboard/midias-sociais/facebookComment.svg"
+                  src={`/dashboard/midias-sociais/${type}Comment.svg`}
                   alt=""
                 />
-                <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
+                <strong
+                  style={{
+                    color:
+                      type === "facebook"
+                        ? "#0037C1"
+                        : type === "instagram"
+                          ? "#EB4956"
+                          : type === "tiktok"
+                            ? "#0037C1"
+                            : "#0037C1",
+                    fontSize: "0.85rem",
+                  }}
+                >
                   {pageData?.posts[index].commentCount}
                 </strong>
               </div>
-              <div className="Feedback flex items-center min-w-20 gap-1">
-                <Image
-                  width={20}
-                  height={20}
-                  src="/dashboard/midias-sociais/facebookShare.svg"
-                  alt=""
-                />
-                <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
-                  {pageData?.posts[index].shares}
-                </strong>
-              </div>
+              {/* {type === "facebook" && (
+                <div className="Feedback flex items-center min-w-20 gap-1">
+                  <Image
+                    width={20}
+                    height={20}
+                    src="/dashboard/midias-sociais/facebookShare.svg"
+                    alt=""
+                  />
+                  <strong
+                    style={{
+                      color:
+                        type === "facebook"
+                          ? "#0037C1"
+                          : type === "instagram"
+                            ? "#EB4956"
+                            : type === "tiktok"
+                              ? "#0037C1"
+                              : "#0037C1",
+                      fontSize: "0.85rem",
+                    }}
+                  >
+                    {pageData?.posts[index].shares}
+                  </strong>
+                </div>
+              )} */}
             </div>
 
             <div className="postDate self-end text-sm text-[#494949]">

@@ -75,7 +75,6 @@ export default function InteligenciaArtificial() {
   useEffect(() => {
     getPlan();
     setTimeout(() => {
-      console.log("chegou");
       const chatInput = document.getElementById("chatInput");
       if (chatInput) {
         chatInput.scrollIntoView({ behavior: "smooth" });

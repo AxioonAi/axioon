@@ -60,10 +60,22 @@ export function CommentComponent({ type, comment }: Props) {
                 <Image
                   width={20}
                   height={20}
-                  src="/dashboard/midias-sociais/facebookLike.svg"
+                  src={`/dashboard/midias-sociais/${type}Like.svg`}
                   alt=""
                 />
-                <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
+                <strong
+                  style={{
+                    color:
+                      type === "facebook"
+                        ? "#0037C1"
+                        : type === "instagram"
+                          ? "#EB4956"
+                          : type === "tiktok"
+                            ? "#0037C1"
+                            : "#0037C1",
+                    fontSize: "0.85rem",
+                  }}
+                >
                   {comment?.likeCount}
                 </strong>
               </div>

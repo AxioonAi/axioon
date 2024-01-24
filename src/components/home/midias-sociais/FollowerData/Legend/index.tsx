@@ -24,7 +24,13 @@ export function FollowerDataLegend({ name, count }: Props) {
           />
           <span>{name}</span>
         </div>
-        <strong className="text-xl text-left">{count.toFixed(0)}</strong>
+        <strong className="text-xl text-left">
+          {count.toFixed(0).length > 6
+            ? (count / 1000000).toFixed(1) + "M"
+            : count.toFixed(0).length <= 6 && count.toFixed(0).length > 3
+              ? (count / 1000).toFixed(1) + "k"
+              : count.toFixed(0)}
+        </strong>
       </div>
     </div>
   );

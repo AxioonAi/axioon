@@ -63,7 +63,7 @@ export function FollowerData({ data }: Props) {
         labels: labels,
         datasets: [
           {
-            label: "Quantidade",
+            label: "Seguidores",
             data: data.map((d) => Number(d.count.toFixed(0))),
             backgroundColor: ["#2F5CFC", "#0A2BA0", "#000411", "#E5E8F0"],
           },
