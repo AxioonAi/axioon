@@ -164,7 +164,6 @@ export default function Profile() {
           ref={content}
           style={{ opacity: 1 }}
         >
-          {" "}
           <main className="Main flex flex-col p-4 m-0 rounded-lg md:m-2">
             <header className="flex flex-col md:flex-row justify-between">
               <h1 className="text-2xl font-bold">Meu Perfil</h1>
@@ -456,9 +455,9 @@ export default function Profile() {
               </div>
             </div>
           </main>
-          <Main>
-            <header>
-              <h2>Usuários</h2>
+          <main className="w-full rounded-lg p4">
+            <header className="flex justify-between">
+              <h2 className="text-2xl font-semibold">Usuários</h2>
               <GlobalButton
                 background={Theme.color.darkBlueAxion}
                 color={Theme.color.gray_10}
@@ -474,7 +473,7 @@ export default function Profile() {
               </GlobalButton>
             </header>
             <UsersTable />
-          </Main>
+          </main>
         </div>
 
         <NewPasswordModal
