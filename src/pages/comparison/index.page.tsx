@@ -4,7 +4,7 @@ import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPag
 import Theme from "@/styles/themes";
 import gsap from "gsap";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Spinner } from "react-bootstrap";
 import { LikesAndComentsContainer } from "../home/midias-sociais/styles";
 import {
   CenterContainer,
@@ -51,7 +51,7 @@ export default function Comparison() {
 
   const [selectedComparison, setSelectedComparison] =
     useState("MÍDIAS SOCIAIS");
-  const [selectedPage, setSelectedPage] = useState("facebook");
+  const [selectedPage, setSelectedPage] = useState("initial");
   const [generalDataMain, setGeneralDataMain] = useState<any>();
   const [facebookDataMain, setFacebookDataMain] = useState<any>();
   const [instagramDataMain, setInstagramDataMain] = useState();
@@ -121,10 +121,10 @@ export default function Comparison() {
       ),
     ]);
     if (generalMain.status === 200) {
-      setGeneralDataMain(generalMain.body);
+      setGeneralDataMain(generalMain.body.data);
     }
     if (generalSecondary.status === 200) {
-      setGeneralDataSecondary(generalSecondary.body);
+      setGeneralDataSecondary(generalSecondary.body.data);
     }
     setLoadingMain(false);
     setLoadingSecondary(false);
@@ -188,28 +188,28 @@ export default function Comparison() {
       ),
     ]);
     if (facebookMain.status === 200) {
-      setFacebookDataMain(facebookMain.body);
+      setFacebookDataMain(facebookMain.body.data);
     }
     if (facebookSecondary.status === 200) {
-      setFacebookDataSecondary(facebookSecondary.body);
+      setFacebookDataSecondary(facebookSecondary.body.data);
     }
     if (instagramMain.status === 200) {
-      setInstagramDataMain(instagramMain.body);
+      setInstagramDataMain(instagramMain.body.data);
     }
     if (instagramSecondary.status === 200) {
-      setInstagramDataSecondary(instagramSecondary.body);
+      setInstagramDataSecondary(instagramSecondary.body.data);
     }
     if (tiktokMain.status === 200) {
-      setTiktokDataMain(tiktokMain.body);
+      setTiktokDataMain(tiktokMain.body.data);
     }
     if (tiktokSecondary.status === 200) {
-      setTiktokDataSecondary(tiktokSecondary.body);
+      setTiktokDataSecondary(tiktokSecondary.body.data);
     }
     if (youtubeMain.status === 200) {
-      setYoutubeDataMain(youtubeMain.body);
+      setYoutubeDataMain(youtubeMain.body.data);
     }
     if (youtubeSecondary.status === 200) {
-      setYoutubeDataSecondary(youtubeSecondary.body);
+      setYoutubeDataSecondary(youtubeSecondary.body.data);
     }
     setLoadingMain(false);
     setLoadingSecondary(false);
@@ -288,137 +288,223 @@ export default function Comparison() {
             setSelectedTimeValues={setSelectedTimeValues}
             setLoading={setLoadingMain}
           />
-          {selectedComparison === "MÍDIAS SOCIAIS" ? (
-            <>
-              <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
-                <ComparisonStaticCards
-                  type="facebook"
-                  comentsMain={generalDataMain?.staticData.facebook.comments}
-                  likesMain={generalDataMain?.staticData.facebook.likes}
-                  comentsSecondary={
-                    generalDataSecondary?.staticData.facebook.comments
-                  }
-                  likesSecondary={
-                    generalDataSecondary?.staticData.facebook.likes
-                  }
-                  name="Facebook"
-                  onClick={() => setSelectedPage("facebook")}
-                  isSelected={
-                    selectedPage === "facebook" || selectedPage === "initial"
-                  }
-                />
-                <ComparisonStaticCards
-                  type="instagram"
-                  comentsMain={generalDataMain?.staticData.instagram.comments}
-                  likesMain={generalDataMain?.staticData.instagram.likes}
-                  comentsSecondary={
-                    generalDataSecondary?.staticData.instagram.comments
-                  }
-                  likesSecondary={
-                    generalDataSecondary?.staticData.instagram.likes
-                  }
-                  name="Instagram"
-                  onClick={() => setSelectedPage("instagram")}
-                  isSelected={
-                    selectedPage === "instagram" || selectedPage === "initial"
-                  }
-                />
-                <ComparisonStaticCards
-                  type="tiktok"
-                  comentsMain={generalDataMain?.staticData.tiktok.comments}
-                  likesMain={generalDataMain?.staticData.tiktok.likes}
-                  comentsSecondary={
-                    generalDataSecondary?.staticData.tiktok.comments
-                  }
-                  likesSecondary={generalDataSecondary?.staticData.tiktok.likes}
-                  name="TikTok"
-                  onClick={() => setSelectedPage("tiktok")}
-                  isSelected={
-                    selectedPage === "tiktok" || selectedPage === "initial"
-                  }
-                />
-                <ComparisonStaticCards
-                  type="youtube"
-                  comentsMain={generalDataMain?.staticData.youtube.comments}
-                  likesMain={generalDataMain?.staticData.youtube.likes}
-                  comentsSecondary={
-                    generalDataSecondary?.staticData.youtube.comments
-                  }
-                  likesSecondary={
-                    generalDataSecondary?.staticData.youtube.likes
-                  }
-                  name="Youtube"
-                  onClick={() => setSelectedPage("youtube")}
-                  isSelected={
-                    selectedPage === "youtube" || selectedPage === "initial"
-                  }
-                />
-              </div>
-              {selectedPage === "facebook" && (
-                <ComparisonType
-                  nameMain={selectedProfileMain.name}
-                  nameSecondary={selectedProfileSecondary.name}
-                  selectedComparison={selectedComparison}
-                  id={"scoreComparison"}
-                  pageType="facebook"
-                  pageDataMain={facebookDataMain}
-                  pageDataSecondary={facebookDataSecondary}
-                  loadingMain={loadingMain}
-                  loadingSecondary={loadingSecondary}
-                />
-              )}
-              {selectedPage === "instagram" && (
-                <ComparisonType
-                  nameMain={selectedProfileMain.name}
-                  nameSecondary={selectedProfileSecondary.name}
-                  selectedComparison={selectedComparison}
-                  id={"scoreComparison"}
-                  pageType="instagram"
-                  pageDataMain={instagramDataMain}
-                  pageDataSecondary={instagramDataSecondary}
-                  loadingMain={loadingMain}
-                  loadingSecondary={loadingSecondary}
-                />
-              )}
-              {selectedPage === "tiktok" && (
-                <ComparisonType
-                  nameMain={selectedProfileMain.name}
-                  nameSecondary={selectedProfileSecondary.name}
-                  selectedComparison={selectedComparison}
-                  id={"scoreComparison"}
-                  pageType="tiktok"
-                  pageDataMain={tiktokDataMain}
-                  pageDataSecondary={tiktokDataSecondary}
-                  loadingMain={loadingMain}
-                  loadingSecondary={loadingSecondary}
-                />
-              )}
-              {selectedPage === "youtube" && (
-                <ComparisonType
-                  nameMain={selectedProfileMain.name}
-                  nameSecondary={selectedProfileSecondary.name}
-                  selectedComparison={selectedComparison}
-                  id={"scoreComparison"}
-                  pageType="youtube"
-                  pageDataMain={youtubeDataMain}
-                  pageDataSecondary={youtubeDataSecondary}
-                  loadingMain={loadingMain}
-                  loadingSecondary={loadingSecondary}
-                />
-              )}
-            </>
+          {generalDataMain && generalDataSecondary ? (
+            selectedComparison === "MÍDIAS SOCIAIS" ? (
+              <>
+                <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
+                  <ComparisonStaticCards
+                    type="facebook"
+                    comentsMain={
+                      generalDataMain !== undefined
+                        ? generalDataMain.staticData.facebook === null
+                          ? null
+                          : generalDataMain?.staticData.facebook.followers
+                        : 0
+                    }
+                    likesMain={
+                      generalDataMain !== undefined
+                        ? generalDataMain.staticData.facebook === null
+                          ? null
+                          : generalDataMain?.staticData.facebook.like
+                        : 0
+                    }
+                    comentsSecondary={
+                      generalDataSecondary !== undefined
+                        ? generalDataSecondary.staticData.facebook === null
+                          ? null
+                          : generalDataSecondary?.staticData.facebook.followers
+                        : 0
+                    }
+                    likesSecondary={
+                      generalDataSecondary !== undefined
+                        ? generalDataSecondary.staticData.facebook === null
+                          ? null
+                          : generalDataSecondary?.staticData.facebook.like
+                        : 0
+                    }
+                    name="Facebook"
+                    onClick={() => setSelectedPage("facebook")}
+                    isSelected={
+                      selectedPage === "facebook" || selectedPage === "initial"
+                    }
+                  />
+                  <ComparisonStaticCards
+                    type="instagram"
+                    comentsMain={
+                      generalDataMain !== undefined
+                        ? generalDataMain.staticData.instagram === null
+                          ? null
+                          : generalDataMain?.staticData.instagram.posts
+                        : 0
+                    }
+                    likesMain={
+                      generalDataMain !== undefined
+                        ? generalDataMain.staticData.instagram === null
+                          ? null
+                          : generalDataMain?.staticData.instagram.followers
+                        : 0
+                    }
+                    comentsSecondary={
+                      generalDataSecondary !== undefined
+                        ? generalDataSecondary.staticData.instagram === null
+                          ? null
+                          : generalDataSecondary?.staticData.instagram.posts
+                        : 0
+                    }
+                    likesSecondary={
+                      generalDataSecondary !== undefined
+                        ? generalDataSecondary.staticData.instagram === null
+                          ? null
+                          : generalDataSecondary?.staticData.instagram.followers
+                        : 0
+                    }
+                    name="Instagram"
+                    onClick={() => setSelectedPage("instagram")}
+                    isSelected={
+                      selectedPage === "instagram" || selectedPage === "initial"
+                    }
+                  />
+                  <ComparisonStaticCards
+                    type="tiktok"
+                    comentsMain={
+                      generalDataMain !== undefined
+                        ? generalDataMain.staticData.tiktok === null
+                          ? null
+                          : generalDataMain?.staticData.tiktok.followers
+                        : 0
+                    }
+                    likesMain={
+                      generalDataMain !== undefined
+                        ? generalDataMain.staticData.tiktok === null
+                          ? null
+                          : generalDataMain?.staticData.tiktok.likes
+                        : 0
+                    }
+                    comentsSecondary={
+                      generalDataSecondary !== undefined
+                        ? generalDataSecondary.staticData.tiktok === null
+                          ? null
+                          : generalDataSecondary?.staticData.tiktok.followers
+                        : 0
+                    }
+                    likesSecondary={
+                      generalDataSecondary !== undefined
+                        ? generalDataSecondary.staticData.tiktok === null
+                          ? null
+                          : generalDataSecondary?.staticData.tiktok.likes
+                        : 0
+                    }
+                    name="TikTok"
+                    onClick={() => setSelectedPage("tiktok")}
+                    isSelected={
+                      selectedPage === "tiktok" || selectedPage === "initial"
+                    }
+                  />
+                  <ComparisonStaticCards
+                    type="youtube"
+                    comentsMain={
+                      generalDataMain !== undefined
+                        ? generalDataMain.staticData.youtube === null
+                          ? null
+                          : generalDataMain?.staticData.youtube.views
+                        : 0
+                    }
+                    likesMain={
+                      generalDataMain !== undefined
+                        ? generalDataMain.staticData.youtube === null
+                          ? null
+                          : generalDataMain?.staticData.youtube.subs
+                        : 0
+                    }
+                    comentsSecondary={
+                      generalDataSecondary !== undefined
+                        ? generalDataSecondary.staticData.youtube === null
+                          ? null
+                          : generalDataSecondary?.staticData.youtube.views
+                        : 0
+                    }
+                    likesSecondary={
+                      generalDataSecondary !== undefined
+                        ? generalDataSecondary.staticData.youtube === null
+                          ? null
+                          : generalDataSecondary?.staticData.youtube.subs
+                        : 0
+                    }
+                    name="Youtube"
+                    onClick={() => setSelectedPage("youtube")}
+                    isSelected={
+                      selectedPage === "youtube" || selectedPage === "initial"
+                    }
+                  />
+                </div>
+                {selectedPage === "facebook" && (
+                  <ComparisonType
+                    nameMain={selectedProfileMain.name}
+                    nameSecondary={selectedProfileSecondary.name}
+                    selectedComparison={selectedComparison}
+                    id={"scoreComparison"}
+                    pageType="facebook"
+                    pageDataMain={facebookDataMain}
+                    pageDataSecondary={facebookDataSecondary}
+                    loadingMain={loadingMain}
+                    loadingSecondary={loadingSecondary}
+                  />
+                )}
+                {selectedPage === "instagram" && (
+                  <ComparisonType
+                    nameMain={selectedProfileMain.name}
+                    nameSecondary={selectedProfileSecondary.name}
+                    selectedComparison={selectedComparison}
+                    id={"scoreComparison"}
+                    pageType="instagram"
+                    pageDataMain={instagramDataMain}
+                    pageDataSecondary={instagramDataSecondary}
+                    loadingMain={loadingMain}
+                    loadingSecondary={loadingSecondary}
+                  />
+                )}
+                {selectedPage === "tiktok" && (
+                  <ComparisonType
+                    nameMain={selectedProfileMain.name}
+                    nameSecondary={selectedProfileSecondary.name}
+                    selectedComparison={selectedComparison}
+                    id={"scoreComparison"}
+                    pageType="tiktok"
+                    pageDataMain={tiktokDataMain}
+                    pageDataSecondary={tiktokDataSecondary}
+                    loadingMain={loadingMain}
+                    loadingSecondary={loadingSecondary}
+                  />
+                )}
+                {selectedPage === "youtube" && (
+                  <ComparisonType
+                    nameMain={selectedProfileMain.name}
+                    nameSecondary={selectedProfileSecondary.name}
+                    selectedComparison={selectedComparison}
+                    id={"scoreComparison"}
+                    pageType="youtube"
+                    pageDataMain={youtubeDataMain}
+                    pageDataSecondary={youtubeDataSecondary}
+                    loadingMain={loadingMain}
+                    loadingSecondary={loadingSecondary}
+                  />
+                )}
+              </>
+            ) : (
+              <ComparisonType
+                nameMain={selectedProfileMain.name}
+                nameSecondary={selectedProfileSecondary.name}
+                selectedComparison={selectedComparison}
+                id={"mentionsComparison"}
+                pageType=""
+                pageDataMain={mentionsDataMain}
+                pageDataSecondary={mentionsDataSecondary}
+                loadingMain={loadingMain}
+                loadingSecondary={loadingSecondary}
+              />
+            )
           ) : (
-            <ComparisonType
-              nameMain={selectedProfileMain.name}
-              nameSecondary={selectedProfileSecondary.name}
-              selectedComparison={selectedComparison}
-              id={"mentionsComparison"}
-              pageType=""
-              pageDataMain={mentionsDataMain}
-              pageDataSecondary={mentionsDataSecondary}
-              loadingMain={loadingMain}
-              loadingSecondary={loadingSecondary}
-            />
+            <Spinner animation="border" />
           )}
         </div>
       </RootLayout>
