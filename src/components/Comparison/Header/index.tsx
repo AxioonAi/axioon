@@ -51,6 +51,7 @@ export function ComparisonHeaderComponent({
   const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
   const [monitoredProfiles, setMonitoredProfiles] = useState([]);
   const [loadingButton, setLoadingButton] = useState(false);
+  const [click, setClick] = useState(false);
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -156,11 +157,22 @@ export function ComparisonHeaderComponent({
     return router.push("/login");
   }
 
+  const handleInstruction = () => {
+    setClick(true);
+    setTimeout(() => {
+      setClick(false);
+    }, 300);
+  };
+
   return (
     <>
       <header className="headerContainer relative">
         <div className="headerTop flex pb-4 flex-col-reverse md:flex-row items-center w-full">
-          <div className="Instruction flex bg-gray-10 md:ml-auto py-4 px-3 border border-[#c3c3c3] font-bold text-md rounded-[48px] gap-1 self-center">
+          <div
+            onClick={handleInstruction}
+            className="Instruction flex bg-gray-10 md:ml-auto py-4 px-3 border-[1px] border-[#c3c3c3] font-bold rounded-[48px] gap-1 self-center cursor-pointer transition duration-300 ease-in-out hover:scale-[1.01] hover:border-darkBlueAxion hover:text-[1.1rem]"
+          >
+            {" "}
             <img src="/dashboard/click.svg" alt="" />
             <span>
               Clique nos <em> Cards</em> para ver os dados do seu Candidato
@@ -196,12 +208,14 @@ export function ComparisonHeaderComponent({
         </div>
         <nav className="headerMenu flex flex-wrap justify-around xl:justify-evenly xl:mt-10 gap-4">
           <ComparisonItemComponent
+            click={click}
             fadeOut={() => fadeOut()}
             name="MÍDIAS SOCIAIS"
             selectedComparison={selectedComparison}
             setSelectedComparison={setSelectedComparison}
           />
           <ComparisonItemComponent
+            click={click}
             fadeOut={() => fadeOut()}
             name="MENÇÕES"
             selectedComparison={selectedComparison}

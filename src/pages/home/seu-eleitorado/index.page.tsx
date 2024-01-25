@@ -99,6 +99,7 @@ export default function SeuEleitorado() {
 
   useEffect(() => {
     if (selectedProfile.id) {
+      setCityData(undefined);
       getCityDetails();
       if (selectedVoterOption === "age") {
         null;

@@ -1,6 +1,5 @@
 import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
 import RootLayout from "@/components/Layout";
-import { LikesAndComentsCard } from "@/components/home/midias-sociais/LikesAndComentsCard";
 import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
 import Theme from "@/styles/themes";
 import gsap from "gsap";
@@ -22,6 +21,7 @@ import { authGetAPI } from "@/lib/axios";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import { PostEngagement } from "@/components/home/midias-sociais/PostEngagement";
 import { ComparisonType } from "@/components/Comparison/ComparisonCharts";
+import { ComparisonStaticCards } from "@/components/Comparison/ComparisonStaticCards";
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Comparison() {
   const main = useRef(null);
@@ -52,12 +52,14 @@ export default function Comparison() {
   const [selectedComparison, setSelectedComparison] =
     useState("MÍDIAS SOCIAIS");
   const [selectedPage, setSelectedPage] = useState("facebook");
-  const [facebookDataMain, setFacebookDataMain] = useState();
+  const [generalDataMain, setGeneralDataMain] = useState<any>();
+  const [facebookDataMain, setFacebookDataMain] = useState<any>();
   const [instagramDataMain, setInstagramDataMain] = useState();
   const [tiktokDataMain, setTiktokDataMain] = useState();
   const [youtubeDataMain, setYoutubeDataMain] = useState();
   const [loadingMain, setLoadingMain] = useState(false);
-  const [mentionsDataMain, setMentionsDataMain] = useState<any>();
+  const [mentionsDataMain, setMentionsDataMain] = useState();
+  const [generalDataSecondary, setGeneralDataSecondary] = useState<any>();
   const [facebookDataSecondary, setFacebookDataSecondary] = useState();
   const [instagramDataSecondary, setInstagramDataSecondary] = useState();
   const [tiktokDataSecondary, setTiktokDataSecondary] = useState();
@@ -94,12 +96,11 @@ export default function Comparison() {
     },
   ];
 
-  async function getIndividualDetailsMain() {
+  async function getGeneralDetails() {
     setLoadingMain(true);
-    setFacebookDataMain(undefined);
-    setInstagramDataMain(undefined);
-    setTiktokDataMain(undefined);
-    setYoutubeDataMain(undefined);
+    setLoadingSecondary(true);
+    setGeneralDataMain(undefined);
+    setGeneralDataSecondary(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
         value: 7,
@@ -111,94 +112,34 @@ export default function Comparison() {
         name: String(localStorage.getItem("selectedTimeName")),
       });
     }
-    const [facebook, instagram, tiktok, youtube] = await Promise.all([
+    const [generalMain, generalSecondary] = await Promise.all([
       authGetAPI(
-        `/profile/facebook/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+        `/profile/social/home/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
       ),
       authGetAPI(
-        `/profile/instagram/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
-      ),
-      authGetAPI(
-        `/profile/tiktok/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
-      ),
-      authGetAPI(
-        `/profile/youtube/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+        `/profile/social/home/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
       ),
     ]);
-    if (facebook.status === 200) {
-      setFacebookDataMain(facebook.body);
+    if (generalMain.status === 200) {
+      setGeneralDataMain(generalMain.body);
     }
-    if (instagram.status === 200) {
-      setInstagramDataMain(instagram.body);
+    if (generalSecondary.status === 200) {
+      setGeneralDataSecondary(generalSecondary.body);
     }
-    if (tiktok.status === 200) {
-      setTiktokDataMain(tiktok.body);
-    }
-    if (youtube.status === 200) {
-      setYoutubeDataMain(youtube.body);
-    }
-    return setLoadingMain(false);
+    setLoadingMain(false);
+    setLoadingSecondary(false);
   }
 
-  useEffect(() => {
-    if (selectedProfileMain.id) {
-      if (typeof window !== "undefined") {
-        setSelectedTimeValues({
-          value: Number(localStorage.getItem("selectedTime")),
-          name: String(localStorage.getItem("selectedTimeName")),
-        });
-      }
-      getIndividualDetailsMain();
-    }
-  }, [
-    selectedProfileMain,
-    typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
-  ]);
-
-  async function GetMentionsMain() {
+  async function getIndividualDetails() {
     setLoadingMain(true);
-    setMentionsDataMain(undefined);
-    if (localStorage.getItem("selectedTime") === null) {
-      setSelectedTimeValues({
-        value: 7,
-        name: "Últimos 7 Dias",
-      });
-    } else {
-      setSelectedTimeValues({
-        value: Number(localStorage.getItem("selectedTime")),
-        name: String(localStorage.getItem("selectedTimeName")),
-      });
-    }
-    const connect = await authGetAPI(
-      `/profile/mentions/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
-    );
-    if (connect.status !== 200) {
-      return alert(connect.body);
-    }
-    setMentionsDataMain(connect.body);
-    return setLoadingMain(false);
-  }
-
-  useEffect(() => {
-    if (selectedProfileMain.id) {
-      if (typeof window !== "undefined") {
-        setSelectedTimeValues({
-          value: Number(localStorage.getItem("selectedTime")),
-          name: String(localStorage.getItem("selectedTimeName")),
-        });
-      }
-      GetMentionsMain();
-    }
-  }, [
-    selectedProfileMain,
-    typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
-  ]);
-
-  async function getIndividualDetailsSecondary() {
     setLoadingSecondary(true);
+    setFacebookDataMain(undefined);
     setFacebookDataSecondary(undefined);
+    setInstagramDataMain(undefined);
     setInstagramDataSecondary(undefined);
+    setTiktokDataMain(undefined);
     setTiktokDataSecondary(undefined);
+    setYoutubeDataMain(undefined);
     setYoutubeDataSecondary(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
@@ -211,52 +152,73 @@ export default function Comparison() {
         name: String(localStorage.getItem("selectedTimeName")),
       });
     }
-    const [facebook, instagram, tiktok, youtube] = await Promise.all([
+    const [
+      facebookMain,
+      facebookSecondary,
+      instagramMain,
+      instagramSecondary,
+      tiktokMain,
+      tiktokSecondary,
+      youtubeMain,
+      youtubeSecondary,
+    ] = await Promise.all([
+      authGetAPI(
+        `/profile/facebook/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+      ),
       authGetAPI(
         `/profile/facebook/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/instagram/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
       ),
       authGetAPI(
         `/profile/instagram/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
       ),
       authGetAPI(
+        `/profile/tiktok/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
         `/profile/tiktok/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/youtube/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
       ),
       authGetAPI(
         `/profile/youtube/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
       ),
     ]);
-    if (facebook.status === 200) {
-      setFacebookDataSecondary(facebook.body);
+    if (facebookMain.status === 200) {
+      setFacebookDataMain(facebookMain.body);
     }
-    if (instagram.status === 200) {
-      setInstagramDataSecondary(instagram.body);
+    if (facebookSecondary.status === 200) {
+      setFacebookDataSecondary(facebookSecondary.body);
     }
-    if (tiktok.status === 200) {
-      setTiktokDataSecondary(tiktok.body);
+    if (instagramMain.status === 200) {
+      setInstagramDataMain(instagramMain.body);
     }
-    if (youtube.status === 200) {
-      setYoutubeDataSecondary(youtube.body);
+    if (instagramSecondary.status === 200) {
+      setInstagramDataSecondary(instagramSecondary.body);
     }
-    return setLoadingSecondary(false);
+    if (tiktokMain.status === 200) {
+      setTiktokDataMain(tiktokMain.body);
+    }
+    if (tiktokSecondary.status === 200) {
+      setTiktokDataSecondary(tiktokSecondary.body);
+    }
+    if (youtubeMain.status === 200) {
+      setYoutubeDataMain(youtubeMain.body);
+    }
+    if (youtubeSecondary.status === 200) {
+      setYoutubeDataSecondary(youtubeSecondary.body);
+    }
+    setLoadingMain(false);
+    setLoadingSecondary(false);
   }
 
-  useEffect(() => {
-    if (selectedProfileSecondary.id) {
-      if (typeof window !== "undefined") {
-        setSelectedTimeValues({
-          value: Number(localStorage.getItem("selectedTime")),
-          name: String(localStorage.getItem("selectedTimeName")),
-        });
-      }
-      getIndividualDetailsSecondary();
-    }
-  }, [
-    selectedProfileSecondary,
-    typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
-  ]);
-
-  async function GetMentionsSecondary() {
+  async function getMentions() {
+    setLoadingMain(true);
     setLoadingSecondary(true);
+    setMentionsDataMain(undefined);
     setMentionsDataSecondary(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
@@ -269,42 +231,41 @@ export default function Comparison() {
         name: String(localStorage.getItem("selectedTimeName")),
       });
     }
-    const connect = await authGetAPI(
-      `/profile/mentions/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
-    );
-    if (connect.status !== 200) {
-      return alert(connect.body);
+    const [mentionsMain, mentionsSecondary] = await Promise.all([
+      authGetAPI(
+        `/profile/mentions/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+      ),
+      authGetAPI(
+        `/profile/mentions/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+      ),
+    ]);
+    if (mentionsMain.status === 200) {
+      setMentionsDataMain(mentionsMain.body);
     }
-    setMentionsDataSecondary(connect.body);
-    return setLoadingSecondary(false);
+    if (mentionsSecondary.status === 200) {
+      setMentionsDataSecondary(mentionsSecondary.body);
+    }
+    setLoadingMain(false);
+    setLoadingSecondary(false);
   }
 
   useEffect(() => {
-    if (selectedProfileSecondary.id) {
+    if (selectedProfileMain.id && selectedProfileSecondary.id) {
       if (typeof window !== "undefined") {
         setSelectedTimeValues({
           value: Number(localStorage.getItem("selectedTime")),
           name: String(localStorage.getItem("selectedTimeName")),
         });
       }
-      GetMentionsSecondary();
+      getGeneralDetails();
+      getIndividualDetails();
+      getMentions();
     }
   }, [
+    selectedProfileMain,
     selectedProfileSecondary,
     typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
   ]);
-
-  // async function getComparison() {
-  //   const connect = await authGetAPI(
-  //     `/profile/comparison/${selectedProfileMain.id}?period=${15}`
-  //   );
-  // }
-
-  // useEffect(() => {
-  //   if (selectedProfileMain.id !== "") {
-  //     getComparison();
-  //   }
-  // }, [selectedProfileMain.id]);
 
   return (
     <main ref={main}>
@@ -330,40 +291,62 @@ export default function Comparison() {
           {selectedComparison === "MÍDIAS SOCIAIS" ? (
             <>
               <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
-                <LikesAndComentsCard
+                <ComparisonStaticCards
                   type="facebook"
-                  coments={1}
-                  likes={25}
+                  comentsMain={generalDataMain?.staticData.facebook.comments}
+                  likesMain={generalDataMain?.staticData.facebook.likes}
+                  comentsSecondary={
+                    generalDataSecondary?.staticData.facebook.comments
+                  }
+                  likesSecondary={
+                    generalDataSecondary?.staticData.facebook.likes
+                  }
                   name="Facebook"
                   onClick={() => setSelectedPage("facebook")}
                   isSelected={
                     selectedPage === "facebook" || selectedPage === "initial"
                   }
                 />
-                <LikesAndComentsCard
+                <ComparisonStaticCards
                   type="instagram"
-                  coments={1}
-                  likes={25}
+                  comentsMain={generalDataMain?.staticData.instagram.comments}
+                  likesMain={generalDataMain?.staticData.instagram.likes}
+                  comentsSecondary={
+                    generalDataSecondary?.staticData.instagram.comments
+                  }
+                  likesSecondary={
+                    generalDataSecondary?.staticData.instagram.likes
+                  }
                   name="Instagram"
                   onClick={() => setSelectedPage("instagram")}
                   isSelected={
                     selectedPage === "instagram" || selectedPage === "initial"
                   }
                 />
-                <LikesAndComentsCard
+                <ComparisonStaticCards
                   type="tiktok"
-                  coments={1}
-                  likes={25}
+                  comentsMain={generalDataMain?.staticData.tiktok.comments}
+                  likesMain={generalDataMain?.staticData.tiktok.likes}
+                  comentsSecondary={
+                    generalDataSecondary?.staticData.tiktok.comments
+                  }
+                  likesSecondary={generalDataSecondary?.staticData.tiktok.likes}
                   name="TikTok"
                   onClick={() => setSelectedPage("tiktok")}
                   isSelected={
                     selectedPage === "tiktok" || selectedPage === "initial"
                   }
                 />
-                <LikesAndComentsCard
+                <ComparisonStaticCards
                   type="youtube"
-                  coments={1}
-                  likes={25}
+                  comentsMain={generalDataMain?.staticData.youtube.comments}
+                  likesMain={generalDataMain?.staticData.youtube.likes}
+                  comentsSecondary={
+                    generalDataSecondary?.staticData.youtube.comments
+                  }
+                  likesSecondary={
+                    generalDataSecondary?.staticData.youtube.likes
+                  }
                   name="Youtube"
                   onClick={() => setSelectedPage("youtube")}
                   isSelected={
@@ -373,6 +356,8 @@ export default function Comparison() {
               </div>
               {selectedPage === "facebook" && (
                 <ComparisonType
+                  nameMain={selectedProfileMain.name}
+                  nameSecondary={selectedProfileSecondary.name}
                   selectedComparison={selectedComparison}
                   id={"scoreComparison"}
                   pageType="facebook"
@@ -384,6 +369,8 @@ export default function Comparison() {
               )}
               {selectedPage === "instagram" && (
                 <ComparisonType
+                  nameMain={selectedProfileMain.name}
+                  nameSecondary={selectedProfileSecondary.name}
                   selectedComparison={selectedComparison}
                   id={"scoreComparison"}
                   pageType="instagram"
@@ -395,6 +382,8 @@ export default function Comparison() {
               )}
               {selectedPage === "tiktok" && (
                 <ComparisonType
+                  nameMain={selectedProfileMain.name}
+                  nameSecondary={selectedProfileSecondary.name}
                   selectedComparison={selectedComparison}
                   id={"scoreComparison"}
                   pageType="tiktok"
@@ -406,6 +395,8 @@ export default function Comparison() {
               )}
               {selectedPage === "youtube" && (
                 <ComparisonType
+                  nameMain={selectedProfileMain.name}
+                  nameSecondary={selectedProfileSecondary.name}
                   selectedComparison={selectedComparison}
                   id={"scoreComparison"}
                   pageType="youtube"
@@ -418,6 +409,8 @@ export default function Comparison() {
             </>
           ) : (
             <ComparisonType
+              nameMain={selectedProfileMain.name}
+              nameSecondary={selectedProfileSecondary.name}
               selectedComparison={selectedComparison}
               id={"mentionsComparison"}
               pageType=""

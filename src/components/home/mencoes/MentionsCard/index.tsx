@@ -74,7 +74,7 @@ export function MentionsCard({
                 paddingTop: "0.5rem",
               }}
             >
-              {source}
+              {source.length > 15 ? source.slice(0, 15) + "..." : source}
             </strong>
             <span
               style={{ fontSize: "0.7rem", color: "#4A4A4A", fontWeight: 600 }}

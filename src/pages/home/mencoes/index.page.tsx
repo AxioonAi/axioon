@@ -134,15 +134,25 @@ export default function SeuEleitorado() {
                   <TitleWithBar content="Score Total" barColor="#D38945" />
                   <div className="flex justify-center p-[0_8%]">
                     <ScoreChart
-                      score={Number(
-                        mentionsData?.currentFormat.news.average.toFixed(0)
-                      )}
+                      score={
+                        mentionsData.currentFormat.news.news.length !== 0
+                          ? Number(
+                              mentionsData?.currentFormat.news.average.toFixed(
+                                0
+                              )
+                            )
+                          : 0
+                      }
                       id="newsScore"
                     />
                   </div>
                 </div>
                 <TotalQuotes
-                  value={mentionsData?.currentFormat.news.total}
+                  value={
+                    mentionsData.currentFormat.news.news.length !== 0
+                      ? mentionsData?.currentFormat.news.total
+                      : 0
+                  }
                   firstDate={new Date(
                     new Date().setDate(new Date().getDate() - 30)
                   ).toLocaleDateString("pt-BR")}
@@ -150,9 +160,21 @@ export default function SeuEleitorado() {
                 />
                 <div className="sentimentChartContainer w-full lg:w-[30rem]">
                   <SentimentChart
-                    positive={mentionsData?.currentFormat.news.positive}
-                    negative={mentionsData?.currentFormat.news.negative}
-                    neutral={mentionsData?.currentFormat.news.neutral}
+                    positive={
+                      mentionsData.currentFormat.news.news.length !== 0
+                        ? mentionsData?.currentFormat.news.positive
+                        : 0
+                    }
+                    negative={
+                      mentionsData.currentFormat.news.news.length !== 0
+                        ? mentionsData?.currentFormat.news.negative
+                        : 0
+                    }
+                    neutral={
+                      mentionsData.currentFormat.news.news.length !== 0
+                        ? mentionsData?.currentFormat.news.neutral
+                        : 0
+                    }
                   />
                 </div>
               </div>
@@ -164,15 +186,26 @@ export default function SeuEleitorado() {
                   <TitleWithBar content="Score Total" barColor="#D38945" />
                   <div className="flex justify-center p-[0_8%]">
                     <ScoreChart
-                      score={Number(
-                        mentionsData?.currentFormat.mentions.average.toFixed(0)
-                      )}
+                      score={
+                        mentionsData.currentFormat.mentions.mentions.length !==
+                        0
+                          ? Number(
+                              mentionsData?.currentFormat.mentions.average.toFixed(
+                                0
+                              )
+                            )
+                          : 0
+                      }
                       id="mentionsScore"
                     />
                   </div>
                 </div>
                 <TotalQuotes
-                  value={Number(mentionsData?.currentFormat.mentions.total)}
+                  value={
+                    mentionsData.currentFormat.mentions.mentions.length !== 0
+                      ? mentionsData?.currentFormat.mentions.total
+                      : 0
+                  }
                   firstDate={new Date(
                     new Date().setDate(new Date().getDate() - 30)
                   ).toLocaleDateString("pt-BR")}
@@ -180,55 +213,77 @@ export default function SeuEleitorado() {
                 />
                 <div className="sentimentChartContainer w-full lg:w-[30rem]">
                   <SentimentChart
-                    positive={mentionsData?.currentFormat.mentions.positive}
-                    negative={mentionsData?.currentFormat.mentions.negative}
-                    neutral={mentionsData?.currentFormat.mentions.neutral}
+                    positive={
+                      mentionsData.currentFormat.mentions.mentions.length !== 0
+                        ? mentionsData?.currentFormat.mentions.positive
+                        : 0
+                    }
+                    negative={
+                      mentionsData.currentFormat.mentions.mentions.length !== 0
+                        ? mentionsData?.currentFormat.mentions.negative
+                        : 0
+                    }
+                    neutral={
+                      mentionsData.currentFormat.mentions.mentions.length !== 0
+                        ? mentionsData?.currentFormat.mentions.neutral
+                        : 0
+                    }
                   />
                 </div>
               </div>
-
-              <TitleBottomBar title="Notícias em Destaque" className="mt-4" />
-              <div className="w-full flex justify-center flex-wrap gap-4 my-7 lg:justify-around">
-                {mentionsData?.currentFormat.news.news
-                  .slice(0, 3)
-                  .map((item: any, index: any) => (
-                    <NewsCard
-                      key={index}
-                      sentimentClassification={item.sentimentClassification}
-                      sentiment={item.sentiment}
-                      source="Só Notícias"
-                      url={item.url}
-                      date={item.date
-                        .split("T")[0]
-                        .split("-")
-                        .reverse()
-                        .join("/")}
-                      content={item.title}
-                    />
-                  ))}
-              </div>
-              <TitleBottomBar title="Menções em Destaque" />
-              <div className="w-full flex justify-center flex-wrap gap-4 my-7 lg:justify-around">
-                {mentionsData?.currentFormat.mentions.mentions
-                  .slice(0, 3)
-                  .map((item: any, index: any) => (
-                    <MentionsCard
-                      key={index}
-                      sentimentClassification={item.sentimentClassification}
-                      sentiment={item.sentiment}
-                      source={item.profile}
-                      comments={item.comments}
-                      commentSentiment={item.commentSentiment}
-                      url={item.url}
-                      date={item.date
-                        .split("T")[0]
-                        .split("-")
-                        .reverse()
-                        .join("/")}
-                      content={item.title}
-                    />
-                  ))}
-              </div>
+              {mentionsData.currentFormat.news.news.length !== 0 && (
+                <>
+                  <TitleBottomBar
+                    title="Notícias em Destaque"
+                    className="mt-4"
+                  />
+                  <div className="w-full flex justify-center flex-wrap gap-4 my-7 lg:justify-around">
+                    {mentionsData?.currentFormat.news.news
+                      .slice(0, 3)
+                      .map((item: any, index: any) => (
+                        <NewsCard
+                          key={index}
+                          sentimentClassification={item.sentimentClassification}
+                          sentiment={item.sentiment}
+                          source="Só Notícias"
+                          url={item.url}
+                          date={item.date
+                            .split("T")[0]
+                            .split("-")
+                            .reverse()
+                            .join("/")}
+                          content={item.title}
+                        />
+                      ))}
+                  </div>
+                </>
+              )}
+              {mentionsData.currentFormat.mentions.mentions.length !== 0 && (
+                <>
+                  <TitleBottomBar title="Menções em Destaque" />
+                  <div className="w-full flex justify-center flex-wrap gap-4 my-7 lg:justify-around">
+                    {mentionsData?.currentFormat.mentions.mentions
+                      .slice(0, 3)
+                      .map((item: any, index: any) => (
+                        <MentionsCard
+                          key={index}
+                          sentimentClassification={item.sentimentClassification}
+                          sentiment={item.sentiment}
+                          source={item.profile}
+                          comments={item.comments}
+                          commentSentiment={item.commentSentiment}
+                          url={item.url}
+                          date={item.date
+                            .split("T")[0]
+                            .split("-")
+                            .reverse()
+                            .join("/")}
+                          content={item.title}
+                        />
+                      ))}
+                  </div>
+                </>
+              )}
             </div>
           ) : (
             <div className="flex items-center justify-center rounded-lg max-w-[1080px] h-1/2 my-[2%] mx-auto">

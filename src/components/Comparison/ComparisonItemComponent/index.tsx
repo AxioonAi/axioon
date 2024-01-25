@@ -5,6 +5,7 @@ interface ItemProps {
   fadeOut: any;
   selectedComparison: string;
   setSelectedComparison: any;
+  click: boolean;
 }
 
 export function ComparisonItemComponent({
@@ -12,6 +13,7 @@ export function ComparisonItemComponent({
   fadeOut,
   selectedComparison,
   setSelectedComparison,
+  click,
 }: ItemProps) {
   const handleClick = () => {
     if (selectedComparison === name) {
@@ -35,6 +37,7 @@ export function ComparisonItemComponent({
       }
       bg-cover
       ${selectedComparison === name ? "opacity-100" : "opacity-40"}
+      ${click ? "scale-105" : "scale-100"} ${click ? "border-[1px]" : "border-0"} ${click ? "border-darkBlueAxion" : "border-gray-10"}
        hover:opacity-90 hover:scale-110 hover:cursor-pointer`}
       onClick={handleClick}
     >

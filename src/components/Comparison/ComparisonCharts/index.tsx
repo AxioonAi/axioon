@@ -12,6 +12,8 @@ import { TotalQuotes } from "@/components/home/mencoes/TotalQuotes";
 import { SentimentChart } from "@/components/home/mencoes/SentimentChart";
 
 interface ComparisonProps {
+  nameMain?: string;
+  nameSecondary?: string;
   pageDataMain: any;
   pageDataSecondary: any;
   loadingMain: boolean;
@@ -22,6 +24,8 @@ interface ComparisonProps {
   locked?: boolean;
 }
 export function ComparisonType({
+  nameMain,
+  nameSecondary,
   pageDataMain,
   pageDataSecondary,
   loadingMain,
@@ -44,27 +48,30 @@ export function ComparisonType({
             <div className="ChartsContainer grid grid-cols-[90%] md:grid-cols-[35rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
               <div className="engagementChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
-                  <TitleWithBar
-                    content="Engajamento de Publicações"
-                    barColor="#12A9E7"
-                  />
+                  <TitleWithBar content={String(nameMain)} barColor="#12A9E7" />
                   {loadingMain ? (
                     <Spinner animation="border" className="m-auto" />
                   ) : (
-                    <PostEngagement pageData={pageDataMain} />
+                    <PostEngagement
+                      pageData={pageDataMain}
+                      pageType={pageType}
+                    />
                   )}
                 </div>
               </div>
               <div className="engagementChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <TitleWithBar
-                    content="Engajamento de Publicações"
+                    content={String(nameSecondary)}
                     barColor="#12A9E7"
                   />
                   {loadingSecondary ? (
                     <Spinner animation="border" className="m-auto" />
                   ) : (
-                    <PostEngagement pageData={pageDataSecondary} />
+                    <PostEngagement
+                      pageData={pageDataSecondary}
+                      pageType={pageType}
+                    />
                   )}
                 </div>
               </div>
@@ -73,7 +80,7 @@ export function ComparisonType({
 
           <main className="bg-darkBlueAxion rounded-2xl mt-8 p-4">
             <TitleWithBar
-              content="Engajamento de Publicações"
+              content="Sentimento Médio dos Comentários"
               barColor="#12A9E7"
               dark={true}
             />
@@ -81,7 +88,7 @@ export function ComparisonType({
               <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <TitleWithBar
-                    content="Sentimento Médio dos Comentários:"
+                    content={String(nameMain)}
                     barColor="#2F5CFC"
                     subTitle
                   />
@@ -113,7 +120,7 @@ export function ComparisonType({
               <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <TitleWithBar
-                    content="Sentimento Médio dos Comentários:"
+                    content={String(nameSecondary)}
                     barColor="#2F5CFC"
                     subTitle
                   />
@@ -147,7 +154,7 @@ export function ComparisonType({
 
           <main className="bg-darkBlueAxion rounded-2xl mt-8 p-4">
             <TitleWithBar
-              content="Engajamento de Publicações"
+              content="Indicadores Chave"
               barColor="#12A9E7"
               dark={true}
             />
@@ -155,11 +162,11 @@ export function ComparisonType({
               <div className="keyIndicatorChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <TitleWithBar
-                    content="Indicadores Chave:"
+                    content={String(nameMain)}
                     barColor="#12A9E7"
                     subTitle
                   />
-                  <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
+                  <ChartTip content="Os valores do lado esquerdo do gráfico representam dados do período anterior, e os valores do lado direito do gráfico representam dados do período atual." />
                   {loadingMain ? (
                     <Spinner animation="border" className="m-auto" />
                   ) : (
@@ -170,11 +177,11 @@ export function ComparisonType({
               <div className="keyIndicatorChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <TitleWithBar
-                    content="Indicadores Chave:"
+                    content={String(nameSecondary)}
                     barColor="#12A9E7"
                     subTitle
                   />
-                  <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
+                  <ChartTip content="Os valores do lado esquerdo do gráfico representam dados do período anterior, e os valores do lado direito do gráfico representam dados do período atual." />
                   {loadingSecondary ? (
                     <Spinner animation="border" className="m-auto" />
                   ) : (
@@ -187,7 +194,11 @@ export function ComparisonType({
 
           <main className="bg-darkBlueAxion rounded-2xl mt-8 p-4">
             <TitleWithBar
-              content="Engajamento de Publicações"
+              content={
+                pageType === "youtube"
+                  ? "Nuvem de Palavras"
+                  : "Horários de Engajamento"
+              }
               barColor="#12A9E7"
               dark={true}
             />
@@ -197,7 +208,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       barColor="#080E45"
-                      content="Nuvem de palavras Geral"
+                      content={String(nameMain)}
                       subTitle
                     />
                     {loadingMain ? (
@@ -217,7 +228,7 @@ export function ComparisonType({
               ) : (
                 <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <TitleWithBar
-                    content="Horário que os Eleitores estão mais Ativos em Sua Rede Social:"
+                    content={String(nameMain)}
                     barColor="#12A9E7"
                     subTitle
                   />
@@ -243,7 +254,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       barColor="#080E45"
-                      content="Nuvem de palavras Geral"
+                      content={String(nameSecondary)}
                       subTitle
                     />
                     {loadingSecondary ? (
@@ -263,7 +274,7 @@ export function ComparisonType({
               ) : (
                 <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <TitleWithBar
-                    content="Horário que os Eleitores estão mais Ativos em Sua Rede Social:"
+                    content={String(nameSecondary)}
                     barColor="#12A9E7"
                     subTitle
                   />
@@ -295,28 +306,32 @@ export function ComparisonType({
             dark={true}
           />
           <div className="ChartsContainer grid grid-cols-[90%] md:grid-cols-[35rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
-            <div className="flex gap-4 bg-white rounded-lg flex-wrap items-center justify-around lg:mx-auto md:justify-center">
-              <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
-                <TitleWithBar content="Score Total" barColor="#D38945" />
-                <div className="flex justify-center p-[0_8%]">
-                  <ScoreChart
-                    score={Number(
-                      pageDataMain &&
-                        pageDataMain?.currentFormat.news.average !== null
-                        ? pageDataMain?.currentFormat.news.average.toFixed(0)
-                        : 0
-                    )}
-                    id="newsScoreComparison"
-                  />
+            <div className="flex flex-col gap-4 bg-white rounded-lg flex-wrap p-2 justify-around lg:mx-auto md:justify-center">
+              <TitleWithBar barColor="#080E45" content={String(nameMain)} />
+              <div className="flex">
+                <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
+                  <TitleWithBar content="Score Total" barColor="#D38945" />
+                  <div className="flex justify-center p-[0_8%]">
+                    <ScoreChart
+                      score={Number(
+                        pageDataMain &&
+                          pageDataMain?.currentFormat.news.average !== null
+                          ? pageDataMain?.currentFormat.news.average.toFixed(0)
+                          : 0
+                      )}
+                      id="newsScoreComparison"
+                    />
+                  </div>
                 </div>
+                <TotalQuotes
+                  value={pageDataMain && pageDataMain?.currentFormat.news.total}
+                  firstDate={new Date(
+                    new Date().setDate(new Date().getDate() - 30)
+                  ).toLocaleDateString("pt-BR")}
+                  lastDate={new Date().toLocaleDateString("pt-BR")}
+                />
               </div>
-              <TotalQuotes
-                value={pageDataMain && pageDataMain?.currentFormat.news.total}
-                firstDate={new Date(
-                  new Date().setDate(new Date().getDate() - 30)
-                ).toLocaleDateString("pt-BR")}
-                lastDate={new Date().toLocaleDateString("pt-BR")}
-              />
+
               <div className="sentimentChartContainer w-full lg:w-[30rem]">
                 <SentimentChart
                   positive={
@@ -331,33 +346,39 @@ export function ComparisonType({
                 />
               </div>
             </div>
-            <div className="flex gap-4 bg-white rounded-lg flex-wrap items-center justify-around lg:mx-auto md:justify-center">
-              <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
-                <TitleWithBar content="Score Total" barColor="#D38945" />
-                <div className="flex justify-center p-[0_8%]">
-                  <ScoreChart
-                    score={Number(
-                      pageDataSecondary &&
-                        pageDataSecondary?.currentFormat.news.average !== null
-                        ? pageDataSecondary?.currentFormat.news.average.toFixed(
-                            0
-                          )
-                        : 0
-                    )}
-                    id="newsScoreComparison2"
-                  />
-                </div>
-              </div>
-              <TotalQuotes
-                value={
-                  pageDataSecondary &&
-                  pageDataSecondary?.currentFormat.news.total
-                }
-                firstDate={new Date(
-                  new Date().setDate(new Date().getDate() - 30)
-                ).toLocaleDateString("pt-BR")}
-                lastDate={new Date().toLocaleDateString("pt-BR")}
+            <div className="flex flex-col gap-4 bg-white rounded-lg flex-wrap p-2 justify-around lg:mx-auto md:justify-center">
+              <TitleWithBar
+                barColor="#080E45"
+                content={String(nameSecondary)}
               />
+              <div className="flex">
+                <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
+                  <TitleWithBar content="Score Total" barColor="#D38945" />
+                  <div className="flex justify-center p-[0_8%]">
+                    <ScoreChart
+                      score={Number(
+                        pageDataSecondary &&
+                          pageDataSecondary?.currentFormat.news.average !== null
+                          ? pageDataSecondary?.currentFormat.news.average.toFixed(
+                              0
+                            )
+                          : 0
+                      )}
+                      id="newsScoreComparison2"
+                    />
+                  </div>
+                </div>
+                <TotalQuotes
+                  value={
+                    pageDataSecondary &&
+                    pageDataSecondary?.currentFormat.news.total
+                  }
+                  firstDate={new Date(
+                    new Date().setDate(new Date().getDate() - 30)
+                  ).toLocaleDateString("pt-BR")}
+                  lastDate={new Date().toLocaleDateString("pt-BR")}
+                />
+              </div>
               <div className="sentimentChartContainer w-full lg:w-[30rem]">
                 <SentimentChart
                   positive={

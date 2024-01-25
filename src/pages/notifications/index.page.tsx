@@ -46,6 +46,8 @@ export default function Notifications() {
     setNotifications(connect.body.notification);
   }
 
+  console.log("notifications: ", notifications);
+
   const [type, setType] = useState("");
 
   async function handleVerify() {
@@ -138,7 +140,7 @@ export default function Notifications() {
                         )}
                       </div>
                       <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
-                        {notification.action === "Read" ? (
+                        {notification.opened === true ? (
                           <GlobalButton
                             background="#fff"
                             color={Theme.color.darkBlueAxion}
@@ -249,7 +251,7 @@ export default function Notifications() {
                         )}
                       </div>
                       <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
-                        {notification.action === "Read" ? (
+                        {notification.opened === true ? (
                           <GlobalButton
                             background="#fff"
                             color={Theme.color.darkBlueAxion}
@@ -356,7 +358,7 @@ export default function Notifications() {
                         )}
                       </div>
                       <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
-                        {notification.action === "Read" ? (
+                        {notification.opened === true ? (
                           <GlobalButton
                             background="#fff"
                             color={Theme.color.darkBlueAxion}

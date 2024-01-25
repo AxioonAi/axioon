@@ -34,13 +34,13 @@ export default function Profile() {
   const [showNewUserModal, setShowNewUserModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [profileData, setProfileData] = useState({
-    name: "",
-    social_name: "",
-    email: "",
-    mobilePhone: "",
-    cpfCnpj: "",
-    birth_date: "",
-    sex: "",
+    name: "...",
+    social_name: "...",
+    email: "...",
+    mobilePhone: "...",
+    cpfCnpj: "...",
+    birth_date: "...",
+    sex: "...",
   });
   const [loading1, setLoading1] = useState(false);
   const [formData, setFormData] = useState({
@@ -220,6 +220,7 @@ export default function Profile() {
                 <div className="flex flex-col gap-2">
                   <label htmlFor="name">Nome Completo</label>
                   <input
+                    disabled={profileData?.name === "..." ? true : false}
                     className="p-3 rounded border-[1px] w-full md:w-5/6 border-gray-20 outline-none text-black text-sm"
                     type="text"
                     id="name"
@@ -235,6 +236,7 @@ export default function Profile() {
                 <div className="flex flex-col gap-2">
                   <label htmlFor="name">Nome Social</label>
                   <input
+                    disabled={profileData?.social_name === "..." ? true : false}
                     className="p-3 rounded border-[1px] w-full md:w-5/6 border-gray-20 outline-none text-black text-sm"
                     type="text"
                     id="social_name"
@@ -250,6 +252,7 @@ export default function Profile() {
                 <div className="flex flex-col gap-2">
                   <label htmlFor="email">Email</label>
                   <input
+                    disabled={profileData?.email === "..." ? true : false}
                     className="p-3 rounded border-[1px] w-full md:w-5/6 border-gray-20 outline-none text-black text-sm"
                     type="email"
                     id="email"
@@ -265,6 +268,7 @@ export default function Profile() {
                 <div className="flex flex-col gap-2">
                   <label htmlFor="phone">Telefone</label>
                   <input
+                    disabled={profileData?.mobilePhone === "..." ? true : false}
                     className="p-3 rounded border-[1px] w-full md:w-5/6 border-gray-20 outline-none text-black text-sm"
                     type="tel"
                     id="phone"
@@ -284,6 +288,7 @@ export default function Profile() {
                 <div className="flex flex-col gap-2">
                   <label htmlFor="CPF">Seu CPF</label>
                   <input
+                    disabled={profileData?.cpfCnpj === "..." ? true : false}
                     className="p-3 rounded border-[1px] border-gray-20 outline-none text-black text-sm"
                     type="text"
                     id="CPF"
@@ -299,6 +304,7 @@ export default function Profile() {
                 <div className="flex flex-col gap-2">
                   <label htmlFor="birthDate">Data de Nascimento</label>
                   <input
+                    disabled={profileData?.birth_date === "..." ? true : false}
                     className="p-3 rounded border-[1px] border-gray-20 outline-none text-black text-sm"
                     type="text"
                     id="birthDate"

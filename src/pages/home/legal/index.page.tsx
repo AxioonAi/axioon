@@ -111,7 +111,7 @@ export default function Legal() {
                     subTitle
                   />
                   <div className="my-4 h-[35vh] overflow-y-scroll">
-                    {legalData &&
+                    {legalData && legalData.legalData.length !== 0 ? (
                       legalData.legalData
                         .slice(0, showMore ? legalData.legalData.length : 3)
                         .map((item: any) => (
@@ -175,11 +175,16 @@ export default function Legal() {
                               </span>
                             </div>
                           </div>
-                        ))}
+                        ))
+                    ) : (
+                      <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        Não conseguimos encontrar esses dados.
+                      </span>
+                    )}
                   </div>
 
                   <span
-                    className="self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer"
+                    className={` ${legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
                     onClick={() => setShowMore(!showMore)}
                   >
                     {showMore ? "Ver Menos" : "Ver Mais"}
@@ -197,7 +202,9 @@ export default function Legal() {
                       height={70}
                       alt=""
                     />
-                    <div className="flex flex-col ml-auto text-darkBlueAxion text-[10px] md:text-xs">
+                    <div
+                      className={`${legalData.legalData.length === 0 ? "hidden" : "flex"} flex flex-col ml-auto text-darkBlueAxion text-[10px] md:text-xs`}
+                    >
                       <strong className="text-xs md:text-sm">
                         {legalData && legalData.full_name}
                       </strong>
@@ -208,6 +215,7 @@ export default function Legal() {
                         Estimativa de Receita Mensal:{" "}
                         <strong>
                           {legalData &&
+                            legalData.personalData.length !== 0 &&
                             legalData.personalData[0].estimated_recipe}
                         </strong>
                       </span>
@@ -215,13 +223,14 @@ export default function Legal() {
                         Estimativa de Patrimônio Líquido:
                         <strong>
                           {legalData &&
+                            legalData.personalData.length !== 0 &&
                             legalData.personalData[0].estimated_patrimony}
                         </strong>
                       </span>
                     </div>
                   </div>
                   <div className="flex flex-wrap justify-around my-4 h-[35vh] overflow-y-scroll">
-                    {legalData &&
+                    {legalData && legalData.incomeTax.length !== 0 ? (
                       legalData.incomeTax
                         .slice(0, showMore ? legalData.incomeTax.length : 4)
                         .map((item: any) => (
@@ -236,12 +245,17 @@ export default function Legal() {
                               {item.bankAgency}
                             </span>
                           </div>
-                        ))}
+                        ))
+                    ) : (
+                      <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        Não conseguimos encontrar esses dados.
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <span
-                  className="self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer"
+                  className={` ${legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
                   onClick={() => setShowMore(!showMore)}
                 >
                   {showMore ? "Ver Menos" : "Ver Mais"}
@@ -258,6 +272,7 @@ export default function Legal() {
                   />
                   <div className="flex flex-wrap justify-around my-4 h-[35vh] overflow-y-scroll">
                     {legalData &&
+                    legalData.economicRelationship.length !== 0 ? (
                       legalData.economicRelationship
                         .slice(
                           0,
@@ -281,11 +296,16 @@ export default function Legal() {
                               className="self-end"
                             />
                           </div>
-                        ))}
+                        ))
+                    ) : (
+                      <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        Não conseguimos encontrar esses dados.
+                      </span>
+                    )}
                   </div>
 
                   <span
-                    className="self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer"
+                    className={` ${legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
                     onClick={() => setShowMore(!showMore)}
                   >
                     {showMore ? "Ver Menos" : "Ver Mais"}
@@ -302,31 +322,37 @@ export default function Legal() {
                     subTitle
                   />
                   <div className="my-4 h-[35vh] overflow-y-scroll">
-                    {legalData.address
-                      .slice(0, showMore ? legalData.address.length : 3)
-                      .map((item: any) => (
-                        <div className="flex p-4 w-full gap-2 h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
-                          <Image
-                            src="/dashboard/Legal/briefcaseIcon.svg"
-                            width={50}
-                            height={50}
-                            alt=""
-                          />
-                          <div className="flex flex-col gap-2">
-                            <span className="text-sm lg:text-lg font-semibold text-darkBlueAxion">
-                              {item.address}
-                            </span>
-                            <span className="text-darkBlueAxion text-xs lg:text-base">
-                              <strong>{item.zipcode} - </strong>
-                              {item.city} - {item.state}
-                            </span>
+                    {legalData.address && legalData.address.length !== 0 ? (
+                      legalData.address
+                        .slice(0, showMore ? legalData.address.length : 3)
+                        .map((item: any) => (
+                          <div className="flex p-4 w-full gap-2 h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
+                            <Image
+                              src="/dashboard/Legal/briefcaseIcon.svg"
+                              width={50}
+                              height={50}
+                              alt=""
+                            />
+                            <div className="flex flex-col gap-2">
+                              <span className="text-sm lg:text-lg font-semibold text-darkBlueAxion">
+                                {item.address}
+                              </span>
+                              <span className="text-darkBlueAxion text-xs lg:text-base">
+                                <strong>{item.zipcode} - </strong>
+                                {item.city} - {item.state}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))
+                    ) : (
+                      <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        Não conseguimos encontrar esses dados.
+                      </span>
+                    )}
                   </div>
 
                   <span
-                    className="self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer"
+                    className={` ${legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
                     onClick={() => setShowMore(!showMore)}
                   >
                     {showMore ? "Ver Menos" : "Ver Mais"}
