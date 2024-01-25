@@ -65,6 +65,8 @@ export default function SeuEleitorado() {
     name: "Últimos 7 Dias",
   });
   const [loading, setLoading] = useState(false);
+  const [seeMoreNews, setSeeMoreNews] = useState(false);
+  const [seeMoreMentions, setSeeMoreMentions] = useState(false);
 
   async function GetMentions() {
     setLoading(true);
@@ -233,13 +235,18 @@ export default function SeuEleitorado() {
               </div>
               {mentionsData.currentFormat.news.news.length !== 0 && (
                 <>
-                  <TitleBottomBar
-                    title="Notícias em Destaque"
-                    className="mt-4"
-                  />
-                  <div className="flex flex-col xl:flex-row w-full h-[50vh] xl:h-52 pt-80 xl:p-0 justify-center overflow-y-scroll xl:overflow-x-scroll gap-4 my-4 lg:justify-around">
+                  <div className="flex justify-between items-center mt-4">
+                    <TitleBottomBar title="Notícias em Destaque" />
+                    <span
+                      className="underline"
+                      onClick={() => setSeeMoreNews(!seeMoreNews)}
+                    >
+                      {seeMoreNews ? "Menos" : "Mais"}
+                    </span>
+                  </div>
+                  <div className="flex flex-col xl:flex-row w-full h-[50vh] xl:h-52 pt-16 xl:p-0 justify-center overflow-y-scroll xl:overflow-x-scroll gap-4 my-4 lg:justify-around">
                     {mentionsData?.currentFormat.news.news
-                      // .slice(0, 3)
+                      .slice(0, 3)
                       .map((item: any, index: any) => (
                         <NewsCard
                           key={index}
@@ -260,8 +267,16 @@ export default function SeuEleitorado() {
               )}
               {mentionsData.currentFormat.mentions.mentions.length !== 0 && (
                 <>
-                  <TitleBottomBar title="Menções em Destaque" />
-                  <div className="w-full flex justify-center flex-wrap gap-4 my-7 lg:justify-around">
+                  <div className="flex justify-between items-center mt-4">
+                    <TitleBottomBar title="Menções em Destaque" />
+                    <span
+                      className="underline"
+                      onClick={() => setSeeMoreMentions(!seeMoreMentions)}
+                    >
+                      {seeMoreMentions ? "Menos" : "Mais"}
+                    </span>
+                  </div>
+                  <div className="flex flex-col xl:flex-row w-full h-[50vh] xl:h-52 pt-16 xl:p-0 justify-center overflow-y-scroll xl:overflow-x-scroll gap-4 my-4 lg:justify-around">
                     {mentionsData?.currentFormat.mentions.mentions
                       .slice(0, 3)
                       .map((item: any, index: any) => (

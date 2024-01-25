@@ -20,18 +20,7 @@ export function NewsCard({
   content,
   date,
 }: Props) {
-  const [color, setColor] = useState("");
   const [showNewsModal, setShowNewsModal] = useState(false);
-
-  useEffect(() => {
-    if (sentimentClassification === "positivo") {
-      setColor("#22C24F");
-    } else if (sentimentClassification === "neutro") {
-      setColor("#FFB043");
-    } else {
-      setColor("#E70000");
-    }
-  }, [sentimentClassification]);
 
   return (
     <>

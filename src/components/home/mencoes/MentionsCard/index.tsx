@@ -40,50 +40,26 @@ export function MentionsCard({
 
   return (
     <>
-      <CardContainer onClick={() => setShowNewsModal(true)}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-          }}
-        >
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              paddingLeft: "0.5rem",
-            }}
-          >
+      <div
+        className={`CardContainer flex flex-col relative p-2 w-full h-40 xl:h-full xl:justify-between bg-white border-[1px] ${sentimentClassification === "positivo" ? "border-[rgba(34,194,79,0.5)]" : sentimentClassification === "neutro" ? "border-[rgba(255,176,67,0.5)]" : "border-[rgba(231,0,0,0.5)]"} rounded`}
+        onClick={() => setShowNewsModal(true)}
+      >
+        <div className="flex items-start w-80 justify-between">
+          <div className="flex flex-col relative pl-2">
             <div
-              style={{
-                position: "absolute",
-                left: 0,
-                top: "0.5rem",
-                width: "0.25rem",
-                height: "2.75rem",
-                borderRadius: "2px",
-                backgroundColor: color,
-              }}
+              className={`absolute left-0 top-2 w-1 h-10 rounded ${sentimentClassification === "positivo" ? "bg-[#22C24F]" : sentimentClassification === "neutro" ? "bg-[#FFB043]" : "bg-[#E70000]"}`}
             />
-            <strong
-              style={{
-                fontSize: "1.125rem",
-                lineHeight: 0.9,
-                paddingTop: "0.5rem",
-              }}
-            >
+            <strong>
               {source.length > 15 ? source.slice(0, 15) + "..." : source}
             </strong>
-            <span
-              style={{ fontSize: "0.7rem", color: "#4A4A4A", fontWeight: 600 }}
-            >
+            <span className="text-xs font-extralight text-[#8790AB]">
               {date}
             </span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <strong style={{ fontSize: "0.75rem", color: color }}>
+          <div className="flex items-center gap-2">
+            <strong
+              className={`text-xs ${sentimentClassification === "positivo" ? "text-[#22C24F]" : sentimentClassification === "neutro" ? "text-[#FFB043]" : "text-[#E70000]"}`}
+            >
               {sentimentClassification === "positivo"
                 ? "Positiva"
                 : sentimentClassification === "neutro"
@@ -101,37 +77,17 @@ export function MentionsCard({
             />
           </div>
         </div>
-        <div
-          style={{
-            marginTop: "1rem",
-            padding: "0 0 0 0.5rem",
-            fontSize: "1.5rem",
-            lineHeight: "1.2",
-          }}
-        >
-          <p style={{ margin: 0 }} className="content">
-            {content}
+        <div className="text-sm xl:text-base mt-4 font-semibold">
+          <p className="content">
+            {content.length > 100 ? content.slice(0, 100) + "..." : content}
           </p>
         </div>
-        <div
-          style={{
-            paddingTop: "0.6rem",
-            color: "#626262",
-            fontSize: "0.75rem",
-          }}
-        >
-          <p
-            style={{
-              margin: "1rem 0 0",
-              textAlign: "center",
-              fontStyle: "italic",
-              fontWeight: 500,
-            }}
-          >
+        <div>
+          <p className="text-xs font-light text-[#8790AB] text-center italic">
             Clique para ver mais detalhes
           </p>
         </div>
-      </CardContainer>
+      </div>
       <MentionsModal
         show={showNewsModal}
         onHide={() => setShowNewsModal(false)}
