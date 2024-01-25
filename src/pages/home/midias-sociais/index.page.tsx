@@ -72,10 +72,11 @@ export default function MidiasSociais() {
     const connect = await authGetAPI(
       `/profile/social/home/${selectedProfile.id}?period=${selectedTimeValues.value}`
     );
+    // console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }
-    setSocialMidiaData(connect.body);
+    setSocialMidiaData(connect.body.data);
   }
 
   async function getIndividualDetails() {
@@ -113,24 +114,29 @@ export default function MidiasSociais() {
         `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`
       ),
     ]);
+    // console.log("metaads", metaads.body);
+    // console.log("facebook", facebook.body);
+    // console.log("instagram", instagram.body);
+    // console.log("tiktok", tiktok.body);
+    // console.log("youtube", youtube.body);
     if (metaads.status !== 200) {
       setLocked(true);
     }
     if (facebook.status === 200) {
-      setFacebookData(facebook.body);
+      setFacebookData(facebook.body.data);
     }
     if (metaads.status === 200) {
       setMetaadsData(metaads.body);
       setLocked(false);
     }
     if (instagram.status === 200) {
-      setInstagramData(instagram.body);
+      setInstagramData(instagram.body.data);
     }
     if (tiktok.status === 200) {
-      setTiktokData(tiktok.body);
+      setTiktokData(tiktok.body.data);
     }
     if (youtube.status === 200) {
-      setYoutubeData(youtube.body);
+      setYoutubeData(youtube.body.data);
     }
     return setLoading(false);
   }
@@ -180,8 +186,20 @@ export default function MidiasSociais() {
                 <div className="LikesAndCommentsContainer flex justify-around gap-1 flex-wrap">
                   <LikesAndComentsCard
                     type="facebook"
-                    coments={socialMidiaData.staticData.facebook.followers}
-                    likes={socialMidiaData.staticData.facebook.like}
+                    coments={
+                      socialMidiaData !== undefined
+                        ? socialMidiaData.staticData.facebook === null
+                          ? null
+                          : socialMidiaData.staticData.facebook.followers
+                        : 0
+                    }
+                    likes={
+                      socialMidiaData !== undefined
+                        ? socialMidiaData.staticData.facebook === null
+                          ? null
+                          : socialMidiaData.staticData.facebook.like
+                        : 0
+                    }
                     name="Facebook"
                     onClick={() => setSelectedPage("facebook")}
                     isSelected={
@@ -190,8 +208,20 @@ export default function MidiasSociais() {
                   />
                   <LikesAndComentsCard
                     type="instagram"
-                    coments={socialMidiaData.staticData.instagram.followers}
-                    likes={socialMidiaData.staticData.instagram.posts}
+                    coments={
+                      socialMidiaData !== undefined
+                        ? socialMidiaData.staticData.instagram === null
+                          ? null
+                          : socialMidiaData.staticData.instagram.followers
+                        : 0
+                    }
+                    likes={
+                      socialMidiaData !== undefined
+                        ? socialMidiaData.staticData.instagram === null
+                          ? null
+                          : socialMidiaData.staticData.instagram.posts
+                        : 0
+                    }
                     name="Instagram"
                     onClick={() => setSelectedPage("instagram")}
                     isSelected={
@@ -200,8 +230,20 @@ export default function MidiasSociais() {
                   />
                   <LikesAndComentsCard
                     type="tiktok"
-                    coments={socialMidiaData.staticData.tiktok.followers}
-                    likes={socialMidiaData.staticData.tiktok.likes}
+                    coments={
+                      socialMidiaData !== undefined
+                        ? socialMidiaData.staticData.tiktok === null
+                          ? null
+                          : socialMidiaData.staticData.tiktok.followers
+                        : 0
+                    }
+                    likes={
+                      socialMidiaData !== undefined
+                        ? socialMidiaData.staticData.tiktok === null
+                          ? null
+                          : socialMidiaData.staticData.tiktok.likes
+                        : 0
+                    }
                     name="TikTok"
                     onClick={() => setSelectedPage("tiktok")}
                     isSelected={
@@ -210,8 +252,20 @@ export default function MidiasSociais() {
                   />
                   <LikesAndComentsCard
                     type="youtube"
-                    coments={socialMidiaData.staticData.youtube.views}
-                    likes={socialMidiaData.staticData.youtube.subs}
+                    coments={
+                      socialMidiaData !== undefined
+                        ? socialMidiaData.staticData.youtube === null
+                          ? null
+                          : socialMidiaData.staticData.youtube.views
+                        : 0
+                    }
+                    likes={
+                      socialMidiaData !== undefined
+                        ? socialMidiaData.staticData.youtube === null
+                          ? null
+                          : socialMidiaData.staticData.youtube.subs
+                        : 0
+                    }
                     name="Youtube"
                     onClick={() => setSelectedPage("youtube")}
                     isSelected={

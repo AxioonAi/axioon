@@ -53,11 +53,6 @@ export function PostComponent({
             className="object-cover w-16 h-16 m-0"
           />
           <p>
-            {/* {post.text && post.text.length > 100
-              ? `${post.text.substring(0, 100)}...`
-              : post.text || (post.description && post.description.length > 100)
-                ? `${post.description.substring(0, 100)}...`
-                : post.description} */}
             {post.text && post.text.length > 100
               ? `${post.text.substring(0, 100)}...`
               : post.text || `${post.description.substring(0, 100)}...`}
@@ -113,31 +108,12 @@ export function PostComponent({
                   {pageData?.posts[index].commentCount}
                 </strong>
               </div>
-              {/* {type === "facebook" && (
-                <div className="Feedback flex items-center min-w-20 gap-1">
-                  <Image
-                    width={20}
-                    height={20}
-                    src="/dashboard/midias-sociais/facebookShare.svg"
-                    alt=""
-                  />
-                  <strong
-                    style={{
-                      color:
-                        type === "facebook"
-                          ? "#0037C1"
-                          : type === "instagram"
-                            ? "#EB4956"
-                            : type === "tiktok"
-                              ? "#0037C1"
-                              : "#0037C1",
-                      fontSize: "0.85rem",
-                    }}
-                  >
-                    {pageData?.posts[index].shares}
-                  </strong>
-                </div>
-              )} */}
+              <div className="commentScore relative w-20 h-3 rounded bg-gradient-to-r from-[#8d0000] via-[#c2c600aa] to-[#008425] ">
+                <div
+                  className="bar absolute w-1 h-3 rounded bg-[#3c3c3c] -translate-x-1/2"
+                  style={{ marginLeft: `${post.sentiment / 10}%` }}
+                />
+              </div>
             </div>
 
             <div className="postDate self-end text-sm text-[#494949]">

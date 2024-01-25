@@ -46,8 +46,6 @@ export default function Notifications() {
     setNotifications(connect.body.notification);
   }
 
-  console.log("notifications: ", notifications);
-
   const [type, setType] = useState("");
 
   async function handleVerify() {

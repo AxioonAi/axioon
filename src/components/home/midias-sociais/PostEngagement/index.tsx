@@ -88,7 +88,6 @@ export function PostEngagement({ pageData, pageType }: pageData) {
             post.text.length > 20 ? post.text.slice(0, 20) + "..." : post.text,
           Curtidas: post.like,
           Comentários: post.commentCount,
-          Sentimento: post.sentiment && Number(post.sentiment.toFixed(2)),
           Compartilhamentos: post.shares,
         }))}
         margin={{
@@ -103,7 +102,6 @@ export function PostEngagement({ pageData, pageType }: pageData) {
         <Tooltip />
         <Bar dataKey="Curtidas" stackId="a" fill="#22C24F" />
         <Bar dataKey="Comentários" stackId="a" fill="#DA3252" />
-        <Bar dataKey="Sentimento" stackId="a" fill="#2F5CFC" />
         <Bar dataKey="Compartilhamentos" stackId="a" fill="#FFD712" />
       </BarChart>
     </div>

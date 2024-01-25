@@ -79,19 +79,13 @@ export function CommentComponent({ type, comment }: Props) {
                   {comment?.likeCount}
                 </strong>
               </div>
-              {/* <div className="Feedback flex items-center min-w-20 gap-1">
-                <Image
-                  width={20}
-                  height={20}
-                  src="/dashboard/midias-sociais/facebookComment.svg"
-                  alt=""
-                />
-                <strong style={{ color: "#0037C1", fontSize: "0.85rem" }}>
-                  {comment?.commentCount}
-                </strong>
-              </div> */}
               <div className="commentScore relative w-20 h-3 rounded bg-gradient-to-r from-[#8d0000] via-[#c2c600aa] to-[#008425] ">
-                <Bar className="bar" score={comment.sentimentAnalysis} />
+                <div
+                  className="bar absolute w-1 h-3 rounded bg-[#3c3c3c]"
+                  style={{
+                    marginLeft: `${comment.sentimentAnalysis / 10}%`,
+                  }}
+                />
               </div>
             </div>
 

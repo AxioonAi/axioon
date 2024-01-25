@@ -174,7 +174,10 @@ export function SocialMidiaPage({
                   content="Engajamento de Publicações"
                   barColor="#12A9E7"
                 />
-                <PostEngagement pageData={pageData} pageType={pageType} />
+                <PostEngagement
+                  pageData={pageData !== undefined ? pageData : []}
+                  pageType={pageType}
+                />
               </div>
             </div>
 

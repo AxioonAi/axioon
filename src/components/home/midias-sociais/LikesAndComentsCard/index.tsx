@@ -97,6 +97,8 @@ export function LikesAndComentsCard({
             </div>
           </div>
         </div>
+      ) : coments === null && likes === null ? (
+        <span className="text-sm">Nenhum dado encontrado</span>
       ) : (
         <div className="flex justify-center w-full h-full">Carregando...</div>
       )}
