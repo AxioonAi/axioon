@@ -237,9 +237,9 @@ export default function SeuEleitorado() {
                     title="Notícias em Destaque"
                     className="mt-4"
                   />
-                  <div className="w-full flex justify-center flex-wrap gap-4 my-7 lg:justify-around">
+                  <div className="flex flex-col xl:flex-row w-full h-[50vh] xl:h-52 pt-80 xl:p-0 justify-center overflow-y-scroll xl:overflow-x-scroll gap-4 my-4 lg:justify-around">
                     {mentionsData?.currentFormat.news.news
-                      .slice(0, 3)
+                      // .slice(0, 3)
                       .map((item: any, index: any) => (
                         <NewsCard
                           key={index}
