@@ -101,23 +101,8 @@ export default function SeuEleitorado() {
     if (selectedProfile.id) {
       setCityData(undefined);
       getCityDetails();
-      if (selectedVoterOption === "age") {
-        null;
-      } else if (selectedVoterOption === "gender") {
-        setSelectedVoterLabels(["Homens", "Mulheres"]);
-      } else if (selectedVoterOption === "education") {
-        setSelectedVoterLabels([
-          "Ensino Médio Incompleto",
-          "Não Informado",
-          "Ensino Médio Completo",
-          "Ensino Fundamental Completo",
-          "Analfabeto",
-          "Sabe Ler e Escrever",
-          "Ensino Fundamental Incompleto",
-        ]);
-      }
     }
-  }, [selectedProfile, selectedVoterOption]);
+  }, [selectedProfile]);
 
   const selectVotersValue = [
     { value: "age", label: "Idade" },

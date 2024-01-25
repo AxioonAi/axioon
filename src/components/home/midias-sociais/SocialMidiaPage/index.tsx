@@ -390,7 +390,7 @@ export function SocialMidiaPage({
                       } border-0 bg-transparent text-sm font-bold text-black underline`}
                       onClick={() => setShowMoreComments(!showMoreComments)}
                     >
-                      {showMore ? "Ver Menos" : "Ver Mais"}
+                      {showMoreComments ? "Ver Menos" : "Ver Mais"}
                     </button>
                   </div>
                 </div>
