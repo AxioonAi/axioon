@@ -13,7 +13,7 @@ export function RegisterAccountHeader({ type = "light", logged }: Props) {
   const router = useRouter();
 
   return (
-    <header className="registerHeader flex items-center justify-between h-16 border border-gray-60">
+    <header className="registerHeader flex items-center justify-between h-16 border-b border-gray-60">
       {type === "light" ? (
         <img
           className="w-28 md:w-40 h-auto ml-[2%]"

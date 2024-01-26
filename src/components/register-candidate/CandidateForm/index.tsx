@@ -6,18 +6,26 @@ import { Modal, Spinner } from "react-bootstrap";
 import Theme from "@/styles/themes";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { GlobalButton } from "@/components/Global/Button";
+import { profile } from "console";
+import { maskCpfCnpj } from "@/utils/masks";
 
 interface IBGEProps {
   formData?: any;
   setFormData?: any;
   loading: boolean;
   handleRegister?: any;
+  cpfCnpj: string;
+  setCpfCnpj: any;
+  checkProfile?: any;
 }
 export function CandidateForm({
   formData,
   setFormData,
   loading,
   handleRegister,
+  cpfCnpj,
+  setCpfCnpj,
+  checkProfile,
 }: IBGEProps) {
   const selectState = (e: any) => {
     setFormData({ ...formData, state: e });
@@ -78,11 +86,28 @@ export function CandidateForm({
   }, []);
 
   return (
-    <>
-      <Container>
-        <FormGroup>
-          <label htmlFor="socialName">Nome Social</label>
+    <div className="flex flex-col">
+      <div className="grid mt-4 gap-2 grid-cols-[auto] justify-items-center md:grid-cols-2 lg:grid-cols-4">
+        <div className="flex flex-col gap-2">
+          <label className="text-white" htmlFor="cpfCnpj">
+            CPF
+          </label>
           <input
+            className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
+            name="cpfCnpj"
+            id="cpfCnpj"
+            placeholder="Insira o CPF"
+            value={cpfCnpj}
+            onChange={(e) => setCpfCnpj(maskCpfCnpj(e.target.value))}
+            maxLength={18}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-white" htmlFor="socialName">
+            Nome Social
+          </label>
+          <input
+            className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
             type="text"
             name="socialName"
             id="socialName"
@@ -92,10 +117,13 @@ export function CandidateForm({
               setFormData({ ...formData, social_name: e.target.value })
             }
           />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="fullName">Nome completo</label>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-white" htmlFor="fullName">
+            Nome completo
+          </label>
           <input
+            className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
             type="text"
             name="fullName"
             id="fullName"
@@ -105,15 +133,16 @@ export function CandidateForm({
               setFormData({ ...formData, full_name: e.target.value })
             }
           />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="state">Estado</label>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-white" htmlFor="state">
+            Estado
+          </label>
           <Select
             name="state"
             options={stateList}
             onChange={(e) => selectState(e)}
             placeholder="Estado"
-            className="w-full min-w-56 max-w-5min-w-56"
             menuPlacement="auto"
             styles={{
               control: (base) => ({
@@ -132,9 +161,11 @@ export function CandidateForm({
               }),
             }}
           />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="city">Cidade</label>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-white" htmlFor="city">
+            Cidade
+          </label>
           <Select
             name="city"
             onFocus={() => handleIBGECity()}
@@ -158,11 +189,12 @@ export function CandidateForm({
             }}
             onChange={(e) => setFormData({ ...formData, city: e })}
             placeholder="Cidade"
-            className="w-full min-w-56 max-w-5min-w-56 "
           />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="role">Cargo</label>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-white" htmlFor="role">
+            Cargo
+          </label>
           <Select
             name="role"
             options={roles}
@@ -185,11 +217,12 @@ export function CandidateForm({
             }}
             onChange={(e) => setFormData({ ...formData, role: e })}
             placeholder="Cargo"
-            className="w-full min-w-56 max-w-5min-w-56 "
           />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="politicalGroup">Partido Político</label>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-white" htmlFor="politicalGroup">
+            Partido Político
+          </label>
           <Select
             name="politicalGroup"
             onFocus={() => handlePoliticalGroup()}
@@ -215,25 +248,33 @@ export function CandidateForm({
               setFormData({ ...formData, political_group_id: e })
             }
             placeholder="Partido Político"
-            className="w-full min-w-56 max-w-5min-w-56 "
           />
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="socialMidias">Redes Sociais</label>
-          <ClickHere className="cursor-pointer" onClick={() => setOpen(true)}>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-white" htmlFor="socialMidias">
+            Redes Sociais
+          </label>
+          <div
+            className="cursor-pointer flex relative bg-white w-[220px] h-[53px] rounded px-2 text-darkBlueAxion items-center gap-2 hover:scale-[1.01]"
+            onClick={() => setOpen(true)}
+          >
             <strong>Clique aqui</strong>
+            <div className="w-2 h-2 absolute right-2 top-2 rounded-full bg-[#ff0000] animate-ping" />
             <img src="/register-candidate/hand-icon.svg" alt="" />
-          </ClickHere>
-        </FormGroup>
-
-        <FinishButton disabled={loading} onClick={handleRegister}>
-          {loading ? (
-            <Spinner animation="border" size="sm" />
-          ) : (
-            "Inseriu? Concluir"
-          )}
-        </FinishButton>
-      </Container>
+          </div>
+        </div>
+      </div>
+      <button
+        className="w-[220px] h-[53px] rounded px-2 text-lg font-bold text-white bg-darkBlueAxion self-center my-2 hover:scale-[1.01]"
+        disabled={loading}
+        onClick={checkProfile}
+      >
+        {loading ? (
+          <Spinner animation="border" size="sm" />
+        ) : (
+          "Inseriu? Concluir"
+        )}
+      </button>
       <Modal show={open} onHide={() => setOpen(false)} size="lg">
         <div className="bg-[#34374C] text-white rounded p-4 flex flex-col">
           <TitleBottomBar
@@ -242,10 +283,13 @@ export function CandidateForm({
             textColor="#fff"
             width="35rem"
           />
-          <div className="grid grid-cols-2 gap-4  justify-items-center mt-5">
-            <FormGroup>
-              <label htmlFor="facebook">Facebook</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4  justify-items-center mt-5">
+            <div className="flex flex-col gap-2">
+              <label className="text-white" htmlFor="facebook">
+                Facebook
+              </label>
               <input
+                className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
                 type="text"
                 name="facebook"
                 id="facebook"
@@ -255,10 +299,13 @@ export function CandidateForm({
                   setFormData({ ...formData, facebook: e.target.value })
                 }
               />
-            </FormGroup>
-            <FormGroup>
-              <label htmlFor="instagram">Instagram</label>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-white" htmlFor="instagram">
+                Instagram
+              </label>
               <input
+                className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
                 type="text"
                 name="instagram"
                 id="instagram"
@@ -268,10 +315,13 @@ export function CandidateForm({
                   setFormData({ ...formData, instagram: e.target.value })
                 }
               />
-            </FormGroup>
-            <FormGroup>
-              <label htmlFor="tiktok">TikTok</label>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-white" htmlFor="tiktok">
+                TikTok
+              </label>
               <input
+                className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
                 type="text"
                 name="tiktok"
                 id="tiktok"
@@ -281,10 +331,13 @@ export function CandidateForm({
                   setFormData({ ...formData, tiktok: e.target.value })
                 }
               />
-            </FormGroup>
-            <FormGroup>
-              <label htmlFor="youtube">YouTube</label>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-white" htmlFor="youtube">
+                YouTube
+              </label>
               <input
+                className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
                 type="text"
                 name="youtube"
                 id="youtube"
@@ -294,7 +347,7 @@ export function CandidateForm({
                   setFormData({ ...formData, youtube: e.target.value })
                 }
               />
-            </FormGroup>
+            </div>
           </div>
           <GlobalButton
             content="Concluir"
@@ -308,6 +361,6 @@ export function CandidateForm({
           />
         </div>
       </Modal>
-    </>
+    </div>
   );
 }

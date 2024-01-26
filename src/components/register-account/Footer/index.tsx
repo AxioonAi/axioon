@@ -7,7 +7,7 @@ interface Props {
 export function Footer({ type = "light" }: Props) {
   return (
     <footer
-      className={`flex px-4 justify-between items-center border-t-2 border-t-${type === "light" ? "gray-60" : "gray-10"} ${type === "light" ? "text-gray-80" : "text-gray-10"} h-16 text-xs absolute bottom-0 w-full`}
+      className={`flex relative lg:absolute px-4 justify-between items-center border-t border-t-${type === "light" ? "gray-60" : "gray-10"} ${type === "light" ? "text-gray-80" : "text-gray-10"} h-16 text-xs bottom-0 w-full`}
     >
       <div>
         <p>
