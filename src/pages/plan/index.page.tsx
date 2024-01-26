@@ -192,8 +192,9 @@ export default function Plan() {
           </div>
         )}
         <div className="PlanDescription flex flex-col lg:hidden w-full md:w-4/5 h-3/5 mt-5 justify-between">
-          {selected === plans[0].title
-            ? plans[0].benefits.map((item: any) => (
+          {selected === plans[0].title ? (
+            <>
+              {plans[0].benefits.map((item: any) => (
                 <div className="flex w-full justify-between border-b">
                   <span className="text-black text-sm">
                     {item.name ? (
@@ -206,81 +207,104 @@ export default function Plan() {
                     {item.description}
                   </span>
                 </div>
-              ))
-            : selected === plans[1].title
-              ? plans[1].benefits.map((item: any) => (
-                  <div className="flex w-full justify-between border-b">
-                    <span className="text-black text-sm">
-                      {item.name ? (
-                        item.name
-                      ) : (
-                        <Spinner animation="border" size="sm" />
-                      )}
-                    </span>
-                    <span className="font-bold text-black">
-                      {item.description}
-                    </span>
-                  </div>
-                ))
-              : selected === plans[2].title
-                ? plans[2].benefits.map((item: any) => (
-                    <div className="flex w-full justify-between border-b">
-                      <span className="text-black text-sm">
-                        {item.name ? (
-                          item.name
-                        ) : (
-                          <Spinner animation="border" size="sm" />
-                        )}
-                      </span>
-                      <span className="font-bold text-black">
-                        {item.description}
-                      </span>
-                    </div>
-                  ))
-                : plans[0].benefits.map((item: any) => (
-                    <div className="flex w-full justify-between border-b">
-                      <span
-                        className={`text-black text-sm ${flash ? "translate-x-[1px]" : ""} transition duration-75 ease-linear`}
-                      >
-                        {item.name ? (
-                          item.name
-                        ) : (
-                          <Spinner animation="border" size="sm" />
-                        )}
-                      </span>
-                      <span
-                        className={`text-black text-sm ${flash ? "translate-x-[1px]" : ""} transition duration-75 ease-linear`}
-                      >
-                        ...
-                      </span>
-                    </div>
-                  ))}
-          {selected === plans[0].title ||
-            selected === plans[1].title ||
-            (selected === plans[2].title && (
+              ))}
               <div className="flex w-full justify-between border-b">
                 <span className="text-black text-sm">Investimento:</span>
                 <span className="font-bold text-black">
-                  {selected === plans[0].title ? (
-                    plans[0].value ? (
-                      `R$ ${plans[0].value.toLocaleString("pt-BR")}`
+                  {plans[0].value ? (
+                    `R$ ${plans[0].value.toLocaleString("pt-BR")}`
+                  ) : (
+                    <Spinner
+                      animation="border"
+                      size="sm"
+                      className="self-center"
+                    />
+                  )}
+                </span>
+              </div>
+            </>
+          ) : selected === plans[1].title ? (
+            <>
+              {plans[1].benefits.map((item: any) => (
+                <div className="flex w-full justify-between border-b">
+                  <span className="text-black text-sm">
+                    {item.name ? (
+                      item.name
                     ) : (
                       <Spinner animation="border" size="sm" />
-                    )
-                  ) : selected === plans[1].title ? (
-                    plans[1].value ? (
-                      `R$ ${plans[1].value.toLocaleString("pt-BR")}`
+                    )}
+                  </span>
+                  <span className="font-bold text-black">
+                    {item.description}
+                  </span>
+                </div>
+              ))}
+              <div className="flex w-full justify-between border-b">
+                <span className="text-black text-sm">Investimento:</span>
+                <span className="font-bold text-black">
+                  {plans[1].value ? (
+                    `R$ ${plans[1].value.toLocaleString("pt-BR")}`
+                  ) : (
+                    <Spinner
+                      animation="border"
+                      size="sm"
+                      className="self-center"
+                    />
+                  )}
+                </span>
+              </div>
+            </>
+          ) : selected === plans[2].title ? (
+            <>
+              {plans[2].benefits.map((item: any) => (
+                <div className="flex w-full justify-between border-b">
+                  <span className="text-black text-sm">
+                    {item.name ? (
+                      item.name
                     ) : (
                       <Spinner animation="border" size="sm" />
-                    )
-                  ) : plans[2].value ? (
+                    )}
+                  </span>
+                  <span className="font-bold text-black">
+                    {item.description}
+                  </span>
+                </div>
+              ))}
+              <div className="flex w-full justify-between border-b">
+                <span className="text-black text-sm">Investimento:</span>
+                <span className="font-bold text-black">
+                  {plans[2].value ? (
                     `R$ ${plans[2].value.toLocaleString("pt-BR")}`
+                  ) : (
+                    <Spinner
+                      animation="border"
+                      size="sm"
+                      className="self-center"
+                    />
+                  )}
+                </span>
+              </div>
+            </>
+          ) : (
+            plans[0].benefits.map((item: any) => (
+              <div className="flex w-full justify-between border-b">
+                <span
+                  className={`text-black text-sm ${flash ? "translate-x-[1px]" : ""} transition duration-75 ease-linear`}
+                >
+                  {item.name ? (
+                    item.name
                   ) : (
                     <Spinner animation="border" size="sm" />
                   )}
                 </span>
+                <span
+                  className={`text-black text-sm ${flash ? "translate-x-[1px]" : ""} transition duration-75 ease-linear`}
+                >
+                  ...
+                </span>
               </div>
-            ))}
+            ))
+          )}
         </div>
         <button
           className="Select self-center md:w-2/5 w-4/5 h-12 xl:h-16 bg-white text-darkBlueAxion border-[1px] border-darkBlueAxion rounded-xl mt-10 font-bold md:text-2xl"

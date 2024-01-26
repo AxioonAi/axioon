@@ -10,7 +10,7 @@ interface ModalProps {
   onHide: () => void;
 }
 
-export function NewPasswordModal({ show, onHide }: ModalProps) {
+export function VideoModal({ show, onHide }: ModalProps) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 

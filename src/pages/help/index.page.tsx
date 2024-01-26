@@ -9,6 +9,7 @@ import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector"
 import { useRouter } from "next/router";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
 import { AuthPutAPI, authGetAPI } from "@/lib/axios";
+import { VideoModal } from "@/components/help/NewPasswordModal";
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Help() {
   const main = useRef(null);
@@ -189,6 +190,7 @@ export default function Help() {
         changePassword={changePassword}
         loadingButton={loadingButton}
       />
+      <VideoModal show={showVideo} onHide={() => setShowVideo(false)} />
     </main>
   );
 }
