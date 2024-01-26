@@ -17,9 +17,21 @@ import {
   maskCpfCnpj,
   maskExpiryDate,
   maskPhone,
+  minLength,
+  textWithSpacesOnly,
 } from "@/utils/masks";
 import ActionSheet from "actionsheet-react";
+import {
+  stripeCardExpirValidation,
+  stripeCardNumberValidation,
+} from "@/utils/creditCardValidation";
 import Theme from "@/styles/themes";
+import {
+  CreditCardHolderValidation,
+  CreditCardValidation,
+  isObjectEmpty,
+} from "@/utils/formValidation";
+import { Spinner } from "react-bootstrap";
 
 interface CreditCardFormProps {
   cardFormData: {
@@ -45,6 +57,8 @@ interface CreditCardFormProps {
   setStep: (step: number) => void;
   handleCard: () => void;
   value: any;
+  loading: boolean;
+  setLoading: (value: boolean) => void;
 }
 export function CreditCardForm({
   cardFormData,
@@ -53,8 +67,11 @@ export function CreditCardForm({
   setStep,
   handleCard,
   value,
+  loading,
+  setLoading,
 }: CreditCardFormProps) {
   const [person, setPerson] = useState("");
+  const [error, setError] = useState<any>({});
   const [installment, setInstallment] = useState({
     value: 1,
   });
@@ -125,7 +142,8 @@ export function CreditCardForm({
       cardFormData.creditCard.holderName !== "" &&
       cardFormData.creditCard.number !== "" &&
       cardFormData.creditCard.expiryDate !== "" &&
-      cardFormData.creditCard.ccv !== ""
+      cardFormData.creditCard.ccv !== "" &&
+      isObjectEmpty(CreditCardValidation(cardFormData.creditCard))
     ) {
       return setStep(2);
     }
@@ -146,22 +164,84 @@ export function CreditCardForm({
       cardFormData.creditCardHolderInfo.cpfCnpj !== "" &&
       cardFormData.creditCardHolderInfo.postalCode !== "" &&
       cardFormData.creditCardHolderInfo.addressNumber !== "" &&
-      cardFormData.creditCardHolderInfo.phone !== ""
+      cardFormData.creditCardHolderInfo.phone !== "" &&
+      isObjectEmpty(
+        CreditCardHolderValidation(cardFormData.creditCardHolderInfo)
+      )
     ) {
       return setStep(3);
     }
     handleCard();
   };
 
+  const handleValidations = (type: any, value: any) => {
+    let errorText;
+    switch (type) {
+      case "holderName":
+        errorText =
+          value === "" ? "Campo Obrigatório" : textWithSpacesOnly(value);
+        setError({ ...error, holderNameError: errorText });
+        break;
+      case "number":
+        errorText =
+          value === ""
+            ? "Campo Obrigatório"
+            : stripeCardNumberValidation(value);
+        setError({ ...error, numberError: errorText });
+        break;
+      case "expiryDate":
+        errorText =
+          value === "" ? "Campo Obrigatório" : stripeCardExpirValidation(value);
+        setError({ ...error, expiryDateError: errorText });
+        break;
+      case "CCV":
+        errorText = value === "" ? "Campo Obrigatório" : value.length < 3;
+        setError({ ...error, CCVError: errorText });
+        break;
+      case "name":
+        errorText =
+          value === "" ? "Campo Obrigatório" : textWithSpacesOnly(value);
+        setError({ ...error, nameError: errorText });
+        break;
+      case "email":
+        errorText = value === "" ? "Campo Obrigatório" : "";
+        setError({ ...error, emailError: errorText });
+        break;
+      case "cpfCnpj":
+        errorText = value === "" ? "Campo Obrigatório" : minLength(11)(value);
+        setError({ ...error, cpfCnpjError: errorText });
+        break;
+      case "postalCode":
+        errorText = value === "" ? "Campo Obrigatório" : minLength(8)(value);
+        setError({ ...error, postalCodeError: errorText });
+        break;
+      case "addressNumber":
+        errorText = value === "" ? "Campo Obrigatório" : "";
+        setError({ ...error, addressNumberError: errorText });
+        break;
+      case "phone":
+        errorText = value === "" ? "Campo Obrigatório" : "";
+        setError({ ...error, phoneError: errorText });
+        break;
+    }
+  };
+
+  const handleBlur = (e: any) => {
+    handleValidations(e.target.name, e.target.value);
+  };
+
   return (
-    <div className="formContainer flex flex-col w-full md:w-[35rem] gap-2 mt-8">
+    <div className="formContainer flex flex-col w-full gap-2 mt-8">
       {step === 1 ? (
-        <div className="formDiv flex flex-col gap-2 md:flex-row md:gap-0 justify-between flex-wrap">
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+        <div className="formDiv flex flex-col gap-2 md:flex-row justify-between flex-wrap">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="holderName">Nome</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               type="text"
               id="holderName"
+              name="holderName"
               placeholder="Digite o nome no cartão"
               value={cardFormData.creditCard.holderName}
               onChange={(e) =>
@@ -174,12 +254,21 @@ export function CreditCardForm({
                 })
               }
               autoFocus
+              onBlur={handleBlur}
             />
+            {error &&
+              error.holderNameError &&
+              error.holderNameError.length > 1 && (
+                <p className="text-red-500">{error.holderNameError}</p>
+              )}
           </div>
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="number">Número do Cartão</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               id="number"
+              name="number"
               placeholder="Digite o número do cartão"
               value={cardFormData.creditCard.number}
               onChange={(e) =>
@@ -192,12 +281,19 @@ export function CreditCardForm({
                 })
               }
               maxLength={19}
+              onBlur={handleBlur}
             />
+            {error && error.numberError && error.numberError.length > 1 && (
+              <p className="text-red-500">{error.numberError}</p>
+            )}
           </div>
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="expiryDate">Validade</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               id="expiryDate"
+              name="expiryDate"
               placeholder="Digite a validade do cartão"
               value={cardFormData.creditCard.expiryDate}
               onChange={(e) =>
@@ -210,12 +306,21 @@ export function CreditCardForm({
                 })
               }
               maxLength={5}
+              onBlur={handleBlur}
             />
+            {error &&
+              error.expiryDateError &&
+              error.expiryDateError.length > 1 && (
+                <p className="text-red-500">{error.expiryDateError}</p>
+              )}
           </div>
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="CCV">CVC do Cartão</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               id="CCV"
+              name="CCV"
               placeholder="Digite o CVC do cartão"
               value={cardFormData.creditCard.ccv}
               onChange={(e) =>
@@ -228,16 +333,23 @@ export function CreditCardForm({
                 })
               }
               maxLength={3}
+              onBlur={handleBlur}
             />
+            {error && error.CCVError && error.CCVError.length > 1 && (
+              <p className="text-red-500">{error.CCVError}</p>
+            )}
           </div>
         </div>
       ) : step === 2 ? (
-        <FormDiv className="flex flex-wrap">
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+        <div className="formDiv flex flex-col gap-2 md:flex-row justify-between flex-wrap">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="name">Nome</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               type="text"
               id="name"
+              name="name"
               placeholder="Digite o seu nome"
               value={cardFormData.creditCardHolderInfo.name}
               onChange={(e) =>
@@ -250,13 +362,20 @@ export function CreditCardForm({
                 })
               }
               autoFocus
+              onBlur={handleBlur}
             />
+            {error && error.nameError && error.nameError.length > 1 && (
+              <p className="text-red-500">{error.nameError}</p>
+            )}
           </div>
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="email">Email</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               type="text"
               id="email"
+              name="email"
               placeholder="Digite o seu email"
               value={cardFormData.creditCardHolderInfo.email}
               onChange={(e) =>
@@ -268,12 +387,19 @@ export function CreditCardForm({
                   },
                 })
               }
+              onBlur={handleBlur}
             />
+            {error && error.emailError && error.emailError.length > 1 && (
+              <p className="text-red-500">{error.emailError}</p>
+            )}
           </div>
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="cpfCnpj">CPF/CNPJ</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               id="cpfCnpj"
+              name="cpfCnpj"
               placeholder="Digite o seu CPF ou CNPJ"
               value={cardFormData.creditCardHolderInfo.cpfCnpj}
               onChange={(e) =>
@@ -286,12 +412,19 @@ export function CreditCardForm({
                 })
               }
               maxLength={18}
+              onBlur={handleBlur}
             />
+            {error && error.cpfCnpjError && error.cpfCnpjError.length > 1 && (
+              <p className="text-red-500">{error.cpfCnpjError}</p>
+            )}
           </div>
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="postalCode">CEP</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               id="postalCode"
+              name="postalCode"
               placeholder="Digite o CEP"
               value={cardFormData.creditCardHolderInfo.postalCode}
               onChange={(e) =>
@@ -304,12 +437,21 @@ export function CreditCardForm({
                 })
               }
               maxLength={9}
+              onBlur={handleBlur}
             />
+            {error &&
+              error.postalCodeError &&
+              error.postalCodeError.length > 1 && (
+                <p className="text-red-500">{error.postalCodeError}</p>
+              )}
           </div>
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="addressNumber">Número</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               id="addressNumber"
+              name="addressNumber"
               placeholder="Digite o número"
               value={cardFormData.creditCardHolderInfo.addressNumber}
               onChange={(e) =>
@@ -321,12 +463,21 @@ export function CreditCardForm({
                   },
                 })
               }
+              onBlur={handleBlur}
             />
+            {error &&
+              error.addressNumberError &&
+              error.addressNumberError.length > 1 && (
+                <p className="text-red-500">{error.addressNumberError}</p>
+              )}
           </div>
-          <div className="formGroup flex flex-col focus:outline-none mt-3">
+          <div className="formGroup flex flex-col focus:outline-none mt-2 w-full">
             <label htmlFor="phone">Telefone</label>
             <input
+              required
+              className="border-[1px] rounded p-2 lg:w-1/2"
               id="phone"
+              name="phone"
               placeholder="Digite o número do celular"
               value={cardFormData.creditCardHolderInfo.phone}
               onChange={(e) =>
@@ -339,14 +490,18 @@ export function CreditCardForm({
                 })
               }
               maxLength={15}
+              onBlur={handleBlur}
             />
+            {error && error.phoneError && error.phoneError.length > 1 && (
+              <p className="text-red-500">{error.phoneError}</p>
+            )}
           </div>
-        </FormDiv>
+        </div>
       ) : (
-        <>
+        <div className="formDiv flex flex-col gap-2 md:flex-row justify-between flex-wrap">
           <button
             onClick={handleOpen}
-            className="bg-darkBlueAxion text-white rounded p-2"
+            className="bg-darkBlueAxion text-white rounded p-2 w-full lg:w-1/2"
           >{`${installment.value} x R$ ${Number(
             Number(value) / installment.value
           ).toFixed(2)}`}</button>
@@ -378,7 +533,7 @@ export function CreditCardForm({
               </div>
             ))}
           </ActionSheet>
-        </>
+        </div>
       )}
 
       <div style={{ margin: "1rem auto 0" }}>
@@ -390,14 +545,30 @@ export function CreditCardForm({
         />
       </div>
 
-      <FinishPayment>
+      <div className="flex flex-col items-center justify-center gap-2 my-4">
         {step !== 1 && (
-          <button onClick={() => setStep(step - 1)}>Voltar</button>
+          <button
+            className={`text-darkBlueAxion border-[1px] border-darkBlueAxion p-2 rounded ${step === 1 && "hidden"} hover:bg-darkBlueAxion hover:text-white transition duration-200 ease-in`}
+            onClick={() => setStep(step - 1)}
+          >
+            Voltar
+          </button>
         )}
-        <button onClick={handleClick}>
-          {step !== 3 ? "Prosseguir" : "Finalizar Compra"}
+        <button
+          className=" text-darkBlueAxion border-[1px] border-darkBlueAxion p-2 rounded w-full lg:w-1/3 text-xl font-bold hover:bg-darkBlueAxion hover:text-white transition duration-200 ease-in"
+          onClick={() => handleClick()}
+          disabled={loading}
+          // onClick={() => setStep(step + 1)}
+        >
+          {loading ? (
+            <Spinner animation="border" />
+          ) : step !== 3 ? (
+            "Prosseguir"
+          ) : (
+            "Finalizar Compra"
+          )}
         </button>
-      </FinishPayment>
+      </div>
     </div>
   );
 }

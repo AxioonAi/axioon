@@ -115,3 +115,21 @@ export function maskCVC(value: string) {
   value = value.replace(/\D/g, "");
   return value;
 }
+
+export const textWithSpacesOnly = (value: string) => {
+  if (value) {
+    if (/^[a-zA-ZÀ-ú ]*$/i.test(value)) {
+      return undefined;
+    } else {
+      return "Somente letras";
+    }
+  } else {
+    return undefined;
+  }
+};
+
+export const minLength = (min: number) => (value: string | any[]) => {
+  value && value.length < min
+    ? `Deve ter pelo menos ${min} dígitos`
+    : undefined;
+};

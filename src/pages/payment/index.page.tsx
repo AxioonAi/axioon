@@ -16,12 +16,13 @@ import { CreditCardForm } from "@/components/payment/CreditCardForm";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { windowWidth } from "@/utils/windowWidth";
 import { PixPayment } from "@/components/payment/PixPayment";
-import { AuthPostAPI } from "@/lib/axios";
+import { AuthPostAPI, loginVerifyAPI } from "@/lib/axios";
 import { useRouter } from "next/router";
 
 export default function Payment() {
   const [selectedMethod, setSelectedMethod] = useState("creditCard");
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [pix, setPix] = useState({
     encodedImage: "",
     expirationDate: "",
@@ -63,6 +64,7 @@ export default function Payment() {
   }
 
   async function handleCard() {
+    setLoading(true);
     const connect = await AuthPostAPI(`/new-credit-card/${query.id}`, {
       ...cardFormData,
       creditCard: {
@@ -72,15 +74,20 @@ export default function Payment() {
       },
     });
     if (connect.status !== 200) {
-      return alert(connect.body);
+      alert(connect.body);
+      return setLoading(false);
     }
     router.push("/finish-payment");
+    return setLoading(false);
   }
 
   return (
     <div className="Container relative min-h-screen pb-16 md:pb-32">
       <RegisterAccountHeader />
-      <main className="flex lex-col-reverse lg:flex-row justify-between max-w-[1440px] m-auto">
+      <main className="flex flex-col lg:flex-row justify-between max-w-[1440px] m-auto">
+        {/* <div className="bg-darkBlueAxion flex lg:hidden w-full h-40">
+          <img src="/payment/art.png" alt="" className="object-contain" />
+        </div> */}
         <div className="paymentContainer min-h-[32rem] px-4 w-full md:px-16 m-auto lg:m-0">
           <div className="paymentSelector flex flex-col gap-8 pt-8">
             <div className="radioGroup flex gap-2 items-center">
@@ -141,6 +148,8 @@ export default function Payment() {
               setStep={setStep}
               handleCard={handleCard}
               value={query.value}
+              loading={loading}
+              setLoading={setLoading}
             />
           ) : selectedMethod === "pix" ? (
             <PixPayment handlePix={handlePix} pix={pix} />
@@ -148,23 +157,13 @@ export default function Payment() {
             <div style={{ paddingBottom: "14rem" }} />
           )}
         </div>
-        <SelectedPlan>
-          <TitleBottomBar title="Plano escolhido:" color="#0D123C" />
-          <ArtContainer>
-            <div className="logoContainer">
-              <Image
-                width={155}
-                height={30}
-                src={"/sidebar/axion-white.svg"}
-                alt=""
-                className="logo"
-              />
-            </div>
-            <div className="art">
-              <img src="/payment/art.png" alt="" />
-            </div>
-          </ArtContainer>
-        </SelectedPlan>
+        {/* <div className="bg-darkBlueAxion flex">
+          <img
+            src="/payment/art.png"
+            alt=""
+            className="hidden lg:block object-fill"
+          />
+        </div> */}
       </main>
       <Footer />
     </div>

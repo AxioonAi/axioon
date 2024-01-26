@@ -16,7 +16,7 @@ import { PersonalDataForm } from "@/components/register-account/PersonalDataForm
 import { CompanyDataForm } from "@/components/register-account/CompanyDataForm";
 import { AnialiasingFormData } from "@/components/register-account/AnaliasingData";
 import { Messages } from "@/components/Global/Messages";
-import { PostAPI } from "@/lib/axios";
+import { PostAPI, refreshToken, token, user_type } from "@/lib/axios";
 import { Spinner } from "react-bootstrap";
 
 export default function RegisterAccount() {
@@ -54,6 +54,9 @@ export default function RegisterAccount() {
     }
     if (connect.status === 200) {
       setStep(3);
+      localStorage.setItem(token, connect.body.token);
+      localStorage.setItem(refreshToken, connect.body.refreshToken);
+      localStorage.setItem(user_type, connect.body.type);
       setTimeout(() => {
         router.push("/finish-register");
       }, 5000);

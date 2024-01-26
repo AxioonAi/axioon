@@ -11,7 +11,11 @@ export default function FinishPayment() {
     <>
       <div className="Container relative flex flex-col min-h-screen items-center">
         <div className="flex flex-col items-center w-full gap-4">
-          <img src={"AxioonLogo.svg"} alt="" className="w-1/2 md:w-1/4 mt-4" />
+          <img
+            src={"AxioonLogo.svg"}
+            alt=""
+            className="w-1/2 md:w-1/4 xl:w-1/5 mt-20"
+          />
           <div className="flex flex-col items-center">
             <strong className="text-darkBlueAxion text-2xl md:text-5xl">
               Pagamento aprovado!

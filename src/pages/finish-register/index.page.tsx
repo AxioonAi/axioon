@@ -3,9 +3,10 @@ import { AccessButton, Container } from "./styles";
 import Theme from "@/styles/themes";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import FinishPayment from "../finish-payment/index.page";
+import { loginVerifyAPI } from "@/lib/axios";
 
 export default function FinishRegisterAccount() {
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function FinishRegisterAccount() {
               <img
                 src={"AxioonLogoWhite.svg"}
                 alt=""
-                className={`w-1/2 md:w-1/4 mt-4 opacity-${
+                className={`w-1/2 md:w-1/4 xl:w-1/5 mt-20 opacity-${
                   background ? 1 : 0
                 } transition ease-linear duration-200 delay-100`}
               />
@@ -70,7 +71,7 @@ export default function FinishRegisterAccount() {
               <img
                 src={"AxioonLogo.svg"}
                 alt=""
-                className={`w-1/2 md:w-1/4 mt-4 opacity-${
+                className={`w-1/2 md:w-1/4 xl:w-1/5 mt-20 opacity-${
                   background && !finished ? 0 : !background && finished ? 1 : 1
                 } transition ease-linear duration-200 delay-100`}
               />
