@@ -112,7 +112,7 @@ export default function RegisterAccount() {
         <AnialiasingFormData />
       ) : (
         <>
-          <RegisterAccountHeader />
+          <RegisterAccountHeader type="light" />
           <div
             className={`progressBar absolute top-[3.7rem] bg-darkBlueAxion h-1 transition duration-500 ease-in-out ${step === 1 ? "w-[10%]" : step === 2 ? "w-1/2" : step === 3 ? "w-[90%]" : "w-full"}`}
           />
@@ -152,6 +152,7 @@ export default function RegisterAccount() {
                   <button
                     className="w-full p-3 rounded my-[3vh] border-2 bg-darkBlueAxion border-darkBlueAxion text-white font-bold hover:opacity-85 transition duration-300"
                     onClick={handleNext}
+                    disabled={loading}
                   >
                     {loading ? (
                       <Spinner animation="border" />

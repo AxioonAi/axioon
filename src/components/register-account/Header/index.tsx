@@ -28,7 +28,7 @@ export function RegisterAccountHeader({ type = "light", logged }: Props) {
         />
       )}
       <button
-        className={`py-2 px-3 border ${type === "light" ? "border-darkBlueAxion" : "border-gray-10"} ${type === "light" ? "bg-darkBlueAxion" : "bg-gray-10"} font-bold mr-[2%] transition duration-300 text-sm bg-transparent hover:bg-darkBlueAxion ${type === "light" ? "text-white" : "text-gray-10"}`}
+        className={`py-2 px-3 border ${type === "light" ? "border-darkBlueAxion" : "border-gray-10"} ${type === "light" ? "bg-darkBlueAxion" : "bg-gray-10"} font-bold mr-[2%] transition duration-300 text-sm bg-transparent hover:bg-darkBlueAxion ${type === "light" ? "text-black" : "text-gray-10"}`}
         onClick={handleClick}
       >
         {logged ? "Voltar" : "Já é cliente? Acessar"}

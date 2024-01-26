@@ -17,10 +17,10 @@ export default function FinishRegisterAccount() {
 
   const handleFinish = () => {
     setFinished(true);
+    setBackground(false);
     setTimeout(() => {
       router.push("/plan");
     }, 500);
-    // setBackground(!background);
   };
 
   return (
@@ -30,7 +30,7 @@ export default function FinishRegisterAccount() {
           className={`
           bg-gradient-to-br from-[#0D123C] to-[#34374C] ${
             background ? "opacity-100" : "opacity-0"
-          }  transition ease-linear duration-200  absolute w-full h-full`}
+          } transition ease-linear duration-200  absolute w-full h-full`}
         />
         <div className="Container flex flex-col relative min-h-screen items-center">
           {background ? (
@@ -64,17 +64,19 @@ export default function FinishRegisterAccount() {
               className={`flex flex-col items-center w-full gap-4 ${
                 background ? "opacity-0" : "opacity-100"
               } transition ease-linear duration-1000 delay-100 ${
-                background ? "invisible" : ""
+                background && !finished ? "invisible" : ""
               }`}
             >
               <img
                 src={"AxioonLogo.svg"}
                 alt=""
                 className={`w-1/2 md:w-1/4 mt-4 opacity-${
-                  background ? 0 : 1
+                  background && !finished ? 0 : !background && finished ? 1 : 1
                 } transition ease-linear duration-200 delay-100`}
               />
-              <div className="flex flex-col items-center">
+              <div
+                className={`flex flex-col ${finished ? "invisible" : ""} items-center`}
+              >
                 <strong className="text-2xl md:text-5xl">
                   Cadastro aprovado!
                 </strong>

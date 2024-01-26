@@ -54,7 +54,7 @@ export default function Login() {
   return (
     <div className="Container min-h-screen relative pb-16">
       <div className="Main w-full flex flex-col justify-around items-center mb-24 md:mb-0 lg:flex-row">
-        <div className="LoginForm py-0 px-16 lg: w-1/2">
+        <div className="LoginForm py-0 px-16 lg:w-1/2">
           <div className="AxionLogo flex justify-center p-5">
             <img className=" w-48 lg:w-auto" src="/axionLogo.png" alt="" />
           </div>
@@ -66,10 +66,10 @@ export default function Login() {
               Acesse aqui todas as suas contas pelo painel principal.
             </span>
           </div>
-          <div className="LoginTypeSelector flex w-full h-20 justify-between">
+          <div className="LoginTypeSelector flex flex-col lg:flex-row w-full h-20 gap-2 my-4 justify-between">
             <label
               htmlFor="loginType1"
-              className={`Selector1 flex w-2/5 items-center justify-start gap-2 p-3 lg:px-2 border-2 rounded cursor-pointer ${
+              className={`Selector1 flex w-full lg:w-2/5 items-center justify-start gap-2 p-3 lg:px-2 border-2 rounded cursor-pointer ${
                 checked ? "  " : "border-[#323452]"
               } ${checked ? "" : "bg-primary/10"}`}
             >
@@ -84,7 +84,7 @@ export default function Login() {
             </label>
             <label
               htmlFor="loginType2"
-              className={`Selector1 flex w-2/5 items-center justify-start gap-2 p-3 lg:px-2 border-2 rounded cursor-pointer ${
+              className={`Selector1 flex w-full lg:w-2/5 items-center justify-start gap-2 p-3 lg:px-2 border-2 rounded cursor-pointer ${
                 checked ? "border-[#323452]" : ""
               } ${checked ? "bg-primary/10" : ""}`}
             >
@@ -97,7 +97,7 @@ export default function Login() {
               <span>Convidado</span>
             </label>
           </div>
-          <div className="relative my-[5vh]">
+          <div className="relative mt-20 mb-8 lg:mt-8">
             <div className="border border-gray-300" />
 
             <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-2 bg-white text-gray-400">
