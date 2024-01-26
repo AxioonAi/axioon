@@ -142,13 +142,21 @@ export default function SeuEleitorado() {
                         barColor="#2F5CFC"
                       />
                       <div className="flex gap-2 m-auto">
-                        {cityData && (
+                        {cityData !== undefined ? (
                           <>
                             <div className="flex flex-col">
                               <div className="flex items-center gap-1">
                                 <div className="w-4 h-4 bg-darkBlueAxion rounded-full" />
                                 <span className="text-darkBlueAxion font-semibold">
-                                  {cityData.population.male.toFixed(0)}
+                                  {cityData.population.male.toString().length >
+                                  6
+                                    ? `${(cityData.population.male / 1000000).toFixed(1)}M`
+                                    : cityData.population.male.toString()
+                                          .length <= 6 &&
+                                        cityData.population.male.toString()
+                                          .length > 3
+                                      ? `${(cityData.population.male / 1000).toFixed(1)}K`
+                                      : cityData.population.male}
                                 </span>
                               </div>
                               <span className="text-xs text-gray-50">
@@ -159,7 +167,15 @@ export default function SeuEleitorado() {
                               <div className="flex items-center gap-1">
                                 <div className="w-4 h-4 bg-[#E7298A] rounded-full" />
                                 <span className="text-darkBlueAxion font-semibold">
-                                  {cityData.population.female.toFixed(0)}
+                                  {cityData.population.female.toString()
+                                    .length > 6
+                                    ? `${(cityData.population.female / 1000000).toFixed(1)}M`
+                                    : cityData.population.female.toString()
+                                          .length <= 6 &&
+                                        cityData.population.female.toString()
+                                          .length > 3
+                                      ? `${(cityData.population.female / 1000).toFixed(1)}K`
+                                      : cityData.population.female}
                                 </span>
                               </div>
                               <span className="text-xs text-gray-50">
@@ -167,6 +183,8 @@ export default function SeuEleitorado() {
                               </span>
                             </div>
                           </>
+                        ) : (
+                          <></>
                         )}
                       </div>
                     </div>

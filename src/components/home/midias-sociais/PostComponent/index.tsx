@@ -30,9 +30,35 @@ export function PostComponent({
 }: Props) {
   const date = new Date(post.date || post.created_at);
 
+  const redirect = (url: string) => {
+    if (confirm("Você será redirecionado para a publicação original")) {
+      window.open(url, "_blank");
+    } else {
+      return;
+    }
+  };
+
   return (
     <div
-      className={`Container flex gap-3 max-h-40 rounded-lg border ${type === "facebook" ? "border-[#0037c1]" : type === "instagram" ? "border-[#505CCA]" : type === "tiktok" ? "border-[#E03855]" : "border-[#FF0000]"} hover:cursor-pointer hover:bg-gray-20 transition duration-300 p-2`}
+      className={`Container flex gap-3 max-h-40 rounded-lg 
+      ${
+        type === "facebook"
+          ? selectedPostId === post.id
+            ? "border-[1px] bg-gray-20 border-[#0037c1]"
+            : ""
+          : type === "instagram"
+            ? selectedPostId === post.id
+              ? "border-[1px] bg-gray-20 border-[#505CCA]"
+              : ""
+            : type === "tiktok"
+              ? selectedPostId === post.id
+                ? "border-[1px] bg-gray-20 border-[#E03855]"
+                : ""
+              : selectedPostId === post.id
+                ? "border-[1px] bg-gray-20 border-[#FF0000]"
+                : ""
+      } 
+          ${type === "facebook" ? "border-[#0037c1]" : type === "instagram" ? "border-[#505CCA]" : type === "tiktok" ? "border-[#E03855]" : "border-[#FF0000]"} hover:cursor-pointer hover:bg-gray-20 transition duration-300 p-2`}
       onClick={() => setSelectedPostId(post.id)}
     >
       <div className="postContent flex flex-col mb-1 text-sm text-black w-full overflow-hidden">
@@ -50,7 +76,8 @@ export function PostComponent({
                     : "/dashboard/midias-sociais/tiktokLogo.png"
             }
             alt={""}
-            className="object-cover w-16 h-16 m-0"
+            className="object-cover w-16 h-16 m-0 cursor-pointer hover:scale-[1.05]"
+            onClick={() => redirect(post.url)}
           />
           <p>
             {post.text && post.text.length > 100

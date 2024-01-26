@@ -201,7 +201,11 @@ export default function MidiasSociais() {
                         : 0
                     }
                     name="Facebook"
-                    onClick={() => setSelectedPage("facebook")}
+                    onClick={
+                      socialMidiaData.staticData.facebook === null
+                        ? () => {}
+                        : () => setSelectedPage("facebook")
+                    }
                     isSelected={
                       selectedPage === "facebook" || selectedPage === "initial"
                     }
@@ -223,7 +227,11 @@ export default function MidiasSociais() {
                         : 0
                     }
                     name="Instagram"
-                    onClick={() => setSelectedPage("instagram")}
+                    onClick={
+                      socialMidiaData.staticData.instagram === null
+                        ? () => {}
+                        : () => setSelectedPage("instagram")
+                    }
                     isSelected={
                       selectedPage === "instagram" || selectedPage === "initial"
                     }
@@ -245,7 +253,11 @@ export default function MidiasSociais() {
                         : 0
                     }
                     name="TikTok"
-                    onClick={() => setSelectedPage("tiktok")}
+                    onClick={
+                      socialMidiaData.staticData.tiktok === null
+                        ? () => {}
+                        : () => setSelectedPage("tiktok")
+                    }
                     isSelected={
                       selectedPage === "tiktok" || selectedPage === "initial"
                     }
@@ -267,7 +279,11 @@ export default function MidiasSociais() {
                         : 0
                     }
                     name="Youtube"
-                    onClick={() => setSelectedPage("youtube")}
+                    onClick={
+                      socialMidiaData.staticData.youtube === null
+                        ? () => {}
+                        : () => setSelectedPage("youtube")
+                    }
                     isSelected={
                       selectedPage === "youtube" || selectedPage === "initial"
                     }

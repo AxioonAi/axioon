@@ -23,7 +23,7 @@ import {
 import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
 import { useRouter } from "next/router";
-import { Modal } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import { maskCpfCnpj } from "@/utils/masks";
 
 export default function RegisterCandidate() {
@@ -91,9 +91,9 @@ export default function RegisterCandidate() {
   async function checkProfile() {
     setLoading(true);
     if (
-      formData.facebook === "" ||
-      formData.instagram === "" ||
-      formData.tiktok === "" ||
+      formData.facebook === "" &&
+      formData.instagram === "" &&
+      formData.tiktok === "" &&
       formData.youtube === ""
     ) {
       alert("Preencha ao menos uma rede social");
@@ -365,8 +365,13 @@ export default function RegisterCandidate() {
               <button
                 className="bg-white border-[1px] border-darkBlueAxion py-3 px-4 text-darkBlueAxion text-lg font-semibold rounded"
                 onClick={profileExists}
+                disabled={loading2}
               >
-                Monitorar esse perfil
+                {loading2 ? (
+                  <Spinner animation="border" />
+                ) : (
+                  "Monitorar esse perfil"
+                )}
               </button>
               <button
                 className="bg-white w-max border-[1px] border-darkBlueAxion p-1 text-darkBlueAxion text-xs rounded"

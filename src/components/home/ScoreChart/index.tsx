@@ -121,7 +121,7 @@ export function ScoreChart({ score, id }: Props) {
   }, [score, canvas]);
 
   return (
-    <div className="chartBox">
+    <div className="chartBox mt-4">
       <canvas ref={canvasRef} id={id} />
     </div>
   );
