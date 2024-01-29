@@ -41,10 +41,10 @@ export function MentionsCard({
   return (
     <>
       <div
-        className={`CardContainer flex flex-col relative p-2 w-full h-40 xl:h-full xl:justify-between bg-white border-[1px] ${sentimentClassification === "positivo" ? "border-[rgba(34,194,79,0.5)]" : sentimentClassification === "neutro" ? "border-[rgba(255,176,67,0.5)]" : "border-[rgba(231,0,0,0.5)]"} rounded`}
+        className={`CardContainer flex flex-col relative p-2 w-72 lg:w-48 xl:w-72 min-h-40 lg:min-h-52 xl:min-h-52 lg:justify-between bg-white border-[1px] ${sentimentClassification === "positivo" ? "border-[rgba(34,194,79,0.5)]" : sentimentClassification === "neutro" ? "border-[rgba(255,176,67,0.5)]" : "border-[rgba(231,0,0,0.5)]"} rounded`}
         onClick={() => setShowNewsModal(true)}
       >
-        <div className="flex items-start w-80 justify-between">
+        <div className="flex lg:flex-col xl:flex-row lg:gap-2 xl:gap-0 items-start w-full justify-between">
           <div className="flex flex-col relative pl-2">
             <div
               className={`absolute left-0 top-2 w-1 h-10 rounded ${sentimentClassification === "positivo" ? "bg-[#22C24F]" : sentimentClassification === "neutro" ? "bg-[#FFB043]" : "bg-[#E70000]"}`}
@@ -79,7 +79,7 @@ export function MentionsCard({
         </div>
         <div className="text-sm xl:text-base mt-4 font-semibold">
           <p className="content">
-            {content.length > 100 ? content.slice(0, 100) + "..." : content}
+            {content.length > 60 ? content.slice(0, 60) + "..." : content}
           </p>
         </div>
         <div>

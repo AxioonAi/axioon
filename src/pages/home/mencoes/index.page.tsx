@@ -13,6 +13,10 @@ import { NewsModal } from "@/components/home/mencoes/NewsModal";
 import { MentionsCard } from "@/components/home/mencoes/MentionsCard";
 import { authGetAPI } from "@/lib/axios";
 import { Spinner } from "react-bootstrap";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 
 export default function SeuEleitorado() {
   const main = useRef(null);
@@ -233,6 +237,7 @@ export default function SeuEleitorado() {
                   />
                 </div>
               </div>
+
               {mentionsData.currentFormat.news.news.length !== 0 && (
                 <>
                   <div className="flex justify-between items-center mt-4">
@@ -244,24 +249,74 @@ export default function SeuEleitorado() {
                       {seeMoreNews ? "Menos" : "Mais"}
                     </span>
                   </div>
-                  <div className="flex flex-col xl:flex-row w-full h-[50vh] xl:h-52 pt-16 xl:p-0 justify-center overflow-y-scroll xl:overflow-x-scroll gap-4 my-4 lg:justify-around">
-                    {mentionsData?.currentFormat.news.news
-                      .slice(0, 3)
-                      .map((item: any, index: any) => (
-                        <NewsCard
-                          key={index}
-                          sentimentClassification={item.sentimentClassification}
-                          sentiment={item.sentiment}
-                          source="Só Notícias"
-                          url={item.url}
-                          date={item.date
-                            .split("T")[0]
-                            .split("-")
-                            .reverse()
-                            .join("/")}
-                          content={item.title}
-                        />
-                      ))}
+                  <div className="flex flex-col xl:flex-row w-full h-full xl:h-52 xl:p-0 items-center justify-center gap-4 my-4 lg:justify-around">
+                    <div className="hidden lg:block w-full">
+                      <Swiper
+                        slidesPerView={seeMoreNews ? 3.5 : 3}
+                        className="mySwiper"
+                      >
+                        {mentionsData?.currentFormat.news.news
+                          .slice(
+                            0,
+                            seeMoreNews
+                              ? mentionsData.currentFormat.news.news.length
+                              : 3
+                          )
+                          .map((item: any, index: any) => (
+                            <SwiperSlide className="lg:ml-0 xl:ml-4">
+                              <NewsCard
+                                key={index}
+                                sentimentClassification={
+                                  item.sentimentClassification
+                                }
+                                sentiment={item.sentiment}
+                                source="Só Notícias"
+                                url={item.url}
+                                date={item.date
+                                  .split("T")[0]
+                                  .split("-")
+                                  .reverse()
+                                  .join("/")}
+                                content={item.title}
+                              />
+                            </SwiperSlide>
+                          ))}
+                      </Swiper>
+                    </div>
+                    <div className="lg:hidden flex flex-col gap-1 h-[70vh]">
+                      <Swiper
+                        direction="vertical"
+                        slidesPerView={seeMoreNews ? 3.5 : 3}
+                        className="mySwiper2 h-full"
+                      >
+                        {mentionsData?.currentFormat.news.news
+                          .slice(
+                            0,
+                            seeMoreNews
+                              ? mentionsData.currentFormat.news.news.length
+                              : 3
+                          )
+                          .map((item: any, index: any) => (
+                            <SwiperSlide>
+                              <NewsCard
+                                key={index}
+                                sentimentClassification={
+                                  item.sentimentClassification
+                                }
+                                sentiment={item.sentiment}
+                                source="Só Notícias"
+                                url={item.url}
+                                date={item.date
+                                  .split("T")[0]
+                                  .split("-")
+                                  .reverse()
+                                  .join("/")}
+                                content={item.title}
+                              />
+                            </SwiperSlide>
+                          ))}
+                      </Swiper>
+                    </div>
                   </div>
                 </>
               )}
@@ -276,26 +331,78 @@ export default function SeuEleitorado() {
                       {seeMoreMentions ? "Menos" : "Mais"}
                     </span>
                   </div>
-                  <div className="flex flex-col xl:flex-row w-full h-[50vh] xl:h-52 pt-16 xl:p-0 justify-center overflow-y-scroll xl:overflow-x-scroll gap-4 my-4 lg:justify-around">
-                    {mentionsData?.currentFormat.mentions.mentions
-                      .slice(0, 3)
-                      .map((item: any, index: any) => (
-                        <MentionsCard
-                          key={index}
-                          sentimentClassification={item.sentimentClassification}
-                          sentiment={item.sentiment}
-                          source={item.profile}
-                          comments={item.comments}
-                          commentSentiment={item.commentSentiment}
-                          url={item.url}
-                          date={item.date
-                            .split("T")[0]
-                            .split("-")
-                            .reverse()
-                            .join("/")}
-                          content={item.title}
-                        />
-                      ))}
+                  <div className="flex flex-col xl:flex-row w-full h-full xl:h-52 xl:p-0 items-center justify-center gap-4 my-4 lg:justify-around">
+                    <div className="hidden lg:block w-full">
+                      <Swiper
+                        slidesPerView={seeMoreMentions ? 3.5 : 3}
+                        className="mySwiper2"
+                      >
+                        {mentionsData?.currentFormat.mentions.mentions
+                          .slice(
+                            0,
+                            seeMoreMentions
+                              ? mentionsData.currentFormat.mentions.mentions
+                                  .length
+                              : 3
+                          )
+                          .map((item: any, index: any) => (
+                            <SwiperSlide className="lg:ml-0 xl:ml-4">
+                              <MentionsCard
+                                key={index}
+                                sentimentClassification={
+                                  item.sentimentClassification
+                                }
+                                sentiment={item.sentiment}
+                                source={item.profile}
+                                comments={item.comments}
+                                commentSentiment={item.commentSentiment}
+                                url={item.url}
+                                date={item.date
+                                  .split("T")[0]
+                                  .split("-")
+                                  .reverse()
+                                  .join("/")}
+                                content={item.title}
+                              />
+                            </SwiperSlide>
+                          ))}
+                      </Swiper>
+                    </div>
+                    <div className="lg:hidden flex flex-col gap-1 h-[70vh]">
+                      <Swiper
+                        direction="vertical"
+                        slidesPerView={seeMoreMentions ? 3.5 : 3}
+                        className="mySwiper2 h-full"
+                      >
+                        {mentionsData?.currentFormat.mentions.mentions
+                          .slice(
+                            0,
+                            seeMoreMentions
+                              ? mentionsData.currentFormat.mentions.mentions
+                                  .length
+                              : 3
+                          )
+                          .map((item: any, index: any) => (
+                            <SwiperSlide>
+                              <NewsCard
+                                key={index}
+                                sentimentClassification={
+                                  item.sentimentClassification
+                                }
+                                sentiment={item.sentiment}
+                                source="Só Notícias"
+                                url={item.url}
+                                date={item.date
+                                  .split("T")[0]
+                                  .split("-")
+                                  .reverse()
+                                  .join("/")}
+                                content={item.title}
+                              />
+                            </SwiperSlide>
+                          ))}
+                      </Swiper>
+                    </div>
                   </div>
                 </>
               )}

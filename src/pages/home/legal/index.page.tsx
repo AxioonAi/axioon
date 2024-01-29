@@ -35,7 +35,11 @@ export default function Legal() {
     return () => ctx.revert();
   };
 
-  const [showMore, setShowMore] = useState(false);
+  const [showMoreLegalData, setShowMoreLegalData] = useState(false);
+  const [showMoreIncomeTax, setShowMoreIncomeTax] = useState(false);
+  const [showMoreEconomicRelationship, setShowMoreEconomicRelationship] =
+    useState(false);
+  const [showMoreAddress, setShowMoreAddress] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState({
     name: "Carregando...",
     politicalGroup: "",
@@ -113,7 +117,10 @@ export default function Legal() {
                   <div className="my-4 h-[35vh] overflow-y-scroll">
                     {legalData && legalData.legalData.length !== 0 ? (
                       legalData.legalData
-                        .slice(0, showMore ? legalData.legalData.length : 3)
+                        .slice(
+                          0,
+                          showMoreLegalData ? legalData.legalData.length : 3
+                        )
                         .map((item: any) => (
                           <div className="flex flex-col p-2 w-full gap-2 justify-between h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
                             <div className="flex flex-col lg:flex-row w-full gap-2">
@@ -184,10 +191,10 @@ export default function Legal() {
                   </div>
 
                   <span
-                    className={` ${legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
-                    onClick={() => setShowMore(!showMore)}
+                    className={` ${legalData && legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
+                    onClick={() => setShowMoreLegalData(!showMoreLegalData)}
                   >
-                    {showMore ? "Ver Menos" : "Ver Mais"}
+                    {showMoreLegalData ? "Ver Menos" : "Ver Mais"}
                   </span>
                 </div>
               </div>
@@ -203,7 +210,7 @@ export default function Legal() {
                       alt=""
                     />
                     <div
-                      className={`${legalData.legalData.length === 0 ? "hidden" : "flex"} flex flex-col ml-auto text-darkBlueAxion text-[10px] md:text-xs`}
+                      className={`${legalData && legalData.legalData.length === 0 ? "hidden" : "flex"} flex flex-col ml-auto text-darkBlueAxion text-[10px] md:text-xs`}
                     >
                       <strong className="text-xs md:text-sm">
                         {legalData && legalData.full_name}
@@ -232,7 +239,10 @@ export default function Legal() {
                   <div className="flex flex-wrap justify-around my-4 h-[35vh] overflow-y-scroll">
                     {legalData && legalData.incomeTax.length !== 0 ? (
                       legalData.incomeTax
-                        .slice(0, showMore ? legalData.incomeTax.length : 4)
+                        .slice(
+                          0,
+                          showMoreIncomeTax ? legalData.incomeTax.length : 4
+                        )
                         .map((item: any) => (
                           <div className="flex flex-col items-center p-2 w-[45%] gap-2 justify-between h-auto min-h-16 first:m-0 mb-4 rounded bg-gradient-to-b from-[rgba(3,30,83,0.3)] from-10% via-[rgba(3,30,83,0.5)] via-20% to-darkBlueAxion shadow-sm text-sm">
                             <span className="text-darkBlueAxion">
@@ -255,10 +265,10 @@ export default function Legal() {
                 </div>
 
                 <span
-                  className={` ${legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
-                  onClick={() => setShowMore(!showMore)}
+                  className={` ${legalData && legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
+                  onClick={() => setShowMoreIncomeTax(!showMoreIncomeTax)}
                 >
-                  {showMore ? "Ver Menos" : "Ver Mais"}
+                  {showMoreIncomeTax ? "Ver Menos" : "Ver Mais"}
                 </span>
               </div>
 
@@ -276,7 +286,9 @@ export default function Legal() {
                       legalData.economicRelationship
                         .slice(
                           0,
-                          showMore ? legalData.economicRelationship.length : 4
+                          showMoreEconomicRelationship
+                            ? legalData.economicRelationship.length
+                            : 4
                         )
                         .map((item: any) => (
                           <div className="flex flex-col p-2 w-[45%] gap-2 justify-between h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
@@ -305,10 +317,14 @@ export default function Legal() {
                   </div>
 
                   <span
-                    className={` ${legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
-                    onClick={() => setShowMore(!showMore)}
+                    className={` ${legalData && legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
+                    onClick={() =>
+                      setShowMoreEconomicRelationship(
+                        !showMoreEconomicRelationship
+                      )
+                    }
                   >
-                    {showMore ? "Ver Menos" : "Ver Mais"}
+                    {showMoreEconomicRelationship ? "Ver Menos" : "Ver Mais"}
                   </span>
                 </div>
               </div>
@@ -322,9 +338,12 @@ export default function Legal() {
                     subTitle
                   />
                   <div className="my-4 h-[35vh] overflow-y-scroll">
-                    {legalData.address && legalData.address.length !== 0 ? (
+                    {legalData && legalData.address.length !== 0 ? (
                       legalData.address
-                        .slice(0, showMore ? legalData.address.length : 3)
+                        .slice(
+                          0,
+                          showMoreAddress ? legalData.address.length : 3
+                        )
                         .map((item: any) => (
                           <div className="flex p-4 w-full gap-2 h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
                             <Image
@@ -352,10 +371,10 @@ export default function Legal() {
                   </div>
 
                   <span
-                    className={` ${legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
-                    onClick={() => setShowMore(!showMore)}
+                    className={` ${legalData && legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
+                    onClick={() => setShowMoreAddress(!showMoreAddress)}
                   >
-                    {showMore ? "Ver Menos" : "Ver Mais"}
+                    {showMoreAddress ? "Ver Menos" : "Ver Mais"}
                   </span>
                 </div>
               </div>
