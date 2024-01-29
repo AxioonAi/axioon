@@ -51,6 +51,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison={true}
                       barColor="#12A9E7"
                     />
                     {loadingMain ? (
@@ -67,6 +68,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#12A9E7"
                     />
                     {loadingSecondary ? (
@@ -93,6 +95,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#2F5CFC"
                       subTitle
                     />
@@ -125,6 +128,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#2F5CFC"
                       subTitle
                     />
@@ -167,6 +171,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#12A9E7"
                       subTitle
                     />
@@ -182,6 +187,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#12A9E7"
                       subTitle
                     />
@@ -233,6 +239,7 @@ export function ComparisonType({
                   <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#12A9E7"
                       subTitle
                     />
@@ -279,6 +286,7 @@ export function ComparisonType({
                   <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#12A9E7"
                       subTitle
                     />
@@ -422,6 +430,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#12A9E7"
                     />
                   </div>
@@ -430,6 +439,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#12A9E7"
                     />
                     {loadingSecondary ? (
@@ -456,6 +466,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#2F5CFC"
                       subTitle
                     />
@@ -465,6 +476,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#2F5CFC"
                       subTitle
                     />
@@ -507,6 +519,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#12A9E7"
                       subTitle
                     />
@@ -516,6 +529,7 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#12A9E7"
                       subTitle
                     />
@@ -555,16 +569,10 @@ export function ComparisonType({
                   <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#12A9E7"
                       subTitle
                     />
-                    <Tip>
-                      <img src="/dashboard/userIcon.svg" alt="" />
-                      <p>
-                        Se quiser ter um maior alcance nas Redes Sociais se
-                        atente a estes horários.
-                      </p>
-                    </Tip>
                   </div>
                 )}
                 {pageType === "youtube" ? (
@@ -593,6 +601,7 @@ export function ComparisonType({
                   <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#12A9E7"
                       subTitle
                     />
@@ -700,7 +709,7 @@ export function ComparisonType({
             </div>
           </main>
         )
-      ) : pageDataMain !== undefined && pageDataSecondary !== undefined ? (
+      ) : pageDataMain !== undefined && pageDataSecondary === undefined ? (
         selectedComparison === "MÍDIAS SOCIAIS" ? (
           <>
             <main className="bg-darkBlueAxion rounded-2xl mt-8 p-4">
@@ -714,14 +723,24 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#12A9E7"
                     />
+                    {loadingMain ? (
+                      <Spinner animation="border" className="m-auto" />
+                    ) : (
+                      <PostEngagement
+                        pageData={pageDataMain}
+                        pageType={pageType}
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="engagementChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#12A9E7"
                     />
                   </div>
@@ -740,15 +759,40 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#2F5CFC"
                       subTitle
                     />
+                    {loadingMain ? (
+                      <Spinner animation="border" className="m-auto" />
+                    ) : pageDataMain?.commentsStatistics.sentimentStatistics
+                        .sentimentAverage !== null ? (
+                      <>
+                        <ScoreChart
+                          id={id}
+                          score={Number(
+                            pageDataMain?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
+                              2
+                            )
+                          )}
+                        />
+                        <div className="w-[90%] self-center h-[1px] mt-4 mb-8 bg-gray-60" />
+                        <div className="flex items-center justify-center">
+                          <SmallBarChart pageData={pageDataMain} />
+                        </div>
+                      </>
+                    ) : (
+                      <span className="self-center text-2xl mt-5">
+                        Nenhum comentário encontrado
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#2F5CFC"
                       subTitle
                     />
@@ -768,15 +812,23 @@ export function ComparisonType({
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#12A9E7"
                       subTitle
                     />
+                    <ChartTip content="Os valores do lado esquerdo do gráfico representam dados do período anterior, e os valores do lado direito do gráfico representam dados do período atual." />
+                    {loadingMain ? (
+                      <Spinner animation="border" className="m-auto" />
+                    ) : (
+                      <KeyIndicators pageData={pageDataMain} />
+                    )}
                   </div>
                 </div>
                 <div className="keyIndicatorChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                   <div className="flex flex-col h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#12A9E7"
                       subTitle
                     />
@@ -804,15 +856,36 @@ export function ComparisonType({
                         content={String(nameMain)}
                         subTitle
                       />
+                      {loadingMain ? (
+                        <Spinner animation="border" className="m-auto" />
+                      ) : (
+                        <div>
+                          <ChartTip content="my text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a..." />
+                          <div className="h-[22rem]">
+                            <SimpleWordcloud
+                              socialMediaData={pageDataMain.wordCloud}
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ) : (
                   <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameMain)}
+                      comparison
                       barColor="#12A9E7"
                       subTitle
                     />
+                    {loadingMain ? (
+                      <Spinner animation="border" className="m-auto" />
+                    ) : (
+                      <div className="h-[19rem]">
+                        <VotersActive pageData={pageDataMain} />
+                      </div>
+                    )}
+
                     <Tip>
                       <img src="/dashboard/userIcon.svg" alt="" />
                       <p>
@@ -836,17 +909,10 @@ export function ComparisonType({
                   <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <TitleWithBar
                       content={String(nameSecondary)}
+                      comparison={true}
                       barColor="#12A9E7"
                       subTitle
                     />
-
-                    <Tip>
-                      <img src="/dashboard/userIcon.svg" alt="" />
-                      <p>
-                        Se quiser ter um maior alcance nas Redes Sociais se
-                        atente a estes horários.
-                      </p>
-                    </Tip>
                   </div>
                 )}
               </div>
@@ -933,7 +999,7 @@ export function ComparisonType({
         )
       ) : (
         <div className="w-full h-full flex justify-center text-center">
-          Ambos os perfis não possuem dados do tiktok
+          <Spinner animation="border" />
         </div>
       )}
     </>

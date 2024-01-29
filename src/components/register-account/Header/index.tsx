@@ -3,12 +3,11 @@ import { RegisterHeader } from "./styles";
 
 interface Props {
   type?: "light" | "dark";
-  logged?: boolean;
 }
 
-export function RegisterAccountHeader({ type = "light", logged }: Props) {
+export function RegisterAccountHeader({ type = "light" }: Props) {
   const handleClick = () => {
-    logged ? router.push("/") : router.push("/login");
+    return router.push("/login");
   };
   const router = useRouter();
 
@@ -31,7 +30,7 @@ export function RegisterAccountHeader({ type = "light", logged }: Props) {
         className={`py-2 px-3 border ${type === "light" ? "border-darkBlueAxion" : "border-gray-10"} ${type === "light" ? "bg-darkBlueAxion" : "bg-gray-10"} font-bold mr-[2%] transition duration-300 text-sm bg-transparent hover:bg-darkBlueAxion ${type === "light" ? "text-black" : "text-gray-10"}`}
         onClick={handleClick}
       >
-        {logged ? "Voltar" : "Já é cliente? Acessar"}
+        Voltar
       </button>
     </header>
   );

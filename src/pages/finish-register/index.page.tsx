@@ -24,6 +24,17 @@ export default function FinishRegisterAccount() {
     }, 500);
   };
 
+  async function handleVerify() {
+    const connect = await loginVerifyAPI();
+    if (connect !== 200) {
+      return router.push("/login");
+    }
+  }
+
+  useEffect(() => {
+    handleVerify();
+  }, []);
+
   return (
     <>
       <div>

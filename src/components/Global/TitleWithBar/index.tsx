@@ -7,6 +7,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   width?: string;
   subTitle?: boolean;
   juridia?: boolean;
+  comparison?: boolean;
 }
 
 export function TitleWithBar({
@@ -16,6 +17,7 @@ export function TitleWithBar({
   width = "auto",
   subTitle = false,
   juridia,
+  comparison,
   ...rest
 }: Props) {
   return (
@@ -28,7 +30,9 @@ export function TitleWithBar({
         style={{ backgroundColor: barColor }}
       />
       <div className="content ml-4">
-        <h2 className={` ${dark ? `text-[#fff]` : ""} text-xl margin-0`}>
+        <h2
+          className={` ${dark ? `text-[#fff]` : ""} margin-0 ${comparison ? "font-bold text-2xl" : "text-xl"}`}
+        >
           {content}
         </h2>
         {subTitle && (

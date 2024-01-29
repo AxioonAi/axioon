@@ -81,6 +81,17 @@ export default function Payment() {
     return setLoading(false);
   }
 
+  async function handleVerify() {
+    const connect = await loginVerifyAPI();
+    if (connect !== 200) {
+      return router.push("/login");
+    }
+  }
+
+  useEffect(() => {
+    handleVerify();
+  }, []);
+
   return (
     <div className="Container relative min-h-screen pb-16 md:pb-32">
       <RegisterAccountHeader />

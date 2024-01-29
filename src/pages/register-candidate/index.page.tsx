@@ -32,7 +32,6 @@ export default function RegisterCandidate() {
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [cpfCnpj, setcpfCnpj] = useState("");
-  const [logged, setLogged] = useState(false);
   const [exists, setExists] = useState(false);
   const [existsProfile, setExistsProfile] = useState({
     social_name: "",
@@ -76,16 +75,15 @@ export default function RegisterCandidate() {
     },
   });
 
-  async function verifyLogin() {
+  async function handleVerify() {
     const connect = await loginVerifyAPI();
     if (connect !== 200) {
-      return;
+      return router.push("/login");
     }
-    return setLogged(true);
   }
 
   useEffect(() => {
-    verifyLogin();
+    handleVerify();
   }, []);
 
   async function checkProfile() {
@@ -161,7 +159,7 @@ export default function RegisterCandidate() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#0D123C] to-[#34374C]">
-      <RegisterAccountHeader type="dark" logged={logged} />
+      <RegisterAccountHeader type="dark" />
       <main className="flex flex-col w-full lg:w-11/12 xl:w-2/3 self-center">
         <div className="Instructions m-auto w-full lg:h-52 2xl:h-60 flex flex-col lg:flex-row py-4 px-2">
           <div className="InstructionSection1 w-full -left-0 lg:-left-24 flex flex-col lg:flex-col-reverse justify-between items-center mt-4">
