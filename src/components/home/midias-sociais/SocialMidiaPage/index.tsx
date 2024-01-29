@@ -1,8 +1,3 @@
-import { TitleWithBar } from "@/components/Global/TitleWithBar";
-import px2vw from "@/utils/size";
-import Image from "next/image";
-import { useState } from "react";
-import { Modal, Spinner } from "react-bootstrap";
 import { ScoreChart } from "../../ScoreChart";
 import { SentimentChart } from "../../mencoes/SentimentChart";
 import { TotalQuotes } from "../../mencoes/TotalQuotes";
@@ -10,12 +5,14 @@ import { AgeGroupByGender } from "../../seu-eleitorado/AgeGroupByGender";
 import { VotersInfo } from "../../seu-eleitorado/VoterInfo";
 import { ChartTip } from "../ChartTip";
 import { CommentComponent } from "../ComentComponent";
+import { WordCloudContainer } from "../InitialPage/styles";
 import { KeyIndicators } from "../KeyIndicators";
 import { OrderSelect } from "../OrderSelect";
 import { PostComponent } from "../PostComponent";
 import { PostEngagement } from "../PostEngagement";
 import { SmallBarChart } from "../SmallBarChart";
 import { VotersActive } from "../VotersActive";
+import { SimpleWordcloud } from "../WordCloud";
 import {
   AgeGroupContainer,
   AgeGroupLegend,
@@ -41,8 +38,11 @@ import {
   VotersInfoContainer,
   VotersInfoTitle,
 } from "./styles";
-import { WordCloudContainer } from "../InitialPage/styles";
-import { SimpleWordcloud } from "../WordCloud";
+import { TitleWithBar } from "@/components/Global/TitleWithBar";
+import px2vw from "@/utils/size";
+import Image from "next/image";
+import { useState } from "react";
+import { Modal, Spinner } from "react-bootstrap";
 
 interface Props {
   pageType: "instagram" | "facebook" | "youtube" | "tiktok";
@@ -123,7 +123,7 @@ export function SocialMidiaPage({
       total:
         metaads && metaads.advertising.length !== 0
           ? metaads?.advertising[selectedIndex].totalByGender[0].value.toFixed(
-              0
+              0,
             )
           : 0,
     },
@@ -133,7 +133,7 @@ export function SocialMidiaPage({
       total:
         metaads && metaads.advertising.length !== 0
           ? metaads?.advertising[selectedIndex].totalByGender[1].value.toFixed(
-              0
+              0,
             )
           : 0,
     },
@@ -174,6 +174,7 @@ export function SocialMidiaPage({
                   content="Engajamento de Publicações"
                   barColor="#12A9E7"
                 />
+                <ChartTip content="Este gráfico mostra as últimas publicações dentro do período selecionado, apresentando seus respectivos dados de engajamento." />
                 <PostEngagement
                   pageData={pageData !== undefined ? pageData : []}
                   pageType={pageType}
@@ -188,6 +189,7 @@ export function SocialMidiaPage({
                   barColor="#2F5CFC"
                   subTitle
                 />
+                <ChartTip content="Este gráfico mostra o sentimento médio dos comentários dentro do período selecionado." />
                 {pageData?.commentsStatistics.sentimentStatistics
                   .sentimentAverage !== null ? (
                   <>
@@ -195,8 +197,8 @@ export function SocialMidiaPage({
                       id={id}
                       score={Number(
                         pageData?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
-                          2
-                        )
+                          2,
+                        ),
                       )}
                     />
                     <div className="w-[90%] self-center h-[1px] mt-4 mb-8 bg-gray-60" />
@@ -228,6 +230,7 @@ export function SocialMidiaPage({
                     content="Nuvem de palavras Geral"
                     subTitle
                   />
+                  <ChartTip content="Esta nuvem de palavras representa as palavras mais usadas no canal no período selecionado." />
                   <div className="h-[22rem]">
                     <SimpleWordcloud socialMediaData={pageData.wordCloud} />
                   </div>
@@ -235,11 +238,14 @@ export function SocialMidiaPage({
               </div>
             ) : (
               <div className="timeChartContainer chart flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
-                <TitleWithBar
-                  content="Horário que os Eleitores estão mais Ativos em Sua Rede Social:"
-                  barColor="#12A9E7"
-                  subTitle
-                />
+                <div className="flex w-11/12">
+                  <TitleWithBar
+                    content="Horário que os Eleitores estão mais Ativos em Sua Rede Social:"
+                    barColor="#12A9E7"
+                    subTitle
+                  />
+                </div>
+                <ChartTip content="Este gráfico mostra o horário que os eleitores mais estiveram ativos dentro do período selecionado." />
                 <div className="h-[19rem]">
                   <VotersActive pageData={pageData} />
                 </div>
@@ -278,7 +284,7 @@ export function SocialMidiaPage({
                           .sort(
                             (a: any, b: any) =>
                               Number(new Date(b.date)) -
-                              Number(new Date(a.date))
+                              Number(new Date(a.date)),
                           )
                           .map((post: any, index: any) => (
                             <PostComponent
@@ -332,7 +338,7 @@ export function SocialMidiaPage({
                         Selecione uma publicação
                       </label>
                     ) : pageData.posts.filter(
-                        (post: any) => post?.id === selectedPostId
+                        (post: any) => post?.id === selectedPostId,
                       )[0].comments.length === 0 ? (
                       <label className="text-black text-center justify-center">
                         Sem comentários
@@ -344,13 +350,13 @@ export function SocialMidiaPage({
                           0,
                           showMoreComments
                             ? pageData.posts.filter(
-                                (post: any) => post?.id === selectedPostId
+                                (post: any) => post?.id === selectedPostId,
                               )[0].comments.length
-                            : 5
+                            : 5,
                         )
                         .sort(
                           (a: any, b: any) =>
-                            Number(new Date(b.date)) - Number(new Date(a.date))
+                            Number(new Date(b.date)) - Number(new Date(a.date)),
                         )
                         .map((comment: any, index: any) => (
                           <CommentComponent type={pageType} comment={comment} />
@@ -362,9 +368,9 @@ export function SocialMidiaPage({
                           0,
                           showMoreComments
                             ? pageData.posts.filter(
-                                (post: any) => post?.id === selectedPostId
+                                (post: any) => post?.id === selectedPostId,
                               )[0].comments.length
-                            : 5
+                            : 5,
                         )
                         .map((comment: any, index: any) => (
                           <CommentComponent type={pageType} comment={comment} />
@@ -378,12 +384,12 @@ export function SocialMidiaPage({
                           ? "invisible"
                           : selectedPostId !== "" &&
                               pageData.posts.filter(
-                                (post: any) => post?.id === selectedPostId
+                                (post: any) => post?.id === selectedPostId,
                               )[0].comments.length === 0
                             ? "invisible"
                             : selectedPostId !== "" &&
                                 pageData.posts.filter(
-                                  (post: any) => post?.id === selectedPostId
+                                  (post: any) => post?.id === selectedPostId,
                                 )[0].comments.length <= 5
                               ? "invisible"
                               : "flex"
@@ -635,7 +641,7 @@ export function SocialMidiaPage({
                               {item.name}
                             </span>
                           </div>
-                        )
+                        ),
                       )}
                   </div>
                 </div>
@@ -662,13 +668,13 @@ export function SocialMidiaPage({
                     chartData={
                       metaads &&
                       metaads?.advertising[selectedIndex].deliveryRegion.map(
-                        (item: any) => Number(item.percentage)
+                        (item: any) => Number(item.percentage),
                       )
                     }
                     labels={
                       metaads &&
                       metaads?.advertising[0].deliveryRegion.map(
-                        (item: any) => item.region
+                        (item: any) => item.region,
                       )
                     }
                   />

@@ -1,22 +1,20 @@
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
+import RootLayout from "@/components/Layout";
 import { HeaderComponent } from "@/components/home/Header";
+import { ScoreChart } from "@/components/home/ScoreChart";
+import { MentionsCard } from "@/components/home/mencoes/MentionsCard";
 import { NewsCard } from "@/components/home/mencoes/NewsCard";
+import { NewsModal } from "@/components/home/mencoes/NewsModal";
 import { SentimentChart } from "@/components/home/mencoes/SentimentChart";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { TotalQuotes } from "@/components/home/mencoes/TotalQuotes";
-import { useRouter } from "next/router";
-import RootLayout from "@/components/Layout";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScoreChart } from "@/components/home/ScoreChart";
-import { NewsModal } from "@/components/home/mencoes/NewsModal";
-import { MentionsCard } from "@/components/home/mencoes/MentionsCard";
 import { authGetAPI } from "@/lib/axios";
+import gsap from "gsap";
+import { useRouter } from "next/router";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function SeuEleitorado() {
   const main = useRef(null);
@@ -87,7 +85,7 @@ export default function SeuEleitorado() {
       });
     }
     const connect = await authGetAPI(
-      `/profile/mentions/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      `/profile/mentions/${selectedProfile.id}?period=${selectedTimeValues.value}`,
     );
     if (connect.status !== 200) {
       return alert(connect.body);
@@ -144,8 +142,8 @@ export default function SeuEleitorado() {
                         mentionsData.currentFormat.news.news.length !== 0
                           ? Number(
                               mentionsData?.currentFormat.news.average.toFixed(
-                                0
-                              )
+                                0,
+                              ),
                             )
                           : 0
                       }
@@ -160,7 +158,9 @@ export default function SeuEleitorado() {
                       : 0
                   }
                   firstDate={new Date(
-                    new Date().setDate(new Date().getDate() - 30)
+                    new Date().setDate(
+                      new Date().getDate() - selectedTimeValues.value,
+                    ),
                   ).toLocaleDateString("pt-BR")}
                   lastDate={new Date().toLocaleDateString("pt-BR")}
                 />
@@ -197,8 +197,8 @@ export default function SeuEleitorado() {
                         0
                           ? Number(
                               mentionsData?.currentFormat.mentions.average.toFixed(
-                                0
-                              )
+                                0,
+                              ),
                             )
                           : 0
                       }
@@ -213,7 +213,9 @@ export default function SeuEleitorado() {
                       : 0
                   }
                   firstDate={new Date(
-                    new Date().setDate(new Date().getDate() - 30)
+                    new Date().setDate(
+                      new Date().getDate() - selectedTimeValues.value,
+                    ),
                   ).toLocaleDateString("pt-BR")}
                   lastDate={new Date().toLocaleDateString("pt-BR")}
                 />
@@ -260,7 +262,7 @@ export default function SeuEleitorado() {
                             0,
                             seeMoreNews
                               ? mentionsData.currentFormat.news.news.length
-                              : 3
+                              : 3,
                           )
                           .map((item: any, index: any) => (
                             <SwiperSlide className="lg:ml-0 xl:ml-4">
@@ -294,7 +296,7 @@ export default function SeuEleitorado() {
                             0,
                             seeMoreNews
                               ? mentionsData.currentFormat.news.news.length
-                              : 3
+                              : 3,
                           )
                           .map((item: any, index: any) => (
                             <SwiperSlide>
@@ -343,7 +345,7 @@ export default function SeuEleitorado() {
                             seeMoreMentions
                               ? mentionsData.currentFormat.mentions.mentions
                                   .length
-                              : 3
+                              : 3,
                           )
                           .map((item: any, index: any) => (
                             <SwiperSlide className="lg:ml-0 xl:ml-4">
@@ -380,7 +382,7 @@ export default function SeuEleitorado() {
                             seeMoreMentions
                               ? mentionsData.currentFormat.mentions.mentions
                                   .length
-                              : 3
+                              : 3,
                           )
                           .map((item: any, index: any) => (
                             <SwiperSlide>

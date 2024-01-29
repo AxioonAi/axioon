@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useState } from "react";
-import { ChartTipContainer, Message } from "./styles";
 
 interface Props {
   content: string;
@@ -9,7 +8,7 @@ interface Props {
 export function ChartTip({ content }: Props) {
   const [showTip, setShowTip] = useState(false);
   return (
-    <ChartTipContainer>
+    <div className="ChartTipContainer absolute top-4 right-4 transition duration-200 ease-in cursor-pointer">
       <Image
         width={36}
         height={36}
@@ -17,11 +16,14 @@ export function ChartTip({ content }: Props) {
         alt=""
         onMouseEnter={() => setShowTip(true)}
         onMouseLeave={() => setShowTip(false)}
+        className="hover:opacity-80"
       />
-      <Message show={showTip}>
+      <div
+        className={`Message absolute w-72 p-4 -right-8 bottom-16 border-[1px] border-black rounded-lg text-justify text-black bg-white transition duration-300 ease-in ${showTip ? "opacity-100" : "opacity-0"}`}
+      >
         {content}
-        <div className="arrow" />
-      </Message>  
-    </ChartTipContainer>
+        <div className="arrow absolute bg-white w-8 h-8 right-8 rotate-45 border-b-[1px] border-b-black border-r-[1px] border-r-black" />
+      </div>
+    </div>
   );
 }

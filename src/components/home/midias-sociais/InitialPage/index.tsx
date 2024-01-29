@@ -1,6 +1,9 @@
-import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import { ChartTip } from "../ChartTip";
+import { EngagmentChart } from "../EngagementData";
+import { FollowerData } from "../FollowerData";
+import { FollowerDataLegend } from "../FollowerData/Legend";
 import { KeyIndicators } from "../KeyIndicators";
+import { SimpleWordcloud } from "../WordCloud";
 import {
   ChartCenterInfo,
   ChartContainer,
@@ -11,11 +14,8 @@ import {
   KeyIndicatorsContainer,
   WordCloudContainer,
 } from "./styles";
-import { SimpleWordcloud } from "../WordCloud";
-import { EngagmentChart } from "../EngagementData";
+import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import Image from "next/image";
-import { FollowerData } from "../FollowerData";
-import { FollowerDataLegend } from "../FollowerData/Legend";
 
 interface InitialProps {
   SocialMidiaData: any;
@@ -63,6 +63,8 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
     <div className="ChartsContainer grid grid-cols-[100%] md:grid-cols-[20rem_20rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
       <div className="followerChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
         <TitleWithBar content="Dados de Seguidores" />
+        <ChartTip content="Este gráfico mostra o total de seguidores de cada rede social." />
+
         <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center">
           <FollowerData data={followerData} />
           <div className="Legends flex flex-wrap xl:flex-nowrap xl:flex-col gap-2 justify-center">

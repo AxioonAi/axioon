@@ -172,7 +172,9 @@ export default function Plan() {
                     <span
                       className={`text-center ${selected === item.title ? "bg-white border-[1px] border-darkBlueAxion text-black" : "bg-darkBlueAxion text-white"} rounded p-2`}
                     >
-                      Selecionar Plano
+                      {selected === item.title
+                        ? "Plano Selecionado"
+                        : "Selecionar Plano"}
                     </span>
                   </div>
                 </div>

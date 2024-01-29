@@ -1,15 +1,15 @@
-import { TitleWithBar } from "@/components/Global/TitleWithBar";
-import { PostEngagement } from "../../home/midias-sociais/PostEngagement";
 import { ScoreChart } from "../../home/ScoreChart";
-import { SmallBarChart } from "../../home/midias-sociais/SmallBarChart";
 import { ChartTip } from "../../home/inteligencia-artificial/ChartTip";
 import { KeyIndicators } from "../../home/midias-sociais/KeyIndicators";
-import { SimpleWordcloud } from "../../home/midias-sociais/WordCloud";
-import { VotersActive } from "../../home/midias-sociais/VotersActive";
+import { PostEngagement } from "../../home/midias-sociais/PostEngagement";
+import { SmallBarChart } from "../../home/midias-sociais/SmallBarChart";
 import { Tip } from "../../home/midias-sociais/SocialMidiaPage/styles";
-import { Spinner } from "react-bootstrap";
-import { TotalQuotes } from "@/components/home/mencoes/TotalQuotes";
+import { VotersActive } from "../../home/midias-sociais/VotersActive";
+import { SimpleWordcloud } from "../../home/midias-sociais/WordCloud";
+import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import { SentimentChart } from "@/components/home/mencoes/SentimentChart";
+import { TotalQuotes } from "@/components/home/mencoes/TotalQuotes";
+import { Spinner } from "react-bootstrap";
 
 interface ComparisonProps {
   nameMain?: string;
@@ -22,6 +22,11 @@ interface ComparisonProps {
   selectedComparison: string;
   id: string;
   locked?: boolean;
+  pageEmpty?: string;
+  selectedTimeValues: {
+    value: number;
+    name: string;
+  };
 }
 export function ComparisonType({
   nameMain,
@@ -34,6 +39,8 @@ export function ComparisonType({
   selectedComparison,
   id,
   locked,
+  pageEmpty,
+  selectedTimeValues,
 }: ComparisonProps) {
   return (
     <>
@@ -108,8 +115,8 @@ export function ComparisonType({
                           id={id}
                           score={Number(
                             pageDataMain?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
-                              2
-                            )
+                              2,
+                            ),
                           )}
                         />
                         <div className="w-[90%] self-center h-[1px] mt-4 mb-8 bg-gray-60" />
@@ -141,8 +148,8 @@ export function ComparisonType({
                           id={id + "2"}
                           score={Number(
                             pageDataSecondary?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
-                              2
-                            )
+                              2,
+                            ),
                           )}
                         />
                         <div className="w-[90%] self-center h-[1px] mt-4 mb-8 bg-gray-60" />
@@ -322,16 +329,16 @@ export function ComparisonType({
                 <TitleWithBar barColor="#080E45" content={String(nameMain)} />
                 <div className="flex">
                   <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
-                    <TitleWithBar content="Score Total" barColor="#D38945" />
+                    <TitleWithBar content="Score Total" barColor="#d5904f" />
                     <div className="flex justify-center p-[0_8%]">
                       <ScoreChart
                         score={Number(
                           pageDataMain &&
                             pageDataMain?.currentFormat.news.average !== null
                             ? pageDataMain?.currentFormat.news.average.toFixed(
-                                0
+                                0,
                               )
-                            : 0
+                            : 0,
                         )}
                         id="newsScoreComparison"
                       />
@@ -342,7 +349,9 @@ export function ComparisonType({
                       pageDataMain && pageDataMain?.currentFormat.news.total
                     }
                     firstDate={new Date(
-                      new Date().setDate(new Date().getDate() - 30)
+                      new Date().setDate(
+                        new Date().getDate() - selectedTimeValues.value,
+                      ),
                     ).toLocaleDateString("pt-BR")}
                     lastDate={new Date().toLocaleDateString("pt-BR")}
                   />
@@ -377,9 +386,9 @@ export function ComparisonType({
                             pageDataSecondary?.currentFormat.news.average !==
                               null
                             ? pageDataSecondary?.currentFormat.news.average.toFixed(
-                                0
+                                0,
                               )
-                            : 0
+                            : 0,
                         )}
                         id="newsScoreComparison2"
                       />
@@ -391,7 +400,9 @@ export function ComparisonType({
                       pageDataSecondary?.currentFormat.news.total
                     }
                     firstDate={new Date(
-                      new Date().setDate(new Date().getDate() - 30)
+                      new Date().setDate(
+                        new Date().getDate() - selectedTimeValues.value,
+                      ),
                     ).toLocaleDateString("pt-BR")}
                     lastDate={new Date().toLocaleDateString("pt-BR")}
                   />
@@ -489,8 +500,8 @@ export function ComparisonType({
                           id={id + "2"}
                           score={Number(
                             pageDataSecondary?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
-                              2
-                            )
+                              2,
+                            ),
                           )}
                         />
                         <div className="w-[90%] self-center h-[1px] mt-4 mb-8 bg-gray-60" />
@@ -645,7 +656,9 @@ export function ComparisonType({
                   <TotalQuotes
                     value={0}
                     firstDate={new Date(
-                      new Date().setDate(new Date().getDate() - 30)
+                      new Date().setDate(
+                        new Date().getDate() - selectedTimeValues.value,
+                      ),
                     ).toLocaleDateString("pt-BR")}
                     lastDate={new Date().toLocaleDateString("pt-BR")}
                   />
@@ -670,9 +683,9 @@ export function ComparisonType({
                             pageDataSecondary?.currentFormat.news.average !==
                               null
                             ? pageDataSecondary?.currentFormat.news.average.toFixed(
-                                0
+                                0,
                               )
-                            : 0
+                            : 0,
                         )}
                         id="newsScoreComparison2"
                       />
@@ -684,7 +697,9 @@ export function ComparisonType({
                       pageDataSecondary?.currentFormat.news.total
                     }
                     firstDate={new Date(
-                      new Date().setDate(new Date().getDate() - 30)
+                      new Date().setDate(
+                        new Date().getDate() - selectedTimeValues.value,
+                      ),
                     ).toLocaleDateString("pt-BR")}
                     lastDate={new Date().toLocaleDateString("pt-BR")}
                   />
@@ -772,8 +787,8 @@ export function ComparisonType({
                           id={id}
                           score={Number(
                             pageDataMain?.commentsStatistics.sentimentStatistics.sentimentAverage.toFixed(
-                              2
-                            )
+                              2,
+                            ),
                           )}
                         />
                         <div className="w-[90%] self-center h-[1px] mt-4 mb-8 bg-gray-60" />
@@ -937,9 +952,9 @@ export function ComparisonType({
                           pageDataMain &&
                             pageDataMain?.currentFormat.news.average !== null
                             ? pageDataMain?.currentFormat.news.average.toFixed(
-                                0
+                                0,
                               )
-                            : 0
+                            : 0,
                         )}
                         id="newsScoreComparison"
                       />
@@ -950,7 +965,9 @@ export function ComparisonType({
                       pageDataMain && pageDataMain?.currentFormat.news.total
                     }
                     firstDate={new Date(
-                      new Date().setDate(new Date().getDate() - 30)
+                      new Date().setDate(
+                        new Date().getDate() - selectedTimeValues.value,
+                      ),
                     ).toLocaleDateString("pt-BR")}
                     lastDate={new Date().toLocaleDateString("pt-BR")}
                   />
@@ -985,7 +1002,9 @@ export function ComparisonType({
                   <TotalQuotes
                     value={0}
                     firstDate={new Date(
-                      new Date().setDate(new Date().getDate() - 30)
+                      new Date().setDate(
+                        new Date().getDate() - selectedTimeValues.value,
+                      ),
                     ).toLocaleDateString("pt-BR")}
                     lastDate={new Date().toLocaleDateString("pt-BR")}
                   />
@@ -997,6 +1016,10 @@ export function ComparisonType({
             </div>
           </main>
         )
+      ) : pageEmpty !== "" ? (
+        <div className="w-full h-full text-center mt-8 text-xl font-semibold">
+          {pageEmpty}
+        </div>
       ) : (
         <div className="w-full h-full flex justify-center text-center">
           <Spinner animation="border" />

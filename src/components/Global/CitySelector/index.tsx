@@ -1,8 +1,5 @@
-import Theme from "@/styles/themes";
-import { Button, Container, Item, ItemText, Menu, Toggle } from "./styles";
-import { useState, useEffect } from "react";
-import { getAPI } from "@/lib/axios";
 import { Dropdown, Spinner } from "react-bootstrap";
+
 interface ProfileProps {
   selectedProfile: {
     name: string;
@@ -41,9 +38,13 @@ export function ProfileSelector({
           </Dropdown.Toggle>
           <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 opacity-95 px-1">
             {profiles.map((item: any) => (
-              <Item onClick={() => Remember(item)} key={item}>
+              <Dropdown.Item
+                className="text-center text-white border-b-[1px] border-gray-10 p-2 hover:text-darkBlueAxion last:border-0"
+                onClick={() => Remember(item)}
+                key={item}
+              >
                 {item.name} - {item.politicalGroup}
-              </Item>
+              </Dropdown.Item>
             ))}
           </Dropdown.Menu>
         </Dropdown>

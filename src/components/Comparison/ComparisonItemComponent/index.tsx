@@ -1,5 +1,3 @@
-import { useRouter } from "next/router";
-
 interface ItemProps {
   name: string;
   fadeOut: any;

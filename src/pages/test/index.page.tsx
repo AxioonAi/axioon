@@ -114,5 +114,7 @@
 // }
 
 export default function Test() {
-  return <div className="bg-red-800 w-44 h-44 text-white"></div>;
+  return (
+    <div className="flex items-center justify-center w-[200px] h-64"></div>
+  );
 }

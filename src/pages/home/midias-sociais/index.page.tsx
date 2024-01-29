@@ -3,11 +3,12 @@ import { HeaderComponent } from "@/components/home/Header";
 import { InitialPage } from "@/components/home/midias-sociais/InitialPage";
 import { LikesAndComentsCard } from "@/components/home/midias-sociais/LikesAndComentsCard";
 import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
+import { authGetAPI } from "@/lib/axios";
 import gsap from "gsap";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Content, LikesAndComentsContainer, Main } from "./styles";
-import { authGetAPI } from "@/lib/axios";
 import { Spinner } from "react-bootstrap";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function MidiasSociais() {
   const main = useRef(null);
@@ -70,7 +71,7 @@ export default function MidiasSociais() {
 
   async function getSocialMidiaDetails() {
     const connect = await authGetAPI(
-      `/profile/social/home/${selectedProfile.id}?period=${selectedTimeValues.value}`
+      `/profile/social/home/${selectedProfile.id}?period=${selectedTimeValues.value}`,
     );
     // console.log("connect: ", connect);
     if (connect.status !== 200) {
@@ -99,19 +100,19 @@ export default function MidiasSociais() {
     }
     const [facebook, metaads, instagram, tiktok, youtube] = await Promise.all([
       authGetAPI(
-        `/profile/facebook/${selectedProfile.id}?period=${selectedTimeValues.value}`
+        `/profile/facebook/${selectedProfile.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/advertising/${selectedProfile.id}?period=${selectedTimeValues.value}`
+        `/profile/advertising/${selectedProfile.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/instagram/${selectedProfile.id}?period=${selectedTimeValues.value}`
+        `/profile/instagram/${selectedProfile.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/tiktok/${selectedProfile.id}?period=${selectedTimeValues.value}`
+        `/profile/tiktok/${selectedProfile.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`
+        `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`,
       ),
     ]);
     // console.log("metaads", metaads.body);
@@ -183,111 +184,139 @@ export default function MidiasSociais() {
             <h1 className="text-2xl py-8 font-extrabold">Redes Sociais</h1>
             {socialMidiaData ? (
               <>
-                <div className="LikesAndCommentsContainer flex justify-around gap-1 flex-wrap">
-                  <LikesAndComentsCard
-                    type="facebook"
-                    coments={
-                      socialMidiaData !== undefined
-                        ? socialMidiaData.staticData.facebook === null
-                          ? null
-                          : socialMidiaData.staticData.facebook.followers
-                        : 0
-                    }
-                    likes={
-                      socialMidiaData !== undefined
-                        ? socialMidiaData.staticData.facebook === null
-                          ? null
-                          : socialMidiaData.staticData.facebook.like
-                        : 0
-                    }
-                    name="Facebook"
-                    onClick={
-                      socialMidiaData.staticData.facebook === null
-                        ? () => {}
-                        : () => setSelectedPage("facebook")
-                    }
-                    isSelected={
-                      selectedPage === "facebook" || selectedPage === "initial"
-                    }
-                  />
-                  <LikesAndComentsCard
-                    type="instagram"
-                    coments={
-                      socialMidiaData !== undefined
-                        ? socialMidiaData.staticData.instagram === null
-                          ? null
-                          : socialMidiaData.staticData.instagram.followers
-                        : 0
-                    }
-                    likes={
-                      socialMidiaData !== undefined
-                        ? socialMidiaData.staticData.instagram === null
-                          ? null
-                          : socialMidiaData.staticData.instagram.posts
-                        : 0
-                    }
-                    name="Instagram"
-                    onClick={
-                      socialMidiaData.staticData.instagram === null
-                        ? () => {}
-                        : () => setSelectedPage("instagram")
-                    }
-                    isSelected={
-                      selectedPage === "instagram" || selectedPage === "initial"
-                    }
-                  />
-                  <LikesAndComentsCard
-                    type="tiktok"
-                    coments={
-                      socialMidiaData !== undefined
-                        ? socialMidiaData.staticData.tiktok === null
-                          ? null
-                          : socialMidiaData.staticData.tiktok.followers
-                        : 0
-                    }
-                    likes={
-                      socialMidiaData !== undefined
-                        ? socialMidiaData.staticData.tiktok === null
-                          ? null
-                          : socialMidiaData.staticData.tiktok.likes
-                        : 0
-                    }
-                    name="TikTok"
-                    onClick={
-                      socialMidiaData.staticData.tiktok === null
-                        ? () => {}
-                        : () => setSelectedPage("tiktok")
-                    }
-                    isSelected={
-                      selectedPage === "tiktok" || selectedPage === "initial"
-                    }
-                  />
-                  <LikesAndComentsCard
-                    type="youtube"
-                    coments={
-                      socialMidiaData !== undefined
-                        ? socialMidiaData.staticData.youtube === null
-                          ? null
-                          : socialMidiaData.staticData.youtube.views
-                        : 0
-                    }
-                    likes={
-                      socialMidiaData !== undefined
-                        ? socialMidiaData.staticData.youtube === null
-                          ? null
-                          : socialMidiaData.staticData.youtube.subs
-                        : 0
-                    }
-                    name="Youtube"
-                    onClick={
-                      socialMidiaData.staticData.youtube === null
-                        ? () => {}
-                        : () => setSelectedPage("youtube")
-                    }
-                    isSelected={
-                      selectedPage === "youtube" || selectedPage === "initial"
-                    }
-                  />
+                <div className="LikesAndCommentsContainer flex w-full">
+                  <Swiper
+                    className=" p-2 w-full"
+                    slidesPerView={1.2}
+                    breakpoints={{
+                      550: {
+                        slidesPerView: 2,
+                      },
+                      768: {
+                        slidesPerView: 2.6,
+                      },
+                      1360: {
+                        slidesPerView: 4,
+                      },
+                    }}
+                  >
+                    <SwiperSlide>
+                      <LikesAndComentsCard
+                        type="facebook"
+                        coments={
+                          socialMidiaData !== undefined
+                            ? socialMidiaData.staticData.facebook === null
+                              ? null
+                              : socialMidiaData.staticData.facebook.followers
+                            : 0
+                        }
+                        likes={
+                          socialMidiaData !== undefined
+                            ? socialMidiaData.staticData.facebook === null
+                              ? null
+                              : socialMidiaData.staticData.facebook.like
+                            : 0
+                        }
+                        name="Facebook"
+                        onClick={
+                          socialMidiaData.staticData.facebook === null
+                            ? () => {}
+                            : () => setSelectedPage("facebook")
+                        }
+                        isSelected={
+                          selectedPage === "facebook" ||
+                          selectedPage === "initial"
+                        }
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <LikesAndComentsCard
+                        type="instagram"
+                        coments={
+                          socialMidiaData !== undefined
+                            ? socialMidiaData.staticData.instagram === null
+                              ? null
+                              : socialMidiaData.staticData.instagram.followers
+                            : 0
+                        }
+                        likes={
+                          socialMidiaData !== undefined
+                            ? socialMidiaData.staticData.instagram === null
+                              ? null
+                              : socialMidiaData.staticData.instagram.posts
+                            : 0
+                        }
+                        name="Instagram"
+                        onClick={
+                          socialMidiaData.staticData.instagram === null
+                            ? () => {}
+                            : () => setSelectedPage("instagram")
+                        }
+                        isSelected={
+                          selectedPage === "instagram" ||
+                          selectedPage === "initial"
+                        }
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <LikesAndComentsCard
+                        type="tiktok"
+                        coments={
+                          socialMidiaData !== undefined
+                            ? socialMidiaData.staticData.tiktok === null
+                              ? null
+                              : socialMidiaData.staticData.tiktok.followers
+                            : 0
+                        }
+                        likes={
+                          socialMidiaData !== undefined
+                            ? socialMidiaData.staticData.tiktok === null
+                              ? null
+                              : socialMidiaData.staticData.tiktok.likes
+                            : 0
+                        }
+                        name="TikTok"
+                        onClick={
+                          socialMidiaData.staticData.tiktok === null
+                            ? () => {}
+                            : () => setSelectedPage("tiktok")
+                        }
+                        isSelected={
+                          selectedPage === "tiktok" ||
+                          selectedPage === "initial"
+                        }
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <LikesAndComentsCard
+                        type="youtube"
+                        coments={
+                          socialMidiaData !== undefined
+                            ? socialMidiaData.staticData.youtube === null
+                              ? null
+                              : socialMidiaData.staticData.youtube.views
+                            : 0
+                        }
+                        likes={
+                          socialMidiaData !== undefined
+                            ? socialMidiaData.staticData.youtube === null
+                              ? null
+                              : socialMidiaData.staticData.youtube.subs
+                            : 0
+                        }
+                        name="Youtube"
+                        onClick={
+                          socialMidiaData.staticData.youtube === null
+                            ? () => {}
+                            : () => setSelectedPage("youtube")
+                        }
+                        isSelected={
+                          selectedPage === "youtube" ||
+                          selectedPage === "initial"
+                        }
+                      />
+                    </SwiperSlide>
+                  </Swiper>
                 </div>
                 {selectedPage === "initial" && (
                   <InitialPage SocialMidiaData={socialMidiaData} />
@@ -329,47 +358,75 @@ export default function MidiasSociais() {
               </>
             ) : (
               <>
-                <div className="LikesAndCommentsContainer flex justify-around gap-1 flex-wrap">
-                  <LikesAndComentsCard
-                    type="facebook"
-                    name="Facebook"
-                    coments={0}
-                    likes={0}
-                    onClick={() => setSelectedPage("facebook")}
-                    isSelected={
-                      selectedPage === "facebook" || selectedPage === "initial"
-                    }
-                  />
-                  <LikesAndComentsCard
-                    type="instagram"
-                    name="Instagram"
-                    coments={0}
-                    likes={0}
-                    onClick={() => setSelectedPage("instagram")}
-                    isSelected={
-                      selectedPage === "instagram" || selectedPage === "initial"
-                    }
-                  />
-                  <LikesAndComentsCard
-                    type="tiktok"
-                    name="TikTok"
-                    coments={0}
-                    likes={0}
-                    onClick={() => setSelectedPage("tiktok")}
-                    isSelected={
-                      selectedPage === "tiktok" || selectedPage === "initial"
-                    }
-                  />
-                  <LikesAndComentsCard
-                    type="youtube"
-                    name="Youtube"
-                    coments={0}
-                    likes={0}
-                    onClick={() => setSelectedPage("youtube")}
-                    isSelected={
-                      selectedPage === "youtube" || selectedPage === "initial"
-                    }
-                  />
+                <div className="LikesAndCommentsContainer flex w-full">
+                  <Swiper
+                    className=" p-2 w-full"
+                    slidesPerView={1.2}
+                    breakpoints={{
+                      550: {
+                        slidesPerView: 2,
+                      },
+                      768: {
+                        slidesPerView: 2.6,
+                      },
+                      1360: {
+                        slidesPerView: 4,
+                      },
+                    }}
+                  >
+                    <SwiperSlide>
+                      <LikesAndComentsCard
+                        type="facebook"
+                        name="Facebook"
+                        coments={0}
+                        likes={0}
+                        onClick={() => setSelectedPage("facebook")}
+                        isSelected={
+                          selectedPage === "facebook" ||
+                          selectedPage === "initial"
+                        }
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <LikesAndComentsCard
+                        type="instagram"
+                        name="Instagram"
+                        coments={0}
+                        likes={0}
+                        onClick={() => setSelectedPage("instagram")}
+                        isSelected={
+                          selectedPage === "instagram" ||
+                          selectedPage === "initial"
+                        }
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <LikesAndComentsCard
+                        type="tiktok"
+                        name="TikTok"
+                        coments={0}
+                        likes={0}
+                        onClick={() => setSelectedPage("tiktok")}
+                        isSelected={
+                          selectedPage === "tiktok" ||
+                          selectedPage === "initial"
+                        }
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <LikesAndComentsCard
+                        type="youtube"
+                        name="Youtube"
+                        coments={0}
+                        likes={0}
+                        onClick={() => setSelectedPage("youtube")}
+                        isSelected={
+                          selectedPage === "youtube" ||
+                          selectedPage === "initial"
+                        }
+                      />
+                    </SwiperSlide>
+                  </Swiper>
                 </div>
                 <div className="ChartsContainer grid grid-cols-[100%] md:grid-cols-[20rem_20rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
                   <div className="flex flex-col justify-center items-center bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[55vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">

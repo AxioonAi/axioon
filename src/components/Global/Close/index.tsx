@@ -1,5 +1,4 @@
 import { CloseSVG } from "../../../../public/Close";
-import { Close } from "./styles";
 
 interface CloseProps {
   onHide: () => void;

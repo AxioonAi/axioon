@@ -1,10 +1,3 @@
-import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
-import RootLayout from "@/components/Layout";
-import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
-import Theme from "@/styles/themes";
-import gsap from "gsap";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Dropdown, Spinner } from "react-bootstrap";
 import { LikesAndComentsContainer } from "../home/midias-sociais/styles";
 import {
   CenterContainer,
@@ -16,12 +9,20 @@ import {
   IndividualContainer,
   Main,
 } from "./styles";
-import { ComparisonHeaderComponent } from "@/components/Comparison/Header";
-import { authGetAPI } from "@/lib/axios";
-import { TitleWithBar } from "@/components/Global/TitleWithBar";
-import { PostEngagement } from "@/components/home/midias-sociais/PostEngagement";
 import { ComparisonType } from "@/components/Comparison/ComparisonCharts";
 import { ComparisonStaticCards } from "@/components/Comparison/ComparisonStaticCards";
+import { ComparisonHeaderComponent } from "@/components/Comparison/Header";
+import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
+import { TitleWithBar } from "@/components/Global/TitleWithBar";
+import RootLayout from "@/components/Layout";
+import { PostEngagement } from "@/components/home/midias-sociais/PostEngagement";
+import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
+import { authGetAPI } from "@/lib/axios";
+import Theme from "@/styles/themes";
+import gsap from "gsap";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Dropdown, Spinner } from "react-bootstrap";
+
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Comparison() {
   const main = useRef(null);
@@ -66,6 +67,10 @@ export default function Comparison() {
   const [youtubeDataSecondary, setYoutubeDataSecondary] = useState();
   const [loadingSecondary, setLoadingSecondary] = useState(false);
   const [mentionsDataSecondary, setMentionsDataSecondary] = useState<any>();
+  const [facebookEmpty, setFacebookEmpty] = useState("");
+  const [instagramEmpty, setInstagramEmpty] = useState("");
+  const [tiktokEmpty, setTiktokEmpty] = useState("");
+  const [youtubeEmpty, setYoutubeEmpty] = useState("");
   const [selectedProfileMain, setSelectedProfileMain] = useState({
     name: "",
     politicalGroup: "",
@@ -114,10 +119,10 @@ export default function Comparison() {
     }
     const [generalMain, generalSecondary] = await Promise.all([
       authGetAPI(
-        `/profile/social/home/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+        `/profile/social/home/${selectedProfileMain.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/social/home/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+        `/profile/social/home/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`,
       ),
     ]);
     if (generalMain.status === 200) {
@@ -163,30 +168,42 @@ export default function Comparison() {
       youtubeSecondary,
     ] = await Promise.all([
       authGetAPI(
-        `/profile/facebook/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+        `/profile/facebook/${selectedProfileMain.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/facebook/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+        `/profile/facebook/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/instagram/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+        `/profile/instagram/${selectedProfileMain.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/instagram/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+        `/profile/instagram/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/tiktok/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+        `/profile/tiktok/${selectedProfileMain.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/tiktok/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+        `/profile/tiktok/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/youtube/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+        `/profile/youtube/${selectedProfileMain.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/youtube/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+        `/profile/youtube/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`,
       ),
     ]);
+    if (facebookMain.status === 401 && facebookSecondary.status === 401) {
+      setFacebookEmpty(facebookMain.body);
+    }
+    if (instagramMain.status === 401 && instagramSecondary.status === 401) {
+      setInstagramEmpty(instagramMain.body);
+    }
+    if (tiktokMain.status === 401 && tiktokSecondary.status === 401) {
+      setTiktokEmpty(tiktokMain.body);
+    }
+    if (youtubeMain.status === 401 && youtubeSecondary.status === 401) {
+      setYoutubeEmpty(youtubeMain.body);
+    }
     if (facebookMain.status === 200) {
       setFacebookDataMain(facebookMain.body.data);
     }
@@ -233,10 +250,10 @@ export default function Comparison() {
     }
     const [mentionsMain, mentionsSecondary] = await Promise.all([
       authGetAPI(
-        `/profile/mentions/${selectedProfileMain.id}?period=${selectedTimeValues.value}`
+        `/profile/mentions/${selectedProfileMain.id}?period=${selectedTimeValues.value}`,
       ),
       authGetAPI(
-        `/profile/mentions/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`
+        `/profile/mentions/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`,
       ),
     ]);
     if (mentionsMain.status === 200) {
@@ -323,7 +340,12 @@ export default function Comparison() {
                         : 0
                     }
                     name="Facebook"
-                    onClick={() => setSelectedPage("facebook")}
+                    onClick={
+                      generalDataMain.staticData.facebook === null &&
+                      generalDataSecondary.staticData.facebook === null
+                        ? () => {}
+                        : () => setSelectedPage("facebook")
+                    }
                     isSelected={
                       selectedPage === "facebook" || selectedPage === "initial"
                     }
@@ -359,7 +381,12 @@ export default function Comparison() {
                         : 0
                     }
                     name="Instagram"
-                    onClick={() => setSelectedPage("instagram")}
+                    onClick={
+                      generalDataMain.staticData.instagram === null &&
+                      generalDataSecondary.staticData.instagram === null
+                        ? () => {}
+                        : () => setSelectedPage("instagram")
+                    }
                     isSelected={
                       selectedPage === "instagram" || selectedPage === "initial"
                     }
@@ -395,7 +422,12 @@ export default function Comparison() {
                         : 0
                     }
                     name="TikTok"
-                    onClick={() => setSelectedPage("tiktok")}
+                    onClick={
+                      generalDataMain.staticData.tiktok === null &&
+                      generalDataSecondary.staticData.tiktok === null
+                        ? () => {}
+                        : () => setSelectedPage("tiktok")
+                    }
                     isSelected={
                       selectedPage === "tiktok" || selectedPage === "initial"
                     }
@@ -431,7 +463,12 @@ export default function Comparison() {
                         : 0
                     }
                     name="Youtube"
-                    onClick={() => setSelectedPage("youtube")}
+                    onClick={
+                      generalDataMain.staticData.youtube === null &&
+                      generalDataSecondary.staticData.youtube === null
+                        ? () => {}
+                        : () => setSelectedPage("youtube")
+                    }
                     isSelected={
                       selectedPage === "youtube" || selectedPage === "initial"
                     }
@@ -439,6 +476,7 @@ export default function Comparison() {
                 </div>
                 {selectedPage === "facebook" && (
                   <ComparisonType
+                    selectedTimeValues={selectedTimeValues}
                     nameMain={selectedProfileMain.name}
                     nameSecondary={selectedProfileSecondary.name}
                     selectedComparison={selectedComparison}
@@ -448,10 +486,12 @@ export default function Comparison() {
                     pageDataSecondary={facebookDataSecondary}
                     loadingMain={loadingMain}
                     loadingSecondary={loadingSecondary}
+                    pageEmpty={facebookEmpty}
                   />
                 )}
                 {selectedPage === "instagram" && (
                   <ComparisonType
+                    selectedTimeValues={selectedTimeValues}
                     nameMain={selectedProfileMain.name}
                     nameSecondary={selectedProfileSecondary.name}
                     selectedComparison={selectedComparison}
@@ -461,10 +501,12 @@ export default function Comparison() {
                     pageDataSecondary={instagramDataSecondary}
                     loadingMain={loadingMain}
                     loadingSecondary={loadingSecondary}
+                    pageEmpty={instagramEmpty}
                   />
                 )}
                 {selectedPage === "tiktok" && (
                   <ComparisonType
+                    selectedTimeValues={selectedTimeValues}
                     nameMain={selectedProfileMain.name}
                     nameSecondary={selectedProfileSecondary.name}
                     selectedComparison={selectedComparison}
@@ -474,10 +516,12 @@ export default function Comparison() {
                     pageDataSecondary={tiktokDataSecondary}
                     loadingMain={loadingMain}
                     loadingSecondary={loadingSecondary}
+                    pageEmpty={tiktokEmpty}
                   />
                 )}
                 {selectedPage === "youtube" && (
                   <ComparisonType
+                    selectedTimeValues={selectedTimeValues}
                     nameMain={selectedProfileMain.name}
                     nameSecondary={selectedProfileSecondary.name}
                     selectedComparison={selectedComparison}
@@ -487,11 +531,13 @@ export default function Comparison() {
                     pageDataSecondary={youtubeDataSecondary}
                     loadingMain={loadingMain}
                     loadingSecondary={loadingSecondary}
+                    pageEmpty={youtubeEmpty}
                   />
                 )}
               </>
             ) : (
               <ComparisonType
+                selectedTimeValues={selectedTimeValues}
                 nameMain={selectedProfileMain.name}
                 nameSecondary={selectedProfileSecondary.name}
                 selectedComparison={selectedComparison}

@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
-import { HeaderContainer, StyledOffcanvas } from "./styles";
-import { Button, Offcanvas } from "react-bootstrap";
-import Image from "next/image";
-import { LinkComponent } from "./Link";
 import { Dashboard } from "../../../../public/sidebar/dashboard";
 import { FinancialSVG } from "../../../../public/sidebar/financial";
 import { NotificationSVG } from "../../../../public/sidebar/notification";
 import { ProfileSVG } from "../../../../public/sidebar/profile";
+import { LinkComponent } from "./Link";
 import { loginVerifyAPI, user_type } from "@/lib/axios";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Offcanvas } from "react-bootstrap";
 
 interface SidebarProps {
   fadeOut: any;
@@ -55,7 +54,11 @@ export function HeaderComponent({ fadeOut }: SidebarProps) {
         />
       </header>
 
-      <StyledOffcanvas show={show} onHide={handleClose}>
+      <Offcanvas
+        style={{ backgroundColor: "#111", maxWidth: "15rem" }}
+        show={show}
+        onHide={handleClose}
+      >
         <Offcanvas.Header
           style={{ marginTop: "1rem" }}
           closeButton
@@ -110,7 +113,7 @@ export function HeaderComponent({ fadeOut }: SidebarProps) {
             />
           </div>
         </Offcanvas.Body>
-      </StyledOffcanvas>
+      </Offcanvas>
     </>
   );
 }

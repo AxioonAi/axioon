@@ -1,21 +1,25 @@
 .custom-loader-big {
-  width:11rem;
-  height:11rem;
-  border-radius:50%;
-  background:conic-gradient(#C4C4C4 10%,#0d123c);
-  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 16px),#000 0);
-  mask: radial-gradient(farthest-side,#0000 calc(100% - 16px),#000 0);
-  animation:s3 1s infinite linear;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+  background: conic-gradient(#c4c4c4 10%, #0d123c);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 16px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 16px), #000 0);
+  animation: s3 1s infinite linear;
 }
 
 .custom-loader-small {
-  width:6rem;
-  height:6rem;
-  border-radius:50%;
-  background:conic-gradient(#C4C4C4 10%,#0d123c);
-  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 16px),#000 0);
-  mask: radial-gradient(farthest-side,#0000 calc(100% - 16px),#000 0);
-  animation:s3 1s infinite linear;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: conic-gradient(#c4c4c4 10%, #0d123c);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 16px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 16px), #000 0);
+  animation: s3 1s infinite linear;
 }
 
-@keyframes s3 {to{transform: rotate(1turn)}}
+@keyframes s3 {
+  to {
+    transform: rotate(1turn);
+  }
+}

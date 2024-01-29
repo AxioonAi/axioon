@@ -3,26 +3,16 @@ import RootLayout from "@/components/Layout";
 import { HeaderComponent } from "@/components/home/Header";
 import { GoogleMaps } from "@/components/home/Maps/GoogleMaps";
 import { GoogleMapsWrapper } from "@/components/home/Maps/GoogleMapsWrapper";
+import { ChartTip } from "@/components/home/midias-sociais/ChartTip";
 import { AgeGroupByGender } from "@/components/home/seu-eleitorado/AgeGroupByGender";
 import { SeuEleitoradoCards } from "@/components/home/seu-eleitorado/Cards";
 import { VotersInfo } from "@/components/home/seu-eleitorado/VoterInfo";
 import { VotersGender } from "@/components/home/seu-eleitorado/VotersGender";
 import { VotersInfoSelect } from "@/components/home/seu-eleitorado/VotersInfoSelect";
+import { authGetAPI } from "@/lib/axios";
 import gsap from "gsap";
 import { useRouter } from "next/router";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  AgeGroupContainer,
-  AgeGroupLegend,
-  ChartsContainer,
-  Content,
-  Main,
-  MapContainer,
-  VotersGenderContainer,
-  VotersInfoContainer,
-  VotersInfoTitle,
-} from "./styles";
-import { authGetAPI, loginVerifyAPI } from "@/lib/axios";
 import { Spinner } from "react-bootstrap";
 
 export default function SeuEleitorado() {
@@ -141,6 +131,7 @@ export default function SeuEleitorado() {
                         content="Faixa etária da População por gênero"
                         barColor="#2F5CFC"
                       />
+                      <ChartTip content="Este gráfico mostra a faixa etária da População por gênero." />
                       <div className="flex gap-2 m-auto">
                         {cityData !== undefined ? (
                           <>
@@ -208,38 +199,40 @@ export default function SeuEleitorado() {
                               : "Gênero dos Eleitores"
                         }
                       />
+
                       <VotersInfoSelect
                         selectedValue={selectedVoterOption}
                         setSelectedValue={setSelectedVoterOption}
                         values={selectVotersValue}
                       />
+                      <ChartTip content="Escolha o tipo de informação que deseja pelo seletor ao lado. Este gráfico mostra o nível de escolaridade, idade e gênero dos eleitores em porcentagens." />
                     </div>
                     <div className="flex chart w-full h-full justify-center self-center">
                       <VotersInfo
                         chartData={
                           selectedVoterOption === "age"
                             ? cityData.electorate.ageRange.map(
-                                (item: any) => item.value
+                                (item: any) => item.value,
                               )
                             : selectedVoterOption === "gender"
                               ? cityData.electorate.gender.map(
-                                  (item: any) => item.value
+                                  (item: any) => item.value,
                                 )
                               : cityData.electorate.schoolLevel.map(
-                                  (item: any) => item.value
+                                  (item: any) => item.value,
                                 )
                         }
                         labels={
                           selectedVoterOption === "age"
                             ? cityData.electorate.ageRange.map(
-                                (item: any) => item.name
+                                (item: any) => item.name,
                               )
                             : selectedVoterOption === "gender"
                               ? cityData.electorate.gender.map(
-                                  (item: any) => item.name
+                                  (item: any) => item.name,
                                 )
                               : cityData.electorate.schoolLevel.map(
-                                  (item: any) => item.name
+                                  (item: any) => item.name,
                                 )
                         }
                       />
@@ -258,6 +251,7 @@ export default function SeuEleitorado() {
                         content="Gêneros dos Eleitores"
                         barColor="#2F5CFC"
                       />
+                      <ChartTip content="Este gráfico o balanço dos gêneros dos eleitores em relação com a população total." />
                     </div>
                     <VotersGender population={cityData.population} />
                   </div>

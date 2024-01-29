@@ -1,5 +1,3 @@
-import { LogoContainer, SubtitleContainer, TitleContainer } from "./styles";
-
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   content: string;
   dark?: boolean;

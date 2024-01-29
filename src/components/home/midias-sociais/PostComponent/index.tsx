@@ -1,4 +1,6 @@
-import Image from "next/image";
+import { HeartSVG } from "../../../../../public/dashboard/midias-sociais/heartSVG";
+import { MessageSVG } from "../../../../../public/dashboard/midias-sociais/messageSVG";
+import { ViewSVG } from "../../../../../public/dashboard/midias-sociais/viewSVG";
 import {
   FeedbackContainer,
   PostContainer,
@@ -6,10 +8,8 @@ import {
   PostDate,
   PostFeedback,
 } from "./styles";
-import { HeartSVG } from "../../../../../public/dashboard/midias-sociais/heartSVG";
-import { MessageSVG } from "../../../../../public/dashboard/midias-sociais/messageSVG";
-import { ViewSVG } from "../../../../../public/dashboard/midias-sociais/viewSVG";
 import { windowWidth } from "@/utils/windowWidth";
+import Image from "next/image";
 
 interface Props {
   type: "instagram" | "facebook" | "youtube" | "tiktok";
@@ -102,10 +102,10 @@ export function PostComponent({
                       type === "facebook"
                         ? "#0037C1"
                         : type === "instagram"
-                          ? "#EB4956"
+                          ? "#505CCA"
                           : type === "tiktok"
-                            ? "#0037C1"
-                            : "#0037C1",
+                            ? "#E03855"
+                            : "#ff0000",
                     fontSize: "0.85rem",
                   }}
                 >
@@ -125,10 +125,10 @@ export function PostComponent({
                       type === "facebook"
                         ? "#0037C1"
                         : type === "instagram"
-                          ? "#EB4956"
+                          ? "#505CCA"
                           : type === "tiktok"
-                            ? "#0037C1"
-                            : "#0037C1",
+                            ? "#E03855"
+                            : "#ff0000",
                     fontSize: "0.85rem",
                   }}
                 >

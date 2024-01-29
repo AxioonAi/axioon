@@ -1,9 +1,8 @@
 import { GlobalButton } from "@/components/Global/Button";
 import { CloseButton } from "@/components/Global/Close";
+import Theme from "@/styles/themes";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Content, Form } from "./styles";
-import Theme from "@/styles/themes";
 
 interface ModalProps {
   show: boolean;
@@ -32,10 +31,10 @@ export function VideoModal({ show, onHide }: ModalProps) {
     <>
       <Modal show={show} onHide={onHide} size="lg">
         {show && (
-          <Content isVisible={isVisible}>
+          <main className="Content flex flex-col w-full gap-5 p-4">
             <CloseButton onHide={onHide} />
             <h1>Insights de Marketing</h1>
-            <Form>
+            <div className="Form flex flex-col w-4/5 self-center gap-5">
               <iframe
                 src="https://www.youtube.com/embed/KLuTLF3x9sA?si=0lTzsOtsnzBgF9F-"
                 title="YouTube video player"
@@ -49,7 +48,7 @@ export function VideoModal({ show, onHide }: ModalProps) {
               orem Ipsum has been the industry's standard dummy text ever since
               the 1500s, when an unknown printer took a galley of type and
               scrambled it to make a type specimen book. It has.
-            </Form>
+            </div>
             <GlobalButton
               content="Voltar"
               background={Theme.color.darkBlueAxion}
@@ -59,7 +58,7 @@ export function VideoModal({ show, onHide }: ModalProps) {
               height="auto"
               onClick={() => onHide()}
             />
-          </Content>
+          </main>
         )}
       </Modal>
     </>

@@ -1,29 +1,14 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { HeaderCandidateSelect } from "./CandidateSelect";
 import { MenuItemComponent } from "./MenuItem";
 import { HeaderTimeSelect } from "./TimeSelect";
-import {
-  ButtonAndSelect,
-  Candidate,
-  CandidateInfo,
-  HeaderContainer,
-  HeaderMenu,
-  HeaderTop,
-  Instruction,
-  Register,
-  UserMenu,
-} from "./styles";
-import {
-  AuthPutAPI,
-  authGetAPI,
-  getAPI,
-  loginVerifyAPI,
-  user_type,
-} from "@/lib/axios";
-import { Dropdown } from "react-bootstrap";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
+import { AuthPutAPI, authGetAPI, loginVerifyAPI } from "@/lib/axios";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Dropdown } from "react-bootstrap";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 interface headerProps {
   fadeOut: any;
@@ -123,15 +108,15 @@ export function HeaderComponent({
         setSelectedProfile({
           name: connect.body.profile.filter(
             (profile: any) =>
-              profile.id === localStorage.getItem("selectedProfile")
+              profile.id === localStorage.getItem("selectedProfile"),
           )[0].name,
           politicalGroup: connect.body.profile.filter(
             (profile: any) =>
-              profile.id === localStorage.getItem("selectedProfile")
+              profile.id === localStorage.getItem("selectedProfile"),
           )[0].politicalGroup,
           id: connect.body.profile.filter(
             (profile: any) =>
-              profile.id === localStorage.getItem("selectedProfile")
+              profile.id === localStorage.getItem("selectedProfile"),
           )[0].id,
         });
       }
@@ -240,40 +225,70 @@ export function HeaderComponent({
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <nav className="headerMenu flex flex-wrap justify-around xl:mt-10 gap-2">
-          <MenuItemComponent
-            click={click}
-            fadeOut={() => fadeOut()}
-            href="/seu-eleitorado"
-            name="SEU ELEITORADO"
-          />
-          <MenuItemComponent
-            click={click}
-            fadeOut={() => fadeOut()}
-            href="/midias-sociais"
-            name="MÍDIAS SOCIAIS"
-            selectedPage={selectedPage}
-            setSelectedPage={setSelectedPage}
-          />
-          <MenuItemComponent
-            click={click}
-            fadeOut={() => fadeOut()}
-            href="/legal"
-            name="JURÍDICO"
-          />
-          <MenuItemComponent
-            click={click}
-            fadeOut={() => fadeOut()}
-            href="/mencoes"
-            name="MENÇÕES"
-          />
-          <MenuItemComponent
-            click={click}
-            fadeOut={() => fadeOut()}
-            href="/inteligencia-artificial"
-            name="INTELIGENCIA ARTIFICIAL"
-          />
-        </nav>
+        {/* <nav className="headerMenu flex flex-wrap justify-around xl:mt-10 gap-2"> */}
+        <div className="headerMenu flex w-full py-4">
+          <Swiper
+            className=" p-2 w-full"
+            slidesPerView={1.5}
+            breakpoints={{
+              550: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1360: {
+                slidesPerView: 4.2,
+              },
+              1920: {
+                slidesPerView: 5,
+              },
+            }}
+          >
+            <SwiperSlide>
+              <MenuItemComponent
+                click={click}
+                fadeOut={() => fadeOut()}
+                href="/seu-eleitorado"
+                name="SEU ELEITORADO"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <MenuItemComponent
+                click={click}
+                fadeOut={() => fadeOut()}
+                href="/midias-sociais"
+                name="MÍDIAS SOCIAIS"
+                selectedPage={selectedPage}
+                setSelectedPage={setSelectedPage}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <MenuItemComponent
+                click={click}
+                fadeOut={() => fadeOut()}
+                href="/legal"
+                name="JURÍDICO"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <MenuItemComponent
+                click={click}
+                fadeOut={() => fadeOut()}
+                href="/mencoes"
+                name="MENÇÕES"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <MenuItemComponent
+                click={click}
+                fadeOut={() => fadeOut()}
+                href="/inteligencia-artificial"
+                name="INTELIGENCIA ARTIFICIAL"
+              />
+            </SwiperSlide>
+          </Swiper>
+        </div>
         <div className="Candidate flex flex-col h-auto items-center md:flex-row md:h-28 mt-12 justify-between">
           <div className="candidateInfo flex items-center gap-3">
             <Image

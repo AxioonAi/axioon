@@ -1,14 +1,12 @@
+import { HeaderTimeSelect } from "../../home/Header/TimeSelect";
+import { ComparisonItemComponent } from "../ComparisonItemComponent";
+import { Item } from "@/components/Global/CitySelector/styles";
+import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
+import { AuthPutAPI, authGetAPI, loginVerifyAPI } from "@/lib/axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { AuthPutAPI, authGetAPI, getAPI, loginVerifyAPI } from "@/lib/axios";
 import { Dropdown, Spinner } from "react-bootstrap";
-import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
-import { MenuItemComponent } from "../../home/Header/MenuItem";
-import { HeaderCandidateSelect } from "../../home/Header/CandidateSelect";
-import { HeaderTimeSelect } from "../../home/Header/TimeSelect";
-import { Item } from "@/components/Global/CitySelector/styles";
-import { ComparisonItemComponent } from "../ComparisonItemComponent";
 
 interface headerProps {
   fadeOut: any;

@@ -1,5 +1,5 @@
-import React from "react";
 import { Wrapper } from "@googlemaps/react-wrapper";
+import React from "react";
 
 export const GoogleMapsWrapper = ({
   children,

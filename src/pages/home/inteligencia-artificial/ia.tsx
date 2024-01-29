@@ -1,11 +1,11 @@
-import OpenAI from "openai";
-import React, { useState } from "react";
 import {
   CampaignMessages,
   FinanceMessages,
   MarketingMessages,
   StartMessage,
 } from "./iaPath";
+import OpenAI from "openai";
+import React, { useState } from "react";
 
 export function useChatFunctions() {
   const [messages, setMessages] = useState<any>([]);
@@ -17,7 +17,7 @@ export function useChatFunctions() {
   async function handleApiCall(messageList: any[]): Promise<string | null> {
     const openai = new OpenAI({
       // apiKey: "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",
-      apiKey: "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", //Testes Front Axioon
+      apiKey: "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", //Testes Front Axioon
       dangerouslyAllowBrowser: true,
     });
 

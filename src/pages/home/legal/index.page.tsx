@@ -1,13 +1,13 @@
-import RootLayout from "@/components/Layout";
-import { useRouter } from "next/router";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { HeaderComponent } from "@/components/home/Header";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
-import Image from "next/image";
-import { Spinner } from "react-bootstrap";
+import RootLayout from "@/components/Layout";
+import { HeaderComponent } from "@/components/home/Header";
 import { authGetAPI } from "@/lib/axios";
 import { maskCnpj } from "@/utils/masks";
+import gsap from "gsap";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Spinner } from "react-bootstrap";
 
 export default function Legal() {
   const main = useRef(null);
@@ -128,7 +128,7 @@ export default function Legal() {
                       legalData.legalData
                         .slice(
                           0,
-                          showMoreLegalData ? legalData.legalData.length : 3
+                          showMoreLegalData ? legalData.legalData.length : 3,
                         )
                         .map((item: any) => (
                           <div className="flex flex-col p-2 w-full gap-2 justify-between h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
@@ -168,7 +168,7 @@ export default function Legal() {
                                 Data de Início:{" "}
                                 <strong>
                                   {new Date(item.startDate).toLocaleDateString(
-                                    "pt-BR"
+                                    "pt-BR",
                                   )}
                                 </strong>
                               </span>
@@ -188,7 +188,7 @@ export default function Legal() {
                                 Última atualização:{" "}
                                 <strong>
                                   {new Date(item.lastUpdate).toLocaleDateString(
-                                    "pt-BR"
+                                    "pt-BR",
                                   )}
                                 </strong>
                               </span>
@@ -253,7 +253,7 @@ export default function Legal() {
                       legalData.incomeTax
                         .slice(
                           0,
-                          showMoreIncomeTax ? legalData.incomeTax.length : 4
+                          showMoreIncomeTax ? legalData.incomeTax.length : 4,
                         )
                         .map((item: any) => (
                           <div className="flex flex-col items-center p-2 w-[45%] gap-2 justify-between h-auto min-h-16 first:m-0 mb-4 rounded bg-gradient-to-b from-[rgba(3,30,83,0.3)] from-10% via-[rgba(3,30,83,0.5)] via-20% to-darkBlueAxion shadow-sm text-sm">
@@ -300,7 +300,7 @@ export default function Legal() {
                           0,
                           showMoreEconomicRelationship
                             ? legalData.economicRelationship.length
-                            : 4
+                            : 4,
                         )
                         .map((item: any) => (
                           <div className="flex flex-col p-2 w-[45%] gap-2 justify-between h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">
@@ -350,7 +350,7 @@ export default function Legal() {
                     className={` ${legalData && legalData.legalData.length === 0 ? "hidden" : "flex"} self-center m-auto px-4 py-1 border-[1px] border-darkBlueAxion rounded text-darkBlueAxion hover:bg-gray-20 hover:scale-105 transition duration-200 ease-in-out cursor-pointer`}
                     onClick={() =>
                       setShowMoreEconomicRelationship(
-                        !showMoreEconomicRelationship
+                        !showMoreEconomicRelationship,
                       )
                     }
                   >
@@ -372,7 +372,7 @@ export default function Legal() {
                       legalData.address
                         .slice(
                           0,
-                          showMoreAddress ? legalData.address.length : 3
+                          showMoreAddress ? legalData.address.length : 3,
                         )
                         .map((item: any) => (
                           <div className="flex p-4 w-full gap-2 h-auto min-h-20 first:m-0 mb-4 rounded bg-gradient-to-br from-[#f6f6f6] to-[#c3c3c3] shadow-sm">

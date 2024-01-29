@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Message, SuggestionContainer, TipContainer } from "./styles";
 import { useState } from "react";
 
 interface Props {

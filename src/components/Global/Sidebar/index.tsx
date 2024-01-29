@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
 import { Dashboard } from "../../../../public/sidebar/dashboard";
 import { FinancialSVG } from "../../../../public/sidebar/financial";
 import { NotificationSVG } from "../../../../public/sidebar/notification";
 import { ProfileSVG } from "../../../../public/sidebar/profile";
-import { SettingsSVG } from "../../../../public/sidebar/settings";
-import { UsersSVG } from "../../../../public/sidebar/users";
 import { LinkComponent } from "./Link";
-import { AxionLogoContainer, SidebarContainer, SidebarContent } from "./styles";
 import { loginVerifyAPI, user_type } from "@/lib/axios";
+import { useEffect, useState } from "react";
 
 interface SidebarProps {
   fadeOut: any;
@@ -26,7 +23,6 @@ export function Sidebar({ fadeOut }: SidebarProps) {
   useEffect(() => {
     handleVerify();
   }, []);
-  // const isHeightAbove991 = useWindowDimensions();
 
   return (
     <nav className="hidden position-sticky top-0 bg-black text-white w-72 lg:flex">

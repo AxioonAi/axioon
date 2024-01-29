@@ -1,8 +1,4 @@
-import { useState } from "react";
-import { SelectContainer } from "./styles";
-import { DropDownIconSVG } from "../../../../../public/dashboard/DropdownIconSVG";
 import { ProfileSelector } from "@/components/Global/CitySelector";
-import { Spinner } from "react-bootstrap";
 
 interface Props {
   profiles: string[];

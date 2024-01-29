@@ -1,5 +1,5 @@
-import { Spinner } from "react-bootstrap";
 import { Container } from "./styles";
+import { Spinner } from "react-bootstrap";
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   content: string;

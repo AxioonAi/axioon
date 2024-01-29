@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { ArrowLeftSVG } from "../../../../public/messages/arrow-left";
 import { ArrowRightSVG } from "../../../../public/messages/arrow-right";
-import { Arrows, Author, AuthorAndArrows, Container } from "./styles";
 import { motion, useAnimation } from "framer-motion";
+import { useState } from "react";
 
 export function Messages() {
   const messages = [

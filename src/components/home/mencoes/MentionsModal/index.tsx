@@ -1,6 +1,6 @@
-import { TitleWithBar } from "@/components/Global/TitleWithBar";
-import Image from "next/image";
 import { ScoreChart } from "../../ScoreChart";
+import { CommentComponent } from "../../midias-sociais/ComentComponent";
+import { OrderSelect } from "../../midias-sociais/OrderSelect";
 import {
   Comments,
   CommentsHeader,
@@ -13,8 +13,8 @@ import {
   ScoreChartContainer,
   Sentiments,
 } from "./styles";
-import { CommentComponent } from "../../midias-sociais/ComentComponent";
-import { OrderSelect } from "../../midias-sociais/OrderSelect";
+import { TitleWithBar } from "@/components/Global/TitleWithBar";
+import Image from "next/image";
 import { useState } from "react";
 
 interface Props {
