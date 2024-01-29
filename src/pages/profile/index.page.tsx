@@ -22,10 +22,17 @@ import gsap from "gsap";
 import RootLayout from "@/components/Layout";
 import { UsersTable } from "@/components/users/Table";
 import { NewUserModal } from "@/components/profile/NewUserModal";
-import { AuthPutAPI, authGetAPI, loginVerifyAPI, user_type } from "@/lib/axios";
+import {
+  AuthPostAPI,
+  AuthPutAPI,
+  authGetAPI,
+  loginVerifyAPI,
+  user_type,
+} from "@/lib/axios";
 import { maskCpfCnpj, maskDate, maskPhone } from "@/utils/masks";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { Dropdown } from "react-bootstrap";
 
 export default function Profile() {
   const router = useRouter();
@@ -41,6 +48,22 @@ export default function Profile() {
     cpfCnpj: "...",
     birth_date: "...",
     sex: "...",
+    signature: [
+      {
+        plan: {
+          name: "...",
+          description: "...",
+          pixValue: 0,
+          amount_of_monitoring: 0,
+          amount_of_users: 0,
+          duration: 0,
+          legal_data: undefined,
+          population_data: undefined,
+        },
+        expires_in: "...",
+        status: undefined,
+      },
+    ],
   });
   const [loading1, setLoading1] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,7 +71,20 @@ export default function Profile() {
     newPassword: "",
     confirmPassword: "",
   });
-  const [isEditing, setIsEditing] = useState(false);
+  const [subUserFormData, setSubUserFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [loadingSubUser, setLoadingSubUser] = useState(false);
+  const [subUserData, setSubUserData] = useState<any>([
+    {
+      name: "",
+      email: "",
+      active: undefined,
+      id: "",
+    },
+  ]);
 
   const main = useRef(null);
   const content = useRef(null);
@@ -136,8 +172,6 @@ export default function Profile() {
     return setLoading1(false);
   }
 
-  const [type, setType] = useState("");
-
   async function handleVerify() {
     const connect = await loginVerifyAPI();
     const type = localStorage.getItem(user_type);
@@ -148,13 +182,55 @@ export default function Profile() {
     GetProfile();
   }
 
-  // async function registerSubUser() {
-  //   const connect = await AuthPutAPI("/user/profile", {});
-  // }
+  async function registerSubUser() {
+    setLoadingSubUser(true);
+    const connect = await AuthPostAPI("/sub-user/create", {
+      name: subUserFormData.name,
+      email: subUserFormData.email,
+      password: subUserFormData.password,
+    });
+    if (connect.status !== 200) {
+      alert(connect.body);
+      return setLoadingSubUser(false);
+    }
+    alert("Usuário criado com sucesso");
+    setShowNewUserModal(false);
+    return setLoadingSubUser(false);
+  }
+
+  async function getSubUsers() {
+    const connect = await authGetAPI("/sub-user");
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setSubUserData(connect.body.subUsers);
+  }
 
   useEffect(() => {
     handleVerify();
+    getSubUsers();
   }, []);
+
+  async function handleSubUser(id: string, active: boolean) {
+    const connect = await AuthPutAPI(`/sub-user/${id}`, {
+      active: !active,
+    });
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setSubUserData(undefined);
+    getSubUsers();
+  }
+
+  async function logOut() {
+    localStorage.removeItem("axioonToken");
+    localStorage.removeItem("axioonRefreshToken");
+    localStorage.removeItem("axioonUserType");
+    localStorage.removeItem("selectedProfile");
+    localStorage.removeItem("selectedTime");
+    localStorage.removeItem("selectedTimeName");
+    return router.push("/login");
+  }
 
   return (
     <main ref={main}>
@@ -164,58 +240,56 @@ export default function Profile() {
           ref={content}
           style={{ opacity: 1 }}
         >
+          <div className="flex w-full justify-end">
+            <Dropdown>
+              <Dropdown.Toggle
+                style={{
+                  backgroundColor: "#232323",
+                  border: 0,
+                  fontSize: 15,
+                }}
+              >
+                <strong>{profileData.name}</strong> <br />
+                <span>{profileData.email}</span>
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="w-full right-4 bg-[#232323]">
+                <Dropdown.Item
+                  className="text-white hover:bg-black"
+                  onClick={() => setShowNewPasswordModal(true)}
+                >
+                  Alterar Senha
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item
+                  className="text-white hover:bg-black"
+                  onClick={logOut}
+                >
+                  Sair
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+
           <main className="Main flex flex-col p-4 m-0 rounded-lg md:m-2">
             <header className="flex flex-col md:flex-row justify-between">
               <h1 className="text-2xl font-bold">Meu Perfil</h1>
               <div className="flex flex-row gap-10">
-                <GlobalButton
+                <button
                   onClick={() => setShowNewUserModal(true)}
-                  content=""
-                  background={Theme.color.darkBlueAxion}
-                  color={Theme.color.gray_10}
-                  width="auto"
-                  height="auto"
-                  fontSize={10}
-                  className="p-2 rounded flex flex-row items-center gap-2 "
+                  className="bg-darkBlueAxion text-white p-2 rounded flex flex-row items-center gap-2 text-xs lg:text-sm"
                 >
                   Cadastrar novo Usuário {""}
                   <img src="/newUser.svg" alt="" />
-                </GlobalButton>
-                <GlobalButton
-                  content=""
-                  background={Theme.color.brand_blue}
-                  color={Theme.color.gray_10}
-                  width="auto"
-                  height="auto"
-                  fontSize={10}
-                  className="p-2 rounded flex flex-row items-center gap-2 "
+                </button>
+                <button
+                  className="bg-brand_blue text-white p-2 rounded flex flex-row items-center gap-2 text-xs lg:text-sm"
                   onClick={() => setShowNewPasswordModal(true)}
                 >
                   Trocar Senha
-                </GlobalButton>
+                </button>
               </div>
             </header>
             <div className="flex flex-col md:flex-row items-center justify-around">
-              <div className="flex flex-col items-center w-full md:w-1/5">
-                <img
-                  src="/sidebar/user.png"
-                  alt=""
-                  className="w-16 h-16 rounded-full"
-                />
-                <GlobalButton
-                  content=""
-                  background="transparent"
-                  color="blue"
-                  fontSize={8}
-                  width="auto"
-                  height="auto"
-                  className="flex flex-row items-center gap-2"
-                >
-                  <UserEditSVG />
-                  Substituir
-                </GlobalButton>
-              </div>
-
               <div className="flex flex-col w-full md:w-1/3 gap-8">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="name">Nome Completo</label>
@@ -326,15 +400,19 @@ export default function Profile() {
                   <label htmlFor="gender" style={{ marginBottom: "0.75rem" }}>
                     Sexo
                   </label>
-                  <RadioContainer>
-                    <RadioGroup>
-                      <RadioSelector
+                  <div className="RadioContainer flex gap-5">
+                    <div className="RadioGroup flex gap-2 items-center">
+                      <label
+                        className="RadioSelector flex items-center justify-center w-6 h-6 rounded-full border-[1px] border-gray-60"
                         htmlFor="MALE"
-                        checked={profileData?.sex === "MALE"}
+                        // checked={profileData?.sex === "MALE"}
                       >
-                        <div />
-                      </RadioSelector>
+                        <div
+                          className={`w-4 h-4 rounded-full ${profileData?.sex === "MALE" ? "bg-darkBlueAxion" : "bg-transparent"}`}
+                        />
+                      </label>
                       <input
+                        className="hidden"
                         type="radio"
                         name="gender"
                         id="MALE"
@@ -347,16 +425,19 @@ export default function Profile() {
                         }
                       />
                       <label htmlFor="MALE">Masculino</label>
-                    </RadioGroup>
+                    </div>
 
-                    <RadioGroup>
-                      <RadioSelector
+                    <div className="RadioGroup flex gap-2 items-center">
+                      <label
+                        className="RadioSelector flex items-center justify-center w-6 h-6 rounded-full border-[1px] border-gray-60"
                         htmlFor="FEMALE"
-                        checked={profileData?.sex === "FEMALE"}
                       >
-                        <div />
-                      </RadioSelector>
+                        <div
+                          className={`w-4 h-4 rounded-full ${profileData?.sex === "FEMALE" ? "bg-darkBlueAxion" : "bg-transparent"}`}
+                        />
+                      </label>
                       <input
+                        className="hidden"
                         type="radio"
                         name="gender"
                         id="FEMALE"
@@ -369,8 +450,8 @@ export default function Profile() {
                         }
                       />
                       <label htmlFor="FEMALE">Feminino</label>
-                    </RadioGroup>
-                  </RadioContainer>
+                    </div>
+                  </div>
                   <GlobalButton
                     background={Theme.color.darkBlueAxion}
                     color={Theme.color.gray_10}
@@ -402,83 +483,105 @@ export default function Profile() {
             <div className="flex flex-col md:flex-row mt-2">
               <div className="w-full xl:w-1/2 2xl:w-1/3 h-48 bg-[#d9d9d9] rounded-xl" />
               <div className="flex flex-col flex-wrap gap-4 p-2 w-full text-xs md:text-sm">
-                <div className="flex justify-between">
-                  <div className="flex flex-col">
+                <div className="grid grid-cols-3 w-full justify-items-stretch">
+                  <div className="flex flex-col justify-center items-start">
                     <label className="font-semibold">Plano Contratado:</label>
-                    Plano ABC
+                    {profileData && profileData.signature[0].plan.name}
                   </div>
-                  <div className="flex flex-col">
-                    <label className="font-semibold">INFO 1</label>
-                    INFO 1
+                  <div className="flex flex-col justify-center items-start">
+                    <label className="font-semibold">Descrição</label>
+                    {profileData && profileData.signature[0].plan.description}
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col justify-center items-start">
                     <label className="font-semibold">
                       Agentes Monitorados:
                     </label>
-                    Até 3 Agentes
+                    Até{" "}
+                    {profileData &&
+                      profileData.signature[0].plan.amount_of_monitoring}{" "}
+                    Agentes
                   </div>
                 </div>
-                <div className="flex justify-between">
-                  <div className="flex flex-col">
-                    <label className="font-semibold">Plano Contratado:</label>
-                    Plano ABC
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="font-semibold">INFO 1</label>
-                    INFO 1
-                  </div>
-                  <div className="flex flex-col">
+                <div className="grid grid-cols-3 w-full justify-items-stretch">
+                  <div className="flex flex-col justify-center items-start">
                     <label className="font-semibold">
-                      Agentes Monitorados:
+                      Monitoramento Jurídico
                     </label>
-                    Até 3 Agentes
+                    {profileData &&
+                    profileData.signature[0].plan.legal_data === true
+                      ? "Ativado"
+                      : "Desativado"}
+                  </div>
+                  <div className="flex flex-col justify-center items-start">
+                    <label className="font-semibold">Dados demográficos</label>
+                    {profileData &&
+                    profileData.signature[0].plan.population_data === true
+                      ? "Ativado"
+                      : "Desativado"}
+                  </div>
+                  <div className="flex flex-col justify-center items-start">
+                    <label className="font-semibold">Seus Acessos:</label>
+                    Até{" "}
+                    {profileData &&
+                      profileData.signature[0].plan.amount_of_users}{" "}
+                    usuários
                   </div>
                 </div>
               </div>
             </div>
             <div className="flex flex-wrap gap-x-16 gap-y-4 justify-around text-xs md:text-sm mt-4">
-              <div className="flex flex-col">
-                <label className="font-semibold">Data</label>
-                01/01/2024
+              <div className="flex flex-col justify-center items-start">
+                <label className="font-semibold">Data de vencimento</label>
+                {new Date(
+                  profileData && profileData.signature[0].expires_in
+                ).toLocaleDateString("pt-BR", {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric",
+                })}
               </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Descrição</label>
-                Plano ABC
+              <div className="flex flex-col justify-center items-start">
+                <label className="font-semibold">Duração</label>
+                {profileData && profileData.signature[0].plan.duration} meses
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col justify-center items-start">
                 <label className="font-semibold">Valor</label>
-                R$5000,00
+                {profileData &&
+                  profileData.signature[0].plan.pixValue.toLocaleString(
+                    "pt-BR",
+                    { style: "currency", currency: "BRL" }
+                  )}
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col justify-center items-start">
                 <label className="font-semibold">Status</label>
-                <button className="px-4 bg-green-70 text-white rounded">
-                  PAGO
+                <button
+                  className={`px-4 ${profileData && profileData.signature[0].status === "ACTIVE" ? "bg-green-70" : "bg-red-500"} text-white rounded`}
+                >
+                  {profileData && profileData.signature[0].status === undefined
+                    ? "..."
+                    : profileData &&
+                        profileData.signature[0].status === "ACTIVE"
+                      ? "ATIVO"
+                      : "INATIVE"}
                 </button>
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Recibo</label>
-                <a className="decoration-none">Retirar Nota Fiscal</a>
               </div>
             </div>
           </main>
           <main className="w-full rounded-lg p4">
             <header className="flex justify-between">
               <h2 className="text-2xl font-semibold">Usuários</h2>
-              <GlobalButton
-                background={Theme.color.darkBlueAxion}
-                color={Theme.color.gray_10}
-                content=""
-                width="auto"
-                height="auto"
-                fontSize={10}
-                className="p-2 rounded flex flex-row items-center gap-2 text-center justify-center mt-5"
+              <button
+                className="bg-darkBlueAxion text-gray-10 p-2 rounded flex flex-row items-center gap-2 text-center justify-center"
                 onClick={() => setShowNewUserModal(true)}
               >
                 Cadastrar novo Usuário {""}
                 <img src="/newUser.svg" alt="" />
-              </GlobalButton>
+              </button>
             </header>
-            <UsersTable />
+            <UsersTable
+              subUserData={subUserData}
+              handleSubUser={handleSubUser}
+            />
           </main>
         </div>
 
@@ -498,6 +601,10 @@ export default function Profile() {
         <NewUserModal
           show={showNewUserModal}
           onHide={() => setShowNewUserModal(false)}
+          subUserFormData={subUserFormData}
+          setSubUserFormData={setSubUserFormData}
+          registerSubUser={registerSubUser}
+          loadingSubUser={loadingSubUser}
         />
       </RootLayout>
     </main>

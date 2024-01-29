@@ -184,9 +184,7 @@ lg:left-[calc(100%-17.5rem)]"
                   <div
                     className={`absolute p-[0.3rem] right-[-0.5rem] top-[-4.5rem] border border-black rounded-[10px] text-justify text-[#1f1f1f] bg-white ${
                       showTip ? "z-[100]" : "z-[-1]"
-                    } ${
-                      showTip ? "opacity-100" : "opacity-0"
-                    } transition duration-300 ease-in`}
+                    } ${!showTip ? "opacity-0" : "opacity-1"} transition duration-300 ease-in`}
                   >
                     Reiniciar Conversa
                     <div className="absolute bg-white w-[0.7rem] h-[0.7rem] right-[1rem] rotate-45 border-r border-b border-black" />

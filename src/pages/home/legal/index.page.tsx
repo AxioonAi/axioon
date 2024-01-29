@@ -83,9 +83,18 @@ export default function Legal() {
 
   useEffect(() => {
     if (selectedProfile.id) {
+      setLegalData(undefined);
       getLegal();
     }
   }, [selectedProfile]);
+
+  const redirect = (url: string) => {
+    if (confirm("Você será redirecionado para a publicação original")) {
+      window.open(url, "_blank");
+    } else {
+      return;
+    }
+  };
 
   return (
     <main ref={main}>
@@ -163,7 +172,10 @@ export default function Legal() {
                                   )}
                                 </strong>
                               </span>
-                              <button className="flex items-center justify-center bg-darkBlueAxion text-white text-[10px] rounded w-1/2 md:w-auto p-2 gap-1">
+                              <button
+                                className="flex items-center justify-center bg-darkBlueAxion text-white text-[10px] rounded w-1/2 md:w-auto p-2 gap-1 hover:scale-[1.05] hover:bg-[rgba(13,18,60,0.7)] transition duration-200"
+                                onClick={() => redirect(item.url)}
+                              >
                                 <Image
                                   src="/dashboard/Legal/Details.svg"
                                   width={12}
@@ -300,13 +312,31 @@ export default function Legal() {
                                 {maskCnpj(item.cnpj)}
                               </span>
                             </div>
-                            <Image
-                              src="/dashboard/Legal/dealIcon.svg"
-                              width={25}
-                              height={25}
-                              alt=""
-                              className="self-end"
-                            />
+                            {item.relationshipType === "OWNER" ? (
+                              <Image
+                                src="/dashboard/Legal/formalIcon.svg"
+                                width={25}
+                                height={25}
+                                alt=""
+                                className="self-end"
+                              />
+                            ) : item.relationshipType === "PARNER" ? (
+                              <Image
+                                src="/dashboard/Legal/dealIcon.svg"
+                                width={25}
+                                height={25}
+                                alt=""
+                                className="self-end"
+                              />
+                            ) : (
+                              <Image
+                                src="/dashboard/Legal/familyIcon.svg"
+                                width={25}
+                                height={25}
+                                alt=""
+                                className="self-end"
+                              />
+                            )}
                           </div>
                         ))
                     ) : (
