@@ -21,7 +21,7 @@ import {
 import Image from "next/image";
 import { SuggestionContainer } from "@/components/home/inteligencia-artificial/PromptSuggestion/styles";
 import { PrompSuggestion } from "@/components/home/inteligencia-artificial/PromptSuggestion";
-import { useChatFunctions } from "./ia.api";
+import { useChatFunctions } from "../../api/ia.api";
 import { authGetAPI } from "@/lib/axios";
 
 export default function InteligenciaArtificial() {

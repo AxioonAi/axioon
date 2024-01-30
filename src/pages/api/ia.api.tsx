@@ -3,7 +3,7 @@ import {
   FinanceMessages,
   MarketingMessages,
   StartMessage,
-} from "./iaPath";
+} from "../home/inteligencia-artificial/iaPath";
 import OpenAI from "openai";
 import React, { useState } from "react";
 
