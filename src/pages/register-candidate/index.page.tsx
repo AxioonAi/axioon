@@ -1,6 +1,3 @@
-import { Footer } from "@/components/register-account/Footer";
-import { RegisterAccountHeader } from "@/components/register-account/Header";
-import { useEffect, useState } from "react";
 import {
   Container,
   FormContainer,
@@ -11,7 +8,10 @@ import {
   Main,
   StepName,
 } from "./styles";
+import { GlobalButton } from "@/components/Global/Button";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
+import { Footer } from "@/components/register-account/Footer";
+import { RegisterAccountHeader } from "@/components/register-account/Header";
 import { CandidateForm } from "@/components/register-candidate/CandidateForm";
 import {
   AuthPostAPI,
@@ -20,11 +20,11 @@ import {
   getAPI,
   loginVerifyAPI,
 } from "@/lib/axios";
-import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
-import { useRouter } from "next/router";
-import { Modal, Spinner } from "react-bootstrap";
 import { maskCpfCnpj } from "@/utils/masks";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Modal, Spinner } from "react-bootstrap";
 
 export default function RegisterCandidate() {
   const router = useRouter();
@@ -147,7 +147,7 @@ export default function RegisterCandidate() {
     setLoading2(true);
     const connect = await AuthPostAPI(
       `/profile/monitoring/${existsProfile.id}`,
-      {}
+      {},
     );
     if (connect.status !== 200) {
       alert(connect.body);
@@ -164,11 +164,9 @@ export default function RegisterCandidate() {
         <div className="Instructions m-auto w-full lg:h-52 2xl:h-60 flex flex-col lg:flex-row py-4 px-2">
           <div className="InstructionSection1 w-full -left-0 lg:-left-24 flex flex-col lg:flex-col-reverse justify-between items-center mt-4">
             <div className="InstructionStep step1 flex items-start gap-2 self-start">
-              <img
-                className="w-20 h-20 rounded-full"
-                src="/register-candidate/1.png"
-                alt=""
-              />
+              <div className="w-20 h-20 flex items-center justify-center text-center text-white font-extrabold text-5xl rounded-full border-[1px] border-white bg-gradient-to-tr from-darkBlueAxion via-gray-70 to-darkBlueAxion bg-[length:400%] animate-bgSweep">
+                1
+              </div>
               <div className="description flex flex-col gap-2 w-40">
                 <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-sm font-semibold">
                   Inserir os Dados
@@ -179,11 +177,9 @@ export default function RegisterCandidate() {
               </div>
             </div>
             <div className="InstructionStep step2 flex items-start self-end gap-2">
-              <img
-                className="w-20 h-20 rounded-full"
-                src="/register-candidate/2.png"
-                alt=""
-              />
+              <div className="w-20 h-20 flex items-center justify-center text-center text-white font-extrabold text-5xl rounded-full border-[1px] border-white bg-gradient-to-b from-darkBlueAxion from-[1%] via-gray-50 to-darkBlueAxion to-[99%] animate-bgScrollUp">
+                2
+              </div>
               <div className="description flex flex-col gap-2 w-40">
                 <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-sm font-semibold">
                   Inteligência Artificial
@@ -197,11 +193,9 @@ export default function RegisterCandidate() {
           </div>
           <div className="InstructionSection2 w-full -left-0 lg:-left-24 flex flex-col lg:flex-col-reverse justify-between items-center mt-4">
             <div className="InstructionStep step3 flex items-start gap-2 self-start">
-              <img
-                className="w-20 h-20 rounded-full"
-                src="/register-candidate/3.png"
-                alt=""
-              />
+              <div className="w-20 h-20 flex items-center justify-center text-center text-white font-extrabold text-5xl rounded-full border-[1px] border-white bg-[radial-gradient(100%_100%,rgba(13,18,60)_0%,rgba(157,165,180)_100%)] animate-bgPulse">
+                3
+              </div>
               <div className="description flex flex-col gap-2 w-40">
                 <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-sm font-semibold">
                   Analise os dados
@@ -213,11 +207,10 @@ export default function RegisterCandidate() {
               </div>
             </div>
             <div className="InstructionStep step2 flex items-start self-end gap-2">
-              <img
-                className="w-20 h-20 rounded-full"
-                src="/register-candidate/4.png"
-                alt=""
-              />
+              <div className="w-20 h-20 flex relative overflow-hidden items-center justify-center text-center text-white font-extrabold text-5xl rounded-full border-[1px] border-white">
+                <div className="w-20 h-20 bg-gradient-to-tr from-darkBlueAxion via-gray-70 to-darkBlueAxion bg-[length:400%] animate-bgRotate absolute" />
+                <span className="z-10">4</span>
+              </div>
               <div className="description flex flex-col gap-2 w-40">
                 <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-sm font-semibold">
                   Use a Inteligência Artificial

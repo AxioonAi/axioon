@@ -10,6 +10,40 @@ const config: Config = {
     extend: {
       animation: {
         fadeInWelcomeMessage: "fadeInWelcomeMessage 0.3s ease-in",
+        bgSweep: "bgSweep 2s infinite ease",
+        bgScrollUp: "bgScrollUp 2s infinite ease",
+        bgPulse: "bgPulse 2s infinite ease",
+        bgRotate: "bgRotate 2s infinite ease",
+      },
+      keyframes: {
+        bgSweep: {
+          "0%": { backgroundPosition: "100% 0%" },
+          "50%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "100% 100%" },
+        },
+        bgScrollUp: {
+          "0%": {
+            backgroundPosition: "100% 100%",
+            backgroundSize: "200% 200%",
+          },
+          "50%": {
+            backgroundPosition: "200% 200%",
+            backgroundSize: "150% 150%",
+          },
+          "100%": {
+            backgroundPosition: "100% 100%",
+            backgroundSize: "200% 200%",
+          },
+        },
+        bgPulse: {
+          "0%": { backgroundSize: "100% 100%", backgroundPosition: "0% 0%" },
+          "50%": { backgroundSize: "150% 150%", backgroundPosition: "50% 50%" },
+          "100%": { backgroundSize: "100% 100%", backgroundPosition: "0% 0%" },
+        },
+        bgRotate: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
