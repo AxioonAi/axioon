@@ -249,7 +249,7 @@ export default function RegisterCandidate() {
         </FormContainer>
       </main>
       <Footer type="dark" />
-      <Modal show={!exists} onHide={() => setExists(false)} size="lg">
+      <Modal show={exists} onHide={() => setExists(false)} size="lg">
         <Modal.Body>
           <div className="flex flex-col items-center">
             <span className="text-3xl font-bold text-darkBlue">
