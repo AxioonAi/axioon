@@ -97,13 +97,12 @@ export default function Notifications() {
                       </div>
                     </div>
                   </header>
-                  <div className="NotificationRows flex w-full items-center justify-between m-12 pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                  <div className="NotificationRows flex w-full items-center justify-between py-4 px-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
                     <div className="flex items-center gap-4">
                       <img src="/NotificationsIcon4.svg" alt="" />
                       {""} Notificações
                     </div>
-                    <div className="flex self-center">Data</div>
-                    <div></div>
+                    <div className="flex">Data</div>
                   </div>
                   {notifications
                     .filter(
@@ -112,8 +111,8 @@ export default function Notifications() {
                         new Date().toLocaleDateString("pt-BR"),
                     )
                     .map((notification: any, index: any) => (
-                      <div className="NotificationRows flex w-full items-center justify-between pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
-                        <div className="flex flex-col w-2/5 items-start">
+                      <div className="NotificationRows flex w-full items-center justify-between py-4 px-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                        <div className="flex flex-col items-start">
                           <div className="flex flex-row">
                             <img
                               src={
@@ -134,12 +133,12 @@ export default function Notifications() {
                             <strong>{notification.description}</strong>
                           </div>
                         </div>
-                        <div className="flex flex-col items-center w-1/5 self-center">
+                        <div className="flex flex-col items-center self-center">
                           {new Date(notification.date).toLocaleDateString(
                             "pt-BR",
                           )}
                         </div>
-                        <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
+                        {/* <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
                           {notification.opened === true ? (
                             <GlobalButton
                               background="#fff"
@@ -173,7 +172,7 @@ export default function Notifications() {
                               />
                             </>
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     ))}
                 </>
@@ -204,13 +203,12 @@ export default function Notifications() {
                       </div>
                     </div>
                   </header>
-                  <div className="NotificationRows flex w-full items-center justify-between m-12 pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                  <div className="NotificationRows flex w-full items-center justify-between py-4 px-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
                     <div className="flex items-center gap-4">
                       <img src="/NotificationsIcon4.svg" alt="" />
                       {""} Notificações
                     </div>
-                    <div className="flex self-center">Data</div>
-                    <div></div>
+                    <div className="flex">Data</div>
                   </div>
                   {notifications
                     .filter(
@@ -223,8 +221,8 @@ export default function Notifications() {
                           ).toLocaleDateString("pt-BR"),
                     )
                     .map((notification: any, index: any) => (
-                      <div className="NotificationRows flex w-full items-center justify-between pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
-                        <div className="flex flex-col w-2/5 items-start">
+                      <div className="NotificationRows flex w-full items-center justify-between py-4 px-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                        <div className="flex flex-col items-start">
                           <div className="flex flex-row">
                             <img
                               src={
@@ -245,12 +243,12 @@ export default function Notifications() {
                             <strong>{notification.description}</strong>
                           </div>
                         </div>
-                        <div className="flex flex-col items-center w-1/5 self-center">
+                        <div className="flex flex-col items-center self-center">
                           {new Date(notification.date).toLocaleDateString(
                             "pt-BR",
                           )}
                         </div>
-                        <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
+                        {/* <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
                           {notification.opened === true ? (
                             <GlobalButton
                               background="#fff"
@@ -284,7 +282,7 @@ export default function Notifications() {
                               />
                             </>
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     ))}
                 </>
@@ -313,13 +311,12 @@ export default function Notifications() {
                       </div>
                     </div>
                   </header>
-                  <div className="NotificationRows flex w-full items-center justify-between m-12 pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                  <div className="NotificationRows flex w-full items-center justify-between py-4 px-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
                     <div className="flex items-center gap-4">
                       <img src="/NotificationsIcon4.svg" alt="" />
                       {""} Notificações
                     </div>
-                    <div className="flex self-center">Data</div>
-                    <div></div>
+                    <div className="flex">Data</div>
                   </div>
                   {notifications
                     .filter(
@@ -330,8 +327,8 @@ export default function Notifications() {
                         ).toLocaleDateString("pt-BR"),
                     )
                     .map((notification: any, index: any) => (
-                      <div className="NotificationRows flex w-full items-center justify-between pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
-                        <div className="flex flex-col w-2/5 items-start">
+                      <div className="NotificationRows flex w-full items-center justify-between py-4 px-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
+                        <div className="flex flex-col items-start">
                           <div className="flex flex-row">
                             <img
                               src={
@@ -352,7 +349,7 @@ export default function Notifications() {
                             <strong>{notification.description}</strong>
                           </div>
                         </div>
-                        <div className="flex flex-col items-center w-1/5 self-center">
+                        <div className="flex flex-col items-center self-center">
                           {new Date(notification.date).toLocaleDateString(
                             "pt-BR",
                           )}

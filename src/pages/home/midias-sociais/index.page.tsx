@@ -117,11 +117,11 @@ export default function MidiasSociais() {
         `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`,
       ),
     ]);
-    console.log("metaads", metaads.body);
-    console.log("facebook", facebook.body);
-    console.log("instagram", instagram.body);
-    console.log("tiktok", tiktok.body);
-    console.log("youtube", youtube.body);
+    // console.log("metaads", metaads.body);
+    // console.log("facebook", facebook.body);
+    // console.log("instagram", instagram.body);
+    // console.log("tiktok", tiktok.body);
+    // console.log("youtube", youtube.body);
     if (metaads.status !== 200) {
       setLocked(true);
     }

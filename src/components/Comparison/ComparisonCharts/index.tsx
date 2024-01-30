@@ -444,6 +444,16 @@ export function ComparisonType({
                       comparison
                       barColor="#12A9E7"
                     />
+                    <div className="flex gap-2 w-full m-auto justify-center">
+                      <img
+                        src="/dashboard/midias-sociais/noData.svg"
+                        className="w-16 h-16"
+                        alt=""
+                      />
+                      <span className="text-center text-lg font-semibold w-1/2">
+                        Não encontramos dados do {pageType} para {nameMain}
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="engagementChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
@@ -481,6 +491,16 @@ export function ComparisonType({
                       barColor="#2F5CFC"
                       subTitle
                     />
+                    <div className="flex gap-2 w-full m-auto justify-center">
+                      <img
+                        src="/dashboard/midias-sociais/noData.svg"
+                        className="w-16 h-16"
+                        alt=""
+                      />
+                      <span className="text-center text-lg font-semibold w-1/2">
+                        Não encontramos dados do {pageType} para {nameMain}
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
@@ -534,6 +554,16 @@ export function ComparisonType({
                       barColor="#12A9E7"
                       subTitle
                     />
+                    <div className="flex gap-2 w-full m-auto justify-center">
+                      <img
+                        src="/dashboard/midias-sociais/noData.svg"
+                        className="w-16 h-16"
+                        alt=""
+                      />
+                      <span className="text-center text-lg font-semibold w-1/2">
+                        Não encontramos dados do {pageType} para {nameMain}
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="keyIndicatorChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
@@ -574,6 +604,16 @@ export function ComparisonType({
                         content={String(nameMain)}
                         subTitle
                       />
+                      <div className="flex gap-2 w-full m-auto justify-center">
+                        <img
+                          src="/dashboard/midias-sociais/noData.svg"
+                          className="w-16 h-16"
+                          alt=""
+                        />
+                        <span className="text-center text-lg font-semibold w-1/2">
+                          Não encontramos dados do {pageType} para {nameMain}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -584,6 +624,16 @@ export function ComparisonType({
                       barColor="#12A9E7"
                       subTitle
                     />
+                    <div className="flex gap-2 w-full m-auto justify-center">
+                      <img
+                        src="/dashboard/midias-sociais/noData.svg"
+                        className="w-16 h-16"
+                        alt=""
+                      />
+                      <span className="text-center text-lg font-semibold w-1/2">
+                        Não encontramos dados do {pageType} para {nameMain}
+                      </span>
+                    </div>
                   </div>
                 )}
                 {pageType === "youtube" ? (
@@ -758,6 +808,16 @@ export function ComparisonType({
                       comparison={true}
                       barColor="#12A9E7"
                     />
+                    <div className="flex gap-2 w-full m-auto justify-center">
+                      <img
+                        src="/dashboard/midias-sociais/noData.svg"
+                        className="w-16 h-16"
+                        alt=""
+                      />
+                      <span className="text-center text-lg font-semibold w-1/2">
+                        Não encontramos dados do {pageType} para {nameMain}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -811,6 +871,16 @@ export function ComparisonType({
                       barColor="#2F5CFC"
                       subTitle
                     />
+                    <div className="flex gap-2 w-full m-auto justify-center">
+                      <img
+                        src="/dashboard/midias-sociais/noData.svg"
+                        className="w-16 h-16"
+                        alt=""
+                      />
+                      <span className="text-center text-lg font-semibold w-1/2">
+                        Não encontramos dados do {pageType} para {nameMain}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -847,6 +917,16 @@ export function ComparisonType({
                       barColor="#12A9E7"
                       subTitle
                     />
+                    <div className="flex gap-2 w-full m-auto justify-center">
+                      <img
+                        src="/dashboard/midias-sociais/noData.svg"
+                        className="w-16 h-16"
+                        alt=""
+                      />
+                      <span className="text-center text-lg font-semibold w-1/2">
+                        Não encontramos dados do {pageType} para {nameMain}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -918,6 +998,16 @@ export function ComparisonType({
                         content={String(nameSecondary)}
                         subTitle
                       />
+                      <div className="flex gap-2 w-full m-auto justify-center">
+                        <img
+                          src="/dashboard/midias-sociais/noData.svg"
+                          className="w-16 h-16"
+                          alt=""
+                        />
+                        <span className="text-center text-lg font-semibold w-1/2">
+                          Não encontramos dados do {pageType} para {nameMain}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -928,6 +1018,16 @@ export function ComparisonType({
                       barColor="#12A9E7"
                       subTitle
                     />
+                    <div className="flex gap-2 w-full m-auto justify-center">
+                      <img
+                        src="/dashboard/midias-sociais/noData.svg"
+                        className="w-16 h-16"
+                        alt=""
+                      />
+                      <span className="text-center text-lg font-semibold w-1/2">
+                        Não encontramos dados do {pageType} para {nameMain}
+                      </span>
+                    </div>
                   </div>
                 )}
               </div>

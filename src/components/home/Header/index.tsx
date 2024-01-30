@@ -95,7 +95,6 @@ export function HeaderComponent({
 
   async function getPoliticians() {
     const connect = await authGetAPI("/profile/monitoring");
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -327,10 +326,10 @@ export function HeaderComponent({
                   ? "..."
                   : selectedProfile.campaignNumber}
               </span>
-              <span className="status flex items-center gap-1 text-[#22c24f] text-xs">
+              {/* <span className="status flex items-center gap-1 text-[#22c24f] text-xs">
                 <div className="statusCircle w-1.5 h-1.5 bg-[#22c24f] rounded-full" />
                 Participando da Eleição
-              </span>
+              </span> */}
             </div>
           </div>
 

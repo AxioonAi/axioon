@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 interface LikesCardProps extends React.HTMLAttributes<HTMLDivElement> {
   type: "facebook" | "instagram" | "tiktok" | "youtube";
   name: string;
-  likesMain: number;
-  comentsMain: number;
-  likesSecondary: number;
-  comentsSecondary: number;
+  likesMain: any;
+  comentsMain: any;
+  likesSecondary: any;
+  comentsSecondary: any;
   isSelected: boolean;
 }
 
@@ -60,20 +60,21 @@ export function ComparisonStaticCards({
   return (
     <div
       className={`Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 ${
-        isSelected &&
-        comentsMain !== null &&
-        likesMain !== null &&
-        likesSecondary !== null &&
-        comentsSecondary !== null
-          ? "opacity-100"
-          : comentsMain === null &&
-              likesMain === null &&
-              likesSecondary === null &&
-              comentsSecondary === null
-            ? "opacity-50"
-            : "opacity-50"
+        comentsMain === null &&
+        likesMain === null &&
+        comentsSecondary === null &&
+        likesSecondary === null
+          ? "opacity-50"
+          : isSelected &&
+              comentsMain >= 0 &&
+              likesMain >= 0 &&
+              comentsSecondary >= 0 &&
+              likesSecondary >= 0
+            ? "opacity-100 hover:scale-105"
+            : !isSelected
+              ? "opacity-50 hover:scale-105"
+              : "opacity-40 hover:scale-100"
       } hover:cursor-pointer
-        hover:scale-105
       `}
       {...rest}
     >
@@ -81,10 +82,14 @@ export function ComparisonStaticCards({
         className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
       />
       {/* <header className="Header text-lg text-gray-100">{name}</header> */}
-      {comentsMain > 0 &&
-      likesMain > 0 &&
-      comentsSecondary > 0 &&
-      likesSecondary > 0 ? (
+      {comentsMain !== null &&
+      comentsMain >= 0 &&
+      likesMain !== null &&
+      likesMain >= 0 &&
+      comentsSecondary !== null &&
+      comentsSecondary >= 0 &&
+      likesSecondary !== null &&
+      likesSecondary >= 0 ? (
         <div className="flex w-full justify-between items-center">
           <img
             src={
@@ -312,7 +317,11 @@ export function ComparisonStaticCards({
         likesMain === null &&
         comentsSecondary === null &&
         likesSecondary === null ? (
-        <div className="text-center self-center">
+        <div className="flex gap-2 items-center text-center self-center">
+          <img
+            src="/dashboard/midias-sociais/noData.svg"
+            className="w-16 h-16"
+          />
           Ambos os perfis não possuem dados do {type}
         </div>
       ) : (

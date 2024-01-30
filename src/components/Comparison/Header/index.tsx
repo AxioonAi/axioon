@@ -13,12 +13,16 @@ interface headerProps {
     name: string;
     politicalGroup: string;
     id: string;
+    image: string;
+    campaignNumber: number;
   };
   setSelectedProfileMain: any;
   selectedProfileSecondary: {
     name: string;
     politicalGroup: string;
     id: string;
+    image: string;
+    campaignNumber: number;
   };
   setSelectedProfileSecondary: any;
   selectedComparison: string;
@@ -105,11 +109,15 @@ export function ComparisonHeaderComponent({
         name: connect.body.profile[0].name,
         politicalGroup: connect.body.profile[0].politicalGroup,
         id: connect.body.profile[0].id,
+        image: connect.body.profile[0].image,
+        campaignNumber: connect.body.profile[0].campaignNumber,
       });
       setSelectedProfileSecondary({
         name: connect.body.profile[1].name,
         politicalGroup: connect.body.profile[1].politicalGroup,
         id: connect.body.profile[1].id,
+        image: connect.body.profile[1].image,
+        campaignNumber: connect.body.profile[1].campaignNumber,
       });
     }
   }
@@ -221,13 +229,17 @@ export function ComparisonHeaderComponent({
         </nav>
         <div className="Candidate flex flex-col h-auto items-center xl:flex-row md:h-28 mt-12 px-8 justify-between">
           <div className="candidateInfo flex items-center gap-3">
-            <Image
-              src={"/dashboard/candidate.png"}
-              width={200}
-              height={200}
-              alt=""
-              className="w-16 h-16 rounded-full object-cover"
-            />
+            {selectedProfileMain.image ? (
+              <Image
+                src={selectedProfileMain.image}
+                width={200}
+                height={200}
+                alt=""
+                className="w-16 h-16 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-16 h-16" />
+            )}
             <div className="info flex flex-col">
               <div className="Container flex">
                 <Dropdown className="flex items-center justify-center">
@@ -257,12 +269,12 @@ export function ComparisonHeaderComponent({
                 </Dropdown>
               </div>
               <span className="candidateNumber text-[#8990ab] text-sm">
-                Número do Candidato: xxxxxxxxxx
+                Número do Candidato: {selectedProfileMain.campaignNumber}
               </span>
-              <span className="status flex items-center gap-1 text-[#22c24f] text-xs">
+              {/* <span className="status flex items-center gap-1 text-[#22c24f] text-xs">
                 <div className="statusCircle w-1.5 h-1.5 bg-[#22c24f] rounded-full" />
                 Participando da Eleição
-              </span>
+              </span> */}
             </div>
           </div>
 
@@ -277,13 +289,17 @@ export function ComparisonHeaderComponent({
           </div>
 
           <div className="candidateInfo flex items-center gap-3">
-            <Image
-              src={"/dashboard/candidate.png"}
-              width={200}
-              height={200}
-              alt=""
-              className="w-16 h-16 rounded-full object-cover"
-            />
+            {selectedProfileSecondary.image ? (
+              <Image
+                src={selectedProfileSecondary.image}
+                width={200}
+                height={200}
+                alt=""
+                className="w-16 h-16 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-16 h-16" />
+            )}
             <div className="info flex flex-col">
               <div className="Container flex">
                 <Dropdown className="flex items-center justify-center">
@@ -313,7 +329,7 @@ export function ComparisonHeaderComponent({
                 </Dropdown>
               </div>
               <span className="candidateNumber text-[#8990ab] text-sm">
-                Número do Candidato: xxxxxxxxxx
+                Número do Candidato: {selectedProfileSecondary.campaignNumber}
               </span>
               <span className="status flex items-center gap-1 text-[#22c24f] text-xs">
                 <div className="statusCircle w-1.5 h-1.5 bg-[#22c24f] rounded-full" />

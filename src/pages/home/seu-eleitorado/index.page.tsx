@@ -9,7 +9,8 @@ import { SeuEleitoradoCards } from "@/components/home/seu-eleitorado/Cards";
 import { VotersInfo } from "@/components/home/seu-eleitorado/VoterInfo";
 import { VotersGender } from "@/components/home/seu-eleitorado/VotersGender";
 import { VotersInfoSelect } from "@/components/home/seu-eleitorado/VotersInfoSelect";
-import { authGetAPI, testAPI } from "@/lib/axios";
+import { authGetAPI } from "@/lib/axios";
+import axios from "axios";
 import gsap from "gsap";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -59,6 +60,12 @@ export default function SeuEleitorado() {
   });
 
   const [cityData, setCityData] = useState<any>();
+  const [cityCoord, setCityCoord] = useState([
+    {
+      lat: 0,
+      lng: 0,
+    },
+  ]);
 
   async function getCityDetails() {
     const connect = await authGetAPI(`/profile/city/${selectedProfile.id}`);
@@ -107,6 +114,28 @@ export default function SeuEleitorado() {
       router.push("/home/seu-eleitorado");
     }
   }, []);
+
+  const test = async () => {
+    if (cityData) {
+      const url = "/api/maps";
+      axios
+        .get(`${url}?city=${cityData.name}&state=${cityData.state}`)
+        .then((res) => {
+          setCityCoord([
+            {
+              lat: res.data.results[0].geometry.location.lat,
+              lng: res.data.results[0].geometry.location.lng,
+            },
+          ]);
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (cityData) {
+      test();
+    }
+  }, [cityData]);
 
   return (
     <main ref={main}>
@@ -243,7 +272,7 @@ export default function SeuEleitorado() {
 
                   <div className="mapContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] w-full md:w-[35rem] h-[24rem] xl:w-[30rem] 2xl:w-[35rem] min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                     <GoogleMapsWrapper>
-                      <GoogleMaps mapId="map_id" locations={locations} />
+                      <GoogleMaps mapId="map_id" locations={cityCoord} />
                     </GoogleMapsWrapper>
                   </div>
 

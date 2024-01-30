@@ -14,37 +14,8 @@ export const IBGE = axios.create({
   baseURL: "https://servicodados.ibge.gov.br/api/v1/localidades/",
 });
 
-export const test = axios.create({
-  baseURL: "https://servicodados.ibge.gov.br/api/v1/localidades/municipios/",
-});
-
 export const IBGEAPI = async (url: string) => {
   const connect = await IBGE.get(url)
-    .then(({ data }) => {
-      return {
-        status: 200,
-        body: data,
-      };
-    })
-    .catch((err) => {
-      const message = err.response.data;
-      const status = err.response.status;
-      return { status: status, body: message };
-    });
-
-  return connect.status === 500
-    ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
-    : connect.status === 413
-      ? {
-          status: connect.status,
-          body: "Ops! algo deu errado, tente novamente ou escolha outra imagem",
-        }
-      : connect;
-};
-
-export const testAPI = async (url: string) => {
-  const connect = await test
-    .get(url + "sinop")
     .then(({ data }) => {
       return {
         status: 200,

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
-const DEFAULT_CENTER = { lat: -11.853787179970059, lng: -55.51033440657979 };
-const DEFAULT_ZOOM = 4;
+const DEFAULT_CENTER = { lat: -15.8916202, lng: -52.2618826 };
+const DEFAULT_ZOOM = 11;
 
 export const GoogleMaps = ({
   locations,
@@ -20,7 +20,7 @@ export const GoogleMaps = ({
     // Display the map
     if (ref.current) {
       const map = new window.google.maps.Map(ref.current, {
-        center: DEFAULT_CENTER,
+        center: locations[0],
         zoom: DEFAULT_ZOOM,
         mapId,
       });

@@ -1,5 +1,5 @@
-import Theme from "@/styles/themes";
 import { Container, Feedback, FeedbackGroup } from "./styles";
+import Theme from "@/styles/themes";
 
 interface LikesCardProps extends React.HTMLAttributes<HTMLDivElement> {
   type: "facebook" | "instagram" | "tiktok" | "youtube";
@@ -99,7 +99,14 @@ export function LikesAndComentsCard({
           </div>
         </div>
       ) : coments === null && likes === null ? (
-        <span className="text-sm">Nenhum dado encontrado</span>
+        <span className="text-sm flex w-full gap-2">
+          <img
+            src="/dashboard/midias-sociais/noData.svg"
+            className="w-10 h-10"
+            alt=""
+          />
+          Nenhum dado encontrado
+        </span>
       ) : (
         <div className="flex justify-center w-full h-full">Carregando...</div>
       )}

@@ -75,11 +75,15 @@ export default function Comparison() {
     name: "",
     politicalGroup: "",
     id: "",
+    image: "",
+    campaignNumber: 0,
   });
   const [selectedProfileSecondary, setSelectedProfileSecondary] = useState({
     name: "",
     politicalGroup: "",
     id: "",
+    image: "",
+    campaignNumber: 0,
   });
   const [selectedTimeValues, setSelectedTimeValues] = useState({
     value: 7,
@@ -316,28 +320,28 @@ export default function Comparison() {
                         ? generalDataMain.staticData.facebook === null
                           ? null
                           : generalDataMain?.staticData.facebook.followers
-                        : 0
+                        : null
                     }
                     likesMain={
                       generalDataMain !== undefined
                         ? generalDataMain.staticData.facebook === null
                           ? null
                           : generalDataMain?.staticData.facebook.like
-                        : 0
+                        : null
                     }
                     comentsSecondary={
                       generalDataSecondary !== undefined
                         ? generalDataSecondary.staticData.facebook === null
                           ? null
                           : generalDataSecondary?.staticData.facebook.followers
-                        : 0
+                        : null
                     }
                     likesSecondary={
                       generalDataSecondary !== undefined
                         ? generalDataSecondary.staticData.facebook === null
                           ? null
                           : generalDataSecondary?.staticData.facebook.like
-                        : 0
+                        : null
                     }
                     name="Facebook"
                     onClick={
@@ -357,28 +361,28 @@ export default function Comparison() {
                         ? generalDataMain.staticData.instagram === null
                           ? null
                           : generalDataMain?.staticData.instagram.posts
-                        : 0
+                        : null
                     }
                     likesMain={
                       generalDataMain !== undefined
                         ? generalDataMain.staticData.instagram === null
                           ? null
                           : generalDataMain?.staticData.instagram.followers
-                        : 0
+                        : null
                     }
                     comentsSecondary={
                       generalDataSecondary !== undefined
                         ? generalDataSecondary.staticData.instagram === null
                           ? null
                           : generalDataSecondary?.staticData.instagram.posts
-                        : 0
+                        : null
                     }
                     likesSecondary={
                       generalDataSecondary !== undefined
                         ? generalDataSecondary.staticData.instagram === null
                           ? null
                           : generalDataSecondary?.staticData.instagram.followers
-                        : 0
+                        : null
                     }
                     name="Instagram"
                     onClick={
@@ -398,28 +402,28 @@ export default function Comparison() {
                         ? generalDataMain.staticData.tiktok === null
                           ? null
                           : generalDataMain?.staticData.tiktok.followers
-                        : 0
+                        : null
                     }
                     likesMain={
                       generalDataMain !== undefined
                         ? generalDataMain.staticData.tiktok === null
                           ? null
                           : generalDataMain?.staticData.tiktok.likes
-                        : 0
+                        : null
                     }
                     comentsSecondary={
                       generalDataSecondary !== undefined
                         ? generalDataSecondary.staticData.tiktok === null
                           ? null
                           : generalDataSecondary?.staticData.tiktok.followers
-                        : 0
+                        : null
                     }
                     likesSecondary={
                       generalDataSecondary !== undefined
                         ? generalDataSecondary.staticData.tiktok === null
                           ? null
                           : generalDataSecondary?.staticData.tiktok.likes
-                        : 0
+                        : null
                     }
                     name="TikTok"
                     onClick={
@@ -439,28 +443,28 @@ export default function Comparison() {
                         ? generalDataMain.staticData.youtube === null
                           ? null
                           : generalDataMain?.staticData.youtube.views
-                        : 0
+                        : null
                     }
                     likesMain={
                       generalDataMain !== undefined
                         ? generalDataMain.staticData.youtube === null
                           ? null
                           : generalDataMain?.staticData.youtube.subs
-                        : 0
+                        : null
                     }
                     comentsSecondary={
                       generalDataSecondary !== undefined
                         ? generalDataSecondary.staticData.youtube === null
                           ? null
                           : generalDataSecondary?.staticData.youtube.views
-                        : 0
+                        : null
                     }
                     likesSecondary={
                       generalDataSecondary !== undefined
                         ? generalDataSecondary.staticData.youtube === null
                           ? null
                           : generalDataSecondary?.staticData.youtube.subs
-                        : 0
+                        : null
                     }
                     name="Youtube"
                     onClick={
@@ -551,146 +555,18 @@ export default function Comparison() {
             )
           ) : (
             <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
-              <ComparisonStaticCards
-                type="facebook"
-                comentsMain={
-                  generalDataMain !== undefined
-                    ? generalDataMain.staticData.facebook === null
-                      ? null
-                      : generalDataMain?.staticData.facebook.followers
-                    : 0
-                }
-                likesMain={
-                  generalDataMain !== undefined
-                    ? generalDataMain.staticData.facebook === null
-                      ? null
-                      : generalDataMain?.staticData.facebook.like
-                    : 0
-                }
-                comentsSecondary={
-                  generalDataSecondary !== undefined
-                    ? generalDataSecondary.staticData.facebook === null
-                      ? null
-                      : generalDataSecondary?.staticData.facebook.followers
-                    : 0
-                }
-                likesSecondary={
-                  generalDataSecondary !== undefined
-                    ? generalDataSecondary.staticData.facebook === null
-                      ? null
-                      : generalDataSecondary?.staticData.facebook.like
-                    : 0
-                }
-                name="Facebook"
-                isSelected={
-                  selectedPage === "facebook" || selectedPage === "initial"
-                }
-              />
-              <ComparisonStaticCards
-                type="instagram"
-                comentsMain={
-                  generalDataMain !== undefined
-                    ? generalDataMain.staticData.instagram === null
-                      ? null
-                      : generalDataMain?.staticData.instagram.posts
-                    : 0
-                }
-                likesMain={
-                  generalDataMain !== undefined
-                    ? generalDataMain.staticData.instagram === null
-                      ? null
-                      : generalDataMain?.staticData.instagram.followers
-                    : 0
-                }
-                comentsSecondary={
-                  generalDataSecondary !== undefined
-                    ? generalDataSecondary.staticData.instagram === null
-                      ? null
-                      : generalDataSecondary?.staticData.instagram.posts
-                    : 0
-                }
-                likesSecondary={
-                  generalDataSecondary !== undefined
-                    ? generalDataSecondary.staticData.instagram === null
-                      ? null
-                      : generalDataSecondary?.staticData.instagram.followers
-                    : 0
-                }
-                name="Instagram"
-                isSelected={
-                  selectedPage === "instagram" || selectedPage === "initial"
-                }
-              />
-              <ComparisonStaticCards
-                type="tiktok"
-                comentsMain={
-                  generalDataMain !== undefined
-                    ? generalDataMain.staticData.tiktok === null
-                      ? null
-                      : generalDataMain?.staticData.tiktok.followers
-                    : 0
-                }
-                likesMain={
-                  generalDataMain !== undefined
-                    ? generalDataMain.staticData.tiktok === null
-                      ? null
-                      : generalDataMain?.staticData.tiktok.likes
-                    : 0
-                }
-                comentsSecondary={
-                  generalDataSecondary !== undefined
-                    ? generalDataSecondary.staticData.tiktok === null
-                      ? null
-                      : generalDataSecondary?.staticData.tiktok.followers
-                    : 0
-                }
-                likesSecondary={
-                  generalDataSecondary !== undefined
-                    ? generalDataSecondary.staticData.tiktok === null
-                      ? null
-                      : generalDataSecondary?.staticData.tiktok.likes
-                    : 0
-                }
-                name="TikTok"
-                isSelected={
-                  selectedPage === "tiktok" || selectedPage === "initial"
-                }
-              />
-              <ComparisonStaticCards
-                type="youtube"
-                comentsMain={
-                  generalDataMain !== undefined
-                    ? generalDataMain.staticData.youtube === null
-                      ? null
-                      : generalDataMain?.staticData.youtube.views
-                    : 0
-                }
-                likesMain={
-                  generalDataMain !== undefined
-                    ? generalDataMain.staticData.youtube === null
-                      ? null
-                      : generalDataMain?.staticData.youtube.subs
-                    : 0
-                }
-                comentsSecondary={
-                  generalDataSecondary !== undefined
-                    ? generalDataSecondary.staticData.youtube === null
-                      ? null
-                      : generalDataSecondary?.staticData.youtube.views
-                    : 0
-                }
-                likesSecondary={
-                  generalDataSecondary !== undefined
-                    ? generalDataSecondary.staticData.youtube === null
-                      ? null
-                      : generalDataSecondary?.staticData.youtube.subs
-                    : 0
-                }
-                name="Youtube"
-                isSelected={
-                  selectedPage === "youtube" || selectedPage === "initial"
-                }
-              />
+              <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
+                <Spinner animation="border" />
+              </div>
+              <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
+                <Spinner animation="border" />
+              </div>
+              <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
+                <Spinner animation="border" />
+              </div>
+              <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
+                <Spinner animation="border" />
+              </div>
             </div>
           )}
         </div>
