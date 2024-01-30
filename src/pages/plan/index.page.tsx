@@ -154,20 +154,17 @@ export default function Plan() {
                       </span>
                     </div>
                   ))}
-                  <div className="flex flex-col w-full text-left border-b-2 pb-2">
-                    <span className="text-xs">Investimento:</span>
-                    <span className="text-xs font-semibold">
-                      {item.value ? (
-                        `R$ ${item.value.toLocaleString("pt-BR")}`
-                      ) : (
-                        <Spinner
-                          animation="border"
-                          size="sm"
-                          className="self-center"
-                        />
-                      )}
-                    </span>
-                  </div>
+                  {item.value ? (
+                    <div className="flex flex-col w-full text-left border-b-2 pb-2">
+                      <span className="text-xs">Investimento:</span>
+                      <span className="text-xs font-semibold">
+                        {item.value &&
+                          `R$ ${item.value.toLocaleString("pt-BR")}`}
+                      </span>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                   <div className="flex flex-col w-full text-left pb-2">
                     <span
                       className={`text-center ${selected === item.title ? "bg-white border-[1px] border-darkBlueAxion text-black" : "bg-darkBlueAxion text-white"} rounded p-2`}

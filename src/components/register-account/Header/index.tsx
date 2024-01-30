@@ -1,13 +1,14 @@
-import { useRouter } from "next/router";
 import { RegisterHeader } from "./styles";
+import { useRouter } from "next/router";
 
 interface Props {
   type?: "light" | "dark";
+  where?: string;
 }
 
-export function RegisterAccountHeader({ type = "light" }: Props) {
+export function RegisterAccountHeader({ type = "light", where }: Props) {
   const handleClick = () => {
-    return router.push("/login");
+    return router.push(where ? `/${where}` : "/login");
   };
   const router = useRouter();
 

@@ -1,8 +1,3 @@
-import { Footer } from "@/components/register-account/Footer";
-import { RegisterAccountHeader } from "@/components/register-account/Header";
-import { BasicDataForm } from "@/components/register-account/BasicDataForm";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import {
   ArtSection,
   BackButton,
@@ -12,11 +7,16 @@ import {
   NextButton,
   ProgressBar,
 } from "./styles";
-import { PersonalDataForm } from "@/components/register-account/PersonalDataForm";
-import { CompanyDataForm } from "@/components/register-account/CompanyDataForm";
-import { AnialiasingFormData } from "@/components/register-account/AnaliasingData";
 import { Messages } from "@/components/Global/Messages";
+import { AnialiasingFormData } from "@/components/register-account/AnaliasingData";
+import { BasicDataForm } from "@/components/register-account/BasicDataForm";
+import { CompanyDataForm } from "@/components/register-account/CompanyDataForm";
+import { Footer } from "@/components/register-account/Footer";
+import { RegisterAccountHeader } from "@/components/register-account/Header";
+import { PersonalDataForm } from "@/components/register-account/PersonalDataForm";
 import { PostAPI, refreshToken, token, user_type } from "@/lib/axios";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 
 export default function RegisterAccount() {
@@ -115,7 +115,7 @@ export default function RegisterAccount() {
         <AnialiasingFormData />
       ) : (
         <>
-          <RegisterAccountHeader type="light" />
+          <RegisterAccountHeader where="login" type="light" />
           <div
             className={`progressBar absolute top-[3.7rem] bg-darkBlueAxion h-1 transition duration-500 ease-in-out ${step === 1 ? "w-[10%]" : step === 2 ? "w-1/2" : step === 3 ? "w-[90%]" : "w-full"}`}
           />

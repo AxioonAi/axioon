@@ -1,4 +1,3 @@
-import { RegisterAccountHeader } from "@/components/register-account/Header";
 import {
   ArtContainer,
   Container,
@@ -9,15 +8,16 @@ import {
   RadioSelector,
   SelectedPlan,
 } from "./styles";
-import { Footer } from "@/components/register-account/Footer";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { CreditCardForm } from "@/components/payment/CreditCardForm";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
-import { windowWidth } from "@/utils/windowWidth";
+import { CreditCardForm } from "@/components/payment/CreditCardForm";
 import { PixPayment } from "@/components/payment/PixPayment";
-import { AuthPostAPI, loginVerifyAPI } from "@/lib/axios";
+import { Footer } from "@/components/register-account/Footer";
+import { RegisterAccountHeader } from "@/components/register-account/Header";
+import { AuthPostAPI, getAPI, loginVerifyAPI } from "@/lib/axios";
+import { windowWidth } from "@/utils/windowWidth";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Payment() {
   const [selectedMethod, setSelectedMethod] = useState("creditCard");
@@ -48,12 +48,37 @@ export default function Payment() {
     installmentCount: 1,
     saveCreditCard: false,
   });
+  const [plans, setPlans] = useState([
+    {
+      benefits: [
+        {
+          name: "",
+          description: "",
+        },
+      ],
+      description: "",
+      id: "",
+      title: "",
+      value: 0,
+    },
+  ]);
   const router = useRouter();
   const query: any = router.query;
 
   const handleRadioChange = (event: { target: { value: string } }) => {
     setSelectedMethod(event.target.value);
   };
+
+  async function getPlans() {
+    const connect = await getAPI("/plans");
+    console.log("connect: ", connect);
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setPlans(connect.body.plans.filter((plan: any) => plan.id === query.id));
+  }
+
+  console.log("plans: ", plans);
 
   async function handlePix() {
     const connect = await AuthPostAPI(`/pix/${query.id}`, {});
@@ -90,16 +115,40 @@ export default function Payment() {
 
   useEffect(() => {
     handleVerify();
+    getPlans();
   }, []);
 
   return (
-    <div className="Container relative min-h-screen pb-16 md:pb-32">
-      <RegisterAccountHeader />
-      <main className="flex flex-col lg:flex-row justify-between max-w-[1440px] m-auto">
-        {/* <div className="bg-darkBlueAxion flex lg:hidden w-full h-40">
-          <img src="/payment/art.png" alt="" className="object-contain" />
-        </div> */}
-        <div className="paymentContainer min-h-[32rem] px-4 w-full md:px-16 m-auto lg:m-0">
+    <div className="Container relative min-h-screen pb-16 lg:pb-32">
+      <RegisterAccountHeader where="plan" />
+      <main className="flex flex-col lg:flex-row justify-around m-auto lg:pl-20">
+        {plans && plans[0].title !== "" ? (
+          <div
+            className={`${plans[0].title === "Enterprise" ? "bg-gradient-to-br from-darkBlueAxion to-[rgba(168,21,21)] to-90%" : plans[0].title === "Básico" ? "bg-gradient-to-br from-darkBlueAxion to-[rgba(195,195,51)] to-90%" : "bg-gradient-to-br from-darkBlueAxion to-[rgba(21,112,40)] to-90%"} text-white flex flex-col h-48 rounded-xl lg:hidden w-full px-4 py-8 justify-between`}
+          >
+            <div className="flex gap-4 items-center justify-between w-11/12 self-center border-b-[1px] border-white">
+              <p className="text-center font-bold text-lg">Plano</p>
+              <p className="text-center text-xl">
+                12 meses de {plans && plans[0].title}
+              </p>
+            </div>
+
+            <div className="flex gap-4 items-center justify-between w-11/12 self-center border-b-[1px] border-white">
+              <p className="text-center font-bold text-lg">Valor</p>
+              <p className="text-center text-xl">
+                {plans &&
+                  plans[0].value.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <div className="paymentContainer flex flex-col min-h-[32rem] p-4">
           <div className="paymentSelector flex flex-col gap-8 pt-8">
             <div className="radioGroup flex gap-2 items-center">
               <label
@@ -168,13 +217,31 @@ export default function Payment() {
             <div style={{ paddingBottom: "14rem" }} />
           )}
         </div>
-        {/* <div className="bg-darkBlueAxion flex">
-          <img
-            src="/payment/art.png"
-            alt=""
-            className="hidden lg:block object-fill"
-          />
-        </div> */}
+        {plans && plans[0].title !== "" ? (
+          <div
+            className={`${plans[0].title === "Enterprise" ? "bg-gradient-to-br from-darkBlueAxion to-[rgba(168,21,21)] to-90%" : plans[0].title === "Básico" ? "bg-gradient-to-br from-darkBlueAxion to-[rgba(195,195,51)] to-90%" : "bg-gradient-to-br from-darkBlueAxion to-[rgba(21,112,40)] to-90%"} gap-1 text-white hidden h-48 rounded-xl lg:flex lg:flex-col w-1/2 max-w-xl mt-12 px-4 py-8 justify-between`}
+          >
+            <div className="flex gap-4 items-center justify-between w-11/12 self-center border-b-[1px] border-white">
+              <p className="text-center font-bold text-xl">Plano</p>
+              <p className="text-center text-2xl">
+                12 meses de {plans && plans[0].title}
+              </p>
+            </div>
+
+            <div className="flex gap-4 items-center justify-between w-11/12 self-center border-b-[1px] border-white">
+              <p className="text-center font-bold text-xl">Valor</p>
+              <p className="text-center text-2xl">
+                {plans &&
+                  plans[0].value.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
       </main>
       <Footer />
     </div>
