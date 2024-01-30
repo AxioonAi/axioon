@@ -1,6 +1,5 @@
 import { HeaderTimeSelect } from "../../home/Header/TimeSelect";
 import { ComparisonItemComponent } from "../ComparisonItemComponent";
-import { Item } from "@/components/Global/CitySelector/styles";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
 import { AuthPutAPI, authGetAPI, loginVerifyAPI } from "@/lib/axios";
 import Image from "next/image";
@@ -246,12 +245,13 @@ export function ComparisonHeaderComponent({
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 opacity-95 px-1">
                     {monitoredProfiles.map((item: any) => (
-                      <Item
+                      <Dropdown.Item
+                        className="text-center text-white border-b-[1px] border-gray-10 p-2 hover:text-darkBlueAxion last:border-0"
                         onClick={() => setSelectedProfileMain(item)}
                         key={item}
                       >
                         {item.name} - {item.politicalGroup}
-                      </Item>
+                      </Dropdown.Item>
                     ))}
                   </Dropdown.Menu>
                 </Dropdown>
@@ -301,12 +301,13 @@ export function ComparisonHeaderComponent({
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 opacity-95 px-1">
                     {monitoredProfiles.map((item: any) => (
-                      <Item
+                      <Dropdown.Item
+                        className="text-center text-white border-b-[1px] border-gray-10 p-2 hover:text-darkBlueAxion last:border-0"
                         onClick={() => setSelectedProfileSecondary(item)}
                         key={item}
                       >
                         {item.name} - {item.politicalGroup}
-                      </Item>
+                      </Dropdown.Item>
                     ))}
                   </Dropdown.Menu>
                 </Dropdown>
