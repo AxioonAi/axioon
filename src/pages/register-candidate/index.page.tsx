@@ -164,11 +164,11 @@ export default function RegisterCandidate() {
         <div className="Instructions m-auto w-full lg:h-52 2xl:h-60 flex flex-col lg:flex-row py-4 px-2">
           <div className="InstructionSection1 w-full -left-0 lg:-left-24 flex flex-col lg:flex-col-reverse justify-between items-center mt-4">
             <div className="InstructionStep step1 flex items-start gap-2 self-start">
-              <div className="w-20 h-20 flex items-center justify-center text-center text-white font-extrabold text-5xl rounded-full border-[1px] border-white bg-gradient-to-tr from-darkBlueAxion via-gray-70 to-darkBlueAxion bg-[length:400%] animate-bgSweep">
+              <div className="w-20 h-20 flex items-center justify-center text-center text-white font-extrabold text-5xl rounded-full border-[1px] border-white bg-gradient-to-l from-darkBlueAxion via-gray-70 to-darkBlueAxion bg-[length:400%] animate-bgSweep">
                 1
               </div>
               <div className="description flex flex-col gap-2 w-40">
-                <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-sm font-semibold">
+                <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-xs font-semibold">
                   Inserir os Dados
                 </div>
                 <p className="m-0 text-white text-[10px] 2xl:text-xs">
@@ -181,7 +181,7 @@ export default function RegisterCandidate() {
                 2
               </div>
               <div className="description flex flex-col gap-2 w-40">
-                <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-sm font-semibold">
+                <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-xs font-semibold">
                   Inteligência Artificial
                 </div>
                 <p className="m-0 text-white text-[10px] 2xl:text-xs">
@@ -197,7 +197,7 @@ export default function RegisterCandidate() {
                 3
               </div>
               <div className="description flex flex-col gap-2 w-40">
-                <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-sm font-semibold">
+                <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-xs font-semibold">
                   Analise os dados
                 </div>
                 <p className="m-0 text-white text-[10px] 2xl:text-xs">
@@ -212,7 +212,7 @@ export default function RegisterCandidate() {
                 <span className="z-10">4</span>
               </div>
               <div className="description flex flex-col gap-2 w-40">
-                <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-sm font-semibold">
+                <div className="flex items-center justify-center text-center bg-white rounded-3xl h-8 w-32 text-xs font-semibold">
                   Use a Inteligência Artificial
                 </div>
                 <p className="m-0 text-white text-[10px] 2xl:text-xs">
