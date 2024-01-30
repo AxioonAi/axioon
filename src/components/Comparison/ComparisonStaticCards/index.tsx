@@ -73,7 +73,7 @@ export function ComparisonStaticCards({
             ? "opacity-100 hover:scale-105"
             : !isSelected
               ? "opacity-50 hover:scale-105"
-              : "opacity-40 hover:scale-100"
+              : "opacity-50"
       } hover:cursor-pointer
       `}
       {...rest}

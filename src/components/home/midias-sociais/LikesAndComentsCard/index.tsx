@@ -47,10 +47,14 @@ export function LikesAndComentsCard({
   return (
     <div
       className={`Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 ${
-        isSelected && coments !== null && likes !== null
-          ? "opacity-100"
-          : "opacity-50"
-      } ${coments !== null && likes !== null ? "hover:scale-105 cursor-pointer" : "cursor-auto"}
+        coments === null && likes === null
+          ? "opacity-50"
+          : isSelected && coments >= 0 && likes >= 0
+            ? "opacity-100 hover:scale-105"
+            : !isSelected
+              ? "opacity-50 hover:scale-105"
+              : "opacity-50"
+      } 
       `}
       {...rest}
     >
@@ -58,7 +62,7 @@ export function LikesAndComentsCard({
         className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
       />
       <header className="Header text-lg text-gray-100">{name}</header>
-      {coments > 0 && likes > 0 ? (
+      {coments !== null && coments >= 0 && likes !== null && likes >= 0 ? (
         <div className="Feedback flex justify-between gap-5">
           <div className="FeddbackGroup flex flex-col mt-3 gap-0.5">
             <div className="Group flex gap-0.5 items-center">

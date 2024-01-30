@@ -1117,9 +1117,18 @@ export function ComparisonType({
           </main>
         )
       ) : pageEmpty !== "" ? (
-        <div className="w-full h-full text-center mt-8 text-xl font-semibold">
-          {pageEmpty}
-        </div>
+        <label className="flex flex-col gap-2 mt-5 text-3xl">
+          <div className="flex gap-2 items-center justify-center">
+            <img
+              src="/dashboard/midias-sociais/noData.svg"
+              alt=""
+              className="w-16 h-16"
+            />
+            <span className="w-1/3">
+              Não encontramos nenhum dado do {pageType} no período selecionado.
+            </span>
+          </div>
+        </label>
       ) : (
         <div className="w-full h-full flex justify-center text-center">
           <Spinner animation="border" />

@@ -35,25 +35,25 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
   const engagmentData = [
     {
       name: "Instagram",
-      count: 40000,
+      count: SocialMidiaData.engagement.instagram,
       color: "#E7298A",
       imgSrc: "/dashboard/instagramIcon.png",
     },
     {
       name: "Facebook",
-      count: 40000,
+      count: SocialMidiaData.engagement.facebook,
       color: "#2F5CFC",
       imgSrc: "/dashboard/facebookIcon.png",
     },
     {
       name: "Youtube",
-      count: 40000,
+      count: SocialMidiaData.engagement.youtube,
       color: "#E73F3F",
       imgSrc: "/dashboard/youtubeIcon.png",
     },
     {
       name: "Tiktok",
-      count: 20000,
+      count: SocialMidiaData.engagement.tiktok,
       color: "#29282C",
       imgSrc: "/dashboard/tiktokIcon.svg",
     },

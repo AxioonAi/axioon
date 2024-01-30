@@ -158,11 +158,21 @@ export function SocialMidiaPage({
   return (
     <div className="pageContainer flex flex-col items-center justify-center m-auto p-2">
       {!pageData ? (
-        <label className="mt-5 text-3xl">
+        <label className="flex gap-2 mt-5 text-3xl">
           {loading ? (
             <Spinner animation="border" />
           ) : (
-            `Não encontramos nenhum dado do ${pageType}.`
+            <div className="flex gap-2 items-center justify-center">
+              <img
+                src="/dashboard/midias-sociais/noData.svg"
+                alt=""
+                className="w-16 h-16"
+              />
+              <span className="w-1/2">
+                Não encontramos nenhum dado do {pageType} no período
+                selecionado.
+              </span>
+            </div>
           )}
         </label>
       ) : (
@@ -266,8 +276,10 @@ export function SocialMidiaPage({
               <>
                 <div className="postsContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto">
                   <div className="postsHeader flex flex-col gap-12 md:flex-row md:gap-0 justify-between p-4">
-                    <TitleWithBar content="Publicações" barColor="#12A9E7" />
-                    <div className="labelAndSelect flex items-center gap-4 p-2">
+                    <div className="mt-2">
+                      <TitleWithBar content="Publicações" barColor="#12A9E7" />
+                    </div>
+                    <div className="labelAndSelect flex flex-col items-center gap-1 p-2">
                       <strong>Ordenar por:</strong>
                       <OrderSelect
                         selectedValue={selectedValue}
@@ -321,8 +333,10 @@ export function SocialMidiaPage({
 
                 <div className="commentsContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto">
                   <div className="commentsHeader flex flex-col gap-12 md:flex-row md:gap-0 justify-between p-4">
-                    <TitleWithBar content="Comentários" barColor="#12A9E7" />
-                    <div className="labelAndSelect flex items-center gap-4 p-2">
+                    <div className="mt-2">
+                      <TitleWithBar content="Comentários" barColor="#12A9E7" />
+                    </div>
+                    <div className="labelAndSelect flex flex-col items-center gap-1 p-2">
                       <strong>Ordenar por:</strong>
                       <OrderSelect
                         selectedValue={selectedValueComments}
