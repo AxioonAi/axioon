@@ -21,9 +21,9 @@ export function useChatFunctions() {
       apiKey: process.env.OPENAI_API_KEY, //Testes Front Axioon
       dangerouslyAllowBrowser: true,
     });
-    console.log('Keyxxxx',process.env.OPENAI_API_KEY)
+    console.log('Key123',process.env.OPENAI_API_KEY)
     try {
-      console.log('Keyxxxx',process.env.OPENAI_API_KEY)
+      console.log('Key123',process.env.OPENAI_API_KEY)
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo-1106",
         messages: messageList,
