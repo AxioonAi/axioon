@@ -1,14 +1,15 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import RootLayout from "@/components/Layout";
 import { Content, Main, NotificationsRows } from "./styles";
-import { Dropdown, Spinner } from "react-bootstrap";
-import Theme from "@/styles/themes";
 import { GlobalButton } from "@/components/Global/Button";
-import { Global } from "recharts";
 import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
+import RootLayout from "@/components/Layout";
 import { authGetAPI, loginVerifyAPI, user_type } from "@/lib/axios";
+import Theme from "@/styles/themes";
+import gsap from "gsap";
 import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import { Dropdown, Spinner } from "react-bootstrap";
+import { Global } from "recharts";
+
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Notifications() {
   const main = useRef(null);
@@ -16,7 +17,7 @@ export default function Notifications() {
   const router = useRouter();
   const [notifications, setNotifications] = useState<any>([]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         x: "-100%",
@@ -80,7 +81,7 @@ export default function Notifications() {
               {notifications.filter(
                 (item: any) =>
                   new Date(item.date).toLocaleDateString("pt-BR") ===
-                  new Date().toLocaleDateString("pt-BR")
+                  new Date().toLocaleDateString("pt-BR"),
               ).length !== 0 ? (
                 <>
                   <header className="flex w-full mt-4">
@@ -108,7 +109,7 @@ export default function Notifications() {
                     .filter(
                       (item: any) =>
                         new Date(item.date).toLocaleDateString("pt-BR") ===
-                        new Date().toLocaleDateString("pt-BR")
+                        new Date().toLocaleDateString("pt-BR"),
                     )
                     .map((notification: any, index: any) => (
                       <div className="NotificationRows flex w-full items-center justify-between pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
@@ -135,7 +136,7 @@ export default function Notifications() {
                         </div>
                         <div className="flex flex-col items-center w-1/5 self-center">
                           {new Date(notification.date).toLocaleDateString(
-                            "pt-BR"
+                            "pt-BR",
                           )}
                         </div>
                         <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
@@ -186,8 +187,8 @@ export default function Notifications() {
                     new Date().toLocaleDateString("pt-BR") &&
                   new Date(item.date).toLocaleDateString("pt-BR") >=
                     new Date(
-                      new Date().setDate(new Date().getDate() - 7)
-                    ).toLocaleDateString("pt-BR")
+                      new Date().setDate(new Date().getDate() - 7),
+                    ).toLocaleDateString("pt-BR"),
               ).length !== 0 ? (
                 <>
                   <header className="flex w-full mt-4">
@@ -218,8 +219,8 @@ export default function Notifications() {
                           new Date().toLocaleDateString("pt-BR") &&
                         new Date(item.date).toLocaleDateString("pt-BR") >=
                           new Date(
-                            new Date().setDate(new Date().getDate() - 7)
-                          ).toLocaleDateString("pt-BR")
+                            new Date().setDate(new Date().getDate() - 7),
+                          ).toLocaleDateString("pt-BR"),
                     )
                     .map((notification: any, index: any) => (
                       <div className="NotificationRows flex w-full items-center justify-between pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
@@ -246,7 +247,7 @@ export default function Notifications() {
                         </div>
                         <div className="flex flex-col items-center w-1/5 self-center">
                           {new Date(notification.date).toLocaleDateString(
-                            "pt-BR"
+                            "pt-BR",
                           )}
                         </div>
                         <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
@@ -295,8 +296,8 @@ export default function Notifications() {
                 (item: any) =>
                   new Date(item.date).toLocaleDateString("pt-BR") <
                   new Date(
-                    new Date().setDate(new Date().getDate() - 7)
-                  ).toLocaleDateString("pt-BR")
+                    new Date().setDate(new Date().getDate() - 7),
+                  ).toLocaleDateString("pt-BR"),
               ).length !== 0 ? (
                 <>
                   <header className="flex w-full mt-4">
@@ -325,8 +326,8 @@ export default function Notifications() {
                       (item: any) =>
                         new Date(item.date).toLocaleDateString("pt-BR") <
                         new Date(
-                          new Date().setDate(new Date().getDate() - 7)
-                        ).toLocaleDateString("pt-BR")
+                          new Date().setDate(new Date().getDate() - 7),
+                        ).toLocaleDateString("pt-BR"),
                     )
                     .map((notification: any, index: any) => (
                       <div className="NotificationRows flex w-full items-center justify-between pb-4 border-b-[1px] border-gray-20 text-darkBlueAxion">
@@ -353,7 +354,7 @@ export default function Notifications() {
                         </div>
                         <div className="flex flex-col items-center w-1/5 self-center">
                           {new Date(notification.date).toLocaleDateString(
-                            "pt-BR"
+                            "pt-BR",
                           )}
                         </div>
                         <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">

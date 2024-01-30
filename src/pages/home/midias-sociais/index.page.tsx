@@ -5,7 +5,7 @@ import { LikesAndComentsCard } from "@/components/home/midias-sociais/LikesAndCo
 import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
 import { authGetAPI } from "@/lib/axios";
 import gsap from "gsap";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,7 +14,7 @@ export default function MidiasSociais() {
   const main = useRef(null);
   const content = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         x: "-100%",
@@ -38,9 +38,11 @@ export default function MidiasSociais() {
 
   const [selectedPage, setSelectedPage] = useState("initial");
   const [selectedProfile, setSelectedProfile] = useState({
-    name: "",
+    name: "Carregando...",
     politicalGroup: "",
     id: "",
+    image: "",
+    campaignNumber: 0,
   });
   const timeValues = [
     {
@@ -115,11 +117,11 @@ export default function MidiasSociais() {
         `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`,
       ),
     ]);
-    // console.log("metaads", metaads.body);
-    // console.log("facebook", facebook.body);
-    // console.log("instagram", instagram.body);
-    // console.log("tiktok", tiktok.body);
-    // console.log("youtube", youtube.body);
+    console.log("metaads", metaads.body);
+    console.log("facebook", facebook.body);
+    console.log("instagram", instagram.body);
+    console.log("tiktok", tiktok.body);
+    console.log("youtube", youtube.body);
     if (metaads.status !== 200) {
       setLocked(true);
     }

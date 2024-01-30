@@ -6,14 +6,14 @@ import { maskCnpj } from "@/utils/masks";
 import gsap from "gsap";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
 export default function Legal() {
   const main = useRef(null);
   const content = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         x: "-100%",
@@ -44,6 +44,8 @@ export default function Legal() {
     name: "Carregando...",
     politicalGroup: "",
     id: "",
+    image: "",
+    campaignNumber: 0,
   });
   const [selectedTimeValues, setSelectedTimeValues] = useState({
     value: 7,

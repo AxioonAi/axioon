@@ -1,15 +1,16 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import RootLayout from "@/components/Layout";
 import { Cards, Content, Main } from "./styles";
-import { Dropdown } from "react-bootstrap";
-import Theme from "@/styles/themes";
 import { GlobalButton } from "@/components/Global/Button";
 import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
-import { useRouter } from "next/router";
+import RootLayout from "@/components/Layout";
+import { VideoModal } from "@/components/help/NewPasswordModal";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
 import { AuthPutAPI, authGetAPI } from "@/lib/axios";
-import { VideoModal } from "@/components/help/NewPasswordModal";
+import Theme from "@/styles/themes";
+import gsap from "gsap";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import { Dropdown } from "react-bootstrap";
+
 // import { Dropdown } from "@/components/Global/Dropdown";
 export default function Help() {
   const main = useRef(null);
@@ -34,7 +35,7 @@ export default function Help() {
   });
   const router = useRouter();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         x: "-100%",

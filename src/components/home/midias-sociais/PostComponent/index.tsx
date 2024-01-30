@@ -48,17 +48,17 @@ export function PostComponent({
             : ""
           : type === "instagram"
             ? selectedPostId === post.id
-              ? "border-[1px] bg-gray-20 border-[#505CCA]"
+              ? "border-[1px] bg-gray-20 border-[#EB4956]"
               : ""
             : type === "tiktok"
               ? selectedPostId === post.id
-                ? "border-[1px] bg-gray-20 border-[#E03855]"
+                ? "border-[1px] bg-gray-20 border-[#292D32]"
                 : ""
               : selectedPostId === post.id
                 ? "border-[1px] bg-gray-20 border-[#FF0000]"
                 : ""
       } 
-          ${type === "facebook" ? "border-[#0037c1]" : type === "instagram" ? "border-[#505CCA]" : type === "tiktok" ? "border-[#E03855]" : "border-[#FF0000]"} hover:cursor-pointer hover:bg-gray-20 transition duration-300 p-2`}
+          ${type === "facebook" ? "border-[#0037c1]" : type === "instagram" ? "border-[#EB4956]" : type === "tiktok" ? "border-[#292D32]" : "border-[#FF0000]"} hover:cursor-pointer hover:bg-gray-20 transition duration-300 p-2`}
       onClick={() => setSelectedPostId(post.id)}
     >
       <div className="postContent flex flex-col mb-1 text-sm text-black w-full overflow-hidden">
@@ -102,9 +102,9 @@ export function PostComponent({
                       type === "facebook"
                         ? "#0037C1"
                         : type === "instagram"
-                          ? "#505CCA"
+                          ? "#EB4956"
                           : type === "tiktok"
-                            ? "#E03855"
+                            ? "#292D32"
                             : "#ff0000",
                     fontSize: "0.85rem",
                   }}
@@ -125,9 +125,9 @@ export function PostComponent({
                       type === "facebook"
                         ? "#0037C1"
                         : type === "instagram"
-                          ? "#505CCA"
+                          ? "#EB4956"
                           : type === "tiktok"
-                            ? "#E03855"
+                            ? "#292D32"
                             : "#ff0000",
                     fontSize: "0.85rem",
                   }}

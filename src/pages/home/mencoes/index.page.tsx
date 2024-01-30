@@ -11,7 +11,7 @@ import { TotalQuotes } from "@/components/home/mencoes/TotalQuotes";
 import { authGetAPI } from "@/lib/axios";
 import gsap from "gsap";
 import { useRouter } from "next/router";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,7 +20,7 @@ export default function SeuEleitorado() {
   const main = useRef(null);
   const content = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         x: "-100%",
@@ -43,10 +43,13 @@ export default function SeuEleitorado() {
   };
 
   const [selectedProfile, setSelectedProfile] = useState({
-    name: "",
+    name: "Carregando...",
     politicalGroup: "",
     id: "",
+    image: "",
+    campaignNumber: 0,
   });
+
   const [mentionsData, setMentionsData] = useState<any>();
   const timeValues = [
     {

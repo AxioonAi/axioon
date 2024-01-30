@@ -1,8 +1,4 @@
-import RootLayout from "@/components/Layout";
-import { HeaderComponent } from "@/components/home/Header";
-import gsap from "gsap";
-import { useRouter } from "next/router";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useChatFunctions } from "../../api/ia.api";
 import {
   ChatBody,
   ChatConteiner,
@@ -18,11 +14,15 @@ import {
   TextareaAndButton,
   UserMessage,
 } from "./styles";
-import Image from "next/image";
-import { SuggestionContainer } from "@/components/home/inteligencia-artificial/PromptSuggestion/styles";
+import RootLayout from "@/components/Layout";
+import { HeaderComponent } from "@/components/home/Header";
 import { PrompSuggestion } from "@/components/home/inteligencia-artificial/PromptSuggestion";
-import { useChatFunctions } from "../../api/ia.api";
+import { SuggestionContainer } from "@/components/home/inteligencia-artificial/PromptSuggestion/styles";
 import { authGetAPI } from "@/lib/axios";
+import gsap from "gsap";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
 
 export default function InteligenciaArtificial() {
   const main = useRef(null);
@@ -40,7 +40,7 @@ export default function InteligenciaArtificial() {
     setMessagesForSuggestion,
   } = useChatFunctions();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         x: "-100%",
@@ -90,7 +90,7 @@ export default function InteligenciaArtificial() {
 
   useEffect(() => {
     const textarea = document.getElementById(
-      "chatInput"
+      "chatInput",
     ) as HTMLTextAreaElement;
 
     textarea.addEventListener("input", () => {
@@ -136,9 +136,11 @@ export default function InteligenciaArtificial() {
     setMessagesForSuggestion("StartMessages");
   }
   const [selectedProfile, setSelectedProfile] = useState({
-    name: "",
+    name: "Carregando...",
     politicalGroup: "",
     id: "",
+    image: "",
+    campaignNumber: 0,
   });
 
   return (
@@ -211,7 +213,7 @@ lg:left-[calc(100%-17.5rem)]"
                 <div className="flex flex-col p-2 gap-4 w-full h-full mt-4 overflow-hidden overflow-y-auto pb-2 mb-2">
                   {messages
                     .filter(
-                      (item: any, index: any) => index >= firstMessageCount
+                      (item: any, index: any) => index >= firstMessageCount,
                     ) // Filtrar mensagens com role diferente de "system"
                     .map((item: any, index: any) => (
                       <>

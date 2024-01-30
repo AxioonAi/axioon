@@ -1,10 +1,3 @@
-import { GlobalButton } from "@/components/Global/Button";
-import { HeaderComponent } from "@/components/Global/Header";
-import { Sidebar } from "@/components/Global/Sidebar";
-import { BlockAccountModal } from "@/components/profile/BlockAccountModal";
-import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
-import Theme from "@/styles/themes";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { UserEditSVG } from "../../../public/UserEdit";
 import { TrashCanSVG } from "../../../public/profile/TrashCan";
 import {
@@ -18,10 +11,14 @@ import {
   RadioGroup,
   RadioSelector,
 } from "./styles";
-import gsap from "gsap";
+import { GlobalButton } from "@/components/Global/Button";
+import { HeaderComponent } from "@/components/Global/Header";
+import { Sidebar } from "@/components/Global/Sidebar";
 import RootLayout from "@/components/Layout";
-import { UsersTable } from "@/components/users/Table";
+import { BlockAccountModal } from "@/components/profile/BlockAccountModal";
+import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
 import { NewUserModal } from "@/components/profile/NewUserModal";
+import { UsersTable } from "@/components/users/Table";
 import {
   AuthPostAPI,
   AuthPutAPI,
@@ -29,9 +26,12 @@ import {
   loginVerifyAPI,
   user_type,
 } from "@/lib/axios";
+import Theme from "@/styles/themes";
 import { maskCpfCnpj, maskDate, maskPhone } from "@/utils/masks";
-import { useRouter } from "next/router";
+import gsap from "gsap";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 
 export default function Profile() {
@@ -89,7 +89,7 @@ export default function Profile() {
   const main = useRef(null);
   const content = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         x: "-100%",
@@ -130,7 +130,7 @@ export default function Profile() {
       birth_date: new Date(
         Number(profileData.birth_date.split("/")[2]),
         Number(profileData.birth_date.split("/")[1]) - 1,
-        Number(profileData.birth_date.split("/")[0])
+        Number(profileData.birth_date.split("/")[0]),
       ),
       sex: profileData.sex,
     });
@@ -533,7 +533,7 @@ export default function Profile() {
               <div className="flex flex-col justify-center items-start">
                 <label className="font-semibold">Data de vencimento</label>
                 {new Date(
-                  profileData && profileData.signature[0].expires_in
+                  profileData && profileData.signature[0].expires_in,
                 ).toLocaleDateString("pt-BR", {
                   day: "numeric",
                   month: "numeric",
@@ -549,7 +549,7 @@ export default function Profile() {
                 {profileData &&
                   profileData.signature[0].plan.pixValue.toLocaleString(
                     "pt-BR",
-                    { style: "currency", currency: "BRL" }
+                    { style: "currency", currency: "BRL" },
                   )}
               </div>
               <div className="flex flex-col justify-center items-start">

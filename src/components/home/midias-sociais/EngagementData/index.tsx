@@ -1,7 +1,7 @@
-import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import React from "react";
+import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
@@ -67,7 +67,15 @@ export function EngagmentChart({ chartData }: Props) {
       {
         label: "Número de Votos",
         data: chartData.map((item) => item.count),
-        backgroundColor: chartData.map((item, index) => item.color),
+        backgroundColor: chartData.map((item) =>
+          item.name === "Instagram"
+            ? "#E7298A"
+            : item.name === "Facebook"
+              ? "#2F5CFC"
+              : item.name === "Youtube"
+                ? "#E73F3F"
+                : "#29282C",
+        ),
         borderWidth: 5,
         borderColor: "#fff",
       },

@@ -9,10 +9,10 @@ import { SeuEleitoradoCards } from "@/components/home/seu-eleitorado/Cards";
 import { VotersInfo } from "@/components/home/seu-eleitorado/VoterInfo";
 import { VotersGender } from "@/components/home/seu-eleitorado/VotersGender";
 import { VotersInfoSelect } from "@/components/home/seu-eleitorado/VotersInfoSelect";
-import { authGetAPI } from "@/lib/axios";
+import { authGetAPI, testAPI } from "@/lib/axios";
 import gsap from "gsap";
 import { useRouter } from "next/router";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
 export default function SeuEleitorado() {
@@ -21,7 +21,7 @@ export default function SeuEleitorado() {
   const main = useRef(null);
   const content = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         x: "-100%",
@@ -54,6 +54,8 @@ export default function SeuEleitorado() {
     name: "Carregando...",
     politicalGroup: "",
     id: "",
+    image: "",
+    campaignNumber: 0,
   });
 
   const [cityData, setCityData] = useState<any>();

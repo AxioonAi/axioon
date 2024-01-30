@@ -13,6 +13,7 @@ import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { Footer } from "@/components/register-account/Footer";
 import { RegisterAccountHeader } from "@/components/register-account/Header";
 import { CandidateForm } from "@/components/register-candidate/CandidateForm";
+import { RegisterCandidateHeader } from "@/components/register-candidate/Header";
 import {
   AuthPostAPI,
   IBGEAPI,
@@ -45,6 +46,7 @@ export default function RegisterCandidate() {
     id: "",
     cpf: "",
     city_id: "",
+    campaign_number: 0,
   });
   const [formData, setFormData] = useState({
     social_name: "",
@@ -73,6 +75,7 @@ export default function RegisterCandidate() {
       number: 0,
       label: "",
     },
+    campaign_number: 0,
   });
 
   async function handleVerify() {
@@ -111,6 +114,7 @@ export default function RegisterCandidate() {
         state: formData.state.value,
       },
       political_group_id: formData.political_group_id.id,
+      campaign_number: formData.campaign_number,
     });
     if (connect.body.profile === null) {
       handleRegister();
@@ -136,6 +140,7 @@ export default function RegisterCandidate() {
         state: formData.state.value,
       },
       political_group_id: formData.political_group_id.id,
+      campaign_number: formData.campaign_number,
     });
     if (connect.status !== 200) {
       return alert(connect.body);
@@ -159,7 +164,7 @@ export default function RegisterCandidate() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#0D123C] to-[#34374C]">
-      <RegisterAccountHeader type="dark" />
+      <RegisterCandidateHeader type="dark" />
       <main className="flex flex-col w-full lg:w-11/12 xl:w-2/3 self-center">
         <div className="Instructions m-auto w-full lg:h-52 2xl:h-60 flex flex-col lg:flex-row py-4 px-2">
           <div className="InstructionSection1 w-full -left-0 lg:-left-24 flex flex-col lg:flex-col-reverse justify-between items-center mt-4">
@@ -244,11 +249,13 @@ export default function RegisterCandidate() {
         </FormContainer>
       </main>
       <Footer type="dark" />
-      <Modal show={exists} onHide={() => setExists(false)} size="lg">
+      <Modal show={!exists} onHide={() => setExists(false)} size="lg">
         <Modal.Body>
           <div className="flex flex-col items-center">
             <span className="text-3xl font-bold text-darkBlue">
-              {existsProfile.full_name !== "" && existsProfile.full_name}
+              {existsProfile.full_name !== "" && existsProfile.full_name} -{" "}
+              {existsProfile.campaign_number !== 0 &&
+                existsProfile.campaign_number}
             </span>
             <span className="text-lg text-center w-2/3 font-semibold text-darkBlueAxion">
               Encontramos um perfil com um ou mais dados informados idênticos.

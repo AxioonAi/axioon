@@ -16,6 +16,8 @@ interface headerProps {
     name: string;
     politicalGroup: string;
     id: string;
+    image: string;
+    campaignNumber: number;
   };
   setSelectedProfile: any;
   selectedPage?: string;
@@ -93,6 +95,7 @@ export function HeaderComponent({
 
   async function getPoliticians() {
     const connect = await authGetAPI("/profile/monitoring");
+    console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -103,6 +106,8 @@ export function HeaderComponent({
           name: connect.body.profile[0].name,
           politicalGroup: connect.body.profile[0].politicalGroup,
           id: connect.body.profile[0].id,
+          image: connect.body.profile[0].image,
+          campaignNumber: connect.body.profile[0].campaignNumber,
         });
       } else {
         setSelectedProfile({
@@ -118,6 +123,14 @@ export function HeaderComponent({
             (profile: any) =>
               profile.id === localStorage.getItem("selectedProfile"),
           )[0].id,
+          image: connect.body.profile.filter(
+            (profile: any) =>
+              profile.id === localStorage.getItem("selectedProfile"),
+          )[0].image,
+          campaignNumber: connect.body.profile.filter(
+            (profile: any) =>
+              profile.id === localStorage.getItem("selectedProfile"),
+          )[0].campaignNumber,
         });
       }
     }
@@ -291,13 +304,17 @@ export function HeaderComponent({
         </div>
         <div className="Candidate flex flex-col h-auto items-center md:flex-row md:h-28 mt-12 justify-between">
           <div className="candidateInfo flex items-center gap-3">
-            <Image
-              src={"/dashboard/candidate.png"}
-              width={200}
-              height={200}
-              alt=""
-              className="w-16 h-16 rounded-full object-cover"
-            />
+            {selectedProfile.image ? (
+              <Image
+                src={selectedProfile.image}
+                width={200}
+                height={200}
+                alt=""
+                className="w-16 h-16 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-16 h-16" />
+            )}
             <div className="info flex flex-col">
               <HeaderCandidateSelect
                 profiles={monitoredProfiles}
@@ -305,7 +322,10 @@ export function HeaderComponent({
                 setSelectedProfile={setSelectedProfile}
               />
               <span className="candidateNumber text-[#8990ab] text-sm">
-                Número do Candidato: xxxxxxxxxx
+                Número do Candidato:{" "}
+                {selectedProfile.campaignNumber === 0
+                  ? "..."
+                  : selectedProfile.campaignNumber}
               </span>
               <span className="status flex items-center gap-1 text-[#22c24f] text-xs">
                 <div className="statusCircle w-1.5 h-1.5 bg-[#22c24f] rounded-full" />

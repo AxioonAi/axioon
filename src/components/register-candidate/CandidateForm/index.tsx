@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
 import { ClickHere, Container, FinishButton, FormGroup } from "./styles";
-import Select from "react-select";
-import { IBGEAPI, getAPI } from "@/lib/axios";
-import { Modal, Spinner } from "react-bootstrap";
-import Theme from "@/styles/themes";
-import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { GlobalButton } from "@/components/Global/Button";
-import { profile } from "console";
+import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
+import { IBGEAPI, getAPI } from "@/lib/axios";
+import Theme from "@/styles/themes";
 import { maskCpfCnpj } from "@/utils/masks";
+import { profile } from "console";
+import { useEffect, useState } from "react";
+import { Modal, Spinner } from "react-bootstrap";
+import Select from "react-select";
 
 interface IBGEProps {
   formData?: any;
@@ -55,7 +55,7 @@ export function CandidateForm({
 
   async function handleIBGECity() {
     const connect = await IBGEAPI(
-      `/estados/${formData.state.id}/municipios?orderBy=name`
+      `/estados/${formData.state.id}/municipios?orderBy=name`,
     );
     const cities: any = [];
     for (const key in connect.body) {
@@ -251,21 +251,35 @@ export function CandidateForm({
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-white" htmlFor="socialMidias">
-            Redes Sociais
+          <label className="text-white" htmlFor="campaign_number">
+            Número de Campanha
           </label>
-          <div
-            className="cursor-pointer flex relative bg-white w-[220px] h-[53px] rounded px-2 text-darkBlueAxion items-center gap-2 hover:scale-[1.01]"
-            onClick={() => setOpen(true)}
-          >
-            <strong>Clique aqui</strong>
-            <div className="w-2 h-2 absolute right-2 top-2 rounded-full bg-[#ff0000] animate-ping" />
-            <img src="/register-candidate/hand-icon.svg" alt="" />
-          </div>
+          <input
+            className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
+            name="campaign_number"
+            id="campaign_number"
+            placeholder="Digite"
+            type="number"
+            value={formData.campaign_number}
+            onChange={(e) => setFormData(...formData, e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="flex flex-col gap-2 self-center mt-4">
+        <label className="text-white" htmlFor="socialMidias">
+          Redes Sociais
+        </label>
+        <div
+          className="cursor-pointer flex relative bg-white w-[220px] h-[53px] rounded px-2 text-darkBlueAxion items-center gap-2 hover:scale-[1.01]"
+          onClick={() => setOpen(true)}
+        >
+          <strong>Clique aqui</strong>
+          <div className="w-2 h-2 absolute right-2 top-2 rounded-full bg-[#ff0000] animate-ping" />
+          <img src="/register-candidate/hand-icon.svg" alt="" />
         </div>
       </div>
       <button
-        className="w-[220px] h-[53px] rounded px-2 text-lg font-bold text-white bg-darkBlueAxion self-center my-2 hover:scale-[1.01]"
+        className="w-5/6 md:w-2/3 lg:w-1/3 h-[53px] rounded px-2 text-lg font-bold text-white bg-darkBlueAxion self-center my-2 hover:scale-[1.01]"
         disabled={loading}
         onClick={checkProfile}
       >

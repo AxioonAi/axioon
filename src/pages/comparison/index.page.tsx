@@ -20,7 +20,7 @@ import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPag
 import { authGetAPI } from "@/lib/axios";
 import Theme from "@/styles/themes";
 import gsap from "gsap";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Dropdown, Spinner } from "react-bootstrap";
 
 // import { Dropdown } from "@/components/Global/Dropdown";
@@ -28,7 +28,7 @@ export default function Comparison() {
   const main = useRef(null);
   const content = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".mainContent", {
         x: "-100%",
