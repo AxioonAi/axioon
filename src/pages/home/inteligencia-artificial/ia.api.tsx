@@ -16,12 +16,14 @@ export function useChatFunctions() {
 
   async function handleApiCall(messageList: any[]): Promise<string | null> {
     const openai = new OpenAI({
-      // apiKey: "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",
-      apiKey: process.env.OPENAI_API_KEY, //Testes Front Axioon
+       //apiKey: "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",
+
+      apiKey: process.env.REACT_APP_OPENAI_API_KEY, //Testes Front Axioon
       dangerouslyAllowBrowser: true,
     });
-
+    console.log('Keyxxxx',process.env.REACT_APP_OPENAI_API_KEY)
     try {
+      console.log('Keyxxxx',process.env.REACT_APP_OPENAI_API_KEY)
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo-1106",
         messages: messageList,
