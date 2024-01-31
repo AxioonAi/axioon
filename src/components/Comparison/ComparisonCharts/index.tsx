@@ -3,7 +3,6 @@ import { ChartTip } from "../../home/inteligencia-artificial/ChartTip";
 import { KeyIndicators } from "../../home/midias-sociais/KeyIndicators";
 import { PostEngagement } from "../../home/midias-sociais/PostEngagement";
 import { SmallBarChart } from "../../home/midias-sociais/SmallBarChart";
-import { Tip } from "../../home/midias-sociais/SocialMidiaPage/styles";
 import { VotersActive } from "../../home/midias-sociais/VotersActive";
 import { SimpleWordcloud } from "../../home/midias-sociais/WordCloud";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
@@ -258,13 +257,13 @@ export function ComparisonType({
                       </div>
                     )}
 
-                    <Tip>
+                    <div className="Tip flex items-center gap-2">
                       <img src="/dashboard/userIcon.svg" alt="" />
                       <p>
                         Se quiser ter um maior alcance nas Redes Sociais se
                         atente a estes horários.
                       </p>
-                    </Tip>
+                    </div>
                   </div>
                 )}
                 {pageType === "youtube" ? (
@@ -305,13 +304,13 @@ export function ComparisonType({
                       </div>
                     )}
 
-                    <Tip>
+                    <div className="Tip flex items-center gap-2">
                       <img src="/dashboard/userIcon.svg" alt="" />
                       <p>
                         Se quiser ter um maior alcance nas Redes Sociais se
                         atente a estes horários.
                       </p>
-                    </Tip>
+                    </div>
                   </div>
                 )}
               </div>
@@ -674,13 +673,13 @@ export function ComparisonType({
                       </div>
                     )}
 
-                    <Tip>
+                    <div className="Tip flex items-center gap-2">
                       <img src="/dashboard/userIcon.svg" alt="" />
                       <p>
                         Se quiser ter um maior alcance nas Redes Sociais se
                         atente a estes horários.
                       </p>
-                    </Tip>
+                    </div>
                   </div>
                 )}
               </div>
@@ -981,13 +980,13 @@ export function ComparisonType({
                       </div>
                     )}
 
-                    <Tip>
+                    <div className="Tip flex items-center gap-2">
                       <img src="/dashboard/userIcon.svg" alt="" />
                       <p>
                         Se quiser ter um maior alcance nas Redes Sociais se
                         atente a estes horários.
                       </p>
-                    </Tip>
+                    </div>
                   </div>
                 )}
                 {pageType === "youtube" ? (
