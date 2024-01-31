@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { SelectContainer } from "./styles";
-import { DropDownIconSVG } from "../../../../../public/dashboard/DropdownIconSVG";
 import Select from "react-select";
 
 interface Props {
@@ -14,18 +11,6 @@ export function VotersInfoSelect({
   selectedValue,
   setSelectedValue,
 }: Props) {
-  const [isFocused, setIsFocused] = useState(false);
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
-
-  function handleSelect(value: string) {
-    setSelectedValue(value);
-    setIsFocused(false);
-    handleBlur();
-  }
-
   return (
     <div className="m-auto">
       <Select

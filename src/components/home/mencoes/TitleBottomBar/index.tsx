@@ -1,5 +1,3 @@
-import { TitleContainer } from "./styles";
-
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   barColor?: string;
@@ -15,9 +13,15 @@ export function TitleBottomBar({
   ...rest
 }: Props) {
   return (
-    <TitleContainer {...rest} barColor={barColor} textColor={textColor} width={width}>
-      <h2>{title}</h2>
-      <div className="bottom-bar" />
-    </TitleContainer>
+    <div
+      className={`TitleContainer relative pb-1 text-xl ${width ? `w-${width}` : "w-auto"}`}
+      {...rest}
+    >
+      <h2 style={{ color: textColor }}>{title}</h2>
+      <div
+        className="bottom-bar absolute h-3 w-full md:w-[5.5rem] -bottom-2"
+        style={{ backgroundColor: barColor }}
+      />
+    </div>
   );
 }

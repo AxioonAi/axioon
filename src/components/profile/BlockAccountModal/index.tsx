@@ -1,12 +1,9 @@
-import { CloseButton } from "@/components/Global/Close";
-import { Modal } from "react-bootstrap";
-import { Content } from "./styles";
-import { GlobalButton } from "@/components/Global/Button";
-import { useEffect, useState } from "react";
 import { ConfirmBlockAccountModal } from "./ConfirmBlockAccount";
-import { DeleteAccount } from "@/pages/profile/styles";
 import { DeleteAccountModal } from "./DeleteAccount";
-import Theme from "@/styles/themes";
+import { GlobalButton } from "@/components/Global/Button";
+import { CloseButton } from "@/components/Global/Close";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
 
 interface ModalProps {
   show: boolean;
@@ -16,49 +13,54 @@ interface ModalProps {
 export function BlockAccountModal({ show, onHide }: ModalProps) {
   const [showBlockAccount, setShowBlockAccount] = useState(false);
   const [showDeleteAccount, setShowDeleteAccount] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, [show]);
 
   function handleOpenBlockAccount() {
-    setIsVisible(false);
     setShowBlockAccount(true);
   }
 
   function handleOpenDeleteAccount() {
-    setIsVisible(false);
     setShowDeleteAccount(true);
   }
 
   return (
     <Modal show={show} onHide={onHide} size="lg">
       <CloseButton onHide={onHide} />
-      <Content isVisible={isVisible}>
-        <img src="/warning.svg" alt="" />
-        <h2>Tem certeza que deseja excluir a sua conta?</h2>
-        <span>
+      <div className="Content flex flex-col items-center w-4/5 m-auto">
+        <img
+          className="w-[7.5rem] h-[7.5rem] mt-14 mb-6"
+          src="/warning.svg"
+          alt=""
+        />
+        <h2 className="text-gray-100 text-2xl text-center">
+          Tem certeza que deseja excluir a sua conta?
+        </h2>
+        <span className="text-center text-gray-100">
           Você pode apenas bloquear para deixar de receber atualizações e
           mensagens. <br /> Com a exclusão, todos seu histórico na plataforma e
           suas informações e conta serão totalmente apagadas.
         </span>
         <GlobalButton
-          background={Theme.color.darkBlueAxion}
-          color={Theme.color.gray_10}
+          hover
+          background="darkBlueAxion"
+          color="white"
           content="Bloquear Conta"
-          className="button1"
+          width="auto"
+          padding="2"
+          margin="2"
           onClick={handleOpenBlockAccount}
         />
 
         <GlobalButton
-          background={Theme.color.gray_10}
-          color={Theme.color.darkBlueAxion}
+          hover
+          background="white"
+          color="darkBlueAxion"
           content="Excluir Conta"
-          className="button2"
+          width="auto"
+          padding="2"
+          margin="2"
           onClick={handleOpenDeleteAccount}
         />
-      </Content>
+      </div>
 
       <ConfirmBlockAccountModal
         closePreviousModal={onHide}

@@ -1,20 +1,9 @@
-import { useState } from "react";
-import {
-  ArtSection,
-  AxionLogo,
-  Container,
-  FormGroup,
-  LoginForm,
-  LoginFormHeader,
-  Main,
-  PasswordRecovery,
-} from "./styles";
-import Theme from "@/styles/themes";
-import { Footer } from "@/components/register-account/Footer";
-import { useRouter } from "next/router";
-import { Messages } from "@/components/Global/Messages";
-import { PostAPI, getAPI, refreshToken, token, user_type } from "@/lib/axios";
 import { GlobalButton } from "@/components/Global/Button";
+import { Messages } from "@/components/Global/Messages";
+import { Footer } from "@/components/register-account/Footer";
+import { PostAPI, refreshToken, token, user_type } from "@/lib/axios";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Login() {
   const router = useRouter();
@@ -156,13 +145,14 @@ export default function Login() {
             </button>
           </div>
           <GlobalButton
-            background={Theme.color.darkBlueAxion}
+            hover
+            background="darkBlueAxion"
             color="white"
-            width="100%"
-            height="auto"
+            width="full"
+            height="full"
+            paddingY="2"
+            fontSize="xl"
             content="Entrar"
-            className="loginButton"
-            fontSize={15}
             onClick={handleLogin}
             loading={buttonLoading}
           />

@@ -1,16 +1,6 @@
-import {
-  ArtSection,
-  BackButton,
-  Container,
-  FormContainer,
-  Main,
-  NextButton,
-  ProgressBar,
-} from "./styles";
 import { Messages } from "@/components/Global/Messages";
 import { AnialiasingFormData } from "@/components/register-account/AnaliasingData";
 import { BasicDataForm } from "@/components/register-account/BasicDataForm";
-import { CompanyDataForm } from "@/components/register-account/CompanyDataForm";
 import { Footer } from "@/components/register-account/Footer";
 import { RegisterAccountHeader } from "@/components/register-account/Header";
 import { PersonalDataForm } from "@/components/register-account/PersonalDataForm";

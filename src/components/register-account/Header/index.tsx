@@ -1,4 +1,3 @@
-import { RegisterHeader } from "./styles";
 import { useRouter } from "next/router";
 
 interface Props {

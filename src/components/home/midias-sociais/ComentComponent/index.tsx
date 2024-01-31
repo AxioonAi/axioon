@@ -1,16 +1,3 @@
-import { HeartSVG } from "../../../../../public/dashboard/midias-sociais/heartSVG";
-import { MessageSVG } from "../../../../../public/dashboard/midias-sociais/messageSVG";
-import {
-  Bar,
-  CommentContainer,
-  CommentContent,
-  CommentDate,
-  CommentFeedback,
-  CommentScore,
-  FeedbackContainer,
-  NameAndContent,
-} from "./styles";
-import { windowWidth } from "@/utils/windowWidth";
 import Image from "next/image";
 
 interface Props {
@@ -19,14 +6,6 @@ interface Props {
 }
 
 export function CommentComponent({ type, comment }: Props) {
-  function formatNumber(number: number) {
-    if (number >= 1000) {
-      return (number / 1000).toFixed(1) + "k";
-    } else {
-      return number;
-    }
-  }
-
   const commentDate = new Date(
     comment.date || comment.timestamp || comment.created_at,
   );

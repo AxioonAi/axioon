@@ -14,7 +14,7 @@ export function stripeCardNumberValidation(cardNumber) {
       if (cardNumber) {
         return cardNumber &&
           /^[1-6]{1}[0-9]{14,15}$/i.test(
-            cardNumber.replace(/[^\d]/g, "").trim()
+            cardNumber.replace(/[^\d]/g, "").trim(),
           )
           ? ""
           : "Insira um cartão válido";
@@ -34,8 +34,8 @@ export const stripeCardExpirValidation = (value) => {
             "-" +
             (today.getMonth() + 1) +
             "-" +
-            new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()
-        )
+            new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate(),
+        ),
       );
       let visaValue = value.split("/");
       let visaDate = new Date(`20${visaValue[1]}`, visaValue[0], 0);

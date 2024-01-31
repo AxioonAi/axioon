@@ -1,38 +1,13 @@
-import React, { PureComponent, useEffect, useState, useId } from "react";
+import React, { useId } from "react";
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
-
-const data = [
-  {
-    name: "16:00",
-    Quantidade: 4000,
-  },
-  {
-    name: "17:00",
-    Quantidade: 3000,
-  },
-  {
-    name: "21:00",
-    Quantidade: 2000,
-  },
-  {
-    name: "08:00",
-    Quantidade: 2780,
-  },
-  {
-    name: "10:00",
-    Quantidade: 1890,
-  },
-];
 
 interface Props {
   pageData: any;

@@ -1,7 +1,5 @@
 import Chart from "chart.js/auto";
 import { useState, useEffect } from "react";
-import { Container } from "./styles";
-import px2vw from "@/utils/size";
 
 interface Props {
   data: {

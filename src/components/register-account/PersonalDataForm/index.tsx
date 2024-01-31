@@ -1,14 +1,3 @@
-import { useState } from "react";
-import {
-  BackButton,
-  FormGroup,
-  NextButton,
-  RadioContainer,
-  RadioGroup,
-  RadioSelector,
-  RegisterForm,
-  RegisterFormHeader,
-} from "./styles";
 import { maskCpfCnpj } from "@/utils/masks";
 
 interface FormDataProps {

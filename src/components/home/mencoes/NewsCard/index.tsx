@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import { CardContainer } from "./styles";
-import { useRouter } from "next/router";
 import { NewsModal } from "../NewsModal";
+import { useState } from "react";
 
 interface Props {
   sentimentClassification: "positivo" | "neutro" | "negativo";

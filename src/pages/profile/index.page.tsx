@@ -1,19 +1,4 @@
-import { UserEditSVG } from "../../../public/UserEdit";
-import { TrashCanSVG } from "../../../public/profile/TrashCan";
-import {
-  AvatarContainer,
-  Content,
-  FormGroup,
-  FormSection,
-  Main,
-  PersonalInfo,
-  RadioContainer,
-  RadioGroup,
-  RadioSelector,
-} from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
-import { HeaderComponent } from "@/components/Global/Header";
-import { Sidebar } from "@/components/Global/Sidebar";
 import RootLayout from "@/components/Layout";
 import { BlockAccountModal } from "@/components/profile/BlockAccountModal";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
@@ -26,7 +11,6 @@ import {
   loginVerifyAPI,
   user_type,
 } from "@/lib/axios";
-import Theme from "@/styles/themes";
 import { maskCpfCnpj, maskDate, maskPhone } from "@/utils/masks";
 import gsap from "gsap";
 import Image from "next/image";
@@ -149,10 +133,12 @@ export default function Profile() {
       formData.newPassword === "" ||
       formData.confirmPassword === ""
     ) {
-      return alert("Preencha todos os campos");
+      alert("Preencha todos os campos");
+      return setLoading1(false);
     }
     if (formData.newPassword !== formData.confirmPassword) {
-      return alert("As senhas precisam ser iguais");
+      alert("As senhas precisam ser iguais");
+      return setLoading1(false);
     }
     const connect = await AuthPutAPI("/user/password", {
       password: formData.currentPassword,
@@ -453,12 +439,14 @@ export default function Profile() {
                     </div>
                   </div>
                   <GlobalButton
-                    background={Theme.color.darkBlueAxion}
-                    color={Theme.color.gray_10}
-                    width="100%"
+                    hover
+                    background="darkBlueAxion"
+                    color="white"
+                    width="full"
                     height="auto"
-                    fontSize={10}
-                    className="p-2 rounded flex flex-row items-center gap-2 text-center justify-center mt-5"
+                    fontSize="lg"
+                    margin="2"
+                    paddingY="2"
                     content="Atualizar Cadastro"
                     onClick={() => UpdateProfile()}
                     loading={loading}
@@ -567,7 +555,7 @@ export default function Profile() {
               </div>
             </div>
           </main>
-          <main className="w-full rounded-lg p4">
+          <main className="w-full rounded-lg p-4 border-t-[1px]">
             <header className="flex justify-between">
               <h2 className="text-2xl font-semibold">Usuários</h2>
               <button
@@ -578,10 +566,14 @@ export default function Profile() {
                 <img src="/newUser.svg" alt="" />
               </button>
             </header>
-            <UsersTable
-              subUserData={subUserData}
-              handleSubUser={handleSubUser}
-            />
+            {subUserData && subUserData.length > 0 && (
+              <>
+                <UsersTable
+                  subUserData={subUserData}
+                  handleSubUser={handleSubUser}
+                />
+              </>
+            )}
           </main>
         </div>
 

@@ -1,9 +1,5 @@
-import { GlobalButton } from "@/components/Global/Button";
 import { CloseButton } from "@/components/Global/Close";
-import Theme from "@/styles/themes";
-import { useEffect, useState } from "react";
 import { Modal, Spinner } from "react-bootstrap";
-import { Content, Form, FormGroup, FormHeader, SuccessModal } from "./styles";
 
 interface ModalProps {
   show: boolean;
@@ -34,13 +30,17 @@ export function NewUserModal({
         {show && (
           <div className="flex flex-col items-center justify-center w-2/3 self-center">
             <CloseButton onHide={onHide} />
-            <FormHeader>
-              <div>
+            <div className="FormHeader mb-8 text-center">
+              <div className="flex justify-center mt-14 mb-6">
                 <img src="/axionLogo.png" alt="" />
               </div>
-              <h1>Cadastrar novo Usuário</h1>
-              <span>Preencha os campos abaixo</span>
-            </FormHeader>
+              <h1 className="text-2xl text-center font-bold">
+                Cadastrar novo Usuário
+              </h1>
+              <span className="text-sm text-center text-gray-80">
+                Preencha os campos abaixo
+              </span>
+            </div>
             <div className="flex flex-col w-full gap-8">
               <div className="flex flex-col gap-2">
                 <label htmlFor="name">Nome Completo</label>

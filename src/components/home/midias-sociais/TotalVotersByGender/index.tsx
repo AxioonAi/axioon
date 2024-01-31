@@ -1,17 +1,14 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import {
   BarChart,
   Bar,
   Cell,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Label,
 } from "recharts";
-import { Value } from "sass";
 
 export function VotersByGender() {
   const data = [
@@ -39,15 +36,15 @@ export function VotersByGender() {
 
   function nextDivisibleBy1000(value: number) {
     let quociente = Math.ceil(value / 1000);
-    
+
     let proximoDivisivel = quociente * 1000;
 
-    if(proximoDivisivel === value) {
+    if (proximoDivisivel === value) {
       return proximoDivisivel + 1000;
     }
-    
+
     return proximoDivisivel;
-}
+  }
 
   return (
     <ResponsiveContainer width="100%" height="100%">

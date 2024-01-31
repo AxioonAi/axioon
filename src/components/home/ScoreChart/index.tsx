@@ -62,7 +62,7 @@ export function ScoreChart({ score, id }: Props) {
           y: any,
           fontSize: any,
           textBaseLine: any,
-          textAlign: any
+          textAlign: any,
         ) {
           ctx.font = `${fontSize / 1.5}px sans-serif`;
           ctx.fillStyle = "#292D32";
@@ -73,7 +73,7 @@ export function ScoreChart({ score, id }: Props) {
 
         // textLabel("100", left, yCoor + 13, 15, "top", "left");
         // textLabel("1000", right, yCoor + 13, 15, "bottom", "right");
-        textLabel(score.toString(), xCoor, yCoor - 28, 40, "top", "center");
+        textLabel(score.toFixed(0), xCoor, yCoor - 28, 40, "top", "center");
         textLabel(rating, xCoor, yCoor - 10, 13, "center", "bottom");
       },
     };

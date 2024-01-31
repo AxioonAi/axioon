@@ -1,27 +1,8 @@
-import {
-  Container,
-  FormContainer,
-  InstructionSection1,
-  InstructionSection2,
-  InstructionStep,
-  Instructions,
-  Main,
-  StepName,
-} from "./styles";
-import { GlobalButton } from "@/components/Global/Button";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { Footer } from "@/components/register-account/Footer";
-import { RegisterAccountHeader } from "@/components/register-account/Header";
 import { CandidateForm } from "@/components/register-candidate/CandidateForm";
 import { RegisterCandidateHeader } from "@/components/register-candidate/Header";
-import {
-  AuthPostAPI,
-  IBGEAPI,
-  PostAPI,
-  getAPI,
-  loginVerifyAPI,
-} from "@/lib/axios";
-import Theme from "@/styles/themes";
+import { AuthPostAPI, loginVerifyAPI } from "@/lib/axios";
 import { maskCpfCnpj } from "@/utils/masks";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -29,7 +10,6 @@ import { Modal, Spinner } from "react-bootstrap";
 
 export default function RegisterCandidate() {
   const router = useRouter();
-  const [step, setStep] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [cpfCnpj, setcpfCnpj] = useState("");
@@ -229,7 +209,7 @@ export default function RegisterCandidate() {
           </div>
         </div>
 
-        <FormContainer>
+        <div className="px-4 lg:px-0">
           <TitleBottomBar
             title="Hora de Cadastrar o político que quer acompanhar as métricas"
             barColor="#fff"
@@ -246,7 +226,7 @@ export default function RegisterCandidate() {
             loading={loading}
             handleRegister={handleRegister}
           />
-        </FormContainer>
+        </div>
       </main>
       <Footer type="dark" />
       <Modal show={exists} onHide={() => setExists(false)} size="lg">

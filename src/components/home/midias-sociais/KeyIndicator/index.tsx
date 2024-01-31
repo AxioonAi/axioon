@@ -1,11 +1,3 @@
-import {
-  Bar,
-  CurrentValueBar,
-  Indicator,
-  Marker,
-  PreviousValueBar,
-} from "./styles";
-
 interface Props {
   previousValue: number;
   currentValue: number;

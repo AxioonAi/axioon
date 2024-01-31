@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 import { _DeepPartialObject } from "chart.js/dist/types/utils";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import React from "react";
+import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 

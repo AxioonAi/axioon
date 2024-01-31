@@ -1,10 +1,7 @@
-import { ClickHere, Container, FinishButton, FormGroup } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { IBGEAPI, getAPI } from "@/lib/axios";
-import Theme from "@/styles/themes";
 import { maskCpfCnpj } from "@/utils/masks";
-import { profile } from "console";
 import { useEffect, useState } from "react";
 import { Modal, Spinner } from "react-bootstrap";
 import Select from "react-select";
@@ -364,14 +361,17 @@ export function CandidateForm({
             </div>
           </div>
           <GlobalButton
+            hover
             content="Concluir"
             onClick={() => setOpen(false)}
-            background={Theme.color.gray_10}
-            color={Theme.color.darkBlueAxion}
-            width="50%"
+            background="white"
+            color="darkBlueAxion"
+            width="1/2"
             height="auto"
-            fontSize={15}
-            className="px-5 py-2 self-center mt-5 rounded-lg"
+            fontSize="xl"
+            selfCenter
+            margin="4"
+            paddingY="2"
           />
         </div>
       </Modal>

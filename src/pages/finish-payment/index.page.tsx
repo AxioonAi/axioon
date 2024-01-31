@@ -1,9 +1,6 @@
 import { Footer } from "@/components/register-account/Footer";
-import { AccessButton, Container } from "./styles";
-import Theme from "@/styles/themes";
-import { useRouter } from "next/router";
-import Image from "next/image";
 import { loginVerifyAPI } from "@/lib/axios";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export default function FinishPayment() {

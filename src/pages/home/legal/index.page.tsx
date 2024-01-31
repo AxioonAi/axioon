@@ -69,8 +69,6 @@ export default function Legal() {
   const [legalData, setLegalData] = useState<any>();
   const [locked, setLocked] = useState(false);
 
-  const array = [1, 2, 3, 4, 5];
-
   async function getLegal() {
     const connect = await authGetAPI(`/profile/legal/${selectedProfile.id}`);
     if (connect.status === 401) {

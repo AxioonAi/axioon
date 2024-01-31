@@ -1,4 +1,3 @@
-import Theme from "@/styles/themes";
 import px2vw from "@/utils/size";
 import { Dropdown, Spinner } from "react-bootstrap";
 
@@ -37,7 +36,7 @@ export function HeaderTimeSelect({
           text-darkBlueAxion bg-gray-10 border-0
           `}
             style={{
-              color: `${Theme.color.gray_10}`,
+              color: "#fff",
               backgroundColor: "#0d123c",
               border: 0,
             }}

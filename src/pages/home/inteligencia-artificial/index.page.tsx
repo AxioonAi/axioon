@@ -1,27 +1,10 @@
 import { useChatFunctions } from "../../api/ia.api";
-import {
-  ChatBody,
-  ChatConteiner,
-  ChatContent,
-  ChatFooter,
-  ChatHeader,
-  Content,
-  IaImgContainer,
-  IaMessage,
-  Message,
-  ReloadButton,
-  SuggestionsContainer,
-  TextareaAndButton,
-  UserMessage,
-} from "./styles";
 import RootLayout from "@/components/Layout";
 import { HeaderComponent } from "@/components/home/Header";
 import { PrompSuggestion } from "@/components/home/inteligencia-artificial/PromptSuggestion";
-import { SuggestionContainer } from "@/components/home/inteligencia-artificial/PromptSuggestion/styles";
 import { authGetAPI } from "@/lib/axios";
 import gsap from "gsap";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 export default function InteligenciaArtificial() {
@@ -106,7 +89,6 @@ export default function InteligenciaArtificial() {
     });
   }, []);
 
-  const [textareaValue, setTextareaValue] = useState("");
   function KeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey) {
       if (firstMessage) {

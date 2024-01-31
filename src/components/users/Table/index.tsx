@@ -1,14 +1,5 @@
-import Theme from "@/styles/themes";
-import {
-  TableCol,
-  TableContainer,
-  TableContent,
-  TableHeader,
-  TableRow,
-  TableRows,
-} from "./styles";
-import { Col, Row, Spinner } from "react-bootstrap";
 import { useState } from "react";
+import { Col, Row, Spinner } from "react-bootstrap";
 
 interface TableProps {
   subUserData: [

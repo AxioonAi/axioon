@@ -1,14 +1,3 @@
-import {
-  ArtContainer,
-  Container,
-  Main,
-  PaymentContainer,
-  PaymentSelector,
-  RadioGroup,
-  RadioSelector,
-  SelectedPlan,
-} from "./styles";
-import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { CreditCardForm } from "@/components/payment/CreditCardForm";
 import { PixPayment } from "@/components/payment/PixPayment";
 import { Footer } from "@/components/register-account/Footer";
@@ -71,14 +60,11 @@ export default function Payment() {
 
   async function getPlans() {
     const connect = await getAPI("/plans");
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }
     setPlans(connect.body.plans.filter((plan: any) => plan.id === query.id));
   }
-
-  console.log("plans: ", plans);
 
   async function handlePix() {
     const connect = await AuthPostAPI(`/pix/${query.id}`, {});

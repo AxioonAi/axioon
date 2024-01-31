@@ -5,7 +5,6 @@ import { AgeGroupByGender } from "../../seu-eleitorado/AgeGroupByGender";
 import { VotersInfo } from "../../seu-eleitorado/VoterInfo";
 import { ChartTip } from "../ChartTip";
 import { CommentComponent } from "../ComentComponent";
-import { WordCloudContainer } from "../InitialPage/styles";
 import { KeyIndicators } from "../KeyIndicators";
 import { OrderSelect } from "../OrderSelect";
 import { PostComponent } from "../PostComponent";
@@ -13,33 +12,7 @@ import { PostEngagement } from "../PostEngagement";
 import { SmallBarChart } from "../SmallBarChart";
 import { VotersActive } from "../VotersActive";
 import { SimpleWordcloud } from "../WordCloud";
-import {
-  AgeGroupContainer,
-  AgeGroupLegend,
-  ChartsContainer,
-  Comments,
-  CommentsContainer,
-  CommentsHeader,
-  KeyIndicatorsContainer,
-  LabelAndSelect,
-  MetaAdsCards,
-  MetaAdsCardsContainer,
-  MetaAdsContainer,
-  MetaAdsLogo,
-  PageContainer,
-  PostEngagmentContainer,
-  PostsAndComments,
-  PostsContainer,
-  PostsHeader,
-  ScoreChartContainer,
-  SeeMorePosts,
-  Tip,
-  VotersActiveContainer,
-  VotersInfoContainer,
-  VotersInfoTitle,
-} from "./styles";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
-import px2vw from "@/utils/size";
 import Image from "next/image";
 import { useState } from "react";
 import { Modal, Spinner } from "react-bootstrap";
@@ -105,11 +78,6 @@ export function SocialMidiaPage({
     },
   ];
 
-  const total = {
-    homens: groupGenderData.reduce((acc, curr) => acc + curr.Homens, 0),
-    mulheres: groupGenderData.reduce((acc, curr) => acc + curr.Mulheres, 0),
-  };
-
   const [showModal, setShowModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [showMoreComments, setShowMoreComments] = useState(false);
@@ -138,17 +106,6 @@ export function SocialMidiaPage({
           : 0,
     },
   ];
-
-  const [pieChartData, setPieChartData] = useState<any>([
-    {
-      region: "Homens",
-      percentage: 1,
-    },
-  ]);
-
-  const [pieChartLabels, setPieChartLabels] = useState<any>([
-    14.28, 14.28, 14.28, 14.28, 14.28, 14.28, 14.28,
-  ]);
 
   const openModal = (index: number) => {
     setShowModal(true);
@@ -260,13 +217,13 @@ export function SocialMidiaPage({
                   <VotersActive pageData={pageData} />
                 </div>
 
-                <Tip>
+                <div className="Tip flex items-center gap-2">
                   <img src="/dashboard/userIcon.svg" alt="" />
-                  <p>
+                  <p className="text-sm m-0 p-0">
                     Se quiser ter um maior alcance nas Redes Sociais se atente a
                     estes horários.
                   </p>
-                </Tip>
+                </div>
               </div>
             )}
 

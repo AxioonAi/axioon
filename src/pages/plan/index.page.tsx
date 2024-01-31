@@ -1,5 +1,4 @@
 import { getAPI, loginVerifyAPI } from "@/lib/axios";
-import { m } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -88,7 +87,6 @@ export default function Plan() {
       return setTimeout(() => {
         setFlash(false);
       }, 200);
-      // return alert("Selecione um plano");
     }
     return router.push(`/payment?id=${query.id}&value=${query.value}`);
   };

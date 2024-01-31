@@ -4,13 +4,11 @@ import { HeaderComponent } from "@/components/home/Header";
 import { ScoreChart } from "@/components/home/ScoreChart";
 import { MentionsCard } from "@/components/home/mencoes/MentionsCard";
 import { NewsCard } from "@/components/home/mencoes/NewsCard";
-import { NewsModal } from "@/components/home/mencoes/NewsModal";
 import { SentimentChart } from "@/components/home/mencoes/SentimentChart";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
 import { TotalQuotes } from "@/components/home/mencoes/TotalQuotes";
 import { authGetAPI } from "@/lib/axios";
 import gsap from "gsap";
-import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import "swiper/css";
@@ -389,13 +387,15 @@ export default function SeuEleitorado() {
                           )
                           .map((item: any, index: any) => (
                             <SwiperSlide>
-                              <NewsCard
+                              <MentionsCard
                                 key={index}
                                 sentimentClassification={
                                   item.sentimentClassification
                                 }
                                 sentiment={item.sentiment}
-                                source="Só Notícias"
+                                source={item.profile}
+                                comments={item.comments}
+                                commentSentiment={item.commentSentiment}
                                 url={item.url}
                                 date={item.date
                                   .split("T")[0]

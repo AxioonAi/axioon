@@ -1,6 +1,5 @@
-import { Spinner } from "react-bootstrap";
 import { KeyIndicator } from "../KeyIndicator";
-import { KeyIndicatorContent, KeyIndicatorsContainer } from "./styles";
+import { Spinner } from "react-bootstrap";
 
 interface Props {
   pageData: any;

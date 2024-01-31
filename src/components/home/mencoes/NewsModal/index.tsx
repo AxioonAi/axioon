@@ -1,16 +1,7 @@
-import {
-  Content,
-  Footer,
-  Header,
-  Main,
-  ModalContainer,
-  NewContent,
-  NewNameAndSentiment,
-  ScoreChartContainer,
-} from "./styles";
+import { ScoreChart } from "../../ScoreChart";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import Image from "next/image";
-import { ScoreChart } from "../../ScoreChart";
+import { Modal } from "react-bootstrap";
 
 interface Props {
   show: boolean;
@@ -34,9 +25,9 @@ export function NewsModal({
   date,
 }: Props) {
   return (
-    <ModalContainer show={show} onHide={onHide} size="lg">
-      <Content>
-        <Header>
+    <Modal show={show} onHide={onHide} size="lg">
+      <div className="Content py-4 px-6">
+        <header className="flex justify-between items-center">
           <div>
             <TitleWithBar
               content={source}
@@ -48,20 +39,11 @@ export function NewsModal({
                     : "#E70000"
               }
             />
-            <span
-              style={{
-                marginLeft: "1rem",
-                fontSize: "0.875rem",
-                color: "#4A4A4A",
-                fontWeight: 600,
-              }}
-            >
+            <span className="ml-4 text-sm text-[#4a4a4a] font-semibold">
               {date}
             </span>
           </div>
-          <div
-            style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}
-          >
+          <div className="flex items-center gap-1">
             <strong
               style={{
                 fontSize: "1.25rem",
@@ -92,23 +74,19 @@ export function NewsModal({
               alt=""
             />
           </div>
-        </Header>
-        <Main>
-          <NewNameAndSentiment>
-            <h1 style={{ fontSize: "2.25rem", textAlign: "center" }}>
-              {content}
-            </h1>
+        </header>
+        <main>
+          <div className="NewsNameAndSentiment w-4/5 mt-14 mx-auto">
+            <h1 className="text-4xl text-center">{content}</h1>
             <hr />
-            <ScoreChartContainer>
-              <div
-                style={{ maxWidth: "14rem", margin: "auto", marginTop: "5%" }}
-              >
+            <div className="ScoreChartContainer flex flex-col justify-center text-center">
+              <div className="max-w-56 m-auto mt-4">
                 <ScoreChart score={sentiment} id="newScore" />
               </div>
-            </ScoreChartContainer>
+            </div>
 
             {/* <hr style={{ margin: "2rem 0" }} /> */}
-          </NewNameAndSentiment>
+          </div>
           {/* <NewContent>
             my text of the printing and typesetting industry. Lorem Ipsum has
             been the industry's standard dummy text ever since the 1500s, when
@@ -118,9 +96,9 @@ export function NewsModal({
             been the industry's standard dummy text ever since the 1500s, when
             an...
           </NewContent> */}
-        </Main>
+        </main>
 
-        <Footer>
+        <footer className="flex justify0center mt-16 mx-auto">
           <a
             href={url}
             target="_blank"
@@ -129,8 +107,8 @@ export function NewsModal({
           >
             Ver notícia completa
           </a>
-        </Footer>
-      </Content>
-    </ModalContainer>
+        </footer>
+      </div>
+    </Modal>
   );
 }

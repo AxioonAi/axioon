@@ -1,6 +1,3 @@
-import { Container, Feedback, FeedbackGroup } from "./styles";
-import Theme from "@/styles/themes";
-
 interface LikesCardProps extends React.HTMLAttributes<HTMLDivElement> {
   type: "facebook" | "instagram" | "tiktok" | "youtube";
   name: string;

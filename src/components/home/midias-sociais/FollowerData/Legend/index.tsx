@@ -1,5 +1,3 @@
-import { Container } from "./styles";
-
 interface Props {
   name: string;
   count: number;

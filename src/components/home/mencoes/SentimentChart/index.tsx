@@ -1,14 +1,5 @@
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
-import { formatNumberWithDot } from "@/utils/numberFormat";
 import { useEffect, useState } from "react";
-import {
-  ChartContainer,
-  LegendContainer,
-  Negative,
-  Neutral,
-  Positive,
-  SentimentContainer,
-} from "./styles";
 
 interface Props {
   positive: number;
@@ -65,7 +56,7 @@ export function SentimentChart({
             />
           </>
         ) : (
-          <Positive percent="100%" />
+          <div className="Positive bg-[#22c24f] rounded-l-sm transition duration-500 w-full" />
         )}
       </div>
 

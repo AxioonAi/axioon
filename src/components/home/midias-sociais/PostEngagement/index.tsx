@@ -1,17 +1,5 @@
-import { windowWidth } from "@/utils/windowWidth";
-import Image from "next/image";
-import React, { PureComponent, useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import React, { useEffect, useState } from "react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 
 interface pageData {
   pageData: any;

@@ -1,17 +1,12 @@
-import { Cards, Content, Main } from "./styles";
-import { GlobalButton } from "@/components/Global/Button";
-import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
 import RootLayout from "@/components/Layout";
 import { VideoModal } from "@/components/help/NewPasswordModal";
 import { NewPasswordModal } from "@/components/profile/NewPasswordModal";
 import { AuthPutAPI, authGetAPI } from "@/lib/axios";
-import Theme from "@/styles/themes";
 import gsap from "gsap";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 
-// import { Dropdown } from "@/components/Global/Dropdown";
 export default function Help() {
   const main = useRef(null);
   const content = useRef(null);

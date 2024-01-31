@@ -1,9 +1,6 @@
 import { GlobalButton } from "@/components/Global/Button";
 import { CloseButton } from "@/components/Global/Close";
-import Theme from "@/styles/themes";
-import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Content, Form, FormGroup, FormHeader, SuccessModal } from "./styles";
 
 interface ModalProps {
   show: boolean;
@@ -26,20 +23,8 @@ export function NewPasswordModal({
   changePassword,
   loadingButton,
 }: ModalProps) {
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, [show]);
-
   async function handleUpdatePassword() {
     await changePassword();
-  }
-
-  function handleClose() {
-    setShowSuccess(false);
-    onHide();
   }
 
   return (
@@ -49,8 +34,12 @@ export function NewPasswordModal({
           <main className="m-auto">
             <CloseButton onHide={onHide} />
             <div className="formHeader mb-8">
-              <div className="flex justify-center mt-14 mb-6">
-                <img src="/profile/security-safe.svg" alt="" />
+              <div className="flex justify-center my-2">
+                <img
+                  src="/profile/security-safe.svg"
+                  className="w-20 h-20"
+                  alt=""
+                />
               </div>
               <h1 className="text-2xl text-bold text-center">
                 Atualizar Senha
@@ -59,13 +48,13 @@ export function NewPasswordModal({
                 Preencha os campos abaixo para atualizar sua senha.
               </span>
             </div>
-            <div className="Form flex flex-col gap-6">
+            <div className="Form flex flex-col gap-2">
               <div className="formGroup flex flex-col gap-2">
                 <label htmlFor="current-password" className="font-semibold">
                   Senha Atual
                 </label>
                 <input
-                  className="py-4 px-2 rounded border border-gray-20 outline-none text-gray-100"
+                  className="py-2 px-2 rounded border border-gray-20 outline-none text-gray-100"
                   type="password"
                   placeholder="Digite sua senha atual"
                   value={formData.currentPassword}
@@ -79,7 +68,7 @@ export function NewPasswordModal({
               </div>
               <div
                 style={{
-                  borderTop: "1px solid" + Theme.color.gray_20,
+                  borderTop: "1px solid #C8C8C8",
                   marginTop: "1rem",
                 }}
               />
@@ -88,7 +77,7 @@ export function NewPasswordModal({
                   Nova Senha
                 </label>
                 <input
-                  className="py-4 px-2 rounded border border-gray-20 outline-none text-gray-100"
+                  className="py-2 px-2 rounded border border-gray-20 outline-none text-gray-100"
                   type="password"
                   placeholder="Digite sua nova senha"
                   value={formData.newPassword}
@@ -102,7 +91,7 @@ export function NewPasswordModal({
                   Repetir Senha
                 </label>
                 <input
-                  className="py-4 px-2 rounded border border-gray-20 outline-none text-gray-100"
+                  className="py-2 px-2 rounded border border-gray-20 outline-none text-gray-100"
                   type="password"
                   placeholder="Confirme sua nova senha"
                   value={formData.confirmPassword}
@@ -115,37 +104,21 @@ export function NewPasswordModal({
                 />
               </div>
               <GlobalButton
+                hover
                 content="Atualizar Senha"
-                background={Theme.color.darkBlueAxion}
-                color={Theme.color.gray_10}
+                background="darkBlueAxion"
+                color="white"
                 width="auto"
                 height="auto"
-                fontSize={12}
-                className="mb-5 p-2 rounded"
+                fontSize="lg"
+                margin="4"
+                padding="2"
                 onClick={handleUpdatePassword}
                 loading={loadingButton}
               />
             </div>
           </main>
         )}
-      </Modal>
-
-      <Modal show={showSuccess} onHide={() => setShowSuccess(false)}>
-        <CloseButton onHide={handleClose} />
-        <SuccessModal>
-          <img src="/verify.svg" alt="" />
-          <h2>Senha Alterada!</h2>
-          <span>Sua senha foi alterada com sucesso, parabéns!</span>
-          <GlobalButton
-            content="Finalizar"
-            className="button"
-            onClick={handleClose}
-            background={Theme.color.darkBlueAxion}
-            color={Theme.color.gray_10}
-            width="auto"
-            height="auto"
-          />
-        </SuccessModal>
       </Modal>
     </>
   );

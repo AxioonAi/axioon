@@ -1,29 +1,12 @@
-import { LikesAndComentsContainer } from "../home/midias-sociais/styles";
-import {
-  CenterContainer,
-  Content,
-  Grid,
-  HeadToHeadBar,
-  Image,
-  ImageCircle,
-  IndividualContainer,
-  Main,
-} from "./styles";
 import { ComparisonType } from "@/components/Comparison/ComparisonCharts";
 import { ComparisonStaticCards } from "@/components/Comparison/ComparisonStaticCards";
 import { ComparisonHeaderComponent } from "@/components/Comparison/Header";
-import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
-import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import RootLayout from "@/components/Layout";
-import { PostEngagement } from "@/components/home/midias-sociais/PostEngagement";
-import { SocialMidiaPage } from "@/components/home/midias-sociais/SocialMidiaPage";
 import { authGetAPI } from "@/lib/axios";
-import Theme from "@/styles/themes";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
-import { Dropdown, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 
-// import { Dropdown } from "@/components/Global/Dropdown";
 export default function Comparison() {
   const main = useRef(null);
   const content = useRef(null);

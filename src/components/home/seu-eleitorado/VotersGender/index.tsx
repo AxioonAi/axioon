@@ -1,5 +1,4 @@
 import { Slider } from "../../Slider";
-import { CellContent, CellInfo, Container } from "./styles";
 
 interface PopulationProps {
   population: {

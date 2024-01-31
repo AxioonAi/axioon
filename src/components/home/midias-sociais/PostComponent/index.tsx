@@ -1,14 +1,3 @@
-import { HeartSVG } from "../../../../../public/dashboard/midias-sociais/heartSVG";
-import { MessageSVG } from "../../../../../public/dashboard/midias-sociais/messageSVG";
-import { ViewSVG } from "../../../../../public/dashboard/midias-sociais/viewSVG";
-import {
-  FeedbackContainer,
-  PostContainer,
-  PostContent,
-  PostDate,
-  PostFeedback,
-} from "./styles";
-import { windowWidth } from "@/utils/windowWidth";
 import Image from "next/image";
 
 interface Props {

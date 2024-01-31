@@ -2,18 +2,7 @@ import { ChartTip } from "../ChartTip";
 import { EngagmentChart } from "../EngagementData";
 import { FollowerData } from "../FollowerData";
 import { FollowerDataLegend } from "../FollowerData/Legend";
-import { KeyIndicators } from "../KeyIndicators";
 import { SimpleWordcloud } from "../WordCloud";
-import {
-  ChartCenterInfo,
-  ChartContainer,
-  ChartsContainer,
-  EngagmentDataContainer,
-  EngagmentLegendContainer,
-  FollowerDataLegendContainer,
-  KeyIndicatorsContainer,
-  WordCloudContainer,
-} from "./styles";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import Image from "next/image";
 
@@ -27,8 +16,6 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
     { name: "Youtube", count: SocialMidiaData?.followers.current.youtube },
     { name: "Tiktok", count: SocialMidiaData?.followers.current.tiktok },
   ];
-
-  const colors = ["#2F5CFC", "#0A2BA0", "#000411", "#E5E8F0"];
 
   const sortedFollowerData = followerData.sort((a, b) => b.count - a.count);
 

@@ -1,10 +1,7 @@
-import { useEffect } from "react";
-import "@/components/Global/Animations/Spinner/animation.css";
 import "../styles/bootstrap.scss";
+import "@/components/Global/Animations/Spinner/animation.css";
 import "@/styles/globals.css";
-import GlobalStyle from "@/styles/global";
-import { ThemeProvider } from "styled-components";
-import Theme from "@/styles/themes";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }: any) {
   useEffect(() => {
@@ -14,10 +11,7 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     <>
-      <ThemeProvider theme={Theme}>
-        <GlobalStyle />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Component {...pageProps} />
     </>
   );
 }

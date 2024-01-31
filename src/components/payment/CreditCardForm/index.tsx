@@ -1,4 +1,3 @@
-import Theme from "@/styles/themes";
 import {
   stripeCardExpirValidation,
   stripeCardNumberValidation,
@@ -497,8 +496,8 @@ export function CreditCardForm({
             sheetStyle={{
               borderTopRightRadius: 10,
               borderTopLeftRadius: 10,
-              background: Theme.color.darkBlueAxion,
-              color: Theme.color.gray_10,
+              background: "#0D123C",
+              color: "#fff",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",

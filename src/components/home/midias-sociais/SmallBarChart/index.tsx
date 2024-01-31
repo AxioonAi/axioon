@@ -1,5 +1,3 @@
-import { ChartBar, ChartContainer, Container, Legend } from "./styles";
-
 interface pageData {
   pageData: any;
 }

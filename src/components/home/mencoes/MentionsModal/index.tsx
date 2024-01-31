@@ -1,21 +1,9 @@
 import { ScoreChart } from "../../ScoreChart";
 import { CommentComponent } from "../../midias-sociais/ComentComponent";
-import { OrderSelect } from "../../midias-sociais/OrderSelect";
-import {
-  Comments,
-  CommentsHeader,
-  Content,
-  Footer,
-  Header,
-  Main,
-  ModalContainer,
-  NewContent,
-  ScoreChartContainer,
-  Sentiments,
-} from "./styles";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import Image from "next/image";
 import { useState } from "react";
+import { Modal } from "react-bootstrap";
 
 interface Props {
   show: boolean;
@@ -42,14 +30,13 @@ export function MentionsModal({
   date,
   url,
 }: Props) {
-  const [selectedValue, setSelectedValue] = useState("Relevância");
-  const values = ["Relevância", "Mais recente"];
+  console.log("comments: ", comments);
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <ModalContainer show={show} onHide={onHide} size="lg">
-      <Content>
-        <Header>
+    <Modal show={show} onHide={onHide} size="lg">
+      <div className="Content py-4 px-6">
+        <header className="flex justify-between items-center">
           <div>
             <TitleWithBar
               content={source}
@@ -61,20 +48,11 @@ export function MentionsModal({
                     : "#E70000"
               }
             />
-            <span
-              style={{
-                marginLeft: "1rem",
-                fontSize: "0.875rem",
-                color: "#4A4A4A",
-                fontWeight: 600,
-              }}
-            >
+            <span className="ml-4 text-sm text-[#4a4a4a] font-semibold">
               {date}
             </span>
           </div>
-          <div
-            style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}
-          >
+          <div className="flex items-center gap-1">
             <strong
               style={{
                 fontSize: "1.25rem",
@@ -105,84 +83,54 @@ export function MentionsModal({
               alt=""
             />
           </div>
-        </Header>
-        <Main>
-          <NewContent>{content}</NewContent>
-          <Sentiments>
+        </header>
+        <main className="mt-14">
+          <article className="NewContent text-lg max-h-32 text-center overflow-hidden">
+            {content}
+          </article>
+          <div className="Sentiments flex w-4/5 mt-14 mx-auto items-center justify-center">
             <hr />
-            <div className="flex w-full items-center justify-around">
-              <ScoreChartContainer>
-                <span style={{ maxWidth: "14rem", height: "3rem" }}>
+            <div className="flex flex-col lg:flex-row w-full items-center justify-around">
+              <div className="ScoreChartContainer flex flex-col items-center justify-center text-center">
+                <span className="text-lg max-w-56 h-12">
                   Sentimento da Menção
                 </span>
-                <div
-                  style={{ maxWidth: "14rem", margin: "auto", marginTop: "5%" }}
-                >
+                <div className="max-w-56 m-auto">
                   <ScoreChart score={sentiment} id="mentionSentiment" />
                 </div>
-              </ScoreChartContainer>
+              </div>
               {comments.length !== 0 && (
-                <ScoreChartContainer>
-                  <span style={{ maxWidth: "14rem", height: "3rem" }}>
+                <div className="ScoreChartContainer flex flex-col items-center justify-center text-center">
+                  <span className="text-lg max-w-56 h-12">
                     Sentimento médio dos comentários
                   </span>
-                  <div
-                    style={{
-                      maxWidth: "14rem",
-                      margin: "auto",
-                      marginTop: "5%",
-                    }}
-                  >
+                  <div className="max-w-56 m-auto">
                     <ScoreChart
                       score={commentSentiment}
                       id="commentsSentiment"
                     />
                   </div>
-                </ScoreChartContainer>
+                </div>
               )}
             </div>
             <hr style={{ margin: "2rem 0" }} />
-          </Sentiments>
+          </div>
 
           {comments.length !== 0 && (
             <>
-              <CommentsHeader>
-                <div className="title">
+              <div className="CommentsHeader">
+                <div className="title flex flex-col gap-8 p-4 my-4">
                   <TitleWithBar content="Comentários" barColor="#12A9E7" />
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "1rem",
-                      padding: "0.5rem",
-                    }}
-                  >
-                    <strong
-                      onClick={() =>
-                        document
-                          .getElementById("comments-order-select")
-                          ?.focus()
-                      }
-                    >
-                      Ordenar por:
-                    </strong>
-                    <OrderSelect
-                      selectedValue={selectedValue}
-                      values={values}
-                      setSelectedValue={setSelectedValue}
-                      id="comments-order-select"
-                    />
-                  </div>
                 </div>
-              </CommentsHeader>
+              </div>
 
-              <Comments className="flex h-80 max-h-80 overflow-y-scroll">
+              <div className="Comments flex flex-col gap-2 h-80 max-h-80 overflow-y-scroll">
                 {comments
                   .slice(0, showMore ? comments.length : 3)
                   .map((comment: any) => (
                     <CommentComponent type={"instagram"} comment={comment} />
                   ))}
-              </Comments>
+              </div>
               <div className="flex w-full mt-3 items-center justify-center">
                 <button onClick={() => setShowMore(!showMore)}>
                   {showMore ? "Ver menos" : "Ver mais"}
@@ -190,8 +138,8 @@ export function MentionsModal({
               </div>
             </>
           )}
-        </Main>
-      </Content>
-    </ModalContainer>
+        </main>
+      </div>
+    </Modal>
   );
 }

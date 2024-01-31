@@ -1,11 +1,4 @@
 import { maskPhone } from "@/utils/masks";
-import {
-  FormGroup,
-  RegisterForm,
-  RegisterFormHeader,
-  TermsContainer,
-} from "./styles";
-import { useState } from "react";
 
 interface FormDataProps {
   formData: {

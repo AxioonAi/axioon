@@ -1,7 +1,5 @@
-import styled from "styled-components";
-import { Sidebar } from "./Global/Sidebar";
-import { windowWidth } from "@/utils/windowWidth";
 import { HeaderComponent } from "./Global/Header";
+import { Sidebar } from "./Global/Sidebar";
 import { loginVerifyAPI } from "@/lib/axios";
 import { useRouter } from "next/router";
 import { useEffect } from "react";

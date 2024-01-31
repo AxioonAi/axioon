@@ -93,7 +93,6 @@ export default function SeuEleitorado() {
   ];
 
   const [selectedVoterOption, setSelectedVoterOption] = useState("education");
-  const [selectedVoterLabels, setSelectedVoterLabels] = useState([""]);
   const [locked, setLocked] = useState(false);
 
   useEffect(() => {
@@ -117,6 +116,7 @@ export default function SeuEleitorado() {
 
   const test = async () => {
     if (cityData) {
+      alert(cityData.name);
       const url = "/api/maps";
       axios
         .get(`${url}?city=${cityData.name}&state=${cityData.state}`)

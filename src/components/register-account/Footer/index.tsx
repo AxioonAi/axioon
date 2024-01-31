@@ -1,5 +1,3 @@
-import { StyledFooter } from "./styles";
-
 interface Props {
   type?: "light" | "dark";
 }

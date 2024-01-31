@@ -1,5 +1,4 @@
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
-import { Container } from "./styles";
 
 interface Props {
   title?: string;

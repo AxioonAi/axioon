@@ -1,6 +1,5 @@
 import { GlobalButton } from "@/components/Global/Button";
 import { CloseButton } from "@/components/Global/Close";
-import Theme from "@/styles/themes";
 import { Modal } from "react-bootstrap";
 
 interface ModalProps {
@@ -32,13 +31,15 @@ export function VideoModal({ show, onHide }: ModalProps) {
               scrambled it to make a type specimen book. It has.
             </div>
             <GlobalButton
+              hover
               content="Voltar"
-              background={Theme.color.darkBlueAxion}
-              color={Theme.color.gray_10}
-              width="50%"
-              className="self-center rounded"
+              background="darkBlueAxion"
+              color="white"
+              width="1/2"
               height="auto"
+              paddingY="2"
               onClick={() => onHide()}
+              selfCenter
             />
           </main>
         )}

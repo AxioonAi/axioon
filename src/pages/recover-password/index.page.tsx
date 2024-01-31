@@ -1,20 +1,7 @@
-import { Footer } from "@/components/register-account/Footer";
-import Theme from "@/styles/themes";
-import {
-  ArtSection,
-  AxionLogo,
-  Container,
-  FormGroup,
-  Guide,
-  IframeContainer,
-  LoginForm,
-  LoginFormHeader,
-  Main,
-  RecoveryButton,
-} from "./styles";
-import { useRouter } from "next/router";
 import { Messages } from "@/components/Global/Messages";
+import { Footer } from "@/components/register-account/Footer";
 import { PostAPI, PutAPI } from "@/lib/axios";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 
@@ -54,96 +41,118 @@ export default function RecoverPassword() {
   }
 
   return (
-    <Container>
-      <Main>
-        <LoginForm>
-          <AxionLogo>
-            <img src="/axionLogo.png" alt="" />
-          </AxionLogo>
+    <div className="Container min-h-screen relative pb-16">
+      <main className="Main w-full flex flex-col lg:flex-row mb-0 md:mb-24 justify-around items-center">
+        <div className="LoginForm w-[calc(100%-3vw)] lg:w-[50vw] px-8">
+          <div className="Logo flex justify-center p-5">
+            <img className="w-48 lg:w-auto" src="/axionLogo.png" alt="" />
+          </div>
           {!step ? (
             <>
-              <LoginFormHeader>
-                <strong>Esqueceu sua senha?</strong>
-                <span>Digite seu email e receba um novo acesso por email.</span>
-              </LoginFormHeader>
+              <div className="flex flex-col">
+                <strong className="text-xl">Esqueceu sua senha?</strong>
+                <span className="text-sm">
+                  Digite seu email e receba um novo acesso por email.
+                </span>
+              </div>
 
-              <FormGroup>
-                <label htmlFor="email">Digite o e-mail cadastrado</label>
+              <div className="FormGroup flex flex-col my-4">
+                <label className="font-semibold text-gray-80" htmlFor="email">
+                  Digite o e-mail cadastrado
+                </label>
                 <input
+                  className="p-2 border-[1px] rounded transition duration-300"
                   type="email"
                   value={forgotPassword}
                   onChange={(e) => setForgotPassword(e.target.value)}
                 />
-              </FormGroup>
+              </div>
 
-              <RecoveryButton onClick={recoverPassword} disabled={loading}>
+              <button
+                className="RecoveryButton w-full p-3 rounded my-3 border-0 bg-darkBlueAxion text-white font-bold"
+                onClick={recoverPassword}
+                disabled={loading}
+              >
                 {loading ? (
                   <Spinner animation="border" size="sm" />
                 ) : (
                   "Enviar Código"
                 )}
-              </RecoveryButton>
+              </button>
             </>
           ) : (
             <>
-              <LoginFormHeader>
-                <strong>Insira o código de recuperação</strong>
-                <span>Digite o código enviado no seu e-mail.</span>
-              </LoginFormHeader>
+              <div className="LoginFormHeader flex flex-col">
+                <strong className="text-xl">
+                  Insira o código de recuperação
+                </strong>
+                <span className="text-sm">
+                  Digite o código enviado no seu e-mail.
+                </span>
+              </div>
 
-              <FormGroup>
-                <label htmlFor="code">Digite o código recebido</label>
+              <div className="FormGroup flex flex-col my-4">
+                <label className="font-semibold text-gray-80" htmlFor="code">
+                  Digite o código recebido
+                </label>
                 <input
+                  className="p-2 border-[1px] rounded transition duration-300"
                   type="text"
                   autoFocus
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                 />
-              </FormGroup>
-              <FormGroup>
-                <label htmlFor="password">Digite sua nova senha</label>
+              </div>
+              <div className="FormGroup flex flex-col my-4">
+                <label
+                  className="font-semibold text-gray-80"
+                  htmlFor="password"
+                >
+                  Digite sua nova senha
+                </label>
                 <input
+                  className="p-2 border-[1px] rounded transition duration-300"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-              </FormGroup>
+              </div>
 
-              <RecoveryButton onClick={redefinePassword}>
+              <button
+                className="RecoveryButton w-full p-3 rounded my-3 border-0 bg-darkBlueAxion text-white font-bold"
+                onClick={redefinePassword}
+              >
                 {loading ? (
                   <Spinner animation="border" size="sm" />
                 ) : (
                   "Alterar Senha"
                 )}
-              </RecoveryButton>
+              </button>
             </>
           )}
 
-          <p style={{ fontSize: "0.9rem", fontWeight: "bold" }}>
+          <p className="text-sm font-bold">
             Lembrou a senha?{" "}
             <span
               onClick={() => {
                 router.push("/login");
               }}
-              style={{
-                textDecoration: "none",
-                color: Theme.color.brand_blue,
-                cursor: "pointer",
-              }}
+              className="no-underline text-darkBlueAxion cursor-pointer"
             >
               Faça o login agora.
             </span>
           </p>
 
-          <Guide>
-            <strong>Veja o passo a passo:</strong>
-            <span>
+          <div className="LoginFormHeader flex flex-col">
+            <strong className="text-xl">Veja o passo a passo:</strong>
+            <span className="text-sm">
               O vídeo abaixo vai te ajudar a resolver em poucos minutos.
             </span>
-          </Guide>
+          </div>
 
-          <IframeContainer>
+          <div className="IframeContainer relative w-full pb-[56.25%] h-0 mb-4">
             <iframe
+              className="absolute top-0 left-0 w-full h-full"
               width="560"
               height="315"
               src="https://www.youtube.com/embed/LXb3EKWsInQ?si=aD2Nlsj93iw4cQgB"
@@ -151,15 +160,16 @@ export default function RecoverPassword() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
-          </IframeContainer>
-        </LoginForm>
-        <ArtSection>
-          <div>
-            <Messages />
           </div>
-        </ArtSection>
-      </Main>
+        </div>
+        <div
+          className="ArtSection relative self-start min-h-screen h-full w-full bg-cover bg-no-repeat bg-top-center lg:w-1/2"
+          style={{ backgroundImage: 'url("/foto.png")' }}
+        >
+          <Messages />
+        </div>
+      </main>
       <Footer />
-    </Container>
+    </div>
   );
 }

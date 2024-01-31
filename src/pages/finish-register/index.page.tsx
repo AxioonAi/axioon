@@ -1,12 +1,8 @@
 import { Footer } from "@/components/register-account/Footer";
-import { AccessButton, Container } from "./styles";
-import Theme from "@/styles/themes";
+import { loginVerifyAPI } from "@/lib/axios";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import FinishPayment from "../finish-payment/index.page";
-import { loginVerifyAPI } from "@/lib/axios";
 
 export default function FinishRegisterAccount() {
   const router = useRouter();

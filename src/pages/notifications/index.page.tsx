@@ -1,16 +1,11 @@
-import { Content, Main, NotificationsRows } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
-import { DateSelectorDropdown } from "@/components/Global/Dropdown/DateSelector";
 import RootLayout from "@/components/Layout";
 import { authGetAPI, loginVerifyAPI, user_type } from "@/lib/axios";
-import Theme from "@/styles/themes";
 import gsap from "gsap";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { Dropdown, Spinner } from "react-bootstrap";
-import { Global } from "recharts";
+import { Spinner } from "react-bootstrap";
 
-// import { Dropdown } from "@/components/Global/Dropdown";
 export default function Notifications() {
   const main = useRef(null);
   const content = useRef(null);
@@ -46,8 +41,6 @@ export default function Notifications() {
     }
     setNotifications(connect.body.notification);
   }
-
-  const [type, setType] = useState("");
 
   async function handleVerify() {
     const connect = await loginVerifyAPI();
@@ -141,33 +134,35 @@ export default function Notifications() {
                         {/* <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
                           {notification.opened === true ? (
                             <GlobalButton
-                              background="#fff"
-                              color={Theme.color.darkBlueAxion}
-                              fontSize={10}
+                            hover
+                              background="white"
+                              color="darkBlueAxion"
                               width="auto"
                               height="auto"
-                              className="rounded p-2 flex flex-row border-b-2 border-darkBlueAxion"
+                              paddingY="2"
+                              margin="2"
                               content="Marcar como Não Lida"
-                            ></GlobalButton>
-                          ) : (
+                            />
+                              ) : (
                             <>
                               <GlobalButton
-                                background="#fff"
-                                color={Theme.color.darkBlueAxion}
-                                fontSize={10}
+                              hover
+                                background="white"
+                                color="darkBlueAxion"
                                 width="auto"
                                 height="auto"
-                                className="p-2 rounded"
-                                style={{ border: "2px solid rgb(13, 18, 60)" }}
+                                paddingY="2"
+                                margin="2"
                                 content="Acessar"
                               />
                               <GlobalButton
-                                background={Theme.color.darkBlueAxion}
-                                color={Theme.color.gray_10}
-                                fontSize={10}
+                              hover
+                                background="darkBlueAxion"
+                                color="white"
                                 width="auto"
                                 height="auto"
-                                className="rounded p-2 flex flex-row"
+                                paddingY="2"
+                                margin="2"
                                 content="Visto"
                               />
                             </>
@@ -251,33 +246,35 @@ export default function Notifications() {
                         {/* <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
                           {notification.opened === true ? (
                             <GlobalButton
-                              background="#fff"
-                              color={Theme.color.darkBlueAxion}
-                              fontSize={10}
+                            hover
+                              background="white"
+                              color="darkBlueAxion"
                               width="auto"
                               height="auto"
-                              className="rounded p-2 flex flex-row border-b-2 border-darkBlueAxion"
+                              paddingY="2"
+                              margin="2"
                               content="Marcar como Não Lida"
-                            ></GlobalButton>
-                          ) : (
+                            />
+                              ) : (
                             <>
                               <GlobalButton
-                                background="#fff"
-                                color={Theme.color.darkBlueAxion}
-                                fontSize={10}
+                              hover
+                                background="white"
+                                color="darkBlueAxion"
                                 width="auto"
                                 height="auto"
-                                className="p-2 rounded"
-                                style={{ border: "2px solid rgb(13, 18, 60)" }}
+                                paddingY="2"
+                                margin="2"
                                 content="Acessar"
                               />
                               <GlobalButton
-                                background={Theme.color.darkBlueAxion}
-                                color={Theme.color.gray_10}
-                                fontSize={10}
+                              hover
+                                background="darkBlueAxion"
+                                color="white"
                                 width="auto"
                                 height="auto"
-                                className="rounded p-2 flex flex-row"
+                                paddingY="2"
+                                margin="2"
                                 content="Visto"
                               />
                             </>
@@ -354,41 +351,43 @@ export default function Notifications() {
                             "pt-BR",
                           )}
                         </div>
-                        <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
+                        {/* <div className="flex flex-col lg:flex-row w-1/5 gap-2 items-center justify-evenly">
                           {notification.opened === true ? (
                             <GlobalButton
-                              background="#fff"
-                              color={Theme.color.darkBlueAxion}
-                              fontSize={10}
+                            hover
+                              background="white"
+                              color="darkBlueAxion"
                               width="auto"
                               height="auto"
-                              className="rounded p-2 flex flex-row border-b-2 border-darkBlueAxion"
+                              paddingY="2"
+                              margin="2"
                               content="Marcar como Não Lida"
-                            ></GlobalButton>
-                          ) : (
+                            />
+                              ) : (
                             <div>
                               <GlobalButton
-                                background="#fff"
-                                color={Theme.color.darkBlueAxion}
-                                fontSize={10}
+                              hover
+                                background="white"
+                                color="darkBlueAxion"
                                 width="auto"
                                 height="auto"
-                                className="p-2 rounded"
-                                style={{ border: "2px solid rgb(13, 18, 60)" }}
+                                paddingY="2"
+                                margin="2"
                                 content="Acessar"
                               />
                               <GlobalButton
-                                background={Theme.color.darkBlueAxion}
-                                color={Theme.color.gray_10}
-                                fontSize={10}
+                              hover
+                                background="darkBlueAxion"
+                                color="white"
                                 width="auto"
                                 height="auto"
-                                className="rounded p-2 flex flex-row"
+                                paddingY="2"
+                                margin="2"
                                 content="Visto"
                               />
                             </div>
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     ))}
                 </>
