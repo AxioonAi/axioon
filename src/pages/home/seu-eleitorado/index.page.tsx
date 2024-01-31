@@ -120,7 +120,7 @@ export default function SeuEleitorado() {
       axios
         .get(`${url}?city=${cityData.name}&state=${cityData.state}`)
         .then((res) => {
-          alert(res);
+          alert(JSON.stringify(res.data));
           setCityCoord([
             {
               lat: res.data.results[0].geometry.location.lat,
