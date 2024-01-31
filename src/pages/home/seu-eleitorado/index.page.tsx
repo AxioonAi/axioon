@@ -116,7 +116,6 @@ export default function SeuEleitorado() {
 
   const test = async () => {
     if (cityData) {
-      alert(cityData.name);
       const url = "/api/maps";
       axios
         .get(`${url}?city=${cityData.name}&state=${cityData.state}`)
@@ -127,7 +126,8 @@ export default function SeuEleitorado() {
               lng: res.data.results[0].geometry.location.lng,
             },
           ]);
-        });
+        })
+        .catch((err) => alert(err));
     }
   };
 
