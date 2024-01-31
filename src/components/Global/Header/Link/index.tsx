@@ -1,4 +1,3 @@
-import { NavIcons, NavLink } from "./styles";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -33,10 +32,15 @@ export function LinkComponent({
 
   return (
     <>
-      <NavLink color={color} isActive={pageActive} onClick={handleClick}>
-        <NavIcons>{imgSrc}</NavIcons>
+      <div
+        className={`NavLink flex relative rounded-lg gap-4 py-3 px-4 items-center w-52 cursor-pointer transition duration-200 ease-in-out ${pageActive ? "bg-[#232323] opacity-100" : "bg-transparent opacity-50"}`}
+        onClick={handleClick}
+      >
+        <div className={`NavIcons w-5 h-auto ${color ? color : "text-white"}`}>
+          {imgSrc}
+        </div>
         <span>{name}</span>
-      </NavLink>
+      </div>
     </>
   );
 }

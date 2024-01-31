@@ -1,7 +1,6 @@
 import { GlobalButton } from "@/components/Global/Button";
 import { CloseButton } from "@/components/Global/Close";
 import Theme from "@/styles/themes";
-import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 
 interface ModalProps {
@@ -10,23 +9,6 @@ interface ModalProps {
 }
 
 export function VideoModal({ show, onHide }: ModalProps) {
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, [show]);
-
-  function handleUpdatePassword() {
-    setShowSuccess(true);
-    setIsVisible(false);
-  }
-
-  function handleClose() {
-    setShowSuccess(false);
-    onHide();
-  }
-
   return (
     <>
       <Modal show={show} onHide={onHide} size="lg">

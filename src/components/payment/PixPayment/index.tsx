@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { FinishPayment, PixPaymentContainer, QrCodeContainer } from "./styles";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 
 interface PixProps {
@@ -15,7 +14,6 @@ interface PixProps {
 }
 export function PixPayment({ handlePix, pix }: PixProps) {
   const [step, setStep] = useState(0);
-  const router = useRouter();
 
   const handleCreatePix = () => {
     setStep(1);

@@ -1,15 +1,13 @@
-import { useRef, useState } from "react";
+import Theme from "@/styles/themes";
 import {
-  FinishPayment,
-  FormContainer,
-  FormDiv,
-  FormGroup,
-  RadioDiv,
-  RadioGroup,
-  RadioSelector,
-} from "./styles";
-import Image from "next/image";
-import { useRouter } from "next/router";
+  stripeCardExpirValidation,
+  stripeCardNumberValidation,
+} from "@/utils/creditCardValidation";
+import {
+  CreditCardHolderValidation,
+  CreditCardValidation,
+  isObjectEmpty,
+} from "@/utils/formValidation";
 import {
   maskCVC,
   maskCard,
@@ -21,16 +19,8 @@ import {
   textWithSpacesOnly,
 } from "@/utils/masks";
 import ActionSheet from "actionsheet-react";
-import {
-  stripeCardExpirValidation,
-  stripeCardNumberValidation,
-} from "@/utils/creditCardValidation";
-import Theme from "@/styles/themes";
-import {
-  CreditCardHolderValidation,
-  CreditCardValidation,
-  isObjectEmpty,
-} from "@/utils/formValidation";
+import Image from "next/image";
+import { useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
 interface CreditCardFormProps {
@@ -70,7 +60,6 @@ export function CreditCardForm({
   loading,
   setLoading,
 }: CreditCardFormProps) {
-  const [person, setPerson] = useState("");
   const [error, setError] = useState<any>({});
   const [installment, setInstallment] = useState({
     value: 1,
@@ -126,8 +115,6 @@ export function CreditCardForm({
     ref.current.close();
   };
 
-  const router = useRouter();
-
   const handleClick = () => {
     if (
       (step === 1 && cardFormData.creditCard.holderName === "") ||
@@ -166,7 +153,7 @@ export function CreditCardForm({
       cardFormData.creditCardHolderInfo.addressNumber !== "" &&
       cardFormData.creditCardHolderInfo.phone !== "" &&
       isObjectEmpty(
-        CreditCardHolderValidation(cardFormData.creditCardHolderInfo)
+        CreditCardHolderValidation(cardFormData.creditCardHolderInfo),
       )
     ) {
       return setStep(3);
@@ -503,7 +490,7 @@ export function CreditCardForm({
             onClick={handleOpen}
             className="bg-darkBlueAxion text-white rounded p-2 w-full lg:w-1/2"
           >{`${installment.value} x R$ ${Number(
-            Number(value) / installment.value
+            Number(value) / installment.value,
           ).toFixed(2)}`}</button>
           <ActionSheet
             ref={ref}
@@ -528,7 +515,7 @@ export function CreditCardForm({
                 className="border-b border-b-white w-full rounded text-2xl mt-2 text-center transition duration-100 ease-in-out hover:bg-gray-10 hover:text-darkBlueAxion"
               >
                 {`${item.value} x R$ ${Number(
-                  Number(value) / item.value
+                  Number(value) / item.value,
                 ).toFixed(2)}`}
               </div>
             ))}
@@ -558,7 +545,6 @@ export function CreditCardForm({
           className=" text-darkBlueAxion border-[1px] border-darkBlueAxion p-2 rounded w-full lg:w-1/3 text-xl font-bold hover:bg-darkBlueAxion hover:text-white transition duration-200 ease-in"
           onClick={() => handleClick()}
           disabled={loading}
-          // onClick={() => setStep(step + 1)}
         >
           {loading ? (
             <Spinner animation="border" />
