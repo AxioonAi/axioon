@@ -122,7 +122,6 @@ export function ComparisonHeaderComponent({
     }
   }
 
-  console.log("selectedProfileSecondary: ", selectedProfileSecondary);
 
   async function GetProfile() {
     const connect = await authGetAPI("/user/profile");

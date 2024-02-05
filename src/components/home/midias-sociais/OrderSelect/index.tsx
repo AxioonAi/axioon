@@ -26,8 +26,6 @@ export function OrderSelect({
     handleBlur();
   }
 
-  console.log(isFocused);
-
   return (
     <>
       <div

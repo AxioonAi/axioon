@@ -31,7 +31,6 @@ export function MentionsModal({
   date,
   url,
 }: Props) {
-  console.log("url: ", url);
   const [showMore, setShowMore] = useState(false);
 
   const redirect = (url: string) => {
