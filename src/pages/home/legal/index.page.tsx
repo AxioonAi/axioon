@@ -151,15 +151,15 @@ export default function Legal() {
                                   </span>
                                 </div>
                               </div>
-                              <div className="flex items-center lg:ml-auto h-6 border-[1px] border-darkBlueAxion rounded bg-green-60">
+                              <div className="flex items-center lg:ml-auto h-6 border-[1px] border-darkBlueAxion rounded gap-1 px-1 bg-green-60">
                                 <Image
                                   src="/dashboard/Legal/Checked.svg"
-                                  width={20}
-                                  height={20}
+                                  width={15}
+                                  height={15}
                                   alt=""
                                 />
                                 <span className="text-white font-semibold text-xs">
-                                  Processo Trânsito Ativo
+                                  Processo Ativo
                                 </span>
                               </div>
                             </div>

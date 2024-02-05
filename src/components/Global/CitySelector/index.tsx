@@ -36,10 +36,10 @@ export function ProfileSelector({
               </>
             )}
           </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 opacity-95 px-1">
+          <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 px-1">
             {profiles.map((item: any) => (
               <Dropdown.Item
-                className="text-center text-white border-b-[1px] border-gray-10 p-2 hover:text-darkBlueAxion last:border-0"
+                className="text-center text-white border-b-[1px] border-gray-10 p-2 hover:bg-hoverDarkBlueAxion last:border-0"
                 onClick={() => Remember(item)}
                 key={item}
               >

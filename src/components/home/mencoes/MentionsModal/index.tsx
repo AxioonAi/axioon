@@ -1,5 +1,6 @@
 import { ScoreChart } from "../../ScoreChart";
 import { CommentComponent } from "../../midias-sociais/ComentComponent";
+import { GlobalButton } from "@/components/Global/Button";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import Image from "next/image";
 import { useState } from "react";
@@ -30,8 +31,16 @@ export function MentionsModal({
   date,
   url,
 }: Props) {
-  console.log("comments: ", comments);
+  console.log("url: ", url);
   const [showMore, setShowMore] = useState(false);
+
+  const redirect = (url: string) => {
+    if (confirm("Você será redirecionado para a publicação original")) {
+      window.open(url, "_blank");
+    } else {
+      return;
+    }
+  };
 
   return (
     <Modal show={show} onHide={onHide} size="lg">
@@ -85,7 +94,7 @@ export function MentionsModal({
           </div>
         </header>
         <main className="mt-14">
-          <article className="NewContent text-lg max-h-32 text-center overflow-hidden">
+          <article className="NewContent text-lg text-center overflow-hidden">
             {content}
           </article>
           <div className="Sentiments flex w-4/5 mt-14 mx-auto items-center justify-center">
@@ -119,8 +128,14 @@ export function MentionsModal({
           {comments.length !== 0 && (
             <>
               <div className="CommentsHeader">
-                <div className="title flex flex-col gap-8 p-4 my-4">
+                <div className="title flex w-full justify-between gap-8 p-4 my-4">
                   <TitleWithBar content="Comentários" barColor="#12A9E7" />
+                  <button
+                    className="underline"
+                    onClick={() => setShowMore(!showMore)}
+                  >
+                    {showMore ? "Ver menos" : "Ver mais"}
+                  </button>
                 </div>
               </div>
 
@@ -131,10 +146,16 @@ export function MentionsModal({
                     <CommentComponent type={"instagram"} comment={comment} />
                   ))}
               </div>
-              <div className="flex w-full mt-3 items-center justify-center">
-                <button onClick={() => setShowMore(!showMore)}>
-                  {showMore ? "Ver menos" : "Ver mais"}
-                </button>
+              <div className="flex w-full justify-center">
+                <GlobalButton
+                  content="Ver publicação original"
+                  onClick={() => redirect(url)}
+                  background="darkBlueAxion"
+                  color="white"
+                  padding="2"
+                  margin="2"
+                  hover
+                />
               </div>
             </>
           )}

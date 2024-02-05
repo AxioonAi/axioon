@@ -74,7 +74,7 @@ export function MentionsCard({
             />
           </div>
         </div>
-        <div className="text-sm xl:text-base mt-4 font-semibold">
+        <div className="text-sm xl:text-base font-semibold">
           <p className="content">
             {content.length > 60 ? content.slice(0, 60) + "..." : content}
           </p>

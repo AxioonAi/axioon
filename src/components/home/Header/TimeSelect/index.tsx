@@ -33,7 +33,7 @@ export function HeaderTimeSelect({
               12,
               320,
             )}] md:text-[${px2vw(12, 768)}] lg:text-[${px2vw(12, 1024)}]
-          text-darkBlueAxion bg-gray-10 border-0
+            border-0
           `}
             style={{
               color: "#fff",
@@ -49,10 +49,10 @@ export function HeaderTimeSelect({
               </>
             )}
           </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100">
+          <Dropdown.Menu className="bg-darkBlueAxion">
             {timeValues.map((item: any) => (
               <Dropdown.Item
-                className="text-center text-gray-10 border border-gray-10 p-3 hover:text-darkBlueAxion last:border-0"
+                className="text-center text-white p-3 hover:bg-hoverDarkBlueAxion"
                 onClick={() => Remember(item)}
                 key={item}
               >

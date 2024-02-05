@@ -134,7 +134,7 @@ export default function SeuEleitorado() {
               <h2 className="text-[1.875rem] font-medium mb-[1.25rem]">
                 Sites de Notícias
               </h2>
-              <div className="flex gap-4 flex-wrap items-center justify-around lg:mx-auto md:justify-center">
+              <div className="flex gap-4 bg-white flex-wrap items-center justify-around lg:mx-auto md:justify-center">
                 <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
                   <TitleWithBar content="Score Total" barColor="#D38945" />
                   <div className="flex justify-center p-[0_8%]">
@@ -188,7 +188,7 @@ export default function SeuEleitorado() {
               <h2 className="text-[1.875rem] font-medium mb-[1.25rem]">
                 Menções
               </h2>
-              <div className="flex gap-4 flex-wrap items-center justify-around lg:mx-auto md:justify-center">
+              <div className="flex gap-4 bg-white flex-wrap items-center justify-around lg:mx-auto md:justify-center">
                 <div className="bg-white p-4 rounded-lg w-[17.25rem] h-full">
                   <TitleWithBar content="Score Total" barColor="#D38945" />
                   <div className="flex justify-center p-[0_8%]">

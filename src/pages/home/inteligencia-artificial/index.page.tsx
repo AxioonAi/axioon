@@ -192,7 +192,7 @@ lg:left-[calc(100%-17.5rem)]"
                   </div>
                 </>
               ) : (
-                <div className="flex flex-col p-2 gap-4 w-full h-full mt-4 overflow-hidden overflow-y-auto pb-2 mb-2">
+                <div className="flex flex-col p-2 gap-4 w-full h-[60vh] overflow-y-auto mt-4 pb-2 mb-2">
                   {messages
                     .filter(
                       (item: any, index: any) => index >= firstMessageCount,
@@ -201,16 +201,15 @@ lg:left-[calc(100%-17.5rem)]"
                       <>
                         {item.role === "assistant" ? (
                           <>
-                            <div className=" rounded-[0_15px_15px_15px] text-white bg-darkBlueAxion text-sm font-bold  text-justify p-[1rem_0.5rem] mr-4 lg:rounded-[0_30px_30px_30px] lg:text-base">
+                            {/* <div className=" rounded-[0_15px_15px_15px] text-white bg-darkBlueAxion text-sm font-bold  text-justify p-[1rem_0.5rem] mr-4 lg:rounded-[0_30px_30px_30px] lg:text-base">
                               {item.content}
-                            </div>
+                            </div> */}
                           </>
                         ) : (
                           <>
-                            <div className=" min-h-10 p-[1rem_0.5rem] rounded-[15px_0_15px_15px] text-darkBlueAxion bg-white border-2 border-darkBlueAxion lg:rounded-[30px_0_30px_30px] lg:text-base">
-                              <pre className="whitespace-pre-wrap">
-                                {item.content}
-                              </pre>
+                            <div className="flex h-max p-2 rounded-[15px_0_15px_15px] text-darkBlueAxion bg-white border-2 border-darkBlueAxion">
+                              {/* <div className="bg-white border-[1px] border-darkBlueAxion p-2 rounded-[15px_0_15px_15px]"> */}
+                              {item.content}
                             </div>
                           </>
                         )}
@@ -260,7 +259,7 @@ lg:left-[calc(100%-17.5rem)]"
                     value={userMessage}
                     onChange={(e) => setUserMessage(e.target.value)}
                     onKeyDown={KeyDown}
-                    className="resize-none w-full max-w-[57rem] overflow-hidden p-3 h-14 text-lg border-2 border-[#0d123c] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0d123c] md:text-base"
+                    className="resize-none w-full max-w-[57rem] p-3 h-10 text-lg border-2 border-[#0d123c] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0d123c] md:text-base"
                   />
                   <button
                     disabled={!userMessage}

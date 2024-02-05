@@ -1,7 +1,7 @@
 import { ScoreChart } from "../../ScoreChart";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import Image from "next/image";
-import { Modal } from "react-bootstrap";
+import { CloseButton, Modal } from "react-bootstrap";
 
 interface Props {
   show: boolean;
@@ -77,8 +77,9 @@ export function NewsModal({
         </header>
         <main>
           <div className="NewsNameAndSentiment w-4/5 mt-14 mx-auto">
-            <h1 className="text-4xl text-center">{content}</h1>
-            <hr />
+            <h1 className="text-4xl text-center">
+              {content.length > 60 ? content.slice(0, 60) + "..." : content}
+            </h1>
             <div className="ScoreChartContainer flex flex-col justify-center text-center">
               <div className="max-w-56 m-auto mt-4">
                 <ScoreChart score={sentiment} id="newScore" />
@@ -98,7 +99,7 @@ export function NewsModal({
           </NewContent> */}
         </main>
 
-        <footer className="flex justify0center mt-16 mx-auto">
+        <footer className="flex justify-center mt-16 mx-auto">
           <a
             href={url}
             target="_blank"

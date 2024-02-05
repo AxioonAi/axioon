@@ -15,17 +15,19 @@ export function useChatFunctions() {
   const [firstMessageCount, setFirstMessageCount] = useState(0);
 
   async function handleApiCall(messageList: any[]): Promise<string | null> {
+    console.log("messageList: ", messageList);
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY, //Testes Front Axioon
       dangerouslyAllowBrowser: true,
     });
     try {
-      // console.log(process.env.OPENAI_API_KEY)
+      console.log(process.env.OPENAI_API_KEY);
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo-1106",
         messages: messageList,
         stream: true,
       });
+      console.log("response: ", response);
       let finalResponse = ""; // Inicialize uma string vazia para armazenar a resposta final)
       for await (const chunk of response) {
         const chunkContent = chunk.choices[0].delta.content;

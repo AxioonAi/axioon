@@ -122,6 +122,8 @@ export function ComparisonHeaderComponent({
     }
   }
 
+  console.log("selectedProfileSecondary: ", selectedProfileSecondary);
+
   async function GetProfile() {
     const connect = await authGetAPI("/user/profile");
     if (connect.status !== 200) {
@@ -258,7 +260,7 @@ export function ComparisonHeaderComponent({
                   <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 opacity-95 px-1">
                     {monitoredProfiles.map((item: any) => (
                       <Dropdown.Item
-                        className="text-center text-white border-b-[1px] border-gray-10 p-2 hover:text-darkBlueAxion last:border-0"
+                        className="text-center text-white border-b-[1px] border-gray-10 p-2 hover:bg-hoverDarkBlueAxion last:border-0"
                         onClick={() => setSelectedProfileMain(item)}
                         key={item}
                       >
@@ -318,7 +320,7 @@ export function ComparisonHeaderComponent({
                   <Dropdown.Menu className="bg-darkBlueAxion border border-secondary-100 opacity-95 px-1">
                     {monitoredProfiles.map((item: any) => (
                       <Dropdown.Item
-                        className="text-center text-white border-b-[1px] border-gray-10 p-2 hover:text-darkBlueAxion last:border-0"
+                        className="text-center text-white border-b-[1px] border-gray-10 p-2 hover:bg-hoverDarkBlueAxion last:border-0"
                         onClick={() => setSelectedProfileSecondary(item)}
                         key={item}
                       >
@@ -330,10 +332,6 @@ export function ComparisonHeaderComponent({
               </div>
               <span className="candidateNumber text-[#8990ab] text-sm">
                 Número do Candidato: {selectedProfileSecondary.campaignNumber}
-              </span>
-              <span className="status flex items-center gap-1 text-[#22c24f] text-xs">
-                <div className="statusCircle w-1.5 h-1.5 bg-[#22c24f] rounded-full" />
-                Participando da Eleição
               </span>
             </div>
           </div>
