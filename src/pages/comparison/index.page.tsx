@@ -35,7 +35,7 @@ export default function Comparison() {
 
   const [selectedComparison, setSelectedComparison] =
     useState("MÍDIAS SOCIAIS");
-  const [selectedPage, setSelectedPage] = useState("initial");
+  const [selectedPage, setSelectedPage] = useState("facebook");
   const [generalDataMain, setGeneralDataMain] = useState<any>();
   const [facebookDataMain, setFacebookDataMain] = useState<any>();
   const [instagramDataMain, setInstagramDataMain] = useState();

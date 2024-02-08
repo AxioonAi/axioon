@@ -47,7 +47,7 @@ export function VotersGender({ population }: PopulationProps) {
           <Slider
             fill="100%"
             empty="0%"
-            fillColor="linear-gradient(270deg, #00B132 0%, rgba(0, 145, 41, 0.40) 106.97%)"
+            fillColor="linear-gradient(270deg, #18432A 0%, rgba(24, 67, 42, 0.40) 106.97%)"
             emptyColor="#9BE0AF"
           />
           <strong>{population?.total}</strong>

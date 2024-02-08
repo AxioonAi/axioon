@@ -58,7 +58,7 @@ export function CommentComponent({ type, comment }: Props) {
                   {comment?.likeCount}
                 </strong>
               </div>
-              <div className="commentScore relative w-20 h-3 rounded bg-gradient-to-r from-[#8d0000] via-[#c2c600aa] to-[#008425] ">
+              <div className="commentScore relative w-20 h-3 rounded bg-gradient-to-r from-[#EF322C] from-15% via-[#FAC816] to-[#66AA43] to-85%">
                 <div
                   className="bar absolute w-1 h-3 rounded bg-[#3c3c3c]"
                   style={{

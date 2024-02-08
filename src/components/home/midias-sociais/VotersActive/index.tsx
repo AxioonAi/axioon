@@ -36,7 +36,7 @@ export function VotersActive({ pageData }: Props) {
         <XAxis type="number" />
         <YAxis dataKey="name" type="category" scale="auto" />
         <Tooltip />
-        <Bar dataKey="Quantidade" barSize={14} fill="#22C24F" />
+        <Bar dataKey="Quantidade" barSize={14} fill="#323452" />
       </BarChart>
     </ResponsiveContainer>
   );

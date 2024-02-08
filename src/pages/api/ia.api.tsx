@@ -16,7 +16,7 @@ export function useChatFunctions() {
 
   async function handleApiCall(messageList: any[]): Promise<string | null> {
     const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY, //Testes Front Axioon
+      apiKey: "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", //Testes Front Axioon
       dangerouslyAllowBrowser: true,
     });
     try {

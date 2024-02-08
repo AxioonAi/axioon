@@ -23,7 +23,7 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
     {
       name: "Instagram",
       count: SocialMidiaData.engagement.instagram,
-      color: "#E7298A",
+      color: "#6A45BE",
       imgSrc: "/dashboard/instagramIcon.png",
     },
     {
@@ -83,7 +83,7 @@ export function InitialPage({ SocialMidiaData }: InitialProps) {
                   <div
                     className={`w-2 h-2 rounded-full ${
                       item.name === "Instagram"
-                        ? "bg-[#E7298A]"
+                        ? "bg-[#6A45BE]"
                         : item.name === "Facebook"
                           ? "bg-[#2F5CFC]"
                           : item.name === "Youtube"

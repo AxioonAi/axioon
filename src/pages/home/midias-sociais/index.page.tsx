@@ -70,6 +70,7 @@ export default function MidiasSociais() {
   const [youtubeData, setYoutubeData] = useState();
   const [loading, setLoading] = useState(false);
   const [locked, setLocked] = useState(true);
+  const [mentionsData, setMentionsData] = useState<any>();
 
   async function getSocialMidiaDetails() {
     const connect = await authGetAPI(
@@ -144,6 +145,30 @@ export default function MidiasSociais() {
     return setLoading(false);
   }
 
+  async function GetMentions() {
+    setLoading(true);
+    setMentionsData(undefined);
+    if (localStorage.getItem("selectedTime") === null) {
+      setSelectedTimeValues({
+        value: 7,
+        name: "Últimos 7 Dias",
+      });
+    } else {
+      setSelectedTimeValues({
+        value: Number(localStorage.getItem("selectedTime")),
+        name: String(localStorage.getItem("selectedTimeName")),
+      });
+    }
+    const connect = await authGetAPI(
+      `/profile/mentions/${selectedProfile.id}?period=${selectedTimeValues.value}`,
+    );
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    setMentionsData(connect.body);
+    return setLoading(false);
+  }
+
   useEffect(() => {
     if (selectedProfile.id) {
       setSocialMidiaData(undefined);
@@ -155,6 +180,7 @@ export default function MidiasSociais() {
         });
       }
       getIndividualDetails();
+      GetMentions();
     }
   }, [
     selectedProfile,
@@ -339,6 +365,8 @@ export default function MidiasSociais() {
                     id={"score"}
                     pageType="instagram"
                     pageData={instagramData}
+                    mentionsData={mentionsData}
+                    selectedTimeValues={selectedTimeValues}
                   />
                 )}
                 {selectedPage === "tiktok" && (

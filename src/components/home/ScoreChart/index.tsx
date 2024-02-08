@@ -31,9 +31,9 @@ export function ScoreChart({ score, id }: Props) {
         chartWidth = chartBox.getBoundingClientRect().width;
       }
       gradientSegment = ctx.createLinearGradient(0, 0, chartWidth, 0);
-      gradientSegment.addColorStop(0, "red");
-      gradientSegment.addColorStop(0.5, "yellow");
-      gradientSegment.addColorStop(1, "green");
+      gradientSegment.addColorStop(0, "#EF322C");
+      gradientSegment.addColorStop(0.5, "#FAC816");
+      gradientSegment.addColorStop(1, "#66AA43");
     }
 
     const gaugeChartText = {

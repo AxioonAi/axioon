@@ -88,9 +88,9 @@ export function PostEngagement({ pageData, pageType }: pageData) {
         <YAxis />
         <XAxis dataKey="name" tick={<CustomizedAxisTick />} interval={0} />
         <Tooltip />
-        <Bar dataKey="Curtidas" stackId="a" fill="#22C24F" />
-        <Bar dataKey="Comentários" stackId="a" fill="#DA3252" />
-        <Bar dataKey="Compartilhamentos" stackId="a" fill="#FFD712" />
+        <Bar dataKey="Curtidas" stackId="a" fill="#0D123C" />
+        <Bar dataKey="Comentários" stackId="a" fill="#EF322C" />
+        <Bar dataKey="Compartilhamentos" stackId="a" fill="#FAC816" />
       </BarChart>
     </div>
   );

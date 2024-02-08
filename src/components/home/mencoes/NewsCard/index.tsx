@@ -29,7 +29,7 @@ export function NewsCard({
         <div className="flex items-start w-full justify-between">
           <div className="flex flex-col relative pl-2">
             <div
-              className={`absolute left-0 top-2 w-1 h-10 rounded ${sentimentClassification === "positivo" ? "bg-[#22C24F]" : sentimentClassification === "neutro" ? "bg-[#FFB043]" : "bg-[#E70000]"}`}
+              className={`absolute left-0 top-2 w-1 h-10 rounded ${sentimentClassification === "positivo" ? "bg-green_shift" : sentimentClassification === "neutro" ? "bg-yellow_shift" : "bg-red_shift"}`}
             />
             <strong>
               {source.length > 20 ? source.slice(0, 20) + "..." : source}
@@ -40,7 +40,7 @@ export function NewsCard({
           </div>
           <div className="flex items-center gap-2">
             <strong
-              className={`text-xs ${sentimentClassification === "positivo" ? "text-[#22C24F]" : sentimentClassification === "neutro" ? "text-[#FFB043]" : "text-[#E70000]"}`}
+              className={`text-xs ${sentimentClassification === "positivo" ? "text-green_shift" : sentimentClassification === "neutro" ? "text-yellow_shift" : "text-red_shift"}`}
             >
               {sentimentClassification === "positivo"
                 ? "Positiva"

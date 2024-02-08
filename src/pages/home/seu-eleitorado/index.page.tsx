@@ -219,7 +219,7 @@ export default function SeuEleitorado() {
                   </div>
 
                   <div className="pieChartContainer flex flex-col gap-2 justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
-                    <div className="flex flex-col lg:flex-row w-full justify-between">
+                    <div className="flex flex-col  w-full">
                       <TitleWithBar
                         barColor="#2F5CFC"
                         content={

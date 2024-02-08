@@ -37,31 +37,31 @@ export function SmallBarChart({ pageData }: pageData) {
     <div className="Container flex flex-col sm:flex-row gap-4 sm:gap-12 items-center">
       <div className="chartContainer flex relative h-20 w-24 justify-around items-end">
         <div
-          className={`chartBar w-3 bg-[#c22222]`}
+          className={`chartBar w-3 bg-[#EF322C]`}
           style={{ height: `${redHeight}%` }}
         />
         <div
-          className={`chartBar w-3 bg-[#ffe14d]`}
+          className={`chartBar w-3 bg-[#FAC816]`}
           style={{ height: `${yellowHeight}%` }}
         />
         <div
-          className="chartBar w-3 bg-[#22c24f]"
+          className="chartBar w-3 bg-[#66AA43]"
           style={{ height: `${greenHeight}%` }}
         />
         <div className="w-[120%] h-px bg-[#606060] absolute bottom-0 left-0" />
         <div className="w-px h-[120%] bg-[#606060] absolute bottom-0 left-0" />
       </div>
       <div>
-        <div className="flex items-center gap-4" color="#c22222">
-          <div className="circle w-3 h-3 rounded-full bg-[#c22222]" />
+        <div className="flex items-center gap-4" color="#EF322C">
+          <div className="circle w-3 h-3 rounded-full bg-[#EF322C]" />
           <span>0 - 350: Ruim</span>
         </div>
-        <div className="flex items-center gap-4" color="#FFE14D">
-          <div className="circle w-3 h-3 rounded-full bg-[#ffe14d]" />
+        <div className="flex items-center gap-4" color="#FAC816">
+          <div className="circle w-3 h-3 rounded-full bg-[#FAC816]" />
           <span>350 - 650: Regular</span>
         </div>
-        <div className="flex items-center gap-4" color="#22C24F">
-          <div className="circle w-3 h-3 rounded-full bg-[#22c24f]" />
+        <div className="flex items-center gap-4" color="#66AA43">
+          <div className="circle w-3 h-3 rounded-full bg-[#66AA43]" />
           <span>650 - 1000: Muito Bom</span>
         </div>
       </div>

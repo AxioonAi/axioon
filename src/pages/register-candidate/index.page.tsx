@@ -143,7 +143,8 @@ export default function RegisterCandidate() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#0D123C] to-[#34374C]">
+    // <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#0D123C] to-[#34374C]">
+    <div className="flex flex-col bg-gradient-to-br from-[#0D123C] to-[#34374C] min-h-[calc(100vh-64px)]">
       <RegisterCandidateHeader type="dark" />
       <main className="flex flex-col w-full lg:w-11/12 xl:w-2/3 self-center">
         <div className="Instructions m-auto w-full lg:h-52 2xl:h-60 flex flex-col lg:flex-row py-4 px-2">

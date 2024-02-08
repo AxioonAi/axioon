@@ -69,7 +69,7 @@ export function EngagmentChart({ chartData }: Props) {
         data: chartData.map((item) => item.count),
         backgroundColor: chartData.map((item) =>
           item.name === "Instagram"
-            ? "#E7298A"
+            ? "#6A45BE"
             : item.name === "Facebook"
               ? "#2F5CFC"
               : item.name === "Youtube"

@@ -1,5 +1,7 @@
 import { ScoreChart } from "../../ScoreChart";
+import { MentionsCard } from "../../mencoes/MentionsCard";
 import { SentimentChart } from "../../mencoes/SentimentChart";
+import { TitleBottomBar } from "../../mencoes/TitleBottomBar";
 import { TotalQuotes } from "../../mencoes/TotalQuotes";
 import { AgeGroupByGender } from "../../seu-eleitorado/AgeGroupByGender";
 import { VotersInfo } from "../../seu-eleitorado/VoterInfo";
@@ -14,8 +16,9 @@ import { VotersActive } from "../VotersActive";
 import { SimpleWordcloud } from "../WordCloud";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Spinner } from "react-bootstrap";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 interface Props {
   pageType: "instagram" | "facebook" | "youtube" | "tiktok";
@@ -24,6 +27,8 @@ interface Props {
   id: string;
   loading: boolean;
   locked?: boolean;
+  mentionsData?: any;
+  selectedTimeValues?: any;
 }
 
 export function SocialMidiaPage({
@@ -33,56 +38,21 @@ export function SocialMidiaPage({
   id,
   loading,
   locked,
+  mentionsData,
+  selectedTimeValues,
 }: Props) {
   const [selectedValue, setSelectedValue] = useState("Relevância");
-  const values = ["Relevância", "Mais recente"];
+  const values = ["Relevância", "Mais recente", "Sentimento"];
   const [selectedValueComments, setSelectedValueComments] =
     useState("Relevância");
-  const valuesComments = ["Relevância", "Mais recente"];
-
-  const groupGenderData = [
-    {
-      name: "16-18",
-      Homens: 590,
-      Mulheres: 800,
-    },
-    {
-      name: "19-29",
-      Homens: 868,
-      Mulheres: 967,
-    },
-    {
-      name: "30-40",
-      Homens: 1397,
-      Mulheres: 1098,
-    },
-    {
-      name: "41-50",
-      Homens: 1480,
-      Mulheres: 1200,
-    },
-    {
-      name: "51-60",
-      Homens: 1520,
-      Mulheres: 1108,
-    },
-    {
-      name: "61-70",
-      Homens: 1400,
-      Mulheres: 680,
-    },
-    {
-      name: "+70",
-      Homens: 250,
-      Mulheres: 500,
-    },
-  ];
+  const valuesComments = ["Relevância", "Mais recente", "Sentimento"];
 
   const [showModal, setShowModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [showMoreComments, setShowMoreComments] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [seeMoreMentions, setSeeMoreMentions] = useState(false);
 
   const groupGenderConf = [
     {
@@ -249,12 +219,12 @@ export function SocialMidiaPage({
                   <div className="flex flex-col self-center gap-4 px-3 h-[50vh] overflow-y-auto">
                     {selectedValue === "Mais recente"
                       ? pageData?.posts
-                          .slice(0, showMore ? pageData?.posts.length : 4)
                           .sort(
                             (a: any, b: any) =>
                               Number(new Date(b.date)) -
                               Number(new Date(a.date)),
                           )
+                          .slice(0, showMore ? pageData?.posts.length : 4)
                           .map((post: any, index: any) => (
                             <PostComponent
                               index={index}
@@ -265,18 +235,32 @@ export function SocialMidiaPage({
                               setSelectedPostId={setSelectedPostId}
                             />
                           ))
-                      : pageData?.posts
-                          .slice(0, showMore ? pageData?.posts.length : 4)
-                          .map((post: any, index: any) => (
-                            <PostComponent
-                              index={index}
-                              post={post}
-                              type={pageType}
-                              pageData={pageData}
-                              selectedPostId={selectedPostId}
-                              setSelectedPostId={setSelectedPostId}
-                            />
-                          ))}
+                      : selectedValue === "Relevância"
+                        ? pageData?.posts
+                            .slice(0, showMore ? pageData?.posts.length : 4)
+                            .map((post: any, index: any) => (
+                              <PostComponent
+                                index={index}
+                                post={post}
+                                type={pageType}
+                                pageData={pageData}
+                                selectedPostId={selectedPostId}
+                                setSelectedPostId={setSelectedPostId}
+                              />
+                            ))
+                        : pageData.posts
+                            .sort((a: any, b: any) => b.sentiment - a.sentiment)
+                            .slice(0, showMore ? pageData?.posts.length : 4)
+                            .map((post: any, index: any) => (
+                              <PostComponent
+                                index={index}
+                                post={post}
+                                type={pageType}
+                                pageData={pageData}
+                                selectedPostId={selectedPostId}
+                                setSelectedPostId={setSelectedPostId}
+                              />
+                            ))}
                   </div>
                   <div className="seeMore flex justify-center mt-4 p-2">
                     <button
@@ -316,6 +300,24 @@ export function SocialMidiaPage({
                       </label>
                     ) : selectedValueComments === "Mais recente" ? (
                       pageData.posts
+                        .filter((post: any) => post.id === selectedPostId)[0]
+                        .comments.sort(
+                          (a: any, b: any) =>
+                            Number(new Date(b.date)) - Number(new Date(a.date)),
+                        )
+                        .slice(
+                          0,
+                          showMoreComments
+                            ? pageData.posts.filter(
+                                (post: any) => post?.id === selectedPostId,
+                              )[0].comments.length
+                            : 5,
+                        )
+                        .map((comment: any, index: any) => (
+                          <CommentComponent type={pageType} comment={comment} />
+                        ))
+                    ) : selectedValueComments === "Relevância" ? (
+                      pageData.posts
                         .filter((post: any) => post?.id === selectedPostId)[0]
                         .comments.slice(
                           0,
@@ -325,17 +327,17 @@ export function SocialMidiaPage({
                               )[0].comments.length
                             : 5,
                         )
-                        .sort(
-                          (a: any, b: any) =>
-                            Number(new Date(b.date)) - Number(new Date(a.date)),
-                        )
                         .map((comment: any, index: any) => (
                           <CommentComponent type={pageType} comment={comment} />
                         ))
                     ) : (
                       pageData.posts
-                        .filter((post: any) => post?.id === selectedPostId)[0]
-                        .comments.slice(
+                        .filter((post: any) => post.id === selectedPostId)[0]
+                        .comments.sort(
+                          (a: any, b: any) =>
+                            b.sentimentAnalysis - a.sentimentAnalysis,
+                        )
+                        .slice(
                           0,
                           showMoreComments
                             ? pageData.posts.filter(
@@ -452,6 +454,163 @@ export function SocialMidiaPage({
                 )}
               </>
             )}
+            <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+              <div className="flex flex-col">
+                <TitleWithBar content="Menções" barColor="#2F5CFC" />
+                <div className="flex flex-wrap gap-1 items-center justify-center">
+                  {mentionsData && (
+                    <>
+                      <div>
+                        <ScoreChart
+                          score={
+                            mentionsData.currentFormat.mentions.mentions
+                              .length !== 0
+                              ? Number(
+                                  mentionsData?.currentFormat.mentions.average.toFixed(
+                                    0,
+                                  ),
+                                )
+                              : 0
+                          }
+                          id="mentionsScore"
+                        />
+                      </div>
+                      <div>
+                        <TotalQuotes
+                          value={
+                            mentionsData.currentFormat.mentions.mentions
+                              .length !== 0
+                              ? mentionsData?.currentFormat.mentions.total
+                              : 0
+                          }
+                          firstDate={new Date(
+                            new Date().setDate(
+                              new Date().getDate() - selectedTimeValues.value,
+                            ),
+                          ).toLocaleDateString("pt-BR")}
+                          lastDate={new Date().toLocaleDateString("pt-BR")}
+                        />
+                      </div>
+                      <SentimentChart
+                        positive={
+                          mentionsData.currentFormat.mentions.mentions
+                            .length !== 0
+                            ? mentionsData?.currentFormat.mentions.positive
+                            : 0
+                        }
+                        negative={
+                          mentionsData.currentFormat.mentions.mentions
+                            .length !== 0
+                            ? mentionsData?.currentFormat.mentions.negative
+                            : 0
+                        }
+                        neutral={
+                          mentionsData.currentFormat.mentions.mentions
+                            .length !== 0
+                            ? mentionsData?.currentFormat.mentions.neutral
+                            : 0
+                        }
+                      />
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[45vh] 3xl:min-h-[30vh]">
+              <div className="flex flex-col">
+                <TitleWithBar content="Menções" barColor="#2F5CFC" />
+                {pageType === "instagram" &&
+                  mentionsData &&
+                  mentionsData.currentFormat.mentions.mentions.length !== 0 && (
+                    <>
+                      <div className="flex justify-end items-center mt-4">
+                        <span
+                          className="underline"
+                          onClick={() => setSeeMoreMentions(!seeMoreMentions)}
+                        >
+                          {seeMoreMentions ? "Ver Menos" : "Ver Mais"}
+                        </span>
+                      </div>
+                      <div className="flex flex-col xl:flex-row w-full h-full xl:h-52 xl:p-0 items-center justify-center gap-4 my-4 lg:justify-around">
+                        <div className="hidden lg:block w-full">
+                          <Swiper
+                            slidesPerView={seeMoreMentions ? 3.1 : 3}
+                            className="mySwiper2"
+                          >
+                            {mentionsData?.currentFormat.mentions.mentions
+                              .slice(
+                                0,
+                                seeMoreMentions
+                                  ? mentionsData.currentFormat.mentions.mentions
+                                      .length
+                                  : 3,
+                              )
+                              .map((item: any, index: any) => (
+                                <SwiperSlide className="lg:ml-0 xl:ml-4">
+                                  <MentionsCard
+                                    key={index}
+                                    sentimentClassification={
+                                      item.sentimentClassification
+                                    }
+                                    sentiment={item.sentiment}
+                                    source={item.profile}
+                                    comments={item.comments}
+                                    commentSentiment={item.commentSentiment}
+                                    url={item.url}
+                                    date={item.date
+                                      .split("T")[0]
+                                      .split("-")
+                                      .reverse()
+                                      .join("/")}
+                                    content={item.title}
+                                  />
+                                </SwiperSlide>
+                              ))}
+                          </Swiper>
+                        </div>
+                        <div className="lg:hidden flex flex-col gap-1 h-[70vh]">
+                          <Swiper
+                            direction="vertical"
+                            slidesPerView={seeMoreMentions ? 3.5 : 3}
+                            className="mySwiper2 h-full"
+                          >
+                            {mentionsData?.currentFormat.mentions.mentions
+                              .slice(
+                                0,
+                                seeMoreMentions
+                                  ? mentionsData.currentFormat.mentions.mentions
+                                      .length
+                                  : 3,
+                              )
+                              .map((item: any, index: any) => (
+                                <SwiperSlide>
+                                  <MentionsCard
+                                    key={index}
+                                    sentimentClassification={
+                                      item.sentimentClassification
+                                    }
+                                    sentiment={item.sentiment}
+                                    source={item.profile}
+                                    comments={item.comments}
+                                    commentSentiment={item.commentSentiment}
+                                    url={item.url}
+                                    date={item.date
+                                      .split("T")[0]
+                                      .split("-")
+                                      .reverse()
+                                      .join("/")}
+                                    content={item.title}
+                                  />
+                                </SwiperSlide>
+                              ))}
+                          </Swiper>
+                        </div>
+                      </div>
+                    </>
+                  )}
+              </div>
+            </div>
           </div>
         </>
       )}

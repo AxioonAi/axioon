@@ -129,6 +129,9 @@ const config: Config = {
 
         brand_blue: "#2f5cfc",
         brand_blue_hover: "#2144bf",
+        red_shift: "#EF322C",
+        yellow_shift: "#FAC816",
+        green_shift: "#66AA43",
       },
     },
     screens: {

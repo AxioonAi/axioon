@@ -220,34 +220,30 @@ lg:left-[calc(100%-17.5rem)]"
 
               <div className="w-full flex flex-col items-center gap-[2.75rem]">
                 {firstMessage ? (
-                  <div className="flex flex-col w-full animate-fadeInWelcomeMessage flex-wrap items-center justify-center">
-                    <div className="w-full mt-2 gap-1 md:w-2/3 xl:w-2/5 flex justify-center items-center">
-                      <PrompSuggestion
-                        content="Insights de Marketing"
-                        imgSrc="/dashboard/inteligencia-artificial/marketingInsights.svg"
-                        tipContent="Insights de marketing"
-                        onClick={() =>
-                          handleSuggestionClick("Insights de Marketing")
-                        }
-                      />
-                    </div>
-                    <div className="flex justify-between gap-1 mt-2">
-                      <PrompSuggestion
-                        content="Idéias de Campanhas"
-                        imgSrc="/dashboard/inteligencia-artificial/campaignIdeas.svg"
-                        tipContent="Insights de marketing"
-                        onClick={() =>
-                          handleSuggestionClick("Idéias de Campanhas")
-                        }
-                      />
+                  <div className="flex w-1/2 gap-1 animate-fadeInWelcomeMessage flex-wrap items-center justify-center">
+                    <PrompSuggestion
+                      content="Insights de Marketing"
+                      imgSrc="/dashboard/inteligencia-artificial/marketingInsights.svg"
+                      tipContent="Insights de marketing"
+                      onClick={() =>
+                        handleSuggestionClick("Insights de Marketing")
+                      }
+                    />
+                    <PrompSuggestion
+                      content="Idéias de Campanhas"
+                      imgSrc="/dashboard/inteligencia-artificial/campaignIdeas.svg"
+                      tipContent="Insights de marketing"
+                      onClick={() =>
+                        handleSuggestionClick("Idéias de Campanhas")
+                      }
+                    />
 
-                      <PrompSuggestion
-                        content="IA Financeira"
-                        imgSrc="/dashboard/inteligencia-artificial/financialIa.svg"
-                        tipContent="Insights de marketing"
-                        onClick={() => handleSuggestionClick("IA Financeira")}
-                      />
-                    </div>
+                    <PrompSuggestion
+                      content="IA Financeira"
+                      imgSrc="/dashboard/inteligencia-artificial/financialIa.svg"
+                      tipContent="Insights de marketing"
+                      onClick={() => handleSuggestionClick("IA Financeira")}
+                    />
                   </div>
                 ) : (
                   <></>

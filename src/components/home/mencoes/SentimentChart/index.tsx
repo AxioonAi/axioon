@@ -43,27 +43,27 @@ export function SentimentChart({
         {total ? (
           <>
             <div
-              className="Positive bg-[#22C24F] rounded-l-md transition duration-500"
+              className="Positive bg-green_shift rounded-l-md transition duration-500"
               style={{ width: positivePercent }}
             />
             <div
-              className="Negative bg-[#EA2020] transition duration-500"
+              className="Negative bg-red_shift transition duration-500"
               style={{ width: negativePercent }}
             />
             <div
-              className="Neutral bg-[#FFB043] rounded-r-md transition duration-500"
+              className="Neutral bg-yellow_shift rounded-r-md transition duration-500"
               style={{ width: neutralPercent }}
             />
           </>
         ) : (
-          <div className="Positive bg-[#22c24f] rounded-l-sm transition duration-500 w-full" />
+          <div className="Positive bg-green_shift rounded-l-sm transition duration-500 w-full" />
         )}
       </div>
 
       <div className="legends flex gap-12 m-2 self-center">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#22C24F]" />
+            <div className="w-2 h-2 rounded-full bg-green_shift" />
             <strong>{positive && positive.toFixed(0)}</strong>
           </div>
           <span className="text-sm text-[#8790AB]">
@@ -72,7 +72,7 @@ export function SentimentChart({
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#EA2020]" />
+            <div className="w-2 h-2 rounded-full bg-red_shift" />
             <strong>{negative && negative.toFixed(0)}</strong>
           </div>
           <span className="text-sm text-[#8790AB]">
@@ -81,7 +81,7 @@ export function SentimentChart({
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#FFB043]" />
+            <div className="w-2 h-2 rounded-full bg-yellow_shift" />
             <strong>{neutral && neutral.toFixed(0)}</strong>
           </div>
           <span className="text-sm text-[#8790AB]">

@@ -32,10 +32,7 @@ export function CandidateForm({
   const [cityList, setCityList] = useState<any>([]);
   const [politicalGroupList, setPoliticalGroupList] = useState<any>([]);
   const [open, setOpen] = useState(false);
-  const roles = [
-    { value: "MAYOR", label: "Prefeito" },
-    { value: "MAYOR", label: "Governador" },
-  ];
+  const roles = [{ value: "MAYOR", label: "Prefeito" }];
 
   async function handleIBGEState() {
     const connect = await IBGEAPI(`/estados/?orderBy=nome`);
@@ -86,8 +83,8 @@ export function CandidateForm({
     <div className="flex flex-col">
       <div className="grid mt-4 gap-2 grid-cols-[auto] justify-items-center md:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-2">
-          <label className="text-white" htmlFor="cpfCnpj">
-            CPF
+          <label className="text-white italic" htmlFor="cpfCnpj">
+            CPF <span className="text-sm">(opcional)</span>
           </label>
           <input
             className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
@@ -101,7 +98,7 @@ export function CandidateForm({
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-white" htmlFor="socialName">
-            Nome Social
+            Nome Social <strong>*</strong>
           </label>
           <input
             className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
@@ -117,7 +114,7 @@ export function CandidateForm({
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-white" htmlFor="fullName">
-            Nome completo
+            Nome completo <strong>*</strong>
           </label>
           <input
             className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
@@ -133,7 +130,7 @@ export function CandidateForm({
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-white" htmlFor="state">
-            Estado
+            Estado <strong>*</strong>
           </label>
           <Select
             name="state"
@@ -161,7 +158,7 @@ export function CandidateForm({
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-white" htmlFor="city">
-            Cidade
+            Cidade <strong>*</strong>
           </label>
           <Select
             name="city"
@@ -190,7 +187,7 @@ export function CandidateForm({
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-white" htmlFor="role">
-            Cargo
+            Cargo <strong>*</strong>
           </label>
           <Select
             name="role"
@@ -218,7 +215,7 @@ export function CandidateForm({
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-white" htmlFor="politicalGroup">
-            Partido Político
+            Partido Político <strong>*</strong>
           </label>
           <Select
             name="politicalGroup"
@@ -249,7 +246,7 @@ export function CandidateForm({
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-white" htmlFor="campaign_number">
-            Número de Campanha
+            Número do Candidato <strong>*</strong>
           </label>
           <input
             className="w-[220px] h-[53px] rounded px-2 text-darkBlueAxion"
@@ -264,10 +261,10 @@ export function CandidateForm({
       </div>
       <div className="flex flex-col gap-2 self-center mt-4">
         <label className="text-white" htmlFor="socialMidias">
-          Redes Sociais
+          Redes Sociais <strong>*</strong>
         </label>
         <div
-          className="cursor-pointer flex relative bg-white w-[220px] h-[53px] rounded px-2 text-darkBlueAxion items-center gap-2 hover:scale-[1.01]"
+          className="cursor-pointer flex relative bg-white w-[220px] transition duration-300 ease-in h-[53px] rounded px-2 text-darkBlueAxion items-center gap-2 hover:scale-[1.01]"
           onClick={() => setOpen(true)}
         >
           <strong>Clique aqui</strong>
