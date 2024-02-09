@@ -3,6 +3,7 @@ import RootLayout from "@/components/Layout";
 import { HeaderComponent } from "@/components/home/Header";
 import { PrompSuggestion } from "@/components/home/inteligencia-artificial/PromptSuggestion";
 import { authGetAPI } from "@/lib/axios";
+import axios from "axios";
 import gsap from "gsap";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -12,6 +13,7 @@ export default function InteligenciaArtificial() {
   const content = useRef(null);
   const {
     messages,
+    setMessages,
     userMessage,
     isLoading,
     setUserMessage,
@@ -22,6 +24,7 @@ export default function InteligenciaArtificial() {
     handleKeyDown,
     setMessagesForSuggestion,
   } = useChatFunctions();
+  const [chatLog, setChatLog] = useState<any>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -92,16 +95,75 @@ export default function InteligenciaArtificial() {
   function KeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey) {
       if (firstMessage) {
-        setFirstMessage(false);
+        //     setFirstMessage(false);
+        //     handleUserMessageSubmit();
+        //     event.preventDefault();
         handleSuggestionClick("StartMessages");
-        handleUserMessageSubmit();
+        setChatLog((prevChatLog: any) => [
+          ...prevChatLog,
+          { type: "user", message: userMessage },
+        ]);
+
+        sendMessage(userMessage);
         event.preventDefault();
+        // SendMessage();
+        setUserMessage("");
       } else {
-        handleUserMessageSubmit();
+        //     handleUserMessageSubmit();
+        //     event.preventDefault();
         event.preventDefault();
+        setChatLog((prevChatLog: any) => [
+          ...prevChatLog,
+          { type: "user", message: userMessage },
+        ]);
+        sendMessage(userMessage);
+        // SendMessage();
+        setUserMessage("");
       }
     }
   }
+
+  console.log("chatLog: ", chatLog);
+
+  const sendMessage = (message: any) => {
+    console.log("message: ", message);
+    const url = "/api/test";
+    const data = {
+      model: "gpt-3.5-turbo-1106",
+      messages: [...messages, { role: "user", content: message }],
+    };
+    if (firstMessage) {
+      setMessagesForSuggestion("StartMessages");
+    }
+
+    axios
+      .post(url, data)
+      .then((response) => {
+        setChatLog((prevChatLog: any) => [
+          ...prevChatLog,
+          {
+            type: "assistant",
+            message: response.data.choices[0].message.content,
+          },
+        ]);
+
+        // setMessages((prevMessages: any) => [
+        //   ...prevMessages,
+        //   // { role: "user", content: message },
+        //   {
+        //     role: "assistant",
+        //     content: response.data.choices[0].message.content,
+        //   },
+        // ]);
+        // setChatLog((prevChatLog) => [...prevChatLog, { type: 'bot', message: response.data.choices[0].message.content }])
+        // setIsLoading(false);
+      })
+      .catch((error) => {
+        // setIsLoading(false);
+        console.log(error);
+      });
+  };
+
   function SendMessage() {
     if (firstMessage) {
       setFirstMessage(false);
@@ -113,10 +175,12 @@ export default function InteligenciaArtificial() {
   }
   const [showTip, setShowTip] = useState(false);
   function Reload() {
+    setChatLog([]);
     setShowTip(false);
     setFirstMessage(true);
     setMessagesForSuggestion("StartMessages");
   }
+
   const [selectedProfile, setSelectedProfile] = useState({
     name: "Carregando...",
     politicalGroup: "",
@@ -193,23 +257,23 @@ lg:left-[calc(100%-17.5rem)]"
                 </>
               ) : (
                 <div className="flex flex-col p-2 gap-4 w-full h-[60vh] overflow-y-auto mt-4 pb-2 mb-2">
-                  {messages
-                    .filter(
-                      (item: any, index: any) => index >= firstMessageCount,
-                    ) // Filtrar mensagens com role diferente de "system"
+                  {chatLog
+                    // .filter(
+                    //   (item: any, index: any) => index >= firstMessageCount,
+                    // ) // Filtrar mensagens com role diferente de "system"
                     .map((item: any, index: any) => (
                       <>
-                        {item.role === "assistant" ? (
+                        {item.type === "assistant" ? (
                           <>
-                            {/* <div className=" rounded-[0_15px_15px_15px] text-white bg-darkBlueAxion text-sm font-bold  text-justify p-[1rem_0.5rem] mr-4 lg:rounded-[0_30px_30px_30px] lg:text-base">
-                              {item.content}
-                            </div> */}
+                            <div className=" rounded-[0_15px_15px_15px] text-white bg-darkBlueAxion text-sm font-bold  text-justify p-[1rem_0.5rem] mr-4 lg:text-base">
+                              {item.message}
+                            </div>
                           </>
                         ) : (
                           <>
                             <div className="flex h-max p-2 rounded-[15px_0_15px_15px] text-darkBlueAxion bg-white border-2 border-darkBlueAxion">
                               {/* <div className="bg-white border-[1px] border-darkBlueAxion p-2 rounded-[15px_0_15px_15px]"> */}
-                              {item.content}
+                              {item.message}
                             </div>
                           </>
                         )}
@@ -259,7 +323,7 @@ lg:left-[calc(100%-17.5rem)]"
                   />
                   <button
                     disabled={!userMessage}
-                    onClick={SendMessage}
+                    onClick={sendMessage}
                     className="border-none bg-transparent mb-2 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <Image

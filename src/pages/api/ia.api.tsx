@@ -4,6 +4,7 @@ import {
   MarketingMessages,
   StartMessage,
 } from "../home/inteligencia-artificial/iaPath";
+import axios from "axios";
 import OpenAI from "openai";
 import React, { useState } from "react";
 
@@ -13,28 +14,24 @@ export function useChatFunctions() {
   const [isLoading, setIsLoading] = useState(false);
   const [receivedChunks, setReceivedChunks] = useState<any>([]);
   const [firstMessageCount, setFirstMessageCount] = useState(0);
-
   async function handleApiCall(messageList: any[]): Promise<string | null> {
     const openai = new OpenAI({
-      apiKey: "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", //Testes Front Axioon
+      apiKey: process.env.OPENAI_API_KEY, //Testes Front Axioon
       dangerouslyAllowBrowser: true,
     });
     try {
       const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo-1106",
+        model: "gpt-3.5-turbo",
         messages: messageList,
         stream: true,
       });
       let finalResponse = ""; // Inicialize uma string vazia para armazenar a resposta final)
       for await (const chunk of response) {
         const chunkContent = chunk.choices[0].delta.content;
-
         // Verifique se o chunkContent não é undefined
         const systemResponse = { role: "assistant", content: finalResponse };
-
         setMessages((prevMessages: any) => {
           const currentMessage = prevMessages[prevMessages.length - 1];
-
           if (currentMessage.role === "assistant") {
             prevMessages[prevMessages.length - 1] = systemResponse;
             return [...prevMessages];
@@ -42,7 +39,6 @@ export function useChatFunctions() {
             return [...prevMessages, systemResponse];
           }
         });
-
         // Adicione o chunk ao finalResponse
         finalResponse += chunkContent;
       }
@@ -54,7 +50,6 @@ export function useChatFunctions() {
   }
   const setMessagesForSuggestion = (tipContent: string) => {
     let suggestionMessages = [];
-
     // Logic to set messages based on the tipContent
     if (tipContent === "Insights de Marketing") {
       suggestionMessages = MarketingMessages;
@@ -68,6 +63,7 @@ export function useChatFunctions() {
     } else {
       suggestionMessages = StartMessage;
       setFirstMessageCount(suggestionMessages.length);
+      console.log("suggestionMessages: ", suggestionMessages);
     }
 
     setMessages([...suggestionMessages]);
@@ -76,17 +72,19 @@ export function useChatFunctions() {
     if (userMessage.trim() !== "") {
       setIsLoading(true);
       const userMessageObj = { role: "user", content: userMessage };
+
       setMessages((prevMessages: any) => [...prevMessages, userMessageObj]);
       setUserMessage("");
-
       try {
-        const apiResponse = await handleApiCall([...messages, userMessageObj]);
-
+        const apiResponse = await axios.post("/api/test", [
+          ...messages,
+          userMessageObj,
+        ]);
+        console.log("response: ", apiResponse);
         if (apiResponse !== null) {
           const systemResponse = { role: "assistant", content: apiResponse };
           setReceivedChunks(apiResponse);
           // setMessages((prevMessages: any) => [...prevMessages, systemResponse]);
-
           setIsLoading(false);
         } else {
           // Trate o caso em que a API retorna null
@@ -98,16 +96,13 @@ export function useChatFunctions() {
       }
     }
   }
-
   const handleTypingComplete = () => {};
-
   function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       handleUserMessageSubmit();
     }
   }
-
   return {
     setMessagesForSuggestion,
     messages,
