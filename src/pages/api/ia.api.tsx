@@ -63,7 +63,6 @@ export function useChatFunctions() {
     } else {
       suggestionMessages = StartMessage;
       setFirstMessageCount(suggestionMessages.length);
-      console.log("suggestionMessages: ", suggestionMessages);
     }
 
     setMessages([...suggestionMessages]);
@@ -80,7 +79,6 @@ export function useChatFunctions() {
           ...messages,
           userMessageObj,
         ]);
-        console.log("response: ", apiResponse);
         if (apiResponse !== null) {
           const systemResponse = { role: "assistant", content: apiResponse };
           setReceivedChunks(apiResponse);

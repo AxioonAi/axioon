@@ -95,9 +95,6 @@ export default function InteligenciaArtificial() {
   function KeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey) {
       if (firstMessage) {
-        //     setFirstMessage(false);
-        //     handleUserMessageSubmit();
-        //     event.preventDefault();
         handleSuggestionClick("StartMessages");
         setChatLog((prevChatLog: any) => [
           ...prevChatLog,
@@ -106,27 +103,20 @@ export default function InteligenciaArtificial() {
 
         sendMessage(userMessage);
         event.preventDefault();
-        // SendMessage();
         setUserMessage("");
       } else {
-        //     handleUserMessageSubmit();
-        //     event.preventDefault();
         event.preventDefault();
         setChatLog((prevChatLog: any) => [
           ...prevChatLog,
           { type: "user", message: userMessage },
         ]);
         sendMessage(userMessage);
-        // SendMessage();
         setUserMessage("");
       }
     }
   }
 
-  console.log("chatLog: ", chatLog);
-
   const sendMessage = (message: any) => {
-    console.log("message: ", message);
     const url = "/api/test";
     const data = {
       model: "gpt-3.5-turbo-1106",
@@ -146,17 +136,6 @@ export default function InteligenciaArtificial() {
             message: response.data.choices[0].message.content,
           },
         ]);
-
-        // setMessages((prevMessages: any) => [
-        //   ...prevMessages,
-        //   // { role: "user", content: message },
-        //   {
-        //     role: "assistant",
-        //     content: response.data.choices[0].message.content,
-        //   },
-        // ]);
-        // setChatLog((prevChatLog) => [...prevChatLog, { type: 'bot', message: response.data.choices[0].message.content }])
-        // setIsLoading(false);
       })
       .catch((error) => {
         // setIsLoading(false);
@@ -164,15 +143,6 @@ export default function InteligenciaArtificial() {
       });
   };
 
-  function SendMessage() {
-    if (firstMessage) {
-      setFirstMessage(false);
-      handleSuggestionClick("StartMessages");
-      handleUserMessageSubmit();
-    } else {
-      handleUserMessageSubmit();
-    }
-  }
   const [showTip, setShowTip] = useState(false);
   function Reload() {
     setChatLog([]);

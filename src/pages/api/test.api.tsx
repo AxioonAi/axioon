@@ -14,11 +14,9 @@ export default async function handler(
     };
 
     const response = await axios.post(url, body, { headers: headers });
-    console.log("response: ", response);
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "OEWIRUGTOPIUERTIOUHERNGIOUHEROIU" });
+    res.status(500).json({ message: "Something went Wrong" });
   }
 }
