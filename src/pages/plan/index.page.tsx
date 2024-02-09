@@ -52,6 +52,7 @@ export default function Plan() {
   ]);
   async function getPlans() {
     const connect = await getAPI("/plans");
+    console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -182,11 +183,11 @@ export default function Plan() {
               <span className="text-black text-xs">
                 {plans && plans[0].description}
               </span>
-            ) : selected === plans[1].title ? (
+            ) : plans.length !== 1 && selected === plans[1].title ? (
               <span className="text-black text-xs">
                 {plans && plans[1].description}
               </span>
-            ) : selected === plans[2].title ? (
+            ) : plans.length !== 1 && selected === plans[2].title ? (
               <span className="text-black text-xs">
                 {plans && plans[2].description}
               </span>
@@ -227,7 +228,7 @@ export default function Plan() {
                 </span>
               </div>
             </>
-          ) : selected === plans[1].title ? (
+          ) : plans.length !== 1 && selected === plans[1].title ? (
             <>
               {plans[1].benefits.map((item: any) => (
                 <div className="flex w-full justify-between border-b">
@@ -258,7 +259,7 @@ export default function Plan() {
                 </span>
               </div>
             </>
-          ) : selected === plans[2].title ? (
+          ) : plans.length !== 1 && selected === plans[2].title ? (
             <>
               {plans[2].benefits.map((item: any) => (
                 <div className="flex w-full justify-between border-b">
