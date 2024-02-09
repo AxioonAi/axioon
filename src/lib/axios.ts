@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const api_url = "https://axioon.apiexecutivos.shop";
+export const api_url = "https://api.axioon.com.br";
 export const amazonik = "http://192.168.0.224:3333";
 export const token = "axioonToken";
 export const refreshToken = "axioonRefreshToken";
