@@ -109,7 +109,7 @@ export default function FinishRegisterAccount() {
         </div>
       </div>
       <div className={"text-white"}>
-        <Footer type={background ? "dark" : "light"} />
+        <Footer type={background ? "dark" : "light"} variant />
       </div>
     </>
   );

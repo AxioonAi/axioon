@@ -96,7 +96,7 @@ export default function Plan() {
       <img
         src={"AxioonLogo.svg"}
         alt=""
-        className={`w-1/2 md:w-1/4 xl:w-1/5 mt-20`}
+        className={`w-1/2 md:w-1/4 xl:w-1/5 mt-16`}
       />
       <div className="flex flex-col w-full h-full items-center justify-center p-2">
         <div className="PlanContainer flex w-full md:w-4/5 mt-5 lg:gap-2 justify-between">
