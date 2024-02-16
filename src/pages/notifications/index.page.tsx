@@ -1,4 +1,3 @@
-import { GlobalButton } from "@/components/Global/Button";
 import RootLayout from "@/components/Layout";
 import { authGetAPI, loginVerifyAPI, user_type } from "@/lib/axios";
 import gsap from "gsap";
@@ -64,10 +63,10 @@ export default function Notifications() {
           ref={content}
           style={{ opacity: 1 }}
         >
-          {notifications && notifications.length !== 0 ? (
+          {notifications ? (
             <main className="Main flex flex-col p-4 m-0 rounded-lg md:m-2">
               {notifications.length === 0 && (
-                <div className="noNotifications text-2xl font-semibold">
+                <div className="noNotifications text-2xl m-auto font-semibold">
                   Nenhuma notificação ativa
                 </div>
               )}

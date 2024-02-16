@@ -10,18 +10,18 @@ export function SeuEleitoradoCards({ cityData }: Props) {
     <div className="cityStaticDataContainer flex w-full mt-4">
       <Swiper
         className="p-2 w-full"
-        slidesPerView={1.2}
-        breakpoints={{
-          550: {
-            slidesPerView: 2,
-          },
-          768: {
-            slidesPerView: 2.6,
-          },
-          1360: {
-            slidesPerView: 4,
-          },
-        }}
+        slidesPerView={2}
+        // breakpoints={{
+        //   550: {
+        //     slidesPerView: 2,
+        //   },
+        //   768: {
+        //     slidesPerView: 2.6,
+        //   },
+        //   1360: {
+        //     slidesPerView: 4,
+        //   },
+        // }}
       >
         <SwiperSlide>
           <div className="Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 hover:cursor-pointer hover:scale-105">
@@ -63,7 +63,7 @@ export function SeuEleitoradoCards({ cityData }: Props) {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <div className="Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 hover:cursor-pointer hover:scale-105">
             <div
               className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
@@ -92,7 +92,7 @@ export function SeuEleitoradoCards({ cityData }: Props) {
               </div>
             </div>
           </div>
-        </SwiperSlide>
+        </SwiperSlide> */}
         <SwiperSlide>
           <div className="Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 hover:cursor-pointer hover:scale-105">
             <div
@@ -130,7 +130,7 @@ export function SeuEleitoradoCards({ cityData }: Props) {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <div className="Container relative w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 rounded-xl border-[#959595] transition duration-200 hover:cursor-pointer hover:scale-105">
             <div
               className={`verticalBar absolute left-3 h-20 border-2 border-[#5162FF] rounded-full`}
@@ -159,7 +159,7 @@ export function SeuEleitoradoCards({ cityData }: Props) {
               </div>
             </div>
           </div>
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
     </div>
   );

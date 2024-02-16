@@ -71,12 +71,12 @@ export default function MidiasSociais() {
   const [loading, setLoading] = useState(false);
   const [locked, setLocked] = useState(true);
   const [mentionsData, setMentionsData] = useState<any>();
+  const [noData, setNoData] = useState(false);
 
   async function getSocialMidiaDetails() {
     const connect = await authGetAPI(
       `/profile/social/home/${selectedProfile.id}?period=${selectedTimeValues.value}`,
     );
-    // console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -118,11 +118,17 @@ export default function MidiasSociais() {
         `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`,
       ),
     ]);
-    // console.log("metaads", metaads.body);
-    // console.log("facebook", facebook.body);
-    // console.log("instagram", instagram.body);
-    // console.log("tiktok", tiktok.body);
-    // console.log("youtube", youtube.body);
+    if (
+      facebook.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      instagram.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      tiktok.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      youtube.body === "Não foram encontrados dados para o período selecionado"
+    ) {
+      setNoData(true);
+    }
     if (metaads.status !== 200) {
       setLocked(true);
     }
@@ -210,7 +216,7 @@ export default function MidiasSociais() {
           />
           <main className="Main m-0 rounded-lg md:m-2">
             <h1 className="text-2xl py-8 font-extrabold">Redes Sociais</h1>
-            {socialMidiaData ? (
+            {socialMidiaData && !noData ? (
               <>
                 <div className="LikesAndCommentsContainer flex w-full">
                   <Swiper
@@ -388,6 +394,20 @@ export default function MidiasSociais() {
               </>
             ) : (
               <>
+                <div
+                  className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-60 px-20 py-12 rounded ${!noData && "hidden"} flex flex-col items-center justify-center text-center`}
+                >
+                  <span className="text-white text-3xl font-bold">
+                    Coleta em Andamento
+                  </span>
+                  <span className="text-white text-lg">
+                    Estamos trabalhando para coletar os dados, isto pode demorar
+                    um pouco. Tente novamente mais tarde.
+                  </span>
+                  <span className="text-white text-sm mt-2">
+                    Caso tenha alguma dúvida, entre em contato com o Suporte.
+                  </span>
+                </div>
                 <div className="LikesAndCommentsContainer flex w-full">
                   <Swiper
                     className=" p-2 w-full"
@@ -408,7 +428,7 @@ export default function MidiasSociais() {
                       <LikesAndComentsCard
                         type="facebook"
                         name="Facebook"
-                        coments={0}
+                        coments={null}
                         likes={0}
                         onClick={() => setSelectedPage("facebook")}
                         isSelected={
@@ -421,7 +441,7 @@ export default function MidiasSociais() {
                       <LikesAndComentsCard
                         type="instagram"
                         name="Instagram"
-                        coments={0}
+                        coments={null}
                         likes={0}
                         onClick={() => setSelectedPage("instagram")}
                         isSelected={
@@ -434,7 +454,7 @@ export default function MidiasSociais() {
                       <LikesAndComentsCard
                         type="tiktok"
                         name="TikTok"
-                        coments={0}
+                        coments={null}
                         likes={0}
                         onClick={() => setSelectedPage("tiktok")}
                         isSelected={
@@ -447,7 +467,7 @@ export default function MidiasSociais() {
                       <LikesAndComentsCard
                         type="youtube"
                         name="Youtube"
-                        coments={0}
+                        coments={null}
                         likes={0}
                         onClick={() => setSelectedPage("youtube")}
                         isSelected={

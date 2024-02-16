@@ -5,7 +5,6 @@ import { authGetAPI } from "@/lib/axios";
 import { maskCnpj } from "@/utils/masks";
 import gsap from "gsap";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
@@ -68,11 +67,21 @@ export default function Legal() {
 
   const [legalData, setLegalData] = useState<any>();
   const [locked, setLocked] = useState(false);
+  const [noData, setNoData] = useState(false);
 
   async function getLegal() {
     const connect = await authGetAPI(`/profile/legal/${selectedProfile.id}`);
     if (connect.status === 401) {
       return setLocked(true);
+    }
+    if (
+      connect.body.politicianProfile.address.length === 0 &&
+      connect.body.politicianProfile.incomeTax.length === 0 &&
+      connect.body.politicianProfile.economicRelationship.length === 0 &&
+      connect.body.politicianProfile.legalData.length === 0 &&
+      connect.body.politicianProfile.personalData.length === 0
+    ) {
+      setNoData(true);
     }
     setLocked(false);
     if (connect.status !== 200) {
@@ -113,7 +122,7 @@ export default function Legal() {
             selectedTimeValues={selectedTimeValues}
             setSelectedTimeValues={setSelectedTimeValues}
           />
-          {legalData ? (
+          {legalData && !noData ? (
             <div className="ChartsContainer grid grid-cols-[90%] md:grid-cols-[35rem] xl:grid-cols-[30rem_30rem] 2xl:grid-cols-[35rem_35rem] justify-center items-center gap-12 mt-5">
               <div className=" flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <div className="flex flex-col">
@@ -421,6 +430,20 @@ export default function Legal() {
                   </span>
                 </div>
               )}
+              <div
+                className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-60 px-20 py-12 rounded ${!noData && "hidden"} flex flex-col items-center justify-center text-center`}
+              >
+                <span className="text-white text-3xl font-bold">
+                  Coleta em Andamento
+                </span>
+                <span className="text-white text-lg">
+                  Estamos trabalhando para coletar os dados, isto pode demorar
+                  um pouco. Tente novamente mais tarde.
+                </span>
+                <span className="text-white text-sm mt-2">
+                  Caso tenha alguma dúvida, entre em contato com o Suporte.
+                </span>
+              </div>
               <div className=" flex flex-col items-center justify-center bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <Spinner animation="border" />
               </div>

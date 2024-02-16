@@ -1,8 +1,8 @@
 interface LikesCardProps extends React.HTMLAttributes<HTMLDivElement> {
   type: "facebook" | "instagram" | "tiktok" | "youtube";
   name: string;
-  likes: number;
-  coments: number;
+  likes: any;
+  coments: any;
   isSelected: boolean;
 }
 

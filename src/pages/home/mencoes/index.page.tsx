@@ -2,7 +2,6 @@ import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import RootLayout from "@/components/Layout";
 import { HeaderComponent } from "@/components/home/Header";
 import { ScoreChart } from "@/components/home/ScoreChart";
-import { MentionsCard } from "@/components/home/mencoes/MentionsCard";
 import { NewsCard } from "@/components/home/mencoes/NewsCard";
 import { SentimentChart } from "@/components/home/mencoes/SentimentChart";
 import { TitleBottomBar } from "@/components/home/mencoes/TitleBottomBar";
@@ -69,7 +68,7 @@ export default function SeuEleitorado() {
   });
   const [loading, setLoading] = useState(false);
   const [seeMoreNews, setSeeMoreNews] = useState(false);
-  const [seeMoreMentions, setSeeMoreMentions] = useState(false);
+  const [noData, setNoData] = useState(false);
 
   async function GetMentions() {
     setLoading(true);
@@ -88,6 +87,9 @@ export default function SeuEleitorado() {
     const connect = await authGetAPI(
       `/profile/mentions/${selectedProfile.id}?period=${selectedTimeValues.value}`,
     );
+    if (connect.body.currentFormat.news.news.length === 0) {
+      setNoData(true);
+    }
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -129,7 +131,7 @@ export default function SeuEleitorado() {
             loading={loading}
             setLoading={setLoading}
           />
-          {mentionsData ? (
+          {mentionsData && !noData ? (
             <div className="rounded-lg max-w-[1080px] my-[2%] mx-auto">
               <h2 className="text-[1.875rem] font-medium mb-[1.25rem]">
                 Sites de Notícias
@@ -271,6 +273,20 @@ export default function SeuEleitorado() {
             </div>
           ) : (
             <div className="flex items-center justify-center rounded-lg max-w-[1080px] h-1/2 my-[2%] mx-auto">
+              <div
+                className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-60 px-20 py-12 rounded ${!noData && "hidden"} flex flex-col items-center justify-center text-center`}
+              >
+                <span className="text-white text-3xl font-bold">
+                  Coleta em Andamento
+                </span>
+                <span className="text-white text-lg">
+                  Estamos trabalhando para coletar os dados, isto pode demorar
+                  um pouco. Tente novamente mais tarde.
+                </span>
+                <span className="text-white text-sm mt-2">
+                  Caso tenha alguma dúvida, entre em contato com o Suporte.
+                </span>
+              </div>
               <Spinner animation="border" />
             </div>
           )}

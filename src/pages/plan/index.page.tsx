@@ -52,7 +52,6 @@ export default function Plan() {
   ]);
   async function getPlans() {
     const connect = await getAPI("/plans");
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }

@@ -255,7 +255,9 @@ export function CandidateForm({
             placeholder="Digite"
             type="number"
             value={formData.campaign_number}
-            onChange={(e) => setFormData(...formData, e.target.value)}
+            onChange={(e) =>
+              setFormData({ ...formData, campaign_number: e.target.value })
+            }
           />
         </div>
       </div>

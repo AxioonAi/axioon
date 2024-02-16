@@ -32,6 +32,8 @@ interface headerProps {
   setSelectedTimeValues?: (value: any) => void;
   getIndividualDetails?: any;
   setLoading?: (value: boolean) => void;
+  noData: boolean;
+  setNoData: any;
 }
 
 export function ComparisonHeaderComponent({
@@ -47,6 +49,8 @@ export function ComparisonHeaderComponent({
   setSelectedTimeValues,
   getIndividualDetails,
   setLoading,
+  noData,
+  setNoData,
 }: headerProps) {
   const router = useRouter();
   const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
@@ -103,7 +107,7 @@ export function ComparisonHeaderComponent({
     if (connect.status !== 200) {
       return alert(connect.body);
     }
-    if (connect.body.profile.length !== 0) {
+    if (connect.body.profile.length > 1) {
       setMonitoredProfiles(connect.body.profile);
       setSelectedProfileMain({
         name: connect.body.profile[0].name,
@@ -119,9 +123,10 @@ export function ComparisonHeaderComponent({
         image: connect.body.profile[1].image,
         campaignNumber: connect.body.profile[1].campaignNumber,
       });
+    } else {
+      setNoData(true);
     }
   }
-
 
   async function GetProfile() {
     const connect = await authGetAPI("/user/profile");

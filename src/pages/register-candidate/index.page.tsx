@@ -25,8 +25,10 @@ export default function RegisterCandidate() {
     political_group_id: "",
     id: "",
     cpf: "",
+    cnpj: "",
     city_id: "",
     campaign_number: 0,
+    coligation: "",
   });
   const [formData, setFormData] = useState({
     social_name: "",

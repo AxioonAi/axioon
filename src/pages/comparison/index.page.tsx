@@ -72,6 +72,7 @@ export default function Comparison() {
     value: 7,
     name: "Últimos 7 Dias",
   });
+  const [noData, setNoData] = useState(false);
 
   const timeValues = [
     {
@@ -179,6 +180,26 @@ export default function Comparison() {
         `/profile/youtube/${selectedProfileSecondary.id}?period=${selectedTimeValues.value}`,
       ),
     ]);
+    if (
+      facebookMain.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      facebookSecondary.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      instagramMain.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      instagramSecondary.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      tiktokMain.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      tiktokSecondary.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      youtubeMain.body ===
+        "Não foram encontrados dados para o período selecionado" &&
+      youtubeSecondary.body ===
+        "Não foram encontrados dados para o período selecionado"
+    ) {
+      setNoData(true);
+    }
     if (facebookMain.status === 401 && facebookSecondary.status === 401) {
       setFacebookEmpty(facebookMain.body);
     }
@@ -291,8 +312,10 @@ export default function Comparison() {
             selectedTimeValues={selectedTimeValues}
             setSelectedTimeValues={setSelectedTimeValues}
             setLoading={setLoadingMain}
+            noData={noData}
+            setNoData={setNoData}
           />
-          {generalDataMain && generalDataSecondary ? (
+          {generalDataMain && generalDataSecondary && !noData ? (
             selectedComparison === "MÍDIAS SOCIAIS" ? (
               <>
                 <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
@@ -537,20 +560,36 @@ export default function Comparison() {
               />
             )
           ) : (
-            <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
-              <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
-                <Spinner animation="border" />
+            <>
+              <div
+                className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-60 px-20 py-12 rounded ${!noData && "hidden"} flex flex-col items-center justify-center text-center`}
+              >
+                <span className="text-white text-3xl font-bold">
+                  Coleta em Andamento
+                </span>
+                <span className="text-white text-lg">
+                  Estamos trabalhando para coletar os dados, isto pode demorar
+                  um pouco. Tente novamente mais tarde.
+                </span>
+                <span className="text-white text-sm mt-2">
+                  Caso tenha alguma dúvida, entre em contato com o Suporte.
+                </span>
               </div>
-              <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
-                <Spinner animation="border" />
+              <div className="LikesAndCommentsContainer flex justify-around gap-1 mt-8 flex-wrap">
+                <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
+                  <Spinner animation="border" />
+                </div>
+                <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
+                  <Spinner animation="border" />
+                </div>
+                <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
+                  <Spinner animation="border" />
+                </div>
+                <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
+                  <Spinner animation="border" />
+                </div>
               </div>
-              <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
-                <Spinner animation="border" />
-              </div>
-              <div className="Container relative flex items-center justify-center w-64 h-28 bg-gray-10 py-2 px-8 shadow-md border-1 opacity-50 rounded-xl border-[#959595]">
-                <Spinner animation="border" />
-              </div>
-            </div>
+            </>
           )}
         </div>
       </RootLayout>
