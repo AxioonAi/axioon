@@ -59,8 +59,8 @@ export default function MidiasSociais() {
     },
   ];
   const [selectedTimeValues, setSelectedTimeValues] = useState({
-    value: 7,
-    name: "Últimos 7 Dias",
+    value: 30,
+    name: "Últimos 30 Dias",
   });
   const [socialMidiaData, setSocialMidiaData] = useState<any>();
   const [facebookData, setFacebookData] = useState();
@@ -92,8 +92,8 @@ export default function MidiasSociais() {
     setYoutubeData(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
-        value: 7,
-        name: "Últimos 7 Dias",
+        value: 30,
+        name: "Últimos 30 Dias",
       });
     } else {
       setSelectedTimeValues({
@@ -156,8 +156,8 @@ export default function MidiasSociais() {
     setMentionsData(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
-        value: 7,
-        name: "Últimos 7 Dias",
+        value: 30,
+        name: "Últimos 30 Dias",
       });
     } else {
       setSelectedTimeValues({

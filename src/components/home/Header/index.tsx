@@ -312,7 +312,13 @@ export function HeaderComponent({
                 className="w-16 h-16 rounded-full object-cover"
               />
             ) : (
-              <div className="w-16 h-16" />
+              <Image
+                width={50}
+                height={50}
+                src="/dashboard/midias-sociais/stockProfilePic.svg"
+                alt=""
+                className="rounded-5 object-cover w-16 h-16 m-0"
+              />
             )}
             <div className="info flex flex-col">
               <HeaderCandidateSelect
@@ -321,10 +327,13 @@ export function HeaderComponent({
                 setSelectedProfile={setSelectedProfile}
               />
               <span className="candidateNumber text-[#8990ab] text-sm">
-                Número do Candidato:{" "}
-                {selectedProfile.campaignNumber === 0
-                  ? "..."
-                  : selectedProfile.campaignNumber}
+                {selectedProfile.campaignNumber === null ? (
+                  <></>
+                ) : selectedProfile.campaignNumber === 0 ? (
+                  "..."
+                ) : (
+                  "Número do Candidato: " + selectedProfile.campaignNumber
+                )}
               </span>
               {/* <span className="status flex items-center gap-1 text-[#22c24f] text-xs">
                 <div className="statusCircle w-1.5 h-1.5 bg-[#22c24f] rounded-full" />

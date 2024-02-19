@@ -69,8 +69,8 @@ export default function Comparison() {
     campaignNumber: 0,
   });
   const [selectedTimeValues, setSelectedTimeValues] = useState({
-    value: 7,
-    name: "Últimos 7 Dias",
+    value: 30,
+    name: "Últimos 30 Dias",
   });
   const [noData, setNoData] = useState(false);
 
@@ -96,8 +96,8 @@ export default function Comparison() {
     setGeneralDataSecondary(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
-        value: 7,
-        name: "Últimos 7 Dias",
+        value: 30,
+        name: "Últimos 30 Dias",
       });
     } else {
       setSelectedTimeValues({
@@ -136,8 +136,8 @@ export default function Comparison() {
     setYoutubeDataSecondary(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
-        value: 7,
-        name: "Últimos 7 Dias",
+        value: 30,
+        name: "Últimos 30 Dias",
       });
     } else {
       setSelectedTimeValues({
@@ -247,8 +247,8 @@ export default function Comparison() {
     setMentionsDataSecondary(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
-        value: 7,
-        name: "Últimos 7 Dias",
+        value: 30,
+        name: "Últimos 30 Dias",
       });
     } else {
       setSelectedTimeValues({

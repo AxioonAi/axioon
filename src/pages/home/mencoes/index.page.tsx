@@ -63,8 +63,8 @@ export default function SeuEleitorado() {
     },
   ];
   const [selectedTimeValues, setSelectedTimeValues] = useState({
-    value: 7,
-    name: "Últimos 7 Dias",
+    value: 30,
+    name: "Últimos 30 Dias",
   });
   const [loading, setLoading] = useState(false);
   const [seeMoreNews, setSeeMoreNews] = useState(false);
@@ -75,8 +75,8 @@ export default function SeuEleitorado() {
     setMentionsData(undefined);
     if (localStorage.getItem("selectedTime") === null) {
       setSelectedTimeValues({
-        value: 7,
-        name: "Últimos 7 Dias",
+        value: 30,
+        name: "Últimos 30 Dias",
       });
     } else {
       setSelectedTimeValues({

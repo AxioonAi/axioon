@@ -1,7 +1,6 @@
 import { ScoreChart } from "../../ScoreChart";
 import { MentionsCard } from "../../mencoes/MentionsCard";
 import { SentimentChart } from "../../mencoes/SentimentChart";
-import { TitleBottomBar } from "../../mencoes/TitleBottomBar";
 import { TotalQuotes } from "../../mencoes/TotalQuotes";
 import { AgeGroupByGender } from "../../seu-eleitorado/AgeGroupByGender";
 import { VotersInfo } from "../../seu-eleitorado/VoterInfo";
@@ -16,7 +15,7 @@ import { VotersActive } from "../VotersActive";
 import { SimpleWordcloud } from "../WordCloud";
 import { TitleWithBar } from "@/components/Global/TitleWithBar";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal, Spinner } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -454,163 +453,174 @@ export function SocialMidiaPage({
                 )}
               </>
             )}
-            <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
-              <div className="flex flex-col">
-                <TitleWithBar content="Menções" barColor="#2F5CFC" />
-                <div className="flex flex-wrap gap-1 items-center justify-center">
-                  {mentionsData && (
-                    <>
-                      <div>
-                        <ScoreChart
-                          score={
-                            mentionsData.currentFormat.mentions.mentions
-                              .length !== 0
-                              ? Number(
-                                  mentionsData?.currentFormat.mentions.average.toFixed(
-                                    0,
-                                  ),
-                                )
-                              : 0
-                          }
-                          id="mentionsScore"
-                        />
-                      </div>
-                      <div>
-                        <TotalQuotes
-                          value={
-                            mentionsData.currentFormat.mentions.mentions
-                              .length !== 0
-                              ? mentionsData?.currentFormat.mentions.total
-                              : 0
-                          }
-                          firstDate={new Date(
-                            new Date().setDate(
-                              new Date().getDate() - selectedTimeValues.value,
-                            ),
-                          ).toLocaleDateString("pt-BR")}
-                          lastDate={new Date().toLocaleDateString("pt-BR")}
-                        />
-                      </div>
-                      <SentimentChart
-                        positive={
-                          mentionsData.currentFormat.mentions.mentions
-                            .length !== 0
-                            ? mentionsData?.currentFormat.mentions.positive
-                            : 0
-                        }
-                        negative={
-                          mentionsData.currentFormat.mentions.mentions
-                            .length !== 0
-                            ? mentionsData?.currentFormat.mentions.negative
-                            : 0
-                        }
-                        neutral={
-                          mentionsData.currentFormat.mentions.mentions
-                            .length !== 0
-                            ? mentionsData?.currentFormat.mentions.neutral
-                            : 0
-                        }
-                      />
-                    </>
-                  )}
+            {pageType === "instagram" && (
+              <>
+                <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+                  <div className="flex flex-col">
+                    <TitleWithBar content="Menções" barColor="#2F5CFC" />
+                    <div className="flex flex-wrap gap-1 items-center justify-center">
+                      {mentionsData && (
+                        <>
+                          <div>
+                            <ScoreChart
+                              score={
+                                mentionsData.currentFormat.mentions.mentions
+                                  .length !== 0
+                                  ? Number(
+                                      mentionsData?.currentFormat.mentions.average.toFixed(
+                                        0,
+                                      ),
+                                    )
+                                  : 0
+                              }
+                              id="mentionsScore"
+                            />
+                          </div>
+                          <div>
+                            <TotalQuotes
+                              value={
+                                mentionsData.currentFormat.mentions.mentions
+                                  .length !== 0
+                                  ? mentionsData?.currentFormat.mentions.total
+                                  : 0
+                              }
+                              firstDate={new Date(
+                                new Date().setDate(
+                                  new Date().getDate() -
+                                    selectedTimeValues.value,
+                                ),
+                              ).toLocaleDateString("pt-BR")}
+                              lastDate={new Date().toLocaleDateString("pt-BR")}
+                            />
+                          </div>
+                          <SentimentChart
+                            positive={
+                              mentionsData.currentFormat.mentions.mentions
+                                .length !== 0
+                                ? mentionsData?.currentFormat.mentions.positive
+                                : 0
+                            }
+                            negative={
+                              mentionsData.currentFormat.mentions.mentions
+                                .length !== 0
+                                ? mentionsData?.currentFormat.mentions.negative
+                                : 0
+                            }
+                            neutral={
+                              mentionsData.currentFormat.mentions.mentions
+                                .length !== 0
+                                ? mentionsData?.currentFormat.mentions.neutral
+                                : 0
+                            }
+                          />
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[45vh] 3xl:min-h-[30vh]">
-              <div className="flex flex-col">
-                <TitleWithBar content="Menções" barColor="#2F5CFC" />
-                {pageType === "instagram" &&
-                  mentionsData &&
-                  mentionsData.currentFormat.mentions.mentions.length !== 0 && (
-                    <>
-                      <div className="flex justify-end items-center mt-4">
-                        <span
-                          className="underline"
-                          onClick={() => setSeeMoreMentions(!seeMoreMentions)}
-                        >
-                          {seeMoreMentions ? "Ver Menos" : "Ver Mais"}
-                        </span>
-                      </div>
-                      <div className="flex flex-col xl:flex-row w-full h-full xl:h-52 xl:p-0 items-center justify-center gap-4 my-4 lg:justify-around">
-                        <div className="hidden lg:block w-full">
-                          <Swiper
-                            slidesPerView={seeMoreMentions ? 3.1 : 3}
-                            className="mySwiper2"
-                          >
-                            {mentionsData?.currentFormat.mentions.mentions
-                              .slice(
-                                0,
-                                seeMoreMentions
-                                  ? mentionsData.currentFormat.mentions.mentions
-                                      .length
-                                  : 3,
-                              )
-                              .map((item: any, index: any) => (
-                                <SwiperSlide className="lg:ml-0 xl:ml-4">
-                                  <MentionsCard
-                                    key={index}
-                                    sentimentClassification={
-                                      item.sentimentClassification
-                                    }
-                                    sentiment={item.sentiment}
-                                    source={item.profile}
-                                    comments={item.comments}
-                                    commentSentiment={item.commentSentiment}
-                                    url={item.url}
-                                    date={item.date
-                                      .split("T")[0]
-                                      .split("-")
-                                      .reverse()
-                                      .join("/")}
-                                    content={item.title}
-                                  />
-                                </SwiperSlide>
-                              ))}
-                          </Swiper>
-                        </div>
-                        <div className="lg:hidden flex flex-col gap-1 h-[70vh]">
-                          <Swiper
-                            direction="vertical"
-                            slidesPerView={seeMoreMentions ? 3.5 : 3}
-                            className="mySwiper2 h-full"
-                          >
-                            {mentionsData?.currentFormat.mentions.mentions
-                              .slice(
-                                0,
-                                seeMoreMentions
-                                  ? mentionsData.currentFormat.mentions.mentions
-                                      .length
-                                  : 3,
-                              )
-                              .map((item: any, index: any) => (
-                                <SwiperSlide>
-                                  <MentionsCard
-                                    key={index}
-                                    sentimentClassification={
-                                      item.sentimentClassification
-                                    }
-                                    sentiment={item.sentiment}
-                                    source={item.profile}
-                                    comments={item.comments}
-                                    commentSentiment={item.commentSentiment}
-                                    url={item.url}
-                                    date={item.date
-                                      .split("T")[0]
-                                      .split("-")
-                                      .reverse()
-                                      .join("/")}
-                                    content={item.title}
-                                  />
-                                </SwiperSlide>
-                              ))}
-                          </Swiper>
-                        </div>
-                      </div>
-                    </>
-                  )}
-              </div>
-            </div>
+                <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[45vh] 3xl:min-h-[30vh]">
+                  <div className="flex flex-col">
+                    <TitleWithBar
+                      content="Comentários das Menções"
+                      barColor="#2F5CFC"
+                    />
+                    {pageType === "instagram" &&
+                      mentionsData &&
+                      mentionsData.currentFormat.mentions.mentions.length !==
+                        0 && (
+                        <>
+                          <div className="flex justify-end items-center mt-4">
+                            <span
+                              className="underline"
+                              onClick={() =>
+                                setSeeMoreMentions(!seeMoreMentions)
+                              }
+                            >
+                              {seeMoreMentions ? "Ver Menos" : "Ver Mais"}
+                            </span>
+                          </div>
+                          <div className="flex flex-col xl:flex-row w-full h-full xl:h-52 xl:p-0 items-center justify-center gap-4 my-4 lg:justify-around">
+                            <div className="hidden lg:block w-full">
+                              <Swiper
+                                slidesPerView={seeMoreMentions ? 3.1 : 3}
+                                className="mySwiper2"
+                              >
+                                {mentionsData?.currentFormat.mentions.mentions
+                                  .slice(
+                                    0,
+                                    seeMoreMentions
+                                      ? mentionsData.currentFormat.mentions
+                                          .mentions.length
+                                      : 3,
+                                  )
+                                  .map((item: any, index: any) => (
+                                    <SwiperSlide className="lg:ml-0 xl:ml-4">
+                                      <MentionsCard
+                                        key={index}
+                                        sentimentClassification={
+                                          item.sentimentClassification
+                                        }
+                                        sentiment={item.sentiment}
+                                        source={item.profile}
+                                        comments={item.comments}
+                                        commentSentiment={item.commentSentiment}
+                                        url={item.url}
+                                        date={item.date
+                                          .split("T")[0]
+                                          .split("-")
+                                          .reverse()
+                                          .join("/")}
+                                        content={item.title}
+                                      />
+                                    </SwiperSlide>
+                                  ))}
+                              </Swiper>
+                            </div>
+                            <div className="lg:hidden flex flex-col gap-1 h-[70vh]">
+                              <Swiper
+                                direction="vertical"
+                                slidesPerView={seeMoreMentions ? 3.5 : 3}
+                                className="mySwiper2 h-full"
+                              >
+                                {mentionsData?.currentFormat.mentions.mentions
+                                  .slice(
+                                    0,
+                                    seeMoreMentions
+                                      ? mentionsData.currentFormat.mentions
+                                          .mentions.length
+                                      : 3,
+                                  )
+                                  .map((item: any, index: any) => (
+                                    <SwiperSlide>
+                                      <MentionsCard
+                                        key={index}
+                                        sentimentClassification={
+                                          item.sentimentClassification
+                                        }
+                                        sentiment={item.sentiment}
+                                        source={item.profile}
+                                        comments={item.comments}
+                                        commentSentiment={item.commentSentiment}
+                                        url={item.url}
+                                        date={item.date
+                                          .split("T")[0]
+                                          .split("-")
+                                          .reverse()
+                                          .join("/")}
+                                        content={item.title}
+                                      />
+                                    </SwiperSlide>
+                                  ))}
+                              </Swiper>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </>
       )}

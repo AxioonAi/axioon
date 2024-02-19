@@ -47,8 +47,8 @@ export default function Legal() {
     campaignNumber: 0,
   });
   const [selectedTimeValues, setSelectedTimeValues] = useState({
-    value: 7,
-    name: "Últimos 7 Dias",
+    value: 30,
+    name: "Últimos 30 Dias",
   });
   const timeValues = [
     {
