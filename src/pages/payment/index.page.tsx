@@ -71,7 +71,9 @@ export default function Payment() {
     if (connect.status !== 200) {
       return alert(connect.body);
     }
-    setPix(connect.body.payment.payment);
+    // setPix(connect.body.payment.payment);
+    alert(connect.body.payment);
+    return router.push("/finish-payment");
   }
 
   async function handleCard() {
