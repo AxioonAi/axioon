@@ -145,19 +145,19 @@ export function MentionsModal({
                     <CommentComponent type={"instagram"} comment={comment} />
                   ))}
               </div>
-              <div className="flex w-full justify-center">
-                <GlobalButton
-                  content="Ver publicação original"
-                  onClick={() => redirect(url)}
-                  background="darkBlueAxion"
-                  color="white"
-                  padding="2"
-                  margin="2"
-                  hover
-                />
-              </div>
             </>
           )}
+          <div className="flex w-full justify-center">
+            <GlobalButton
+              content="Ver publicação original"
+              onClick={() => redirect(url)}
+              background="darkBlueAxion"
+              color="white"
+              padding="2"
+              margin="2"
+              hover
+            />
+          </div>
         </main>
       </div>
     </Modal>
