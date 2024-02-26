@@ -47,10 +47,12 @@ export function SeuEleitoradoCards({ cityData }: Props) {
                     <strong className="text-lg leading-[0.9]">
                       {cityData
                         ? String(cityData?.population.total).length > 6
-                          ? `${String(cityData?.population.total).slice(0, 3)} Milhões`
+                          ? (cityData.population.total / 1000000).toFixed(1) +
+                            "M"
                           : String(cityData?.population.total).length <= 6 &&
                               String(cityData?.population.total).length > 3
-                            ? `${String(cityData?.population.total).slice(0, 3)} Mil`
+                            ? (cityData.population.total / 1000).toFixed(1) +
+                              "K"
                             : cityData?.population.total
                         : ""}
                     </strong>
@@ -108,10 +110,12 @@ export function SeuEleitoradoCards({ cityData }: Props) {
                     <strong className="text-xl leading-[0.9]">
                       {cityData
                         ? String(cityData?.electorate.total).length > 6
-                          ? `${String(cityData?.electorate.total).slice(0, 3)} Milhões`
+                          ? (cityData.electorate.total / 1000000).toFixed(1) +
+                            "M"
                           : String(cityData?.electorate.total).length <= 6 &&
                               String(cityData?.electorate.total).length > 3
-                            ? `${String(cityData?.electorate.total).slice(0, 3)} Mil`
+                            ? (cityData.electorate.total / 1000).toFixed(1) +
+                              "K"
                             : cityData?.electorate.total
                         : "Carregando..."}
                     </strong>
