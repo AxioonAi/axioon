@@ -29,7 +29,7 @@ export function ProfileSelector({
             style={{ backgroundColor: "#0d123c" }}
           >
             {selectedProfile ? (
-              `${selectedProfile.name} - ${selectedProfile.politicalGroup}`
+              `${selectedProfile.name} `
             ) : (
               <>
                 <Spinner animation="border" />
@@ -43,7 +43,8 @@ export function ProfileSelector({
                 onClick={() => Remember(item)}
                 key={item}
               >
-                {item.name} - {item.politicalGroup}
+                {item.name}
+                {/* - {item.politicalGroup} */}
               </Dropdown.Item>
             ))}
           </Dropdown.Menu>

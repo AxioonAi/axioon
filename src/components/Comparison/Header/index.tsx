@@ -254,7 +254,7 @@ export function ComparisonHeaderComponent({
                     style={{ backgroundColor: "#0d123c" }}
                   >
                     {selectedProfileMain ? (
-                      `${selectedProfileMain.name} - ${selectedProfileMain.politicalGroup}`
+                      `${selectedProfileMain.name}`
                     ) : (
                       <>
                         <Spinner animation="border" />
@@ -268,7 +268,8 @@ export function ComparisonHeaderComponent({
                         onClick={() => setSelectedProfileMain(item)}
                         key={item}
                       >
-                        {item.name} - {item.politicalGroup}
+                        {item.name}
+                        {/* - {item.politicalGroup} */}
                       </Dropdown.Item>
                     ))}
                   </Dropdown.Menu>
@@ -314,7 +315,7 @@ export function ComparisonHeaderComponent({
                     style={{ backgroundColor: "#0d123c" }}
                   >
                     {selectedProfileSecondary ? (
-                      `${selectedProfileSecondary.name} - ${selectedProfileSecondary.politicalGroup}`
+                      `${selectedProfileSecondary.name} `
                     ) : (
                       <>
                         <Spinner animation="border" />
@@ -328,7 +329,8 @@ export function ComparisonHeaderComponent({
                         onClick={() => setSelectedProfileSecondary(item)}
                         key={item}
                       >
-                        {item.name} - {item.politicalGroup}
+                        {item.name}
+                        {/* - {item.politicalGroup} */}
                       </Dropdown.Item>
                     ))}
                   </Dropdown.Menu>
