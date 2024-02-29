@@ -112,6 +112,8 @@ export default function SeuEleitorado() {
     typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
   ]);
 
+  console.log("mentionsData: ", mentionsData);
+
   return (
     <main ref={main}>
       <RootLayout fadeOut={fadeOut}>
@@ -220,7 +222,7 @@ export default function SeuEleitorado() {
                                   item.sentimentClassification
                                 }
                                 sentiment={item.sentiment}
-                                source="Só Notícias"
+                                source={item.websiteName}
                                 url={item.url}
                                 date={item.date
                                   .split("T")[0]
@@ -254,7 +256,7 @@ export default function SeuEleitorado() {
                                   item.sentimentClassification
                                 }
                                 sentiment={item.sentiment}
-                                source="Só Notícias"
+                                source={item.websiteName}
                                 url={item.url}
                                 date={item.date
                                   .split("T")[0]
