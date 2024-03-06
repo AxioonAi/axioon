@@ -1,5 +1,5 @@
 import { MentionsModal } from "../MentionsModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   sentimentClassification: "positivo" | "neutro" | "negativo";
@@ -27,7 +27,7 @@ export function MentionsCard({
   return (
     <>
       <div
-        className={`CardContainer flex flex-col relative p-2 w-72 lg:w-40 2xl:w-44 min-h-40 lg:min-h-52 xl:min-h-52 lg:justify-between bg-white border-[1px] ${sentimentClassification === "positivo" ? "border-[rgba(34,194,79,0.5)]" : sentimentClassification === "neutro" ? "border-[rgba(255,176,67,0.5)]" : "border-[rgba(231,0,0,0.5)]"} rounded`}
+        className={`CardContainer flex flex-col relative p-2 w-72 lg:w-60 2xl:w-60 min-h-40 lg:h-32 xl:h-32 lg:justify-between bg-white border-[1px] ${sentimentClassification === "positivo" ? "border-[rgba(34,194,79,0.5)]" : sentimentClassification === "neutro" ? "border-[rgba(255,176,67,0.5)]" : "border-[rgba(231,0,0,0.5)]"} rounded`}
         onClick={() => setShowNewsModal(true)}
       >
         <div className="flex lg:flex-col xl:flex-row lg:gap-2 xl:gap-0 items-start w-full justify-between">

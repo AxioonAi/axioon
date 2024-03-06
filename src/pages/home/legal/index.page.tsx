@@ -74,15 +74,15 @@ export default function Legal() {
     if (connect.status === 401) {
       return setLocked(true);
     }
-    if (
-      connect.body.politicianProfile.address.length === 0 &&
-      connect.body.politicianProfile.incomeTax.length === 0 &&
-      connect.body.politicianProfile.economicRelationship.length === 0 &&
-      connect.body.politicianProfile.legalData.length === 0 &&
-      connect.body.politicianProfile.personalData.length === 0
-    ) {
-      setNoData(true);
-    }
+    // if (
+    //   connect.body.politicianProfile.address.length === 0 &&
+    //   connect.body.politicianProfile.incomeTax.length === 0 &&
+    //   connect.body.politicianProfile.economicRelationship.length === 0 &&
+    //   connect.body.politicianProfile.legalData.length === 0 &&
+    //   connect.body.politicianProfile.personalData.length === 0
+    // ) {
+    //   setNoData(true);
+    // }
     setLocked(false);
     if (connect.status !== 200) {
       return alert(connect.body);

@@ -87,9 +87,9 @@ export default function SeuEleitorado() {
     const connect = await authGetAPI(
       `/profile/mentions/${selectedProfile.id}?period=${selectedTimeValues.value}`,
     );
-    if (connect.body.currentFormat.news.news.length === 0) {
-      setNoData(true);
-    }
+    // if (connect.body.currentFormat.news.news.length === 0) {
+    //   setNoData(true);
+    // }
     if (connect.status !== 200) {
       return alert(connect.body);
     }
@@ -111,8 +111,6 @@ export default function SeuEleitorado() {
     selectedProfile,
     typeof window !== "undefined" ? localStorage.getItem("selectedTime") : null,
   ]);
-
-  console.log("mentionsData: ", mentionsData);
 
   return (
     <main ref={main}>

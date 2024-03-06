@@ -118,17 +118,18 @@ export default function MidiasSociais() {
         `/profile/youtube/${selectedProfile.id}?period=${selectedTimeValues.value}`,
       ),
     ]);
-    if (
-      facebook.body ===
-        "Não foram encontrados dados para o período selecionado" &&
-      instagram.body ===
-        "Não foram encontrados dados para o período selecionado" &&
-      tiktok.body ===
-        "Não foram encontrados dados para o período selecionado" &&
-      youtube.body === "Não foram encontrados dados para o período selecionado"
-    ) {
-      setNoData(true);
-    }
+
+    // if (
+    //   facebook.body ===
+    //     "Não foram encontrados dados para o período selecionado" &&
+    //   instagram.body ===
+    //     "Não foram encontrados dados para o período selecionado" &&
+    //   tiktok.body ===
+    //     "Não foram encontrados dados para o período selecionado" &&
+    //   youtube.body === "Não foram encontrados dados para o período selecionado"
+    // ) {
+    //   setNoData(true);
+    // }
     if (metaads.status !== 200) {
       setLocked(true);
     }
