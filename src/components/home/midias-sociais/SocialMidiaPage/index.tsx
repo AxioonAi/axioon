@@ -539,7 +539,7 @@ export function SocialMidiaPage({
                           </span>
                         </div>
                         <div className="flex flex-col xl:flex-row w-full h-full xl:h-52 xl:p-0 items-center justify-center gap-4 my-4 lg:justify-around">
-                          <div className="hidden lg:flex justify-between flex-wrap gap-y-2 h-full w-full overflow-x-hidden overflow-y-scroll">
+                          <div className="hidden lg:flex justify-between flex-wrap gap-2 h-full w-full overflow-x-hidden overflow-y-scroll">
                             {mentionsData?.currentFormat.mentions.mentions
                               .slice(
                                 0,
