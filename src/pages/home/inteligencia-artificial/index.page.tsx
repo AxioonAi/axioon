@@ -92,35 +92,38 @@ export default function InteligenciaArtificial() {
     });
   }, []);
 
+  const handleCallSendMessage = () => {
+    if (firstMessage) {
+      handleSuggestionClick("StartMessages");
+      setChatLog((prevChatLog: any) => [
+        ...prevChatLog,
+        { type: "user", message: userMessage },
+      ]);
+
+      sendMessage();
+      setUserMessage("");
+    } else {
+      setChatLog((prevChatLog: any) => [
+        ...prevChatLog,
+        { type: "user", message: userMessage },
+      ]);
+      sendMessage();
+      setUserMessage("");
+    }
+  };
+
   function KeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey) {
-      if (firstMessage) {
-        handleSuggestionClick("StartMessages");
-        setChatLog((prevChatLog: any) => [
-          ...prevChatLog,
-          { type: "user", message: userMessage },
-        ]);
-
-        sendMessage(userMessage);
-        event.preventDefault();
-        setUserMessage("");
-      } else {
-        event.preventDefault();
-        setChatLog((prevChatLog: any) => [
-          ...prevChatLog,
-          { type: "user", message: userMessage },
-        ]);
-        sendMessage(userMessage);
-        setUserMessage("");
-      }
+      handleCallSendMessage();
     }
   }
 
-  const sendMessage = (message: any) => {
+  const sendMessage = () => {
+    console.log("message: ", userMessage);
     const url = "/api/test";
     const data = {
       model: "gpt-3.5-turbo-1106",
-      messages: [...messages, { role: "user", content: message }],
+      messages: [...messages, { role: "user", content: userMessage }],
     };
     if (firstMessage) {
       setMessagesForSuggestion("StartMessages");
@@ -293,7 +296,7 @@ lg:left-[calc(100%-17.5rem)]"
                   />
                   <button
                     disabled={!userMessage}
-                    onClick={sendMessage}
+                    onClick={handleCallSendMessage}
                     className="border-none bg-transparent mb-2 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <Image

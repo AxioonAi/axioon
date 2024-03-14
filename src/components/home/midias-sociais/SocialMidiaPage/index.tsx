@@ -456,7 +456,7 @@ export function SocialMidiaPage({
           </div>
           {pageType === "instagram" && (
             <>
-              <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto w-11/12 my-2 min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
+              <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto w-full md:w-[35rem] xl:w-[63rem] 2xl:w-[73rem] my-2 min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[40vh] 3xl:min-h-[30vh]">
                 <div className="flex flex-col">
                   <TitleWithBar content="Menções" barColor="#2F5CFC" />
                   <div className="flex flex-wrap gap-1 items-center justify-center">
@@ -519,7 +519,7 @@ export function SocialMidiaPage({
                 </div>
               </div>
 
-              <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto w-11/12 my-2 min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[45vh] 3xl:min-h-[30vh]">
+              <div className="commentsSentimentChartContainer flex flex-col justify-around bg-white relative xs:p-5 rounded-lg border border-[#c3c3c3] h-auto w-full md:w-[35rem] xl:w-[63rem] 2xl:w-[73rem] my-2 min-h-[30vh] md:min-h-[45vh] xl:min-h-[45vh] 2xl:min-h-[45vh] 3xl:min-h-[30vh]">
                 <div className="flex flex-col">
                   <TitleWithBar
                     content="Comentários das Menções"
