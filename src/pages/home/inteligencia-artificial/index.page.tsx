@@ -119,7 +119,6 @@ export default function InteligenciaArtificial() {
   }
 
   const sendMessage = () => {
-    console.log("message: ", userMessage);
     const url = "/api/test";
     const data = {
       model: "gpt-3.5-turbo-1106",
@@ -142,7 +141,6 @@ export default function InteligenciaArtificial() {
       })
       .catch((error) => {
         // setIsLoading(false);
-        console.log(error);
       });
   };
 

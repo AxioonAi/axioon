@@ -93,7 +93,6 @@ export function ComparisonHeaderComponent({
       return setLoadingButton(false);
     }
     setShowNewPasswordModal(false);
-    alert(connect.body);
     setFormData({
       currentPassword: "",
       newPassword: "",
