@@ -127,7 +127,7 @@ export default function SeuEleitorado() {
             },
           ]);
         })
-        .catch((err) => alert("Erro ao buscar localização "));
+        .catch((err) => alert("Erro ao buscar localização"));
     }
   };
 
